@@ -1,0 +1,57 @@
+<div class="side-panel-content">
+    <header id="side-header" class="akx-header mb-5">
+        <span>{{stringList.newInvoice}}</span>
+        {{#if model.project.isSmart}}
+            <i class="akx-icon akx-faq text-primary font-h4">
+                {{#akx-popover container='body' event='click'}}
+                    <div class="sub-item">
+                        <p>{{stringList.totalsHelp}}</p>
+                    </div>
+                {{/akx-popover}}
+            </i>
+        {{/if}}
+    </header>
+    {{#akx-form name='invoice-details-form' action='' isLocked=isLocked}}
+        <div class="row align-items-center">
+            <div class="col-5 form-group bmd-form-group has-feedback">
+                <label class="bmd-label-static">{{stringList.invoiceTitle}}</label>
+                {{input class="form-control" value=changeset.title type="text"}}
+                {{validation-feedback class="bmd-help" errors=changeset.error.title.validation}}
+            </div>
+            <div class="col-3 form-group bmd-form-group has-feedback">
+                <label class="bmd-label-static">{{stringList.fromDate}}</label>
+                {{input type='text' name='invoice-from-date' value=changeset.invoice_period_from class='form-control datepicker'}}
+                {{validation-feedback class="bmd-help" errors=changeset.error.invoice_period_from.validation}}
+            </div>
+            <div class="col-1 text-center">To</div>
+            <div class="col-3 form-group bmd-form-group has-feedback">
+                <label class="bmd-label-static">{{stringList.toDate}}</label>
+                {{input type='text' name='invoice-to-date' value=changeset.invoice_period_to class='form-control datepicker'}}
+                {{validation-feedback class="bmd-help" errors=changeset.error.invoice_period_to.validation}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 form-group bmd-form-group has-feedback">
+                <label class="bmd-label-static">
+                    {{stringList.invoiceNotes}} XYZ {{company.account_number}}:
+                </label>
+                {{textarea class="form-control" value=changeset.notes type="text"}}
+            </div>
+        </div>
+        <h3>{{stringList.itemTitle}}</h3>
+        {{invoice-items-list changeset=changeset disableEdit=model.project.disableInvoiceEdit}}
+        <header class="akx-header my-5">
+            <span>{{stringList.documentsSubTitle}}</span>
+        </header>
+        {{upload-document model='invoice' model_id=changeset.id documents=changeset.documents}}
+    {{/akx-form}}
+</div>
+<div class="action-footer">
+    <div class="row py-2">
+        <div class="col-12 text-center">
+            <button {{action 'confirm'}} class="btn btn-primary" type="button">
+                {{stringList.confirmInvoice}}
+            </button>
+        </div>
+    </div>
+</div>

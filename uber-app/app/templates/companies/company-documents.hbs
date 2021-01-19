@@ -1,0 +1,59 @@
+{{#link-to 'companies.view.company-documents.add' href=false class="btn btn-primary" tagName='button' }}
+Add Documents
+{{/link-to}}
+
+{{!-- The first one is the registration, since it's not a document type we need to seperate it ou --}}
+<table class="table table-high table-hovervalign-middle" style="margin-top: 30px">
+    <thead>
+        <tr class="active">
+            <th class="col-xs-2"><b><i class="fa fa-child fa-fw"></i> Registration</b></th>
+            <th class="col-xs-4"><b>File Name</b></th>
+            <th class="col-xs-2"><b></b></th>
+        </tr>
+    </thead>
+    <tbody>
+    {{#if registrations}}
+        {{#each registrations as |doc|}}
+            {{#link-to 'companies.view.company-documents.view' doc.id tagName='tr' class='list-link'}}
+                <td class="valign-middle">
+                    <strong>{{doc.str_created_at_date}}</strong><br />
+                    {{doc.str_created_at_time}}
+                </td>
+                <td class="valign-middle">
+                    {{file-icon doc.type}} {{doc.name}}
+                </td>
+                <td class="valign-middle"></td>
+            {{/link-to}}
+        {{/each}}
+    {{/if}}
+    </tbody>
+</table>
+{{#each model.documentTypes as |doc idx|}}
+    {{#if doc.documents}}
+        <table class="table table-high table-hovervalign-middle" style="margin-top: 30px">
+            <thead>
+                <tr class="active">
+                    <th class="col-xs-2"><b><i {{bind-attr class=doc.icon}}></i> {{doc.name}}</b></th>
+                    <th class="col-xs-4"><b>{{if idx '' 'File Name'}}</b></th>
+                    <th class="col-xs-2"><b>{{if idx '' 'Admin User'}}</b></th>
+                </tr>
+            </thead>
+            <tbody>
+            {{#each subDocs in doc.documents}}
+                {{#link-to 'companies.view.company-documents.view' subDocs.id tagName='tr' class='list-link'}}
+                    <td class="valign-middle">
+                        <strong>{{subDocs.str_created_at_date}}</strong><br />
+                        {{subDocs.str_created_at_time}}
+                    </td>
+                    <td class="valign-middle">
+                        {{file-icon subDocs.type}} {{subDocs.name}}
+                    </td>
+                    <td class="valign-middle">
+                        {{subDocs.uberUser.name}}
+                    </td>
+                {{/link-to}}
+            {{/each}}
+            </tbody>
+        </table>
+    {{/if}}
+{{/each}}

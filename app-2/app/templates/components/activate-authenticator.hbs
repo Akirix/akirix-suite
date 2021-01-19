@@ -1,0 +1,24 @@
+<header class="akx-header no-margin">
+    <span>{{stringList.header}}</span>
+</header>
+{{#akx-form action='activate' isLocked=isLocked class='text-center w-50'}}
+    <h1>{{authenticator.name}}</h1>
+    <img src={{imgSrc}}>
+    <div class="row">
+        <div class="col-6 m-auto">
+            <div class="has-feedback form-group bmd-form-group">
+                <label class="bmd-label-floating">{{stringList.code}}</label>
+                {{input value=changeset.code type='password' class='form-control'}}
+                {{validation-feedback errors=changeset.error.code.validation}}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 m-auto">
+            <button {{action 'closeOverPane'}} class="akx-button" type="button">
+                <span class="orange">{{stringList.cancel}}</span>
+            </button>
+            <button class="btn btn-primary" type="submit">{{stringList.activate}}</button>
+        </div>
+    </div>
+{{/akx-form}}

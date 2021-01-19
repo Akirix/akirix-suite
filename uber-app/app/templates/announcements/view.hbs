@@ -1,0 +1,71 @@
+{{#akx-form action='save' isLocked=isLocked }}
+    <div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+        <div class="pane-secondary-content">
+            <div id="announcement" class="row">
+                <div class="col-xs-12 form-group">
+                    <div class="form-group col-xs-6 has-feedback">
+                        <label>Name</label>
+                        {{input value=model.name type='name' class='form-control' placeholder='Announcement Name'}}
+                        {{validation-feedback errors=errors.model.name validated=validated}}
+                    </div>
+                </div>
+
+                <div class="col-xs-12 form-group">
+
+                    <div class="form-group col-xs-6 has-feedback">
+                        <label>Publish From Date</label>
+                        {{date-picker value=model.publish_from class='form-control' placeholder='Date From' valueFormat='YYYY-MM-DD' allowBlank=true}}
+                        {{validation-feedback errors=errors.model.publish_from validated=validated}}
+                    </div>
+
+                    <div class="form-group col-xs-6 has-feedback">
+                        <label>Publish To Date</label>
+                        {{date-picker value=model.publish_to class='form-control' placeholder='Date To' valueFormat='YYYY-MM-DD' allowBlank=true}}
+                        {{validation-feedback errors=errors.model.publish_to validated=validated}}
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-xs-12">
+                    <a href="https://guides.github.com/features/mastering-markdown" target="_blank">Markdown Syntax Guide</a>
+                </div>
+            </div>
+
+            <div class="col-xs-12 form-group has-feedback">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a style="background-color: inherit !important" href="#content" aria-controls="home" role="tab" data-toggle="tab">Content</a></li>
+                    <li role="presentation"><a style="background-color: inherit !important" href="#preview" aria-controls="profile" role="tab" data-toggle="tab">Preview Content</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active" id="content">
+                        <br>
+                        <div class="col-xs-12 form-group has-feedback">
+                            <label>Content</label>
+                            {{textarea value=model.notes class="form-control width-full" rows="15"}}
+                            {{validation-feedback errors=errors.model.notes validated=validated}}
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="preview">
+                        <br>
+                        <div class="col-xs-12 form-group">
+                            {{{akx-markdown-preview markdownContent=model.notes}}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="viewport viewport-bottom navbar-toolbar">
+        <div class="pane-actions">
+            <ul class="list-h">
+                <li>
+                    <button class="btn btn-default btn-sm navbar-secondary-btn" type="submit">
+                        <i class="fa fa-floppy-o"></i>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+{{/akx-form}}

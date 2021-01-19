@@ -1,0 +1,123 @@
+<div class="side-panel-content">
+    <fieldset class="akx-fieldset">
+        <legend align="center">{{stringList.title}}</legend>
+    </fieldset>
+    {{#if model.hasRequest}}
+        <p class="text-center mt-2">{{stringList.hasRequest}}</p>
+    {{else}}
+        {{#akx-form action='' isLocked=isLocked class='mt-2'}}
+            <div class="row">
+                <div class="col-10 m-auto text-danger"><p>{{stringList.noPay}}</p></div>
+                <div class="col-lg-12 has-feedback form-group bmd-form-group mt-2">
+                    <label class="bmd-label-static">{{stringList.currencyType}}:</label>
+                    {{#x-select
+                        class='selectpicker w-100'
+                        data-style="select-with-transition"
+                        action=(action (mut changeset.currency_type))
+                        as |xs|}}
+                        {{#each model.currencies as |currency|}}
+                            {{#xs.option value=currency.id}}{{currency.name}}{{/xs.option}}
+                        {{/each}}
+                    {{/x-select}}
+                    {{validation-feedback errors=changeset.error.currency_type.validation}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 has-feedback form-group bmd-form-group">
+                    <label class="bmd-label-static">{{stringList.purpose}}:</label>
+                    {{textarea value=changeset.purpose class="form-control" rows=6 type="text"}}
+                    {{validation-feedback errors=changeset.error.purpose.validation}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 has-feedback form-group bmd-form-group">
+                    <label class="bmd-label-static">{{stringList.inVolume}}:</label>
+                    {{#x-select
+                        class='selectpicker w-100'
+                        data-style="select-with-transition"
+                        action=(action (mut changeset.volume_in_frequency))
+                        as |xs|}}
+                        {{#each timeRanges as |range|}}
+                            {{#xs.option value=range}}{{range}}{{/xs.option}}
+                        {{/each}}
+                    {{/x-select}}
+                    {{validation-feedback errors=changeset.error.volume_in_frequency.validation}}
+                </div>
+                <div class="col-lg-8 has-feedback form-group bmd-form-group">
+                    {{#x-select 
+                        class='selectpicker w-100'
+                        data-style="select-with-transition"
+                        action=(action (mut changeset.volume_in))
+                        as |xs|}}
+                        {{#each amountRanges as |range|}}
+                            {{#xs.option value=range}}{{range}}{{/xs.option}}
+                        {{/each}}
+                    {{/x-select}}
+                    {{validation-feedback errors=changeset.error.volume_in.validation}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 has-feedback form-group bmd-form-group">
+                    <label class="bmd-label-static">{{stringList.outVolume}}:</label>
+                    {{#x-select
+                        class='selectpicker w-100'
+                        data-style="select-with-transition"
+                        action=(action (mut changeset.volume_out_frequency)) as |xs|}}
+                        {{#each timeRanges as |range|}}
+                            {{#xs.option value=range}}{{range}}{{/xs.option}}
+                        {{/each}}
+                    {{/x-select}}
+                    {{validation-feedback errors=changeset.error.volume_out_frequency.validation}}
+                </div>
+                <div class="col-lg-8 has-feedback form-group bmd-form-group">
+                    {{#x-select
+                        class='selectpicker w-100'
+                        data-style="select-with-transition"
+                        action=(action (mut changeset.volume_out)) as |xs|}}
+                        {{#each amountRanges as |range|}}
+                            {{#xs.option value=range}}{{range}}{{/xs.option}}
+                        {{/each}}
+                    {{/x-select}}
+                    {{validation-feedback errors=changeset.error.volume_out.validation}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 has-feedback">
+                    <label class="bmd-label-static">{{stringList.averageBalance}}:</label>
+                    {{#x-select
+                        class='selectpicker w-100'
+                        data-style="select-with-transition"
+                        action=(action (mut changeset.average_balance)) as |xs|}}
+                        {{#each amountRanges as |range|}}
+                            {{#xs.option value=range}}{{range}}{{/xs.option}}
+                        {{/each}}
+                    {{/x-select}}
+                    {{validation-feedback errors=changeset.error.average_balance.validation}}
+                </div>
+            </div>
+        {{/akx-form}}
+        {{#if success}}
+            <div class="row text-center mt-5">
+                <div class="col-lg-4 col-md-8 col-sm-10 m-auto text-success">
+                    <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                        <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                        <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                    </svg>
+                    <p class="font-h2">{{stringList.success}}</p>
+                    <p>{{stringList.successMessage}}</p>
+                </div>
+            </div>
+        {{/if}}
+        {{#unless success}}
+            <div class="action-footer">
+                <div class="row py-2">
+                    <div class="col-lg-12 text-center">
+                        <button {{action 'newAccount'}} type="button" class="btn btn-primary">
+                            {{stringList.submit}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        {{/unless}}
+    {{/if}}
+</div>

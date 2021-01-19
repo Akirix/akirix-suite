@@ -1,0 +1,43 @@
+<div class="pane-primary-content">
+    {{partial 'nav-uber-settings'}}
+    {{page-numbers content=content page=page perPage=perPage}}
+
+    <table class="table table-hover table-high">
+        <thead>
+        <tr>
+            <th class="col-xs-1">Created at</th>
+            <th class="col-xs-2">Rule applies to</th>
+            <th class="col-xs-4">Name</th>
+            <th class="col-xs-4">Fields rule applies to</th>
+            <th class="col-xs-1 text-center">Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each rule in model}}
+            {{#link-to 'uber-monitoring-rules.index.view' rule.id tagName='tr' class='list-link'}}
+                <td class="valign-middle medium">
+                    {{rule.str_created_at_date}}
+                </td>
+                <td class="valign-middle medium">
+                    {{rule.model}}
+                </td>
+                <td class="valign-middle">
+                    {{rule.name}}
+                </td>
+                <td class="valign-middle">
+                    {{#each field in rule.ruleObj}}
+                        {{field.name}},&nbsp;
+                    {{/each}}
+                </td>
+                <td class="text-center">
+                    {{ticket-status-icon rule.status}}
+                </td>
+                <td></td>
+            {{/link-to}}
+        {{/each}}
+        </tbody>
+    </table>
+    {{page-numbers content=content page=page perPage=perPage}}
+</div>
+
+

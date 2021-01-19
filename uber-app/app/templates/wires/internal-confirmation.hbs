@@ -1,0 +1,105 @@
+<div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+    <div class="pane-secondary-content">
+        {{#if duplicateWires}}
+            <div class="panel panel-default">
+                <div class="panel-heading text-center">
+                    <span class="large text-rose">POTENTIAL DUPLICATES:</span>
+                </div>
+                {{#each dup in duplicateWires}}
+                    <div class="bg-warning panel-body">
+                        <div class="large align-center strong">{{dup.account_holder}}</div>
+                        <div class="align-center">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th class="col-xs align-center">Date</th>
+                                    <th class="col-xs align-center">Name</th>
+                                    <th class="col-xs align-center">Company</th>
+                                    <th class="col-xs align-center">Amount</th>
+                                </tr>
+                                </thead>
+                                <td class="small valign-middle">
+                                    <strong>{{dup.str_updated_at_date}}</strong><br/>
+                                </td>
+                                <td class="small valign-middle">
+                                    {{wire-type-icon dup.type}} W-{{dup.name}}<br/>
+                                </td>
+                                <td class="valign-middle">
+                                    {{dup.company.name}}<br/>
+                                    XYZ{{dup.company.account_number}}
+                                </td>
+                                <td class="valign-middle">
+                                    {{{dup.str_sign_color}}} {{{dup.currency.symbol}}}{{dup.str_amount}}
+                                </td>
+                            </table>
+                        </div>
+                    </div>
+                    <br>
+                {{/each}}
+            </div>
+        {{/if}}
+        <div class="panel panel-default">
+            <div class="panel-heading text-center">
+                <span class="text-blue">
+                    INTERNAL TRANSFER
+                </span>
+            </div>
+            <div class="panel-body">
+                <div style="height: 20px;"></div>
+                <div class="x-large align-center">{{company}}</div>
+                <div class="align-center">
+                    <ul class="list-h small text-gray-dark">
+                        <li><strong>Account #:</strong> {{wire.account_number}}</li>
+                    </ul>
+                </div>
+                <div style="height: 10px;"></div>
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <hr>
+                    </div>
+
+                </div>
+                {{#if wire.notes}}
+                    <div style="height: 10px;"></div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{wire.notes}}
+                        </div>
+                    </div>
+                    <div style="height: 10px;"></div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <hr>
+                        </div>
+                    </div>
+                {{/if}}
+                <div style="height: 10px;"></div>
+                <div class="row">
+
+                    <div class="col-md-6 large text-rose">
+                        {{account.name}}
+                    </div>
+                    <div class="col-md-6 large align-right text-rose">
+                        {{{account.currency.symbol}}}{{format-number wire.amount}}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="viewport viewport-bottom navbar-toolbar">
+    <div class="pane-actions">
+        <ul class="list-h">
+            <button {{action 'goBack'}} class="btn btn-default navbar-secondary-btn btn-sm" type="button">Back</button>
+        </ul>
+        <ul class="list-h pull-right">
+            <li>
+                <button {{action 'createInternalTransfer'}} class="btn btn-primary navbar-secondary-btn btn-sm" type="button">
+                    Confirm Wire
+                </button>
+            </li>
+        </ul>
+    </div>
+</div>

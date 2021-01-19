@@ -1,0 +1,51 @@
+<div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+    <div class="pane-secondary-content">
+        <div class="row exception">
+            <legend class="col-xs-12">Exemption</legend>
+            <div {{bind-attr class=':col-md-12 :form-group :has-feedback errors.exemption.expiration:has-error'}}>
+                <label>Expiration</label>
+                {{date-picker value=model.exemption.expiration class='form-control' placeholder='Date To' valueFormat='YYYY-MM-DD' allowBlank=true}}
+                {{validation-feedback errors=errors.exemption.expiration validated=validated}}
+            </div>
+            <div class="col-md-12 form-group">
+                <div class="checkbox">
+                    <label for="verified">
+                        {{input id='verified' checked=model.exemption.verified type='checkbox'}} Verified
+                    </label>
+                </div>
+            </div>
+            <div class="col-xs-12 form-group required has-feedback">
+                <label>Document Type</label>
+                {{view 'select'
+                value=model.exemption.document_type
+                content=model.documentTypes
+                optionValuePath='content.name'
+                optionLabelPath='content.display_name'
+                class='form-control'}}
+                {{validation-feedback errors=errors.exemption.document_type validated=validated}}
+            </div>
+            <div class="col-xs-12 form-group required has-feedback">
+                <label>Reason for Exemption</label>
+                {{textarea value=model.exemption.exemption_reason class='form-control' placeholder='Exemption Reason'}}
+                {{validation-feedback errors=errors.exemption.document_type validated=validated}}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="viewport viewport-bottom navbar-toolbar">
+    <div class="pane-actions">
+        <ul class="list-h">
+            <li>
+                {{#link-to 'registrations.view.verification.index' class="btn btn-default btn-sm navbar-secondary-btn"}}
+                    Back
+                {{/link-to}}
+            </li>
+        </ul>
+        <ul class="list-h pull-right">
+            <li>
+                <button class="btn btn-success btn-sm navbar-secondary-btn" type="button" {{action 'save'}}>Save
+                </button>
+            </li>
+        </ul>
+    </div>
+</div>

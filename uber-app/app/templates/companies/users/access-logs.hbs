@@ -1,0 +1,53 @@
+<div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+    <div class="pane-secondary-content">
+        <div id="uber-pwned" class="row">
+            <div class="col-md-12">
+                <fieldset>
+                    <div class="panel panel-default">
+                        <div class="panel-heading text-center">Access Logs History</div>
+                        <table class="table table-hover">
+                            {{#if model}}
+                                <thead>
+                                <tr>
+                                    <th class="col-md-4">Date</th>
+                                    <th class="col-md-4">Location</th>
+                                    <th class="col-md-4">Service Provider</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {{#each access in model}}
+                                    {{#link-to 'companies.view.users.view.access-logs.view' access.id tagName='tr' class='list-link'}}
+                                        <td class="valign-middle small">{{access.str_created_at_date}}</td>
+                                        <td class="valign-middle small">{{access.country}} {{access.state}} {{access.city}}</td>
+                                        <td class="valign-middle small">{{access.service_provider}}</td>
+                                    {{/link-to}}
+                                {{/each}}
+                                </tbody>
+                            {{else}}
+                                <tbody>
+                                <tr>
+                                    <td class="valign-middle text-center">
+                                        <h5>No Access Logs Found</h5>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            {{/if}}
+                        </table>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="viewport viewport-bottom navbar-toolbar">
+    <div class="pane-actions">
+        <ul class="list-h">
+            <li>
+                <button {{action 'goBack'}} class="btn btn-default navbar-secondary-btn btn-sm" type="button">
+                    Back
+                </button>
+            </li>
+        </ul>
+    </div>
+</div>
+

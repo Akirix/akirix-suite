@@ -1,0 +1,26 @@
+<div class="side-panel-content">
+    <header class="akx-header">
+        <span class="text-primary">{{stringList.accountTransfer}}</span>
+    </header>
+    <div class="text-center pt-5">
+        <h3>{{model.fromAccount.name}}</h3>
+    </div>
+    <div class="text-center">
+        <p>{{stringList.to}}</p>
+        <h3>{{model.toAccount.name}}</h3>
+    </div>
+    <div class="row">
+        <div class="col-12 border-bottom"></div>
+    </div>
+    {{!-- Amount --}}
+    <div class="row">
+        <div class="col-6">
+            <h3>{{stringList.amount}}</h3>
+        </div>
+        <div class="col-6 text-right">
+            <h3>
+                {{format-number model.transaction.amount style='currency' currency=model.transaction.currency_id}}
+            </h3>
+        </div>
+    </div>
+</div>

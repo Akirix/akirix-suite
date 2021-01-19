@@ -1,0 +1,11 @@
+<div class="input-group">
+    <div class="input-group-addon">XYZ</div>
+    {{input value=view.account_number type='text' class='form-control' placeholder='XXXXX' disabled=disabled}}
+</div>
+{{#if view.content}}
+    {{#if view.found}}
+    <span style="z-index: 1001" class="fa fa-check-circle fa-fw form-control-feedback"></span>
+    {{/if}}
+    <span class="help-block">{{view.content}}</span>
+{{/if}}
+

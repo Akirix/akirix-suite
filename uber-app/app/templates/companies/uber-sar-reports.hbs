@@ -1,0 +1,30 @@
+<table class="table table-hover table-high">
+    <thead>
+    <tr>
+        <th class="col-xs-3">Date</th>
+        <th class="col-xs-6">Name</th>
+        <th class="col-xs-6">Status</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    {{#each item in content}}
+        {{#link-to 'uber-sar-reports.index.view' item.uber_sar_report_id tagName='tr' class='list-link'}}
+            <td class="small valign-middle">
+                <strong>{{item.report_date}}</strong>
+            </td>
+            <td class="valign-middle">
+                <span class="medium">
+                   SAR-{{item.report_name}}
+                </span>
+            </td>
+            <td class="valign-middle">
+                <span class="largo">
+                    {{{uber-sar-report-status item.report_status}}}
+                </span>
+            </td>
+        {{/link-to}}
+    {{/each}}
+    </tbody>
+</table>
+

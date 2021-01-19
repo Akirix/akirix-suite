@@ -1,0 +1,57 @@
+<div {{action "togglePane"}} class="main-box pointer">
+    <span class="badge badge-top-menu tray-badge-fix">{{uberTasks.length}}</span><i class="fa fa-tasks"></i>
+</div>
+
+<div class="panel panel-default pane-toggle">
+    <div class="panel-body" style="overflow: auto;height: 70%;">
+        <table class="table table-hover table-condensed ">
+            <thead>
+            <tr>
+                <th class="col-xs-1"></th>
+                <th class="col-xs-9"></th>
+                <th class="col-xs-2"></th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each task in sortedTasks}}
+                <tr {{action "addToGlobalPane" task task.id}} class="pointer">
+                    <td>
+                        {{sentiment-icon task.sentiment}}
+                    </td>
+                    {{#if task.isTask}}
+                        <td>
+                            <i class="fa fa-tasks fa-fw"></i> {{priority-icon task.priority}} {{task.title}}<br/>
+                            <span class="x-small">{{task.str_due_date}}</span>
+                        </td>
+                        <td class="valign-middle">
+                            {{task-status-icon task.status}}
+                        </td>
+                    {{else}}
+                        <td>
+                            <i class="fa fa-sticky-note fa-fw"></i> {{priority-icon task.sentiment}} {{task.title}}<br/>
+                            <span class="x-small">{{task.str_updated_at_date}}</span>
+                        </td>
+                        <td>
+
+                        </td>
+                    {{/if}}
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+    <div class="panel-footer item-panel-footer-fix">
+        <button {{action 'createNewItem' 0}} class="btn btn-primary btn-sm"
+                                             type="button">
+
+            <i class="fa fa-tasks fa-fw"></i> New Task
+        </button>
+        <button {{action 'createNewItem' 1}} class="btn btn-primary btn-sm"
+                                             type="button">
+            <i class="fa fa-sticky-note fa-fw"></i> New Note
+        </button>
+        <button {{action 'createNewItem' 2}} class="btn btn-primary btn-sm" type="button">
+            <i class="fa fa-envelope fa-fw"></i> New Email
+        </button>
+    </div>
+</div>

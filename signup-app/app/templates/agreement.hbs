@@ -1,0 +1,159 @@
+<style>
+    @media (min-width: 768px) {
+        #agreementDetails {
+            height: 400px !important;
+        }
+    }
+
+    #agreementDetails {
+        height: 240px;
+        overflow-y: scroll;
+    }
+
+    .agreement.has-error label {
+        color: #a94442;
+    }
+
+    .agreement input[type="checkbox"] {
+        position: absolute;
+        z-index: -1;
+        opacity: 0;
+    }
+
+    .agreement input[type="checkbox"]:checked + label .fa:before {
+        content: "\f046";
+    }
+
+    .agreement input[type="checkbox"]:focus + label {
+        background-color: rgba(102, 175, 233, 0.5);
+        border-radius: 5px;
+        width: 20px;
+    }
+
+    .agreement label {
+        padding: 0;
+        font-size: 20px;
+        margin: 0;
+        line-height: 20px;
+    }
+
+    .agreement-checkbox {
+        width: 50px;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .agreement .help-block {
+        display: none;
+    }
+</style>
+<div class="row">
+    <div class="center_column col-sm-12">
+        <div class="row">
+            <div class="col-xs-12">
+                <div id="agreementDetails" class="panel panel-default">
+                    <div class="panel-body">
+                        {{{model.body}}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{#validator-form action="submit" locked=formLocked}}
+            <div class="row">
+                <div class="col-xs-12">
+                    <p class="text-muted">
+                        By signing this agreement you agree and declare all the information contained within to be true
+                        and correct.
+                    </p>
+                </div>
+                <div class="col-sm-6 form-group has-feedback">
+                    <label for="first_name" class="control-label">First Name</label>
+                    {{input
+                            id="first_name"
+                            type="text"
+                            value=first_name
+                            placeholder=registration.user.first_name
+                            class="form-control"}}
+                    {{validation-feedback errors=errors.first_name validated=validated}}
+                </div>
+                <div class="col-sm-6 form-group has-feedback">
+                    <label for="first_name" class="control-label">Last Name</label>
+                    {{input
+                            type="text"
+                            value=last_name
+                            placeholder=registration.user.last_name
+                            class="form-control"}}
+                    {{validation-feedback errors=errors.last_name validated=validated}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 form-group has-feedback">
+                    <label for="city" class="control-label">Your Current Location</label>
+                    {{input
+                            id="city"
+                            type="text"
+                            value=city
+                            errors=errors.city
+                            class="form-control"}}
+                    {{validation-feedback errors=errors.city validated=validated}}
+                </div>
+                <div class="col-sm-6 form-group has-feedback">
+                    <label for="zip" class="control-label">Date</label>
+                    {{input
+                            type="text"
+                            value=currentDate
+                            class="form-control"
+                            disabled="disabled"}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 form-group">
+                    <hr>
+                </div>
+                <div class="col-sm-12 form-group has-feedback agreement">
+                    <div class="display-table">
+                        <div class="table-cell agreement-checkbox">
+                            {{input id="agreement_1" type="checkbox" checked=agreement_1}}
+                            <label for="agreement_1" class="side-label"></label>
+                        </div>
+                        <div class="table-cell">
+                            <p>
+                                Any person who, with intent to defraud or knowing that he/she is facilitating a fraud
+                                against
+                                {{controllers.application.company.name}} or its member, submits an application containing a false, incomplete or deceptive
+                                statement may be guity of fraud.
+                            </p>
+                        </div>
+                    </div>
+                    {{validation-feedback errors=errors.agreement_1 validated=validated}}
+                </div>
+                <div class="col-sm-12 form-group has-feedback agreement">
+                    <div class="display-table">
+                        <div class="table-cell agreement-checkbox">
+                            {{input id="agreement_2" type="checkbox" checked=agreement_2}}
+                            <label for="agreement_2" class="side-label"></label>
+                        </div>
+                        <div class="table-cell">
+                            <p>By checking the boxes and entering my name above I am indicating my intent to
+                                electronically
+                                sign
+                                this application and warrant that all of the information I have provided is true,
+                                complete,
+                                and
+                                accurate.</p>
+                        </div>
+                    </div>
+                    {{validation-feedback errors=errors.agreement_2 validated=validated}}
+                </div>
+                <div class="col-sm-12 form-group">
+                    <hr>
+                </div>
+                <div class="col-sm-8 form-group center-column">
+                    <button {{action 'submit'}} class="btn btn-lg btn-success btn-block" type="submit">Agree & Submit
+                    </button>
+                </div>
+            </div>
+        {{/validator-form}}
+
+    </div>
+</div>

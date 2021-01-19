@@ -1,0 +1,101 @@
+<div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+    <div class="pane-secondary-content">
+        <fieldset>
+            <div>
+                <legend>F-{{model.fund.name}} Details</legend>
+                <div class="panel panel-default">
+                    <table class="table table-hover">
+                        <tbody>
+                        <tr>
+                            <td class="col-md-3 align-right valign-middle">
+                                <strong>Status:</strong>
+                            </td>
+                            <td class="col-md-6 valign-middle">
+                                {{fund-status-icon model.fund.status}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-3 align-right valign-middle">
+                                <strong>Nickname:</strong>
+                            </td>
+                            <td class="col-md-6 valign-middle">
+                                {{model.fund.nickname}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-3 align-right valign-middle">
+                                <strong>Investor:</strong>
+                            </td>
+                            <td class="col-md-6 valign-middle">
+                                XYZ{{model.fund.investor.account_number}} {{model.fund.investor.name}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-3 align-right valign-middle">
+                                <strong>Investee:</strong>
+                            </td>
+                            <td class="col-md-6 valign-middle">
+                                XYZ{{model.fund.company.account_number}} {{model.fund.company.name}}
+                            </td>
+                        </tr>
+                        {{#if model.fund.isInvestor}}
+                            <tr>
+                                <td class="col-md-3 align-right valign-middle">
+                                    <strong>Account:</strong>
+                                </td>
+                                <td class="col-md-6 valign-middle">
+                                    {{model.fund.account.name}}
+                                </td>
+                            </tr>
+                        {{/if}}
+                        <tr>
+                            <td {{bind-attr class=':col-md-3 :align-right :valign-middle errors.amount:has-error'}}>
+                                <strong>Amount:</strong>
+                            </td>
+                            <td class="col-md-6 valign-middle">
+                                {{{model.fund.currency.symbol}}}{{model.fund.str_amount}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-3 align-right valign-middle">
+                                <strong>Interest:</strong>
+                            </td>
+                            <td {{bind-attr class=':col-md-6 :valign-middle errors.fund.amount:has-error'}}>
+                                {{{model.fund.currency.symbol}}}{{model.fund.str_interest}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-3 align-right valign-middle">
+                                <strong>Interest Rate:</strong>
+                            </td>
+                            <td class="col-md-6 valign-middle">
+                                {{model.fund.str_rate}}%
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-3 align-right valign-middle">
+                                <strong>Mature Date:</strong>
+                            </td>
+                            <td {{bind-attr class=':col-md-6 :valign-middle errors.end_date:has-error'}}>
+                                {{model.fund.str_end_date}}
+                            </td>
+                        </tr>
+                        {{#if model.fund.isInvestor}}
+                            <tr>
+                                <td class="col-md-3 align-right valign-middle">
+                                    <strong>Notes:</strong>
+                                </td>
+                                <td class="col-md-6 valign-middle">
+                                    {{model.fund.notes}}
+                                </td>
+                            </tr>
+                        {{/if}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </fieldset>
+    </div>
+</div>
+

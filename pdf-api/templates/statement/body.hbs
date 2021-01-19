@@ -1,0 +1,203 @@
+<style type="text/css">
+    .table tbody tr {
+        border-top: 1px solid #f5f5f5;
+    }
+
+    .table thead tr {
+        background-color: #f5f5f5;
+    }
+
+    .table tbody tr td {
+        border: none;
+    }
+
+    tr {
+        page-break-inside: avoid;
+    }
+</style>
+
+<div style="width: 1024px; height: 1225px; margin: 0px auto">
+
+    <div style="height: 20px;"></div>
+    <div class="row">
+        <div class="col-xs-8">
+            <h2><strong>Business Services Package</strong></h2>
+        </div>
+    </div>
+
+    <div style="height: 100px;"></div>
+    <div class="row">
+        <div class="col-xs-5">
+            <span class="large">{{@root.company.name}}</span><br><br>
+            {{@root.company.address}}<br>
+            {{@root.company.city}}<br>
+            {{@root.company.state_province}}<br>
+            {{@root.company.postal_code}}<br>
+            {{@root.company.country}}<br>
+        </div>
+        <div class="col-xs-2">
+            <div style="margin-top: 5px; border-right: 3px solid #ddd; height: 175px; width: 50%;">&nbsp;</div>
+        </div>
+    </div>
+
+    <div style="height: 100px;"></div>
+
+    <div class="row">
+        <div class="col-xs-5 valign-middle" style="border-top: 3px solid #ddd; padding-top: 45px;">
+            <h2>Fast, Transparent, Secure</h2>
+        </div>
+        <div class="col-xs-2" style="border-top: 3px solid #ddd; padding-top: 25px;"></div>
+        <div class="col-xs-5 valign-middle" style="border-top: 3px solid #ddd; padding-top: 45px;">
+            <h2><i class="fa fa-share-square fa-fw"></i> What's new at Akirix</h2>
+
+            <p>Over the next few months you will notice changes to the descriptions on your statement
+                and transaction histories. These enhancements will provide a greater levels of detail
+                and
+                information.
+                Akirix is always improving and we welcome your feedback and input.</p>
+        </div>
+    </div>
+
+
+    <div style="height: 50px;"></div>
+    <div class="row">
+        <div class="col-xs-12 align-center"
+             style="height: 40px; color: #bbb; padding-top: 0px; background-color: #ddd;">
+            <div class="align-center"
+                 style="margin: auto; width: 60px; color: #ccc; background-color: white; padding: 10px; border: none; border-radius: 25px;">
+                <strong>{{{@root.currency.id}}}</strong>
+            </div>
+        </div>
+    </div>
+
+    <div style="height: 50px;"></div>
+    <div class="row">
+        <div class="col-xs-5" style="border-top: 3px solid #ddd; ">
+            <h4><strong>Activity Summary</strong></h4>
+
+            <div class="row">
+                <div class="col-xs-1"></div>
+                <div class="col-xs-6">
+
+                    Beginning balance on {{@root.statement.start_date}}<br>
+                    Deposits/Credits<br>
+                    Withdrawals/Debits<br>
+                </div>
+                <div class="col-xs-5 align-right">
+                    {{{@root.currency.symbol}}}{{@root.statement.begin_balance}}<br>
+                    <br>
+                    {{{@root.currency.symbol}}}{{@root.statement.income}}<br>
+                    - &nbsp; {{{@root.currency.symbol}}}{{@root.statement.expense}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-1"></div>
+                <div class="col-xs-6" style="border-top: 2px solid #ddd;">
+                    <strong>Ending balance on {{@root.statement.end_date}}</strong>
+                </div>
+                <div class="col-xs-5 align-right" style="border-top: 2px solid #ddd;">
+                    <strong>{{{@root.currency.symbol}}}{{@root.statement.end_balance}}</strong>
+                </div>
+            </div>
+            {{!-- <div class="row top-buffer">
+                 <div class="col-xs-1"></div>
+                 <div class="col-xs-6" style="border-top: 2px solid #ddd;">
+                     <strong>Average Daily Balance</strong>
+                 </div>
+                 <div class="col-xs-5 align-right" style="border-top: 2px solid #ddd;">
+                     <strong>{{{@root.currency.symbol}}}{{@root.statement.average_balance}}</strong>
+                 </div>
+             </div>--}}
+        </div>
+        <div class="col-xs-2">
+            <div style="margin-top: 5px; border-right: 3px solid #ddd; height: 115px; width: 50%;">&nbsp;</div>
+        </div>
+        <div class="col-xs-5">
+            
+        </div>
+    </div>
+</div>
+
+{{#if @root.transactions}}
+    <div class="clearfix"></div>
+    <div class="" style="padding: 20px; top: 0px;">
+        <div style="width: 1024px; margin: 0px auto">
+            <div style="height: 20px;"></div>
+            <div class="row" style="padding-right: 15px;">
+                <div class="col-xs-8">
+                    <ul class="list-inline">
+                        <li>Account Number: <strong>XYZ{{@root.company.account_number}}</strong></li>
+                        <li>&bull;</li>
+                        <li>{{@root.statement.start_date_word}} - {{@root.statement.end_date_word}}</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="height: 50px;"></div>
+            <div class="row" style="padding-left: 15px; padding-right: 15px;">
+                <div class="col-xs-12" style="border-bottom: 2px solid grey;">
+                    <span class="large">Transaction history</span>
+
+                </div>
+            </div>
+
+
+            <div style="height: 25px;"></div>
+            <div class="row" style="padding-right: 15px;">
+                <div class="col-xs-12">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th class="col-xs-2">Date</th>
+                            <th class="col-xs-1">Type</th>
+                            <th class="col-xs-5">Item</th>
+                            <th class="col-xs-2 align-center" style="font-size: 2.5em; color: #4F8D3F">
+                                <strong>+</strong>
+                            </th>
+                            <th class="col-xs-2 align-center" style="font-size: 2.5em; color: #BF3126">
+                                <strong>-</strong>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody class="small">
+                        {{#each @root.transactions}}
+                            {{#if is_balance}}
+                                <tr style="background-color: #999; color: white;">
+                                    <td class="text_small">
+                                        <strong>{{trans_date}}</strong>
+                                    </td>
+                                    <td colspan="2" class="text-center"><strong>Ending Balance {{trans_date}}</strong>
+                                    </td>
+                                    <td colspan="2" class="text-center">
+                                        <strong>{{{@root.currency.symbol}}}{{expense}}</strong>
+                                    </td>
+                                </tr>
+                            {{else}}
+                                <tr>
+                                    <td class="text_small">
+                                        <strong>{{trans_date}}</strong><br>
+                                        <span class="text_gray_light">{{trans_time}}</span>
+                                    </td>
+                                    <td>{{type}}</td>
+                                    <td>{{description}}</td>
+                                    <td class="text_green_dark">
+                                        {{#if income}}
+                                            {{{@root.currency.symbol}}}{{income}}
+                                        {{/if}}
+                                    </td>
+                                    <td>
+                                        {{#if expense}}
+                                            - {{{@root.currency.symbol}}}{{expense}}
+                                        {{/if}}
+                                    </td>
+                                </tr>
+                            {{/if}}
+                        {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+{{/if}}

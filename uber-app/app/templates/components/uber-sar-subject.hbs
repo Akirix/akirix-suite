@@ -1,0 +1,211 @@
+<div class="panel pane" style="border:0">
+    {{yield title}}
+    <div id="activity-{{activity-id}}-subject-{{subject-id}}" class="panel-collapse collapse">
+        <div class="panel-body no-padding">
+            <hr />
+
+            <div class="form-group col-sm-6 has-feedback">
+                <label>Subject Role</label>
+                {{view 'select'
+                       value=subject.subject_role
+                       content=role
+                       prompt='Select Role'
+                       optionValuePath='content.val'
+                       optionLabelPath='content.label'
+                       class='form-control '
+                       disabled=disabled}}
+            </div>
+
+
+            <div class="col-xs-12"></div>
+
+            <div class="form-group col-md-6 has-feedback">
+                <label>Subject Akirix Account Number:</label>
+                {{#if company}}
+                    {{view 'validate-company' company_id=company.id account_number=company.account_number found=found disabled=disabled status=null}}
+                {{else}}
+                    {{view 'validate-company' company_id=company.id found=found disabled=disabled status=null}}
+                {{/if}}
+            </div>
+
+            <div class="form-group col-xs-6 has-feedback">
+                <label>Type of Account</label>
+                {{view 'select'
+                       value=subject.account_type
+                       class="form-control"
+                       content=accountTypes
+                       optionValuePath="content.val"
+                       optionLabelPath="content.label"
+                       disabled=disabled}}
+            </div>
+
+
+            <div class="col-xs-12"></div>
+            {{#if isBusiness}}
+                <div class="form-group col-xs-6 has-feedback">
+                    <label>Company Name</label>
+                    {{input value=subject.name type='text' class='form-control ' disabled=disabled}}
+                </div>
+            {{else}}
+                <div class="form-group col-xs-6 has-feedback">
+                    <label>Last Name </label>
+                    {{input value=subject.last_name type='text' class='form-control ' disabled=disabled}}
+                </div>
+
+                <div class="form-group col-xs-6 has-feedback">
+                    <label>First Name</label>
+                    {{input value=subject.first_name type='text' class='form-control ' disabled=disabled}}
+                </div>
+
+
+                <div class="form-group col-xs-6 has-feedback">
+                    <label>Date of Birth</label>
+                    {{date-picker value=subject.date_of_birth class='form-control' placeholder='Date of Birth'
+                                  valueFormat='YYYY-MM-DD' allowBlank=true pastYearRange=100 futureYearRange=0 disabled=disabled}}
+                </div>
+
+                <div class="form-group col-xs-6 has-feedback">
+                    <label>Nationality</label>
+                    {{view 'select'
+                           value=subject.nationality
+                           content=appController.countries
+                           optionValuePath='content.abbreviation'
+                           optionLabelPath='content.name'
+                           prompt='Select a Country'
+                           class='form-control'
+                           disabled=disabled}}
+                </div>
+            {{/if}}
+
+
+
+            <div class="col-xs-12"></div>
+            <div class="form-group col-md-6 has-feedback">
+                <label>Phone</label>
+                {{input value=subject.phone type='text' class='form-control' placeholder='Phone' disabled=disabled}}
+            </div>
+
+
+            <div class="form-group col-md-6 has-feedback">
+                <label>Email</label>
+                {{input value=subject.email type='email' class='form-control' placeholder='Email' disabled=disabled}}
+            </div>
+
+
+            <div class="col-xs-12"></div>
+
+            <div class="form-group col-md-6 has-feedback">
+                <label>Address</label>
+                {{input value=subject.address type='text' class='form-control' placeholder='Address' disabled=disabled}}
+            </div>
+
+            <div class="form-group col-md-6 has-feedback">
+                <label>City</label>
+                {{input value=subject.city type='text' class='form-control' placeholder='City' disabled=disabled}}
+            </div>
+
+
+            <div class="form-group col-xs-6 has-feedback">
+                <label>Country</label>
+                {{view 'select'
+                       value=subject.country
+                       content=appController.countries
+                       optionValuePath='content.abbreviation'
+                       optionLabelPath='content.name'
+                       prompt='Select a Country'
+                       class='form-control'
+                       disabled=disabled}}
+            </div>
+
+            <div class="form-group col-md-6 has-feedback">
+                <label>State / Province</label>
+                {{#if isUS}}
+                    {{view 'select'
+                           value=subject.state_province
+                           content=appController.states
+                           optionValuePath='content.abbreviation'
+                           optionLabelPath='content.name'
+                           prompt='Select a state'
+                           class='form-control'
+                           disabled=disabled}}
+                {{else}}
+                    {{input value=state_province type='text' class='form-control'
+                            placeholder='State / Province'
+                            disabled=disabled}}
+                {{/if}}
+            </div>
+
+
+            <div class="form-group col-md-6 has-feedback">
+                <label>Postal Code</label>
+                {{input value=subject.postal_code type='text' class='form-control'
+                        placeholder='Postal Code'
+                        disabled=disabled}}
+            </div>
+
+
+            <div class="col-xs-12"></div>
+            <div class="form-group col-xs-6 has-feedback">
+                <label>ID Type</label>
+                {{view 'select'
+                       value=subject.id_type
+                       content=idTypes
+                       optionValuePath='content.val'
+                       optionLabelPath='content.label'
+                       prompt='Identification Type '
+                       class='form-control'
+                       disabled=disabled}}
+            </div>
+
+            <div class="form-group col-xs-6 has-feedback">
+                <label>ID Number</label>
+                {{input value=subject.id_number type='text' class='form-control' placeholder='ID Number' disabled=disabled}}
+            </div>
+
+            <div class="form-group col-xs-6 has-feedback">
+                <label>ID Country</label>
+                {{view 'select'
+                       value=subject.id_country
+                       content=appController.countries
+                       optionValuePath='content.abbreviation'
+                       optionLabelPath='content.name'
+                       prompt='Select a Country'
+                       class='form-control'
+                       disabled=disabled}}
+            </div>
+
+
+            <div class="col-xs-12"></div>
+            {{#if showTaxNumberType}}
+                <div class="col-xs-6 form-group has-feedback">
+                    <label class="control-label">Tax Number Type</label>
+                    {{view 'select'
+                           prompt="Tax Number Type"
+                           value=subject.tin_type
+                           class="form-control"
+                           content=taxNumberTypeOptions
+                           optionValuePath="content.value"
+                           optionLabelPath="content.label"
+                           disabled=disabled}}
+                </div>
+            {{/if}}
+
+
+
+            {{#if showTaxAuthorityName}}
+                <div class="col-xs-4 form-group has-feedback">
+                    <label class="control-label">
+                        &nbsp;Tax Authority Name
+                    </label>
+                    {{input value=subject.tin_type class="form-control" disabled=disabled}}
+                </div>
+            {{/if}}
+
+
+            <div class="form-group col-xs-4 has-feedback">
+                <label>Tax ID</label>
+                {{input value=subject.tin type='text' class='form-control' placeholder='Tax Number' disabled=disabled}}
+            </div>
+        </div>
+    </div>
+</div>

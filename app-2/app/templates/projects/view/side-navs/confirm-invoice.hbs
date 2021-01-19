@@ -1,0 +1,13 @@
+{{#if success}}
+    <div></div>
+    <div>
+        <i class="akx-icon akx-rejected" {{action 'closeSidePanel'}}></i>
+    </div>
+{{else}}
+    <div>
+        <i class="akx-icon akx-back" {{action 'edit'}}></i>
+    </div>
+    <div>
+        <i class="akx-icon akx-akx-rejected" {{action 'cancel'}}></i>
+    </div>    
+{{/if}}

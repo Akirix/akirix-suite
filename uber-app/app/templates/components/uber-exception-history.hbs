@@ -1,0 +1,44 @@
+{{#if uberExceptions}}
+    <div class="panel panel-default">
+        <div class="panel-heading text-center pointer bg-blue text-white bold" data-toggle="collapse" data-target="#exceptionHistory">
+            Exception History: {{uberExceptions.length}}
+        </div>
+        <div id="exceptionHistory" class="panel-body collapse">
+            {{#each exception in uberExceptions}}
+                <div class="panel panel-default">
+                    {{#if exception.isPending}}
+                        <div class="panel-heading text-center pointer" data-toggle="collapse" data-target="#history-{{exception.id}}">
+                            <div style="position:relative">
+                                Pending Decision
+                            </div>
+                        </div>
+                    {{else if exception.isConfirmed}}
+                        <div class="panel-heading text-center pointer bg-orange" data-toggle="collapse" data-target="#{{exception.id}}">
+                            <div style="position:relative">
+                                Confirmed Hit by {{exception.uberUser.name}} @ {{exception.str_updated_at_date}} {{exception.str_updated_at_time}}
+                            </div>
+                        </div>
+                    {{else if exception.isRejected}}
+                        <div class="panel-heading text-center pointer bg-green" data-toggle="collapse" data-target="#{{exception.id}}">
+                            <div style="position:relative">
+                                Okay'ed by {{exception.uberUser.name}} @ {{exception.str_updated_at_date}} {{exception.str_updated_at_time}}
+                            </div>
+                        </div>
+                    {{/if}}
+                    <div class="bg-warning panel-body">
+                        <div id="history-{{exception.id}}" class="collapse">
+                            {{pretty-json jsonObj=exception.raw_data}}
+                            <div class="form-group col-md-12">
+                                <label>Reason</label>
+                                    {{textarea value=exception.reason class='form-control' rows='3' disabled='disabled'}}
+                            </div>
+                        </div>
+                        <div class="text-gray-light align-center pointer" data-toggle="collapse"
+                             data-target="#history-{{exception.id}}"> Click To Toggle Exceptions
+                        </div>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+{{/if}}

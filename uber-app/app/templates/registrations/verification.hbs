@@ -1,0 +1,107 @@
+<style>
+    h4 {
+        border-bottom: 1px dotted #CCCCCC;
+        line-height: 24px;
+    }
+</style>
+<legend>
+    {{#if currentStep.complete}}
+        <i class="fa fa-check-circle text-green"></i>
+    {{else}}
+        <i {{bind-attr class=currentStep.icon}}></i>
+    {{/if}}
+    {{currentStep.name}}
+    {{#unless currentStep.complete}}
+        <button {{action 'skipStep' 'verification'}} class="btn btn-default btn-sm float-right">Skip Step</button>
+    {{else}}
+        <button {{action 'revokeStep' 'verification'}} class="btn btn-default btn-sm float-right">Revoke Step</button>
+    {{/unless}}
+</legend>
+<div class="row">
+    <div class="col-xs-12">
+        <legend>
+            <small>Documents</small>
+            {{#link-to 'registrations.view.verification.add-document' tagName="button" class="btn btn-default btn-sm float-right"}}
+                <i class="fa fa-plus"></i>
+            {{/link-to}}
+        </legend>
+        <div class="row">
+            <div class="col-xs-3">
+                <h4>Company</h4>
+                <strong>Tax Type: </strong>{{registration.company.tax_num_type}}<br/>
+                <strong>Tax Number: </strong>{{registration.company.tax_num}}<br/>
+                <strong>DUNS: </strong>{{registration.company.duns_number}}<br/>
+                <strong>Registration Number: </strong>{{registration.company.company_number}}
+            </div>
+            <div class="col-xs-3">
+                <h4>Address</h4>
+                {{registration.company.address}}<br/>
+                {{registration.company.address_2}}<br/>
+                {{registration.company.city}}
+                , {{registration.company.state_province}} {{registration.company.postal_code}}<br/>
+                {{registration.company.country}}
+            </div>
+            <div class="col-xs-3">
+                <h4>Trading Address</h4>
+                {{registration.company.trading_address}}<br/>
+                {{registration.company.trading_address_2}}<br/>
+                {{registration.company.trading_city}}
+                , {{registration.company.trading_state_province}} {{registration.company.trading_postal_code}}<br/>
+                {{registration.company.trading_country}}<br/>
+            </div>
+            <div class="col-xs-3">
+                <h4>User</h4>
+                <strong>First Name: </strong>{{registration.user.first_name}}<br/>
+                <strong>Last Name: </strong>{{registration.user.last_name}}<br/>
+                <strong>Email: </strong>{{registration.user.email}}<br/>
+                <strong>Date of Birth: </strong>{{registration.str_date_of_birth}}<br/>
+                <strong>Phone: </strong>{{registration.user.phone_mobile}}<br/>
+                <strong>User Type: </strong>{{registration.user.id_type}}<br/>
+                <strong>User Id Country: </strong>{{registration.user.id_country}}<br/>
+                <strong>User Id: </strong>{{registration.user.id_num}}<br/>
+            </div>
+        </div>
+
+        {{#each docType in model.documentTypes}}
+            <table class="table table-high table-hovervalign-middle">
+                <thead>
+                <tr>
+                    <th class="col-xs-2"><strong><i {{bind-attr class=docType.icon}}></i> {{docType.name}}</strong></th>
+                    <th class=""></th>
+                    <th class="col-xs-1"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#if docType.documents}}
+                    {{#each document in docType.documents}}
+                        {{#unless document.exemption}}
+                            {{#link-to 'registrations.view.verification.view-document' document._id tagName='tr' class="pointer"}}
+                                <td class="valign-middle text-center">{{document-status document}}</td>
+                                <td class="valign-middle">{{document.name}}</td>
+                                <td class="valign-middle text-right">
+                                    <button class="btn btn-danger" {{action 'removeDocument' document._id}}><i
+                                            class="fa fa-trash-o"></i></button>
+                                </td>
+                            {{/link-to}}
+                        {{else}}
+                            {{#link-to 'registrations.view.verification.view-exemption' document._id tagName='tr' class="pointer"}}
+                                <td class="valign-middle text-center">{{document-status document}}</td>
+                                <td class="valign-middle text-muted">Document Exemption</td>
+                                <td class="valign-middle text-right">
+                                    <button class="btn btn-danger" {{action 'removeDocument' document._id}}><i
+                                            class="fa fa-trash-o"></i></button>
+                                </td>
+                            {{/link-to}}
+                        {{/unless}}
+                    {{/each}}
+                {{else}}
+                    <tr>
+                        <td class="align-center text-gray-light" colspan="3">MISSING</td>
+                    </tr>
+                {{/if}}
+                </tbody>
+            </table>
+        {{/each}}
+
+    </div>
+</div>

@@ -1,0 +1,41 @@
+<header id="side-header" class="akx-header mt-2">
+    <span>{{stringList.title}}</span>
+</header>
+{{#akx-form name="ticket-creation" action='createTicket' name="create-ticket-form" isLocked=isLocked}}
+    <div class="row">
+        <div class="col-lg-6 col-md-8 col-sm-10 has-feedback form-group bmd-form-group m-auto">
+            <label for="ticket-title" class="bmd-label-floating">{{stringList.ticketLabel}}</label>
+            {{input class="form-control" name="ticket-title" value=ticketChangeset.title type='text'}}
+            {{validation-feedback errors=ticketChangeset.error.title.validation}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-8 col-sm-10 has-feedback form-group bmd-form-group m-auto">
+            <label for="ticket-notes" class="bmd-label-floating">{{stringList.ticketMessageLabel}}</label>
+            {{input class="form-control"  name="ticket-notes" value=ticketMessageChangeset.notes type="text"}}
+            {{validation-feedback errors=ticketMessageChangeset.error.notes.validation}}
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-lg-6 col-md-8 col-sm-10 m-auto">
+            {{upload-document model='ticket-message' documents=ticketMessageChangeset.documents}}
+        </div>
+    </div>
+    <div class="mt-5 text-center">
+        {{#confirmation-modal
+            tagName='button'
+            classNames='akx-button'
+            type='button'
+            openModal='cancel'
+            name='btn-ticket-cancel'
+            headerTitle=stringList.cancelHeader
+            prompt=stringList.cancelPrompt
+            controller=this
+            data-toggle="modal"
+            data-target="#confirmationModal"
+            action='cancelTicket'}}
+            <span class="orange">{{stringList.cancel}}</span>
+        {{/confirmation-modal}}
+        <button class="btn btn-primary ml-3" type="submit" id="btn-ticket-submit">{{stringList.submitTicket}}</button>
+    </div>
+{{/akx-form}}

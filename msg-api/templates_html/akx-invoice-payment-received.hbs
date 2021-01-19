@@ -1,0 +1,20 @@
+{{#email-wrapper}}
+    {{> header title="Invoice Payment Received"}}
+    {{#email-content}}
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="text-align:center;">
+            <tbody>
+
+            {{#row}}<span style="color: #777777;">Hello {{@root.first_name}},</span>{{/row}}
+            {{spacer}}
+            {{#row}}
+                <span style="color: #777777;">
+                    You have received a payment of <strong>{{{@root.currency}}}{{@root.amount}}</strong> on invoice <strong>{{@root.invoice_name}}</strong> from <strong>{{@root.from_company}}</strong>.
+                </span>
+            {{/row}}
+
+            {{sign-off}}
+            </tbody>
+        </table>
+    {{/email-content}}
+    {{> footer}}
+{{/email-wrapper}}

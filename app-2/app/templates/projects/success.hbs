@@ -1,0 +1,87 @@
+<div class="side-panel-content">
+    <header id="side-header" class="akx-header">
+        <span>P-{{model.project.name}}</span>
+    </header>
+    <div class="row mt-5">
+        <div class="col-12">
+            {{#if model.project.node.name}}
+                <div class="row border-bottom py-2">
+                    <div class="col-lg-6 text-right">
+                        <strong>{{stringList.name}}:</strong>
+                    </div>
+                    <div class="col-lg-6">{{model.project.node.name}}</div>
+                </div>
+            {{/if}}
+            <div class="row border-bottom py-2">
+                <div class="col-lg-6 text-right">
+                    <strong>{{stringList.usingAccount}}:</strong>
+                </div>
+                <div class="col-lg-6">{{model.account.name}}</div>
+            </div>
+            <div class="row border-bottom py-2">
+                <div class="col-lg-6 text-right">
+                    <strong>{{stringList.projectType}}:</strong>
+                </div>
+                <div class="col-lg-6">{{model.project.strType}}</div>
+            </div>
+            <div class="row border-bottom py-2">
+                <div class="col-lg-6 text-right">
+                    <strong>{{stringList.contractType}}:</strong>
+                </div>
+                <div class="col-lg-6">{{contractType}}</div>
+            </div>
+            {{#if model.project.node.discount_rate}}
+                <div class="row border-bottom py-2">
+                    <div class="col-lg-6 text-right">
+                        <strong>{{stringList.discountRate}}:</strong>
+                    </div>
+                    <div class="col-lg-6">{{model.project.node.discount_rate}}</div>
+                </div>
+            {{/if}}
+            {{#if model.project.node.invoice_deadline}}
+                <div class="row border-bottom py-2">
+                    <div class="col-lg-6 text-right">
+                        <strong>{{stringList.invoiceDeadline}}:</strong>
+                    </div>
+                    <div class="col-lg-6">{{model.project.node.invoice_deadline}}</div>
+                </div>
+            {{/if}}
+            {{#if model.project.notes}}
+                <div class="row border-bottom py-2">
+                    <div class="col-lg-6 text-right">
+                        <strong>{{stringList.notes}}:</strong>
+                    </div>
+                    <div class="col-lg-6">{{model.project.notes}}</div>
+                </div>
+            {{/if}}
+            {{#if model.project.node.node_items}}
+                <div class="row border-bottom py-2">
+                    <div class="col-lg-6 text-right">
+                        <strong>{{stringList.nodeItems}}:</strong>
+                    </div>
+                    <div class="col-lg-6">
+                        {{#each model.project.node.node_items as |item|}}
+                            <p>{{item.name}}</p>
+                        {{/each}}
+                    </div>
+                </div>
+            {{/if}}
+            {{upload-document model='project' documents=documents hide=true class='mt-3'}}
+        </div>
+    </div>
+    <div class="row text-center mt-5">
+        <div id="success-box" class="col-lg-4 col-md-8 col-sm-10 m-auto text-success">
+            <svg id="success-image" class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+            </svg>
+            <p id="success-title" class="font-h2">{{stringList.success}}</p>
+            <p id="success-message">{{stringList.message}}</p>
+        </div>
+        <div class="col-12 text-center">
+            <button name="btn-view-project" {{action 'closeSidePanel'}} class="btn btn-primary">
+                {{stringList.viewProject}}
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+<div class="navbar-secondary" role="navigation">
+    <ul class="list-h">
+        <li>
+            {{#link-to 'projects.index' (query-params type=0 deterministic=1)}}
+                Smart Projects
+            {{/link-to}}
+        </li>
+    </ul>
+</div>
+<div class="pane-primary-content">
+    {{page-numbers content=content}}
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th class="col-xs-2">Created</th>
+            <th class="col-xs-2">Name</th>
+            <th class="col-xs-2">Currency</th>
+            <th class="col-xs-2 text-center">Type</th>
+            <th class="col-xs-2 text-center">Smart</th>
+            <th class="col-xs-2 text-center">Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each project in model}}
+            {{#link-to 'projects.index.view' project.id tagName='tr' class='pointer list-link'}}
+                <td class="valign-middle">
+                    {{project.str_created_at_date}}
+                </td>
+                <td class="valign-middle medium">
+                    P-{{project.name}}
+                </td>
+                <td class="valign-middle">
+                    {{project.currency_id}}
+                </td>
+                <td class="text-center">
+                    {{project-type-icon project.type}}
+                </td>
+                <td class="text-center">
+                    {{project.deterministic}}
+                </td>
+                <td class="text-center">
+                    {{project.strStatus}}
+                </td>
+            {{/link-to}}
+        {{/each}}
+        </tbody>
+    </table>
+    {{page-numbers content=content}}
+</div>

@@ -1,0 +1,113 @@
+<div class="side-panel-content">
+    <header id="side-header" class="akx-header">
+        <span>{{model.ticket.title}}</span>
+    </header>
+    <h5 class="text-center">{{stringList.ticketNumber}}: {{model.ticket.name}}</h5>
+    <div class={{if model.ticket.isOpen 'mt-5 row' 'mt-5'}} id="ticket-messages">
+        {{#each model.ticketMessages as |msg index|}}
+            {{#if msg.user}}
+                <div class="col-11 mt-4 user-message" id="message-box-{{index}}">
+                    <div class="card w-75" id="message-card-{{index}}">
+                        <div class="card-header bg-success" id="message-card-header-{{index}}">
+                            <div class="row">
+                                <div class="col-6 text-left">
+                                    <i class="akx-icon akx-account-holder font-h4"></i>
+                                    {{msg.user.first_name}} {{msg.user.last_name}}
+                                </div>
+                                <div class="col-6 text-right">
+                                    {{format-date msg.updated_at timeZone='UTC'}} {{format-time msg.updated_at format='hhmmss'}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body" id="message-card-body-{{index}}">
+                            <span>{{msg.notes}}</span>
+                            {{#if msg.documents}}
+                                {{upload-document hide=true documents=msg.documents}}
+                            {{/if}}
+                        </div>
+                    </div>
+                </div>
+            {{else}}
+                <div class="offset-2 col-11 mt-4 mr-5 admin-message" id="message-box-{{index}}">
+                    <div class="card w-75" id="message-card-{{index}}">
+                        <div class="card-header bg-info" id="message-card-header-{{index}}">
+                            <div class="row pr-2">
+                                <div class="col-6 text-left">
+                                    <i class="akx-icon akx-account-holder font-h4"></i> Akirix Support
+                                </div>
+                                <div class="col-6 text-right">
+                                    {{format-date msg.updated_at timeZone='UTC'}} {{format-time msg.updated_at format='hhmmss'}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body" id="message-card-body-{{index}}">
+                            <span>{{msg.notes}}</span>
+                            {{#if msg.documents}}
+                                {{upload-document hide=true documents=msg.documents}}
+                            {{/if}}
+                        </div>
+                    </div>
+                </div>
+            {{/if}}
+        {{/each}}
+        <div id="scroll-to-bottom"></div>
+    </div>
+    {{#if model.ticket.isOpen}}
+        {{#akx-form name="ticket-view" action='' isLocked=isLocked}}
+            <div class="row mt-5">
+                <div class="col-12 has-feedback form-group">
+                    <label for="view-ticket-notes" class="bmd-label-static">{{stringList.messagePlaceHolder}}</label>
+                    {{textarea
+                        class="form-control"
+                        name= "view-ticket-notes"
+                        value=changeset.notes
+                        rows=3}}
+                    {{validation-feedback errors=changeset.error.notes.validation}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    {{upload-document model='ticket-message' name="upload-ticket-document" documents=changeset.documents}}
+                </div>
+            </div>
+        {{/akx-form}}
+    {{/if}}
+</div>
+<div class="action-footer">
+    <div class="row pt-2">
+        <div class="col-12 text-center">
+            {{#if model.ticket.isOpen}}
+                {{#confirmation-modal
+                    id="btn-close-ticket"
+                    tagName='button'
+                    classNames='akx-button'
+                    type='button'
+                    openModal='cancel'
+                    headerTitle=stringList.closeHeader
+                    prompt=stringList.closePrompt
+                    controller=this
+                    data-toggle="modal"
+                    data-target="#confirmationModal"
+                    action='closeTicket'}}
+                    <span class="orange">{{stringList.close}}</span>
+                {{/confirmation-modal}}
+                <button {{action 'addMessage'}} id="btn-send-message" class="btn btn-primary ml-3" type="button">
+                    {{stringList.addMessage}}
+                </button>
+            {{else}}
+                {{confirmation-modal
+                    id="btn-open-ticket"
+                    tagName='button'
+                    classNames='btn btn-primary'
+                    openModal='cancel'
+                    html=stringList.open
+                    headerTitle=stringList.openHeader
+                    prompt=stringList.openPrompt
+                    controller=this
+                    data-toggle="modal"
+                    data-target="#confirmationModal"
+                    action='openTicket'}}
+            {{/if}}
+        </div>
+    </div>
+</div>

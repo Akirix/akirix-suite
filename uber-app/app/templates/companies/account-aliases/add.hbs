@@ -1,0 +1,73 @@
+{{#akx-form action='createAccountAlias' isLocked=isLocked}}
+    <div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+        <div class="pane-secondary-content">
+            <div id="account" class="row">
+                <div class="col-xs-12">
+                    <legend>
+                        New Preferred Account
+                    </legend>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6 has-feedback required">
+                        <label>Account Number</label>
+                        {{input value=accountAlias.name type='text' class='form-control' placeholder='Preferred Account Number'}}
+                        {{validation-feedback errors=errors.accountAlias.name validated=validated}}
+                    </div>
+
+                    <div class="form-group col-md-6 has-feedback">
+                        <label>IBAN</label>
+                        {{input value=accountAlias.iban type='text' class='form-control' placeholder='IBAN'}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6 required has-feedback">
+                        <label>Account</label>
+                        {{view 'select'
+                               value=accountAlias.account_id
+                               content=accounts
+                               optionValuePath='content.id'
+                               optionLabelPath='content.str_long_name'
+                               prompt='Select an account'
+                               class='form-control'
+                               selection=account}}
+                        {{validation-feedback errors=errors.accountAlias.account_id validated=validated}}
+                    </div>
+                    <div class="form-group col-md-6 required has-feedback">
+                        <label>Wire Instruction</label>
+                        {{view 'select'
+                               value=accountAlias.wire_instruction_id
+                               content=wireInstructions
+                               optionValuePath='content.id'
+                               optionLabelPath='content.name'
+                               prompt='Select a bank'
+                               class='form-control'
+                               selection=wireInstruction}}
+                        {{validation-feedback errors=errors.accountAlias.wire_instruction_id validated=validated}}
+                    </div>
+                </div>
+                <div class="col-xs-12 form-group has-feedback">
+                    <label>Notes</label>
+                    {{textarea value=accountAlias.notes class="form-control width-full" rows="3"}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="viewport viewport-bottom navbar-toolbar">
+        <div class="pane-actions">
+            <ul class="list-h">
+                <li>
+                    <button class="btn btn-default btn-sm navbar-secondary-btn" {{action 'goBack'}}>
+                        Cancel
+                    </button>
+                </li>
+            </ul>
+            <ul class="list-h pull-right">
+                <li>
+                    <button class="btn btn-primary btn-sm navbar-secondary-btn" type="submit">
+                        Add
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+{{/akx-form}}

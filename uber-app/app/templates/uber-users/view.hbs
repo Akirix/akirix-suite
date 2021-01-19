@@ -1,0 +1,47 @@
+<div class="pane-primary-content">
+    {{#akx-form action='updateUser' isLocked=isLocked}}
+        <fieldset>
+            <div class="row">
+                <legend>
+                    <span>Change Password</span>
+                </legend>
+            </div>
+
+            <div class="form-group col-md-6 has-feedback">
+                <label>New Password</label>
+                {{input value=password type='password' class='form-control' placeholder='New Password'}}
+            </div>
+
+            <div class="form-group col-md-6 has-feedback">
+                <label>Confirm New Password</label>
+                {{input value=passwordConfirmation type='password' class='form-control' placeholder='Confirm New Password'}}
+                {{validation-feedback errors=errors.passwordConfirmation validated=validated}}
+            </div>
+
+            <div class="form-group row col-md-6 has-feedback">
+                {{password-strength password=password}}
+                {{validation-feedback errors=errors.password validated=validated}}
+            </div>
+
+        </fieldset>
+        <ul class="list-h pull-right">
+            <li>
+                <button class="btn btn-primary" type="submit">Update Password</button>
+            </li>
+        </ul>
+    {{/akx-form}}
+
+    <div class="row">
+        <legend>
+            <span>Info</span>
+        </legend>
+        <table class="table table-bordered table-hover">
+            <tbody>
+            <tr>
+                <td class="col-md-3 bold align-right">T.O.T.H.</td>
+                <td class="col-md-9">{{{toth}}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

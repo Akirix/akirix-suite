@@ -1,0 +1,152 @@
+{{#each series in dataSeries}}
+    <div class="large align-center top-buffer">
+        Fee Details: {{series.currency}}
+    </div>
+    <div class="row top-buffer">
+        <table class="table table-high">
+            <thead>
+            <tr>
+                <th class="col-xs-2">Name</th>
+                <th class="col-xs-2">Count</th>
+                <th class="col-xs-2">Amount</th>
+                <th class="col-xs-2">Cost</th>
+                <th class="col-xs-2">Fee Amount</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="bg-blue-green">
+                <td class="valign-middle medium">Invoices</td>
+                <td class="valign-middle medium">{{series.invoices_count}}</td>
+                <td class="valign-middle medium">{{{series.symbol}}}{{format-number series.invoices_amount}}</td>
+                <td class="valign-middle medium"></td>
+                <td class="valign-middle medium">{{{series.symbol}}}{{format-number series.invoices_fee}}</td>
+            </tr>
+            <tr class="bg-blue-green">
+                <td class="valign-middle medium">Money In {{series.currency}}</td>
+                <td class="valign-middle medium">{{series.wire_in_count}}</td>
+                <td class="valign-middle medium">{{{series.symbol}}}{{format-number series.wire_in_amount}}</td>
+                <td class="valign-middle medium">{{{series.symbol}}}{{format-number series.wire_in_cost}}</td>
+                <td class="valign-middle medium">{{{series.symbol}}}{{format-number series.wire_in_fee}}</td>
+            </tr>
+            <tr>
+                <td class="valign-middle">|- Wire In Domestic</td>
+                <td class="valign-middle">{{series.wire_in_domestic_count}}</td>
+                <td class="valign-middle">{{{series.symbol}}}{{format-number series.wire_in_domestic_amount}}</td>
+                <td class="valign-middle">{{{series.symbol}}}{{format-number series.wire_in_domestic_cost}}</td>
+                <td class="valign-middle">{{{series.symbol}}}{{format-number series.wire_in_domestic_fee}}</td>
+            </tr>
+            <tr>
+                <td class="valign-middle">|- Wire In International</td>
+                <td class="valign-middle">{{series.wires_in_international_count}}</td>
+                <td class="valign-middle">{{{series.symbol}}}{{format-number series.wires_in_international_amount}}</td>
+                <td class="valign-middle">{{{series.symbol}}}{{format-number series.wires_in_international_cost}}</td>
+                <td class="valign-middle">{{{series.symbol}}}{{format-number series.wires_in_international_fee}}</td>
+            </tr>
+            <tr>
+                <td class="valign-middle">|- ACH In Domestic</td>
+                <td class="valign-middle">{{series.ach_in_domestic_count}}</td>
+                <td class="valign-middle">{{{series.symbol}}}{{format-number series.ach_in_domestic_amount}}</td>
+                <td class="valign-middle">{{{series.symbol}}}{{format-number series.ach_in_domestic_cost}}</td>
+                <td class="valign-middle">{{{series.symbol}}}{{format-number series.ach_in_domestic_fee}}</td>
+            </tr>
+            <tr>
+                <td class="valign-middle">|- ACH In International</td>
+                <td class="valign-middle">{{series.ach_in_intl_count}}</td>
+                <td class="valign-middle">{{{series.symbol}}}{{format-number series.ach_in_intl_amount}}</td>
+                <td class="valign-middle">{{{series.symbol}}}{{format-number series.ach_in_intl_cost}}</td>
+                <td class="valign-middle">{{{series.symbol}}}{{format-number series.ach_in_intl_fee}}</td>
+            </tr>
+            <tr  class="bg-blue-green">
+                <td class="valign-middle medium">Money Out {{series.currency}} </td>
+                <td class="valign-middle medium">{{series.wire_out_count}}</td>
+                <td class="valign-middle medium">{{{series.symbol}}}{{format-number series.wire_out_amount}}</td>
+                <td class="valign-middle medium">{{{series.symbol}}}{{format-number series.wire_out_cost}}</td>
+                <td class="valign-middle medium">{{{series.symbol}}}{{format-number series.wire_out_fee}}</td>
+            </tr>
+            <tr>
+                <td class="valign-middle">|- Wire Out Domestic</td>
+                <td class="valign-middle">{{series.wires_out_domestic_count}}</td>
+                <td class="valign-middle">{{{series.symbol}}}{{format-number series.wires_out_domestic_amount}}</td>
+                <td class="valign-middle">{{{series.symbol}}}{{format-number series.wires_out_domestic_cost}}</td>
+                <td class="valign-middle">{{{series.symbol}}}{{format-number series.wires_out_domestic_fee}}</td>
+            </tr>
+            <tr>
+                <td class="valign-middle">|- Wire Out Domestic SpeedWire</td>
+                <td class="valign-middle">{{series.wires_out_domestic_speedwire_count}}</td>
+                <td class="valign-middle">{{{series.symbol}}}{{format-number series.wires_out_domestic_speedwire_amount}}</td>
+                <td class="valign-middle">{{{series.symbol}}}{{format-number series.wires_out_domestic_speedwire_cost}}</td>
+                <td class="valign-middle">{{{series.symbol}}}{{format-number series.wires_out_domestic_speedwire_fee}}</td>
+            </tr>
+            <tr>
+                <td class="valign-middle">|- Wire Out International<</td>
+                <td class="valign-middle">{{series.wires_out_international_count}}</td>
+                <td class="valign-middle">{{{series.symbol}}}{{format-number series.wires_out_international_amount}}</td>
+                <td class="valign-middle">{{{series.symbol}}}{{format-number series.wires_out_international_cost}}</td>
+                <td class="valign-middle">{{{series.symbol}}}{{format-number series.wires_out_international_fee}}</td>
+            </tr>
+            <tr>
+                <td class="valign-middle">|- Wire Out International SpeedWire<</td>
+                <td class="valign-middle">{{series.wires_out_international_speedwire_count}}</td>
+                <td class="valign-middle">{{{series.symbol}}}{{format-number series.wires_out_international_speedwire_amount}}</td>
+                <td class="valign-middle">{{{series.symbol}}}{{format-number series.wires_out_international_speedwire_cost}}</td>
+                <td class="valign-middle">{{{series.symbol}}}{{format-number series.wires_out_international_speedwire_fee}}</td>
+            </tr>
+            <tr>
+                <td class="valign-middle">|- ACH Out Domestic</td>
+                <td class="valign-middle">{{series.ach_out_domestic_count}}</td>
+                <td class="valign-middle">{{{series.symbol}}}{{format-number series.ach_out_domestic_amount}}</td>
+                <td class="valign-middle">{{{series.symbol}}}{{format-number series.ach_out_domestic_cost}}</td>
+                <td class="valign-middle">{{{series.symbol}}}{{format-number series.ach_out_domestic_fee}}</td>
+            </tr>
+            <tr>
+                <td class="valign-middle">|- ACH Out International</td>
+                <td class="valign-middle">{{series.ach_out_intl_count}}</td>
+                <td class="valign-middle">{{{series.symbol}}}{{format-number series.ach_out_intl_amount}}</td>
+                <td class="valign-middle">{{{series.symbol}}}{{format-number series.ach_out_intl_cost}}</td>
+                <td class="valign-middle">{{{series.symbol}}}{{format-number series.ach_out_intl_fee}}</td>
+            </tr>
+            <tr class="bg-blue-green">
+                <td class="valign-middle medium">Internal Transfers</td>
+                <td class="valign-middle medium">{{series.internal_transfers_count}}</td>
+                <td class="valign-middle medium">{{{series.symbol}}}{{format-number series.internal_transfers_amount}}</td>
+                <td class="valign-middle medium"></td>
+                <td class="valign-middle medium">{{{series.symbol}}}{{format-number series.internal_transfers_fee}}</td>
+            </tr>
+            <tr class="bg-blue-green">
+                <td class="valign-middle medium">Foreign Exchange</td>
+                <td class="valign-middle medium">{{series.fx_count}}</td>
+                <td class="valign-middle medium">{{{series.symbol}}}{{format-number series.fx_amount}}</td>
+                <td class="valign-middle medium"></td>
+                <td class="valign-middle medium">{{{series.symbol}}}{{format-number series.fx_fee}}</td>
+            </tr>
+            <tr class="bg-blue-green">
+                <td class="valign-middle medium">Misc. Charges</td>
+                <td class="valign-middle medium">{{series.charge_count}}</td>
+                <td class="valign-middle medium">{{{series.symbol}}}{{format-number series.charge_amount}}</td>
+                <td class="valign-middle medium"></td>
+                <td class="valign-middle medium">{{{series.symbol}}}{{format-number series.charge_amount}}</td>
+            </tr>
+            <tr class="bg-orange">
+                <td class="valign-middle medium">Fee Refund</td>
+                <td class="valign-middle medium">{{series.fee_refund_count}}</td>
+                <td class="valign-middle medium"></td>
+                <td class="valign-middle medium"></td>
+                <td class="valign-middle medium">{{{series.symbol}}}{{format-number series.fee_refund_amount}}</td>
+            </tr>
+            </tbody>
+            <tfoot>
+                <tr class="bg-white">
+                    <td class="valign-middle medium bold">Total</td>
+                    <td class="valign-middle medium"></td>
+                    <td class="valign-middle medium">{{{series.symbol}}}{{sum-total-fee series 'totalAmouts'}}</td>
+                    <td class="valign-middle medium">{{{series.symbol}}}{{sum-total-fee series 'totalCosts'}}</td>
+                    <td class="valign-middle medium bold">{{{series.symbol}}}{{sum-total-fee series 'totalFees'}}</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+{{/each}}
+<hr/>
+
+
+

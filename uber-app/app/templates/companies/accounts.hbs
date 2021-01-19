@@ -1,0 +1,74 @@
+{{#link-to 'companies.view.accounts.add' company_id href=false tagName="button" class="btn btn-primary"}}
+    Add Account
+{{/link-to}}
+
+
+<table class="table table-hover table-high">
+    <thead>
+    <tr>
+        <th class="col-xs-2">Name</th>
+        <th class="col-xs-2">Balance</th>
+        <th class="col-xs-2">Cash</th>
+        <th class="'col-xs-1">Points</th>
+        <th class="'col-xs-1">Pending</th>
+        <th class="'col-xs-2"></th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each account in content}}
+        {{#link-to 'companies.view.accounts.view' account.id tagName='tr' class='list-link'}}
+            <td class="valign-middle medium">{{{account.currency.symbol}}} {{account.name}}</td>
+            <td class="valign-middle medium">{{{account.currency.symbol}}}{{account.str_balance_total}}</td>
+            <td class="valign-middle">
+                {{{account.currency.symbol}}}{{account.str_balance}}<br/>
+                <span class="text-orange small">
+                    <i class="fa fa-exclamation-circle fa-fw"></i> {{{account.currency.symbol}}}{{account.str_balance_hold}}
+                </span>
+            </td>
+            <td class="valign-middle">
+                <i class="fa fa-arrow-circle-right fa-fw text-green-dark"></i> {{{account.currency.symbol}}}{{account.str_points_in}}
+                <br/>
+                <i class="fa fa-arrow-circle-left fa-fw text-rose"></i> {{{account.currency.symbol}}}{{account.str_points_out}}
+            </td>
+            <td class="valign-middle">
+                <i class="fa fa-arrow-circle-right fa-fw text-green-dark"></i> {{{account.currency.symbol}}}{{account.str_pending_in}}
+                <br/>
+                <i class="fa fa-arrow-circle-left fa-fw text-rose"></i> {{{account.currency.symbol}}}{{account.str_pending_out}}
+            </td>
+            <td class="valign-middle">
+                <ul class="list-h">
+                    {{#link-to 'companies.view.accounts.view.edit' account.id tagName='li' href=false bubbles=false}}
+                        <span class="hint--top hint--rounded" data-hint="Edit Account">
+                        <i class="fa fa-edit fa-fw"></i>
+                    </span>
+                    {{/link-to}}
+                    {{#link-to 'companies.view.accounts.view.download' account.id tagName='li' href=false
+                               bubbles=false}}
+                        <span class="hint--top hint--rounded" data-hint="Download Transactions">
+                        <i class="fa fa-download fa-fw"></i>
+                    </span>
+                    {{/link-to}}
+                    {{#link-to 'companies.view.accounts.view.transactions' account.id tagName='li' href=false
+                               bubbles=false}}
+                        <span class="hint--top hint--rounded" data-hint="View Transactions">
+                        <i class="fa fa-bars fa-fw"></i>
+                    </span>
+                    {{/link-to}}
+                    {{#link-to 'companies.view.accounts.view.hold' account.id tagName='li' href=false bubbles=false}}
+                        <span class="hint--top hint--rounded" data-hint="Cash On Hold">
+                        <i class="fa fa-lock fa-fw"></i>
+                    </span>
+                    {{/link-to}}
+                    {{#link-to 'companies.view.accounts.view.fee-refund' account.id tagName='li' href=false
+                               bubbles=false}}
+                        <span class="hint--top hint--rounded" data-hint="Issue Refund">
+                        <i class="fa fa-money fa-fw"></i>
+                    </span>
+                    {{/link-to}}
+                </ul>
+            </td>
+        {{/link-to}}
+    {{/each}}
+    </tbody>
+</table>
+

@@ -1,0 +1,54 @@
+<div class="panel panel-default main-tray-box">
+    <div class="panel-heading row">
+        <span>
+            <i class="fa fa-sticky-note fa-fw"></i> <strong class="panel-heading-format-text">{{{item.title}}}</strong>{{pane-task-link item=item}}
+        </span>
+        <div class="pull-right">
+            <span class="" {{action "toggleMinMax" item}}>
+                <i class="fa {{minMaxIcon}} fa-fw" aria-hidden="true"></i>
+            </span>
+            <span class="" {{action "removeFromGlobalPane" item}}>
+                &nbsp;&nbsp;&nbsp;<i class="fa fa-times fa-lg" aria-hidden="true"></i>
+            </span>
+        </div>
+    </div>
+    <div class="panel-body collapse {{minMaxClass}} no-padding small">
+        <div class="form-group col-xs-12 has-feedback">
+            {{input value=item.title type='text' class='form-control input-sm' placeholder='Title'}}
+            {{validation-feedback errors=errors.item.title validated=validated}}
+        </div>
+
+        <div class="form-group col-xs-6 has-feedback">
+            {{view 'select'
+                   value=item.sentiment
+                   content=sentiments
+                   prompt='Select Sentiment'
+                   optionValuePath='content.val'
+                   optionLabelPath='content.label'
+                   class='form-control input-sm'}}
+            {{validation-feedback errors=errors.item.sentiment validated=validated}}
+        </div>
+
+        {{#each item.noteEntries as |msg|}}
+            <div class="col-xs-12 form-group has-feedback">
+                <span class="small">{{msg.user}}</span>
+                {{textarea value=msg.notes class="form-control input-sm width-full" rows="3" disabled=true}}
+            </div>
+        {{/each}}
+
+        <div class="col-xs-12 form-group has-feedback">
+            {{textarea value=item.notes_new class="form-control input-sm width-full" rows="3"}}
+            {{validation-feedback errors=errors.item.notes_new validated=validated}}
+        </div>
+
+        <div class="col-xs-12">
+            {{view 'upload-document' documents=documents model='uber-task' model_id=item.id}}
+        </div>
+    </div>
+
+    <div class="panel-footer collapse {{minMaxClass}} {{{item_collapsible}}}">
+        <button {{action 'saveItem' }} class="btn btn-primary btn-xs" type="button">
+            <i class="fa fa-floppy-o fa-lg"></i>
+        </button>
+    </div>
+</div>

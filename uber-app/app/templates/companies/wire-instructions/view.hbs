@@ -1,0 +1,182 @@
+<div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+    <div class="pane-secondary-content">
+        <fieldset>
+            <legend>
+                <span>Wire Instructions</span>
+            </legend>
+
+            <div class="row">
+                <div class="contextual-help-section">
+                    <div class="panel panel-default" style="padding: 5px;">
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <td class="col-md-3 align-center valign-middle" rowspan="13">
+                                    <span class="xx-large bold">{{{model.currency.symbol}}}</span>
+                                </td>
+                                <td class="col-md-3 align-right valign-middle">
+                                    <strong>Bank Name:</strong>
+                                </td>
+                                <td class="col-md-6 valign-middle">
+                                    {{model.bank_name}}
+                                </td>
+                            </tr>
+                            {{#if model.bank_address}}
+                                <tr>
+                                    <td class="col-md-3 align-right">
+                                        <strong>Bank Address:</strong>
+                                    </td>
+                                    <td class="col-md-6 valign-middle">
+                                        {{model.bank_address}}
+                                    </td>
+                                </tr>
+                            {{/if}}
+                            {{#if model.aba_routing_number}}
+                                <tr>
+                                    <td class="col-md-3 align-right valign-middle">
+                                        <strong>ABA / Routing Number:</strong>
+                                    </td>
+                                    <td class="col-md-6 valign-middle">
+                                        {{model.aba_routing_number}}
+                                    </td>
+                                </tr>
+                            {{/if}}
+                            {{#if model.swift_code}}
+                                <tr>
+                                    <td class="col-md-3 align-right valign-middle">
+                                        <strong>SWIFT Code:</strong>
+                                    </td>
+                                    <td class="col-md-6 valign-middle">
+                                        {{model.swift_code}}
+                                    </td>
+                                </tr>
+                            {{/if}}
+                            {{#if model.sort_code}}
+                                <tr>
+                                    <td class="col-md-3 align-right valign-middle">
+                                        <strong>Sort Code:</strong>
+                                    </td>
+                                    <td class="col-md-6 valign-middle">
+                                        {{model.sort_code}}
+                                    </td>
+                                </tr>
+                            {{/if}}
+                            {{#if model.intermediary_bank_name}}
+                                <tr>
+                                    <td class="col-md-3 align-right valign-middle">
+                                        <strong>Intermediary Bank:</strong>
+                                    </td>
+                                    <td class="col-md-6 valign-middle">
+                                        {{model.intermediary_bank_name}}
+                                    </td>
+                                </tr>
+                            {{/if}}
+                            {{#if model.intermediary_bank_address}}
+                                <tr>
+                                    <td class="col-md-3 align-right valign-middle">
+                                        <strong>Intermediary Bank Address:</strong>
+                                    </td>
+                                    <td class="col-md-6 valign-middle">
+                                        {{model.intermediary_bank_address}}
+                                    </td>
+                                </tr>
+                            {{/if}}
+                            {{#if model.intermediary_aba_routing_number}}
+                                <tr>
+                                    <td class="col-md-3 align-right valign-middle">
+                                        <strong>Intermediary ABA / Routing Number:</strong>
+                                    </td>
+                                    <td class="col-md-6 valign-middle">
+                                        {{model.intermediary_aba_routing_number}}
+                                    </td>
+                                </tr>
+                            {{/if}}
+                            {{#if model.intermediary_swift}}
+                                <tr>
+                                    <td class="col-md-3 align-right valign-middle">
+                                        <strong>Intermediary SWIFT:</strong>
+                                    </td>
+                                    <td class="col-md-6 valign-middle">
+                                        {{model.intermediary_swift}}
+                                    </td>
+                                </tr>
+                            {{/if}}
+                            <tr>
+                                <td class="col-md-3 align-right valign-middle">
+                                    <strong>Account Holder:</strong>
+                                </td>
+                                <td class="col-md-6 valign-middle">
+                                    {{model.account_holder}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-3 align-right valign-middle">
+                                    <strong>Account Number:</strong>
+                                </td>
+                                <td class="col-md-6 valign-middle">
+                                    {{model.account_number}}
+                                </td>
+                            </tr>
+                            {{#if model.account_iban}}
+                                <tr>
+                                    <td class="col-md-3 align-right valign-middle">
+                                        <strong>IBAN:</strong>
+                                    </td>
+                                    <td class="col-md-6 valign-middle">
+                                        {{model.account_iban}}
+                                    </td>
+                                </tr>
+                            {{/if}}
+                            <tr>
+                                <td class="col-md-3 align-right valign-middle">
+                                    <strong>Notes to Beneficiary:</strong>
+                                </td>
+                                <td class="col-md-6 valign-middle">
+                                    XYZ{{company.account_number}} {{company.name}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-3 align-right valign-middle">
+                                    <strong>ACH Deposit:</strong>
+                                </td>
+                                <td class="col-md-6 valign-middle">
+                                    {{wire-instruction-method-icon model.method_ach}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-3 align-right valign-middle">
+                                    <strong>Wire Deposit:</strong>
+                                </td>
+                                <td class="col-md-6 valign-middle">
+                                    {{wire-instruction-method-icon model.method_wire}}
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>
+<div class="viewport viewport-bottom navbar-toolbar">
+    <div class="pane-actions">
+        <ul class="list-h">
+            <li>
+                <button {{action 'goBack'}} class="btn btn-default navbar-secondary-btn btn-sm" type="button">
+                    Back
+                </button>
+            </li>
+        </ul>
+        {{#unless isPreferred}}
+            <ul class="list-h pull-right">
+                <li>
+                    <button  {{action 'deleteWireInstruction' model.id}} class="btn btn-danger btn-sm navbar-secondary-btn"  type="submit">
+                        Delete
+                    </button>
+
+                </li>
+            </ul>
+        {{/unless}}
+    </div>
+</div>

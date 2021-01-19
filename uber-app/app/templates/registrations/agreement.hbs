@@ -1,0 +1,103 @@
+<legend>
+    {{#if currentStep.complete}}
+        <i class="fa fa-check-circle text-green"></i>
+    {{else}}
+        <i {{bind-attr class=currentStep.icon}}></i>
+    {{/if}}
+    {{currentStep.name}}
+    {{#unless currentStep.complete}}
+        <button {{action 'skipStep' 'agreement'}} class="btn btn-default btn-sm float-right">Skip Step</button>
+    {{else}}
+        <button {{action 'revokeStep' 'agreement'}} class="btn btn-default btn-sm float-right">Revoke Step</button>
+    {{/unless}}
+</legend>
+<div class="row">
+    <div class="col-xs-12">
+        {{#if registration.userAgreement}}
+            <table class="table table-high table-hover">
+                <thead>
+                <tr>
+                    <th>Agreed On</th>
+                    <th>Postal Code</th>
+                    <th>City</th>
+                    <th>IP</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{mongo-date registration.userAgreement.agreed_on}}</td>
+                    <td>{{registration.userAgreement.postal_code}}</td>
+                    <td>{{registration.userAgreement.city}}</td>
+                    <td>{{registration.userAgreement.ip}}</td>
+                </tr>
+                </tbody>
+            </table>
+        {{else}}
+            <h4>No Agreement Signed</h4>
+        {{/if}}
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <legend>
+            <small>Email Verification</small>
+            <button {{action 'sendEmail'}} class="btn btn-default btn-sm float-right">Send Email</button>
+        </legend>
+        {{#if model.emailVerifications}}
+            <table class="table table-high table-hover email-verifications">
+                <thead>
+                <tr>
+                    <th class="text-center">Status</th>
+                    <th>Created</th>
+                    <th>Email</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#each emailVerification in model.emailVerifications}}
+                    <tr>
+                        <td class="col-xs-1 small valign-middle text-center">
+                            {{#if emailVerification.complete}}
+                                <i class="fa fa-star text-green"></i>
+                            {{else}}
+                                <i class="fa fa-star-o text-grey"></i>
+                            {{/if}}
+                        </td>
+                        <td class="col-xs-2 small valign-middle">{{mongo-date emailVerification.created html=true}}</td>
+                        <td class="col-xs-9 small valign-middle">{{mail-to emailVerification.to}}</td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        {{else}}
+            <h4>No verification emails sent</h4>
+        {{/if}}
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <legend>
+            <small>SMS Verification</small>
+            <button {{action 'sendSMS'}} class="btn btn-default btn-sm float-right">Send SMS</button>
+        </legend>
+        {{#if model.smsVerifications}}
+            <table class="table table-high table-hover email-verifications">
+                <thead>
+                <tr>
+                    <th>Created</th>
+                    <th>Phone Number</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#each smsVerification in model.smsVerifications}}
+                    <tr>
+                        <td class="col-xs-2 small valign-middle">{{mongo-date smsVerification.created html=true}}</td>
+                        <td class="col-xs-10 small valign-middle">{{phone-link smsVerification.to}}</td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        {{else}}
+            <h4>No SMS verifications sent</h4>
+        {{/if}}
+    </div>
+</div>

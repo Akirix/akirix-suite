@@ -1,0 +1,20 @@
+{{#email-wrapper}}
+    {{> header title="Deposit Received"}}
+    {{#email-content}}
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="text-align:center;">
+            <tbody>
+
+            {{#row}}<span style="color: #777777;">Hello {{@root.first_name}},</span>{{/row}}
+            {{spacer}}
+            {{#row}}
+                <span style="color: #777777;">
+                    Your deposit request: <strong>{{@root.wire_name}}</strong> has been processed.
+                </span>
+            {{/row}}
+
+            {{sign-off}}
+            </tbody>
+        </table>
+    {{/email-content}}
+    {{> footer}}
+{{/email-wrapper}}

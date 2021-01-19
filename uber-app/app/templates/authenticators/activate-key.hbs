@@ -1,0 +1,35 @@
+{{#akx-form action='activateDevice' isLocked=isLocked}}
+    <div id="activate-key" class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+        <div class="pane-secondary-content">
+            <h2>{{authenticator.name}}</h2>
+
+            <h3>Enter the code generated from your Akirix Key<br>
+                <small>Plug the Akirix key into a USB port and press and hold the center metallic button until a code in
+                    generated into the field below.
+                </small>
+            </h3>
+            <div class="form-group col-md-12 has-feedback">
+                <label>&nbsp;</label>
+                {{input value=data.code class='form-control' placeholder='' autofocus=autofocus}}
+                {{validation-feedback errors=errors.data.code validated=validated}}
+            </div>
+        </div>
+    </div>
+    <div class="viewport viewport-bottom navbar-toolbar">
+        <div class="pane-actions">
+            <ul class="list-h">
+                <li>
+                    <button {{action 'goBack'}} class="btn btn-default btn-sm navbar-secondary-btn" type="button">
+                        Back
+                    </button>
+                </li>
+            </ul>
+            <ul class="list-h pull-right">
+                <li>
+                    <button class="btn btn-primary btn-sm navbar-secondary-btn" type="submit">Activate</button>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+{{/akx-form}}

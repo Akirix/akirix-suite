@@ -1,0 +1,107 @@
+<h2>{{stringList.title}}</h2>
+<div class="row">
+    <div class="col-lg-8 col-md-10 col-sm-12 m-auto">
+        {{#akx-form action='save' name="frm-company-settings" isLocked=isLocked}}
+            <div class="row align-items-end">
+                <div class="col-12 form-group bmd-form-group">
+                    <label class="bmd-label-static" for="notes">{{stringList.descriptionInfo}}</label>
+                    {{textarea value=changeset.notes id='notes' class='form-control'}}
+                </div>
+                {{!-- <div class="col-12 form-group bmd-form-group">
+                    {{update-logo content=changeset.logo}}
+                </div> --}}
+            </div>
+            <div class="row align-items-end">
+                <div class="col-6 form-group bmd-form-group">
+                    <label class="bmd-label-floating" for="phone">{{stringList.phone}}</label>
+                    {{input value=changeset.phone class='form-control' id='phone' type='text'}}
+                </div>
+                <div class="col-6 form-group bmd-form-group">
+                    <label class="bmd-label-floating" for="fax">{{stringList.fax}}</label>
+                    {{input value=changeset.fax class='form-control' id='fax' type='text'}}
+                </div>
+                <div class="col-6 form-group bmd-form-group">
+                    <label class="bmd-label-floating" for="website">{{stringList.website}}</label>
+                    {{input value=changeset.website class='form-control' id='website'type='text'}}
+                </div>
+                <div class="col-6 form-group bmd-form-group">
+                    <label class="bmd-label-floating" for="emailAddress">{{stringList.emailAddress}}</label>
+                    {{input value=changeset.email class='form-control' id='emailAddress' type='text'}}
+                </div>
+            </div>
+            <div class="row align-items-end">
+                <div class="col-6 form-group bmd-form-group">
+                    <label class="bmd-label-floating" for="address">{{stringList.address}}</label>
+                    {{input value=changeset.address type='text' id='address' class='form-control'}}
+                </div>
+                <div class="col-6 form-group bmd-form-group">
+                    <label class="bmd-label-floating" for="city">{{stringList.city}}</label>
+                    {{input value=changeset.city type='text' id='city' class='form-control'}}
+                </div>
+                <div id="grp-country" class="col-6 form-group bmd-form-group">
+                    <label for='select-country' class="bmd-label-static">{{stringList.country}}</label>
+                    {{#x-select
+                        value=changeset.country
+                        id='select-country'
+                        name='select-country'
+                        class='selectpicker w-100'
+                        data-style="select-with-transition"
+                        action=(action (mut changeset.country))
+                        as |xs|}}
+                        {{#xs.option}}Select an option below{{/xs.option}}
+                        {{#each model.countries as |country|}}
+                            {{#xs.option value=country.abbreviation}}{{country.name}}{{/xs.option}}
+                        {{/each}}
+                    {{/x-select}}
+                </div>
+                <div class="col-6 form-group bmd-form-group">
+                    <label class="bmd-label-floating" for="postalCode">{{stringList.postalCode}}</label>
+                    {{input value=changeset.postal_code  id='postalCode' type='text' class='form-control'}}
+                </div>
+                <div class="col-6 form-group bmd-form-group">
+                    {{#if companyIsUS}}
+                        <label class="bmd-label-static" for="stateProvince">{{stringList.stateProvince}}</label>
+                        {{#x-select
+                            value=changeset.state_province
+                            class='selectpicker w-100'
+                            data-style="select-with-transition"
+                            id='stateProvince'
+                            action=(action (mut changeset.state_province))
+                            as |xs|}}
+                            {{#xs.option}}Select an option below{{/xs.option}}
+                            {{#each model.states as |state|}}
+                                {{#xs.option value=state.abbreviation}}{{state.name}}{{/xs.option}}
+                            {{/each}}
+                        {{/x-select}}
+                    {{else}}
+                        <label class="bmd-label-floating" for="stateProvince">{{stringList.stateProvince}}</label>
+                        {{input value=changeset.state_province type='text' id='stateProvince' class='form-control'}}
+                    {{/if}}
+                </div>
+            </div>
+            {{#if success}}
+                <div class="row text-center mt-5">
+                    <div class="col-lg-4 col-md-8 col-sm-10 m-auto text-success">
+                        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                            <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                            <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                        </svg>
+                        <p class="font-h2">{{stringList.success}}</p>
+                        <p>{{stringList.successMessage}}</p>
+                    </div>
+                </div>
+            {{else}}
+                <div class="row mt-4">
+                    <div class="col-12 text-center">
+                        <button {{action 'cancel'}} class="akx-button" type="button">
+                            <span class="orange">{{stringList.cancel}}</span>
+                        </button>
+                        <button class="btn btn-primary ml-3" type="submit" id="company-settings-save">
+                            {{stringList.save}}
+                        </button>
+                    </div>
+                </div>
+            {{/if}}
+        {{/akx-form}}
+    </div>
+</div>

@@ -1,0 +1,23 @@
+<header class="akx-header mb-5">
+    <span>{{stringList.selectAccount}}</span>
+</header>
+<table name="account-select-table" class="table table-hover w-50 m-auto">
+    {{#akx-select
+        name="account-select-table"
+        value=changeset.account_id
+        next=(action 'nextStep' 1)
+        choices=accounts as |account|}}
+        <td>
+            <strong>{{{account.currencySymbol}}}</strong>
+        </td>
+        <td>
+            {{account.name}}
+        </td>
+        <td>
+            {{format-number account.balance style='currency' currency=account.currency_id}}
+        </td>
+    {{/akx-select}}
+</table>
+<div class="has-feedback text-center text-danger pt-3">
+    {{validation-feedback errors=changeset.error.account_id.validation}}<br>
+</div>

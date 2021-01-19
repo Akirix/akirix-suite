@@ -1,0 +1,16 @@
+<div>
+    <header class="akx-header">
+        <span>{{stringList.locked}}</span>
+    </header>
+</div>
+<div class="row">
+    <div class="col-lg-6 col-md-8 col-sm-12">
+        <p class="text-gray">
+            {{options.message}}
+        </p>
+        <div class="mt-4">
+            <button {{action 'close'}} type="submit" class="btn btn-primary">{{stringList.logOut}}</button>
+        </div>
+    </div>
+</div>
+

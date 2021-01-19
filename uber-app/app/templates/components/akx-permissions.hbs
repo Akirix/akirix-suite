@@ -1,0 +1,20 @@
+{{yield}}
+<div style="padding: .35em !important;">
+    <h4>Permissions Adjustments</h4>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th class="col-xs-10">Route Name</th>
+            <th class="col-xs-2">Enabled</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each permission in accessArray}}
+            <tr>
+                <td><strong>{{permission.name}}</strong></td>
+                <td>{{input type='checkbox' checked=permission.value }}</td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+</div>

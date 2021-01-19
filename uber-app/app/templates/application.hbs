@@ -1,0 +1,148 @@
+<div id="overpane" class="overpane animated med hide">
+    <div class="overpane-wrapper">
+        {{outlet 'overpane'}}
+    </div>
+</div>
+{{#if session.isAuthenticated}}
+    <div class="navbar navbar-default navbar-fixed-top navbar-primary" role="navigation">
+        <div class="container-fluid no-padding">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                        aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand">
+                    <img alt="Akirix Uber" src="/assets/img/nav_logo.png">
+                </a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                        {{#link-to 'dashboard.wire-summary'}}
+                            <i class="fa fa-dashboard fa-fw"></i> Dashboard
+                            {{#if dashboardCount}}<span class="badge badge-top-menu">{{dashboardCount}}</span>{{/if}}
+                        {{/link-to}}
+                    </li>
+
+                    <li>
+                        {{#link-to 'mine.tickets'}}
+                            <i class="fa fa-user fa-fw"></i> My Dashboard
+                            {{#if myDashbordCount}}
+                                <span class="badge badge-top-menu">{{myDashbordCount}}</span>
+                            {{/if}}
+                        {{/link-to}}
+                    </li>
+
+                    <li>
+                        {{#link-to 'companies.index'}}
+                            <i class="fa fa-building fa-fw"></i> Companies
+                        {{/link-to}}
+                    </li>
+
+                    <li>
+                        {{#link-to 'projects.index' (query-params type=1 deterministic=1)}}
+                            <i class="fa fa-sitemap fa-fw"></i> Projects
+                            {{#if itemCounts.projects.smart}}
+                                <span class="badge badge-top-menu">{{itemCounts.projects.smart}}</span>
+                            {{/if}}
+                        {{/link-to}}
+                    </li>
+
+                    <li>
+                        {{#link-to 'registrations.index' (query-params status="1" institution="0")}}
+                            <i class="fa fa-child fa-fw"></i> Registration
+                            {{#if itemCounts.registrations.completed}}
+                                <span class="badge badge-top-menu">{{itemCounts.registrations.completed}}</span>
+                            {{/if}}
+                        {{/link-to}}
+                    </li>
+
+                    <li>
+                        {{#link-to 'wires'}}
+                            <i class="fa fa-refresh fa-fw"></i> Money Transfers
+                        {{/link-to}}
+                    </li>
+                    <li>
+                        {{#link-to 'fx-requests.index'}}
+                            <i class="fa fa-exchange fa-fw"></i> Foreign Exchange
+                        {{/link-to}}
+                    </li>
+
+                    <li>
+                        {{#link-to 'uber-tasks.index' (query-params status=null type="0" due_date=true)}}
+                            <i class="fa fa-tasks fa-fw"></i> Tasks/Notes
+                            {{#if itemCounts.uberTasks.due}}
+                                <span class="badge badge-top-menu">{{itemCounts.uberTasks.due}}</span>
+                            {{/if}}
+                        {{/link-to}}
+                    </li>
+                    <li>
+                        {{#link-to 'tickets.index' (query-params status="0")}}
+                            <i class="fa fa-comments fa-fw"></i> Support Tickets
+                            {{#if itemCounts.tickets.unAssigned}}
+                                <span class="badge badge-top-menu">{{itemCounts.tickets.unAssigned}}</span>
+                            {{/if}}
+                        {{/link-to}}
+                    </li>
+                    <li>
+                        {{#link-to 'analytics'}}
+                            <i class="fa fa-bar-chart fa-fw"></i>
+                        {{/link-to}}
+                    </li>
+                    <li>
+                        {{#link-to 'affiliates.index'}}
+                            <i class="fa fa-diamond fa-fw"></i>
+                            {{#if itemCounts.commissionPayments.new}}
+                                <span class="badge badge-top-menu">{{itemCounts.commissionPayments.new}}</span>
+                            {{/if}}
+                        {{/link-to}}
+                    </li>
+                    <li>
+                        {{#link-to 'uber-pwned'}}
+                            <i class="fa fa-key fa-fw"></i>
+                        {{/link-to}}
+                    </li>
+                    <li>
+                        {{#link-to 'announcements'}}
+                            <i class="fa fa-cogs fa-fw"></i>
+                        {{/link-to}}
+                    </li>
+                    <li>
+                        {{#link-to 'uber-users.view'}}
+                            <i class="fa fa-user fa-fw"></i>
+                        {{/link-to}}
+                    </li>
+
+                    <li>
+                        <a {{action 'invalidateSession'}}>
+                            <i class="fa fa-power-off fa-fw"></i>
+                        </a>
+                    </li>
+                    <li>
+                        {{view 'uber-search'
+                               class="navbar-form"
+                               searchValue=searchValue
+                        }}
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+    {{#if show-modal}}
+        {{outlet 'modal'}}
+    {{/if}}
+
+    {{global-pane-tray globalPaneArray=globalPaneArray}}
+{{/if}}
+
+{{outlet}}
+
+{{ember-notify messageStyle='bootstrap'}}
+
+{{#if show-modal}}
+    <div class="modal-backdrop fade in"></div>
+{{/if}}

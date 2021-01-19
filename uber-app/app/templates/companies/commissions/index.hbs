@@ -1,0 +1,44 @@
+<table class="table table-hover table-high">
+    <thead>
+    <tr>
+        <th class="col-xs-2">Company</th>
+        <th class="col-xs-2">Amount</th>
+        <th class="col-xs-2">Currency</th>
+        <th class="col-xs-2">Status</th>
+        <th class="col-xs-4"></th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {{#each item in model}}
+            <td class="valign-middle col-xs-2">
+                {{item.company.name}}
+            </td>
+            <td class="valign-middle col-xs-2">
+                {{item.amount}}
+            </td>
+            <td  class="valign-middle col-xs-2">
+                {{item.payout_date}}   {{item.affiliate_id}}
+            </td>
+            <td class="valign-middle col-xs-2">
+                {{item.status}}
+            </td>
+            <td class="valign-middle col-xs-4">
+
+            </td>
+        {
+
+    {{/each}}
+    </tbody>
+</table>
+<div class="viewport">
+    <div class="pane-actions">
+        <ul class="list-h pull-right">
+            <li>
+                <button class="btn btn-primary btn-sm" type="submit">
+                    Add
+                </button>
+            </li>
+        </ul>
+    </div>
+</div>

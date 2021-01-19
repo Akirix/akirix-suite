@@ -1,0 +1,27 @@
+{{#if pendingItems}}
+    <table id="tbl-pending-items" class="table table-hover">
+        <tbody>
+        {{#each pendingItems as |item key|}}
+            {{#if item.value}}
+                {{#link-to item.link 
+                    id=(concat "pending-item-row-" key) 
+                    tagName='tr'
+                    class=item.name
+                }}
+                    <td id="pending-item-col-icon-{{key}}" class="text-center">{{{item.icon}}}</td>
+                    <td id="pending-item-col-name-{{key}}"><b class="text-capitalize">{{item.name}}</b></td>
+                    <td id="pending-item-col-value-{{key}}"><p class="">{{item.value}}</p></td>
+                {{/link-to}}
+            {{/if}}
+        {{/each}}
+        </tbody>
+    </table>
+{{else}}
+    <div class="no-notifications">
+        <i class="akx-icon akx-recent-transfer"></i>
+        <div class="text-center">
+            <h3>{{stringList.welcomeAkirix}}</h3>
+            <p class="text-gray">{{stringList.noNotifications}}</p>
+        </div>
+    </div>
+{{/if}}

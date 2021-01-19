@@ -1,0 +1,34 @@
+<div class="pane-primary-content">
+    {{partial 'nav-uber-settings'}}
+
+    <table class="table table-hover table-high">
+        <thead>
+        <tr>
+            <th class="col-xs-3">Name</th>
+            <th class="col-xs-2">Model</th>
+            <th class="col-xs-4">Subject</th>
+            <th class="col-xs-3">From E-mail Address</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each uber-email-template in uber-email-templates}}
+            {{#link-to 'uber-email-templates.index.view' uber-email-template.id tagName='tr' class='list-link'}}
+                <td class="valign-middle">
+                    {{uber-email-template.name}}
+                </td>
+                <td class="valign-middle">
+                    {{uber-email-template.model}}
+                </td>
+                <td class="valign-middle">
+                    {{uber-email-template.subject}}
+                </td>
+                <td class="valign-middle">
+                    {{uber-email-template.email}}
+                </td>
+            {{/link-to}}
+        {{/each}}
+        </tbody>
+    </table>
+</div>
+
+

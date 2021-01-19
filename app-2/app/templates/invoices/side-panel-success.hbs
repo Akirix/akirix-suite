@@ -1,0 +1,19 @@
+<div class="side-panel-content">
+    <div class="col-12">
+        {{invoice-view model=model}}
+        {{#if model.documents}}    
+            <h3>{{stringList.documentsHeader}}</h3>
+            {{upload-document hide=true documents=model.documents}}
+        {{/if}}
+    </div>
+    <div class="row text-center mt-5">
+        <div class="col-10 m-auto text-success">
+            <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+            </svg>
+            <p class="font-h2">{{stringList.success}}</p>
+            <p>{{message}}</p>
+        </div>
+    </div>
+</div>

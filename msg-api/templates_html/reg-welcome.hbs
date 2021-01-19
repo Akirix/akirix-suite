@@ -1,0 +1,25 @@
+{{#email-wrapper}}
+    {{> header title="Welcome to Akirix"}}
+    {{#email-content}}
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="text-align:center;">
+            <tbody>
+
+            {{#row}}<strong style="letter-spacing: 1px;">Thank you for registering with Akirix.</strong>{{/row}}
+            {{spacer}}
+
+            {{#row}}
+                <span style="color: #777777;">If you have any questions feel free to contact us. If you didn't sign up for an account please contact us immediately.</span>
+            {{/row}}
+            {{spacer size=40}}
+
+            {{#row}}
+                <span>{{#link href="mailto:support@acme.com"}}Email Support{{/link}}</span><br>
+                <span>{{#link href="tel:+18013054300"}}+1 801 305 4300{{/link}}</span>
+            {{/row}}
+
+            {{sign-off}}
+            </tbody>
+        </table>
+    {{/email-content}}
+    {{> footer}}
+{{/email-wrapper}}

@@ -1,0 +1,337 @@
+{{#akx-form action='addTemplate' isLocked=isLocked}}
+    <div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+        <div class="pane-secondary-content">
+            <fieldset>
+                <div>
+                    <div class="row">
+                        <legend>
+                            <span>Template Info</span>
+                        </legend>
+                        <div class="form-group col-md-12">
+                            <label>Nickname</label>
+                            {{input value=wireTemplate.name type='text' class='form-control' placeholder='Nickname'}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <legend>
+                            <span>Bank</span>
+                        </legend>
+                        <div class="form-group col-md-6 required has-feedback">
+                            <label>Bank Name</label>
+                            {{input value=wireTemplate.bank_name type='text' class='form-control'
+                                    placeholder='Bank Name'}}
+                            {{validation-feedback errors=errors.wireTemplate.bank_name validated=validated}}
+                        </div>
+
+                        <div class="form-group col-md-6 required has-feedback">
+                            <label>Bank Country</label>
+                            {{view 'select'
+                                   value=wireTemplate.bank_country
+                                   content=controllers.application.countries
+                                   optionValuePath='content.abbreviation'
+                                   optionLabelPath='content.name'
+                                   prompt='Select a country'
+                                   class='form-control'}}
+                            {{validation-feedback errors=errors.wireTemplate.bank_country validated=validated}}
+                        </div>
+
+                        <div class="col-xs-12"></div>
+
+                        <div class="form-group col-md-6 has-feedback required">
+                            <label>Bank Address</label>
+                            {{input value=wireTemplate.bank_address type='text' class='form-control'
+                                    placeholder='Address'}}
+                            {{validation-feedback errors=errors.wireTemplate.bank_address validated=validated}}
+                        </div>
+
+                        <div class="form-group col-md-6 has-feedback required">
+                            <label>Bank City</label>
+                            {{input value=wireTemplate.bank_city type='text' class='form-control' placeholder='City'}}
+                            {{validation-feedback errors=errors.wireTemplate.bank_city validated=validated}}
+                        </div>
+
+                        <div class="form-group col-md-6 has-feedback required">
+                            <label>Bank State / Province</label>
+                            {{#if isUS}}
+                                {{view 'select'
+                                       value=wireTemplate.bank_state_province
+                                       content=controllers.application.states
+                                       optionValuePath='content.abbreviation'
+                                       optionLabelPath='content.name'
+                                       prompt='Select a state'
+                                       class='form-control'}}
+                            {{else}}
+                                {{input value=wireTemplate.bank_state_province type='text' class='form-control'
+                                        placeholder='State / Province'}}
+                            {{/if}}
+                            {{validation-feedback errors=errors.wireTemplate.bank_state_province validated=validated}}
+                        </div>
+
+                        <div class="form-group col-md-6 has-feedback required">
+                            <label>Bank Postal Code</label>
+                            {{input value=wireTemplate.bank_postal_code type='text' class='form-control'
+                                    placeholder='Postal Code'}}
+                            {{validation-feedback errors=errors.wireTemplate.bank_postal_code validated=validated}}
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label>Bank Phone</label>
+                            {{input value=wireTemplate.bank_phone type='text' class='form-control' placeholder='Phone'}}
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-6 has-feedback">
+                        <label>SWIFT</label>
+                        {{input value=wireTemplate.code_swift type='text' class='form-control'
+                                placeholder='SWIFT Code'}}
+                        {{validation-feedback errors=errors.wireTemplate.code_swift validated=validated}}
+                    </div>
+
+                    {{#if isUS}}
+                        <div class="form-group col-md-6 has-feedback">
+                            <label>ABA / Routing</label>
+                            {{input value=wireTemplate.code_aba type='text' class='form-control'
+                                    placeholder='ABA / Routing Number'}}
+                            {{validation-feedback errors=errors.wireTemplate.code_aba validated=validated}}
+                        </div>
+                    {{else}}
+                        <div class="form-group col-md-6 has-feedback">
+                            <label class="control-label">International Routing Code</label>
+                            {{input value=wireTemplate.code_irc type='text' class='form-control'
+                                    placeholder='International Routing Code'}}
+                            {{validation-feedback errors=errors.wireTemplate.code_irc validated=validated}}
+                        </div>
+                    {{/if}}
+                </div>
+                <div class="top-buffer">
+                    <legend>
+                        {{input type='checkbox' checked=useIntBank}}
+                        Intermediary Bank
+                    </legend>
+                    {{#if useIntBank}}
+                        <div class="form-group col-md-6 required has-feedback">
+                            <label>Bank Name</label>
+                            {{input value=wireTemplate.intermediary_bank_name type='text' class='form-control'
+                                    placeholder='Bank Name'}}
+                            {{validation-feedback errors=errors.wireTemplate.intermediary_bank_name
+                                                  validated=validated}}
+                        </div>
+
+                        <div class="form-group col-md-6 required has-feedback">
+                            <label>Bank Country</label>
+                            {{view 'select'
+                                   value=wireTemplate.intermediary_bank_country
+                                   content=controllers.application.countries
+                                   optionValuePath='content.abbreviation'
+                                   optionLabelPath='content.name'
+                                   prompt='Select a country'
+                                   class='form-control'}}
+                            {{validation-feedback errors=errors.wireTemplate.intermediary_bank_country
+                                                  validated=validated}}
+                        </div>
+                        <div class="form-group col-md-6 has-feedback">
+                            <label>Bank Address</label>
+                            {{input value=wireTemplate.intermediary_bank_address type='text' class='form-control'
+                                    placeholder='Bank Address'}}
+                            {{validation-feedback errors=errors.wireTemplate.intermediary_bank_address
+                                                  validated=validated}}
+                        </div>
+
+                        <div class="form-group col-md-6 has-feedback">
+                            <label>Bank City</label>
+                            {{input value=wireTemplate.intermediary_bank_city type='text' class='form-control'
+                                    placeholder='Bank City'}}
+                            {{validation-feedback errors=errors.wireTemplate.intermediary_bank_city
+                                                  validated=validated}}
+                        </div>
+                        <div class="form-group col-md-6 has-feedback">
+                            <label>Bank State / Province</label>
+                            {{#if isIntermediaryUS}}
+                                {{view 'select'
+                                       value=wireTemplate.intermediary_bank_state_province
+                                       content=controllers.application.states
+                                       optionValuePath='content.abbreviation'
+                                       optionLabelPath='content.name'
+                                       prompt='Select a state'
+                                       class='form-control'}}
+                            {{else}}
+                                {{input value=wireTemplate.intermediary_bank_state_province type='text'
+                                        class='form-control' placeholder='State / Province'}}
+                            {{/if}}
+                            {{validation-feedback errors=errors.wireTemplate.intermediary_bank_state_province
+                                                  validated=validated}}
+                        </div>
+                        <div class="form-group col-md-6 has-feedback">
+                            <label>Bank Postal Code</label>
+                            {{input value=wireTemplate.intermediary_bank_postal_code type='text' class='form-control'
+                                    placeholder='Bank Postal Code'}}
+                            {{validation-feedback errors=errors.wireTemplate.intermediary_bank_postal_code
+                                                  validated=validated}}
+                        </div>
+                        <div class="form-group col-md-6 required has-feedback">
+                            <label>Bank Code SWIFT</label>
+                            {{input value=wireTemplate.intermediary_bank_code_swift type='text' class='form-control'
+                                    placeholder='Bank Code SWIFT'}}
+                            {{validation-feedback errors=errors.wireTemplate.intermediary_bank_code_swift
+                                                  validated=validated}}
+                        </div>
+                        <div class="form-group col-md-6 required has-feedback">
+                            <label>Bank Code ABA</label>
+                            {{input value=wireTemplate.intermediary_bank_code_aba type='text' class='form-control'
+                                    placeholder='Bank ABA'}}
+                            {{validation-feedback errors=errors.wireTemplate.intermediary_bank_code_aba
+                                                  validated=validated}}
+                        </div>
+                    {{/if}}
+                </div>
+                <div class="row top-buffer">
+                    <legend>Beneficiary Info</legend>
+                    <div class="row">
+                        <div class="form-group col-md-6 required has-feedback">
+                            <label>Beneficiary Type</label>
+                            {{view 'select'
+                                   value=wireTemplate.beneficiary_type
+                                   content=beneficiaryType
+                                   optionValuePath='content.val'
+                                   optionLabelPath='content.label'
+                                   prompt='Select A beneficiary type'
+                                   class='form-control'}}
+                            {{validation-feedback errors=errors.wireTemplate.beneficiary_type validated=validated}}
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-6 required has-feedback">
+                        <label>Account Holder</label>
+                        {{input value=wireTemplate.account_holder type='text' class='form-control'
+                                placeholder='Account Holder'}}
+                        {{validation-feedback errors=errors.wireTemplate.account_holder validated=validated}}
+                    </div>
+
+
+
+                    {{#if isIndividual}}
+                        <div class="form-group col-md-6 has-feedback required">
+                            <label>Date of Birth</label>
+                            {{date-picker value=wireTemplate.account_holder_dob class='form-control'
+                                          placeholder='Date of Birth'
+                                          valueFormat='YYYY-MM-DD' allowBlank=true}}
+                            {{validation-feedback errors=errors.wireTemplate.account_holder_dob validated=validated}}
+                        </div>
+                        <div class="form-group col-md-6 has-feedback required">
+                            <label>Nationality</label>
+                            {{view 'select'
+                                   value=wireTemplate.account_holder_nationality
+                                   content=controllers.application.countries
+                                   optionValuePath='content.abbreviation'
+                                   optionLabelPath='content.name'
+                                   prompt='Select a country'
+                                   class='form-control'}}
+
+                            {{validation-feedback errors=errors.wireTemplate.account_holder_nationality validated=validated}}
+                        </div>
+                    {{/if}}
+
+                    <div class="form-group col-md-6 required has-feedback">
+                        <label>Country</label>
+                        {{view 'select'
+                               value=wireTemplate.account_holder_country
+                               content=controllers.application.countries
+                               optionValuePath='content.abbreviation'
+                               optionLabelPath='content.name'
+                               prompt='Select a country'
+                               class='form-control'}}
+                        {{validation-feedback errors=errors.wireTemplate.account_holder_country validated=validated}}
+                    </div>
+
+                    <div class="form-group col-md-6 required has-feedback">
+                        <label>Address</label>
+                        {{input value=wireTemplate.account_holder_address type='text' class='form-control'
+                                placeholder='Address'}}
+                        {{validation-feedback errors=errors.wireTemplate.account_holder_address validated=validated}}
+                    </div>
+
+                    <div class="form-group col-md-6 required has-feedback">
+                        <label>City</label>
+                        {{input value=wireTemplate.account_holder_city type='text' class='form-control'
+                                placeholder='City'}}
+                        {{validation-feedback errors=errors.wireTemplate.account_holder_city validated=validated}}
+                    </div>
+
+                    <div class="form-group col-md-6 has-feedback">
+                        <label>State Province</label>
+                        {{#if isAccountHolderUS}}
+                            {{view 'select'
+                                   value=wireTemplate.account_holder_state_province
+                                   content=controllers.application.states
+                                   optionValuePath='content.abbreviation'
+                                   optionLabelPath='content.name'
+                                   prompt='Select a state'
+                                   class='form-control'}}
+                        {{else}}
+                            {{input value=wireTemplate.account_holder_state_province type='text'
+                                    class='form-control' placeholder='State / Province'}}
+                        {{/if}}
+                        {{validation-feedback errors=errors.wireTemplate.account_holder_state_province
+                                              validated=validated}}
+                    </div>
+
+                    <div class="form-group col-md-6 has-feedback">
+                        <label>Postal Code</label>
+                        {{input value=wireTemplate.account_holder_postal_code type='text' class='form-control'
+                                placeholder='Postal Code'}}
+                        {{validation-feedback errors=errors.wireTemplate.account_holder_postal_code
+                                              validated=validated}}
+                    </div>
+
+
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-md-6 required has-feedback">
+                        <label>Account Number</label>
+                        {{input value=wireTemplate.account_number type='text' class='form-control'
+                                placeholder='Account Number'}}
+                        {{validation-feedback errors=errors.wireTemplate.account_number validated=validated}}
+                    </div>
+
+                    {{#if wireTemplate.code_swift}}
+                        <div class="form-group col-md-6 required has-feedback">
+                            <label>IBAN</label>
+                            {{input value=wireTemplate.account_iban type='text' class='form-control'
+                                    placeholder='IBAN'}}
+                            {{validation-feedback errors=errors.wireTemplate.account_iban validated=validated}}
+                        </div>
+                    {{/if}}
+                </div>
+                <div class="form-group col-md-12 has-feedback required">
+                    <label>Purpose</label>
+                    {{input value=wireTemplate.purpose class='form-control' rows='3'}}
+                    {{validation-feedback errors=errors.wireTemplate.purpose validated=validated}}
+                </div>
+
+                <div class="row top-buffer">
+                    <div class="form-group col-md-12">
+                        <label>Notes &amp; References To Send With Wire</label>
+                        {{textarea value=wireTemplate.notes class='form-control' rows='3'}}
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <div class="viewport viewport-bottom navbar-toolbar">
+        <div class="pane-actions">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav">
+                    {{#link-to 'companies.view.wire-templates' tag='li'}}
+                        <button class="btn btn-default btn-sm navbar-secondary-btn" type="button">Cancel</button>
+                    {{/link-to}}
+                </ul>
+                <ul class="nav navbar-nav pull-right">
+                    <li>
+                        <button class="btn btn-primary btn-sm navbar-secondary-btn" type="submit">Save</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{{/akx-form}}

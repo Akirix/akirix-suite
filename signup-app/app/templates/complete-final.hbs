@@ -1,0 +1,68 @@
+<style>
+    legend.no-margin {
+        margin: 0;
+    }
+
+    legend + h3 {
+        margin-top: 0;
+    }
+
+    .next-options li {
+        padding-bottom: 15px;
+        font-size: 16px;
+    }
+
+    .security-app a, .social-media a {
+        font-size: 28px;
+        padding-right: 5px;
+    }
+</style>
+<div class="row">
+    <div class="center_column col-sm-12">
+        <div class="row form-group">
+            <div class="col-xs-12">
+                <h3 class="negative-margin">
+                    Your Registration Has Been Submitted
+                </h3>
+                <div class="row border-bottom bottom-buffer"></div>
+            </div>
+            <div class="col-xs-12">
+                <p class="text-muted">
+                    Your registration is currently being reviewed by our representatives. Upon it's approval, you
+                    will receive an email at <strong>{{registration.user.email}}</strong>
+                </p>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-xs-12">
+                <h3 class="negative-margin">What&#39;s next?</h3>
+                <div class="row border-bottom bottom-buffer"></div>
+            </div>
+            <div class="col-xs-12 col-sm-4">
+                <h4 class="animated flipInY">1.&nbsp;Document Review</h4>
+                <h4 class="animated duration-15 flipInY">
+                    <small class="font-16">{{controllers.application.company.name}} will review the documents you provided and make sure everything is in order.</small>
+                </h4>
+            </div>
+            <div class="col-xs-12 col-sm-4">
+                <h4 class="animated flipInY delay-05">2.&nbsp;Expect Our Call</h4>
+                <h4 class="animated duration-15 flipInY delay-05">
+                    <small class="font-16">
+                        One of our representatives will be in touch with you shortly to go over your
+                        application and to
+                        verify some additional details.
+                    </small>
+                </h4>
+            </div>
+            <div class="col-xs-12 col-sm-4">
+                <h4 class="animated flipInY delay-075">3.&nbsp;Application Approval</h4>
+                <h4 class="animated duration-15 flipInY delay-075">
+                    <small class="font-16">
+                        Once we have confirmed your details, a notification will be sent by email that the account is
+                        open, at that point you can log in and enjoy the multiple benefits of {{controllers.application.company.name}}.
+                    </small>
+                </h4>
+            </div>
+        </div>
+    </div>
+</div>

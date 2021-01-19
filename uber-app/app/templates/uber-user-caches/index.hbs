@@ -1,0 +1,17 @@
+<h4>Company History</h4>
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <td class="col-xs-4">Time</td>
+        <td class="col-xs-8">Name</td>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each item in model.history_company}}
+        <tr>
+            <td>{{akx-date item.time}}</td>
+            <td>{{cache-item-name model='company' model_id =item.id}}</td>
+        </tr>
+    {{/each}}
+    </tbody>
+</table>

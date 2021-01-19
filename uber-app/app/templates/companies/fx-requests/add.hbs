@@ -1,0 +1,125 @@
+<div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+    <div class="pane-secondary-content">
+        <div class="row">
+            <div class="col-md-6">
+                <legend>
+                    <span>From</span>
+                </legend>
+            </div>
+            <div class="col-md-6">
+                <legend>
+                    <span>To</span>
+                </legend>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6 required has-feedback">
+                {{view 'select'
+                       value=data.from_account_id
+                       content=accounts
+                       optionValuePath='content.id'
+                       optionLabelPath='content.str_long_name'
+                       prompt='Select from account'
+                       class='form-control'
+                       selection=fromAccount}}
+                {{validation-feedback errors=errors.data.from_account_id validated=validated}}
+            </div>
+            {{#if data.from_account_id}}
+                <div class="form-group col-md-6 required has-feedback">
+                    {{view 'select'
+                           value=data.counter_currency_id
+                           content=targetCurrencies
+                           optionValuePath='content.id'
+                           optionLabelPath='content.id'
+                           prompt='Select a currency'
+                           class='form-control'}}
+                    {{validation-feedback errors=errors.data.counter_currency_id validated=validated}}
+                </div>
+            {{/if}}
+        </div>
+
+        {{#if data.counter_currency_id}}
+            <div class="row">
+                <div class="form-group col-md-6 required has-feedback">
+                    {{formatted-number realValue=data.base_amount type='text' class='form-control' placeholder='0.00'}}
+                    {{validation-feedback errors=errors.data.base_amount validated=validated}}
+                </div>
+                <div class="form-group col-md-6 required has-feedback">
+                    {{formatted-number value=data.counter_amount type='text' class='form-control' placeholder='0.00'
+                                       disabled=true}}
+                    {{validation-feedback errors=errors.data.counter_amount validated=validated}}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-6 required has-feedback">
+
+                </div>
+                <div class="form-group col-md-6 required has-feedback">
+                    {{view 'select'
+                           value=data.to_account_id
+                           content=targetAccounts
+                           optionValuePath='content.id'
+                           optionLabelPath='content.str_long_name'
+                           prompt='Select to account'
+                           class='form-control'
+                           selection=toAccount}}
+                    {{validation-feedback errors=errors.data.to_account_id validated=validated}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6 required has-feedback">
+                    <label>Base Rate</label>
+                    {{input value=data.base_rate type='text' class="form-control" placeholder='0.00'}}
+                    {{validation-feedback errors=errors.data.base_rate validated=validated}}
+                </div>
+                <div class="form-group col-md-6 required has-feedback">
+                    <label>Customer Rate</label>
+                    {{input value=data.customer_rate type='text' class="form-control" placeholder='0.00'}}
+                    {{validation-feedback errors=errors.data.customer_rate validated=validated}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label>Fee Percentage</label>
+                    {{input value=data.fee_percentage type='text' class="form-control" disabled=true}}
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Fee Amount</label>
+                    {{input value=data.fee_amount type='text' class="form-control" disabled=true}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label>Total Counter Amount</label>
+                    {{input value=data.total_counter_amount type='text' class="form-control" disabled=true}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 form-group">
+                    <label>Notes</label>
+                    {{textarea value=data.notes class="form-control" rows='3'}}
+                </div>
+            </div>
+        {{/if}}
+    </div>
+</div>
+<div class="viewport viewport-bottom navbar-toolbar">
+    <div class="pane-actions">
+        <ul class="list-h">
+            <li>
+                <button {{action 'goBack'}} class="btn btn-default navbar-secondary-btn btn-sm" type="button">
+                    Cancel
+                </button>
+            </li>
+        </ul>
+        <ul class="list-h pull-right">
+            <li>
+                <button {{action 'addRequest'}} class="btn btn-primary navbar-secondary-btn btn-sm" type="button">
+                    Submit
+                </button>
+            </li>
+        </ul>
+    </div>
+</div>
+

@@ -1,0 +1,27 @@
+<div class="side-panel-content">
+    <header class="akx-header">
+        <span class="text-danger">{{model.charge.title}}</span>
+    </header>
+    <h5 class="text-center">
+        {{#if model.charge.isOneTime}}
+            {{stringList.oneTime}}
+        {{else}}
+            {{stringList.recurring}} {{model.charge.str_frequency_type}} {{stringList.charge}}
+        {{/if}}
+    </h5>
+    {{#if model.charge.notes}}
+        <hr class="border-bottom">
+        <p>{{model.charge.notes}}</p>
+        <hr class="border-bottom">
+    {{/if}}
+    <div class="row">
+        <div class="col-6">
+            <h3 class="text-danger">{{stringList.amount}}</h3>
+        </div>
+        <div class="col-6 text-right">
+            <h3 class="text-danger">
+                {{format-number model.transaction.amount style='currency' currency=model.transaction.currency_id}}
+            </h3>
+        </div>
+    </div>
+</div>

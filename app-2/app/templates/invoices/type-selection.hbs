@@ -1,0 +1,28 @@
+<header class="akx-header">
+    <span>{{stringList.typeTitle}}</span>
+</header>
+<div class="row mt-5 text-center type-selection">
+    {{#type-select
+        name="book-transfer-select"
+        value=changeset.type
+        next=(action 'nextStep' 0)
+        classNames="offset-lg-2 col-lg-4 col-md-6 col-sm-12 pt-3"
+        type=1}}
+        <i class="akx-icon akx-book-transfer font-h1"></i>
+        <h4>{{stringList.onPlatform}}</h4>
+    {{/type-select}}
+    {{#type-select
+        name="external-bank-select"
+        value=changeset.type
+        next=(action 'nextStep' 0)
+        classNames="col-lg-4 col-md-6 col-sm-12 pt-3"
+        type=2}}
+        <i class="akx-icon akx-external-bank font-h1"></i>
+        <h4>{{stringList.offPlatform}}</h4>
+    {{/type-select}}
+</div>
+<div class="row">
+    <div class="col-12 text-center text-danger">
+        {{validation-feedback errors=changeset.error.type.validation}}
+    </div>
+</div>

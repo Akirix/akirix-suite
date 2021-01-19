@@ -1,0 +1,127 @@
+<header id="section-header" class="akx-header mb-5">
+    <span>{{stringList.benTitle}}</span>
+</header>
+{{#akx-form name="frm-beneficiary" action='' class='col-lg-10 m-auto'}}
+    <div class="row align-items-end">
+        <div id="grp-beneficiary-type" class="col-6 has-feedback form-group bmd-form-group">
+            <label for="select-beneficiary-type" class="bmd-label-static">{{stringList.beneficiaryLabel}}</label>
+            {{#x-select
+                id="select-beneficiary-type"
+                name="select-beneficiary-type"
+                value=changeset.beneficiary_type
+                class='selectpicker w-100'
+                data-style="select-with-transition"
+                action=(action (mut changeset.beneficiary_type))
+                as |xs|}}
+                {{#xs.option value=1}}{{stringList.business}}{{/xs.option}}
+                {{#xs.option value=0}}{{stringList.individual}}{{/xs.option}}
+            {{/x-select}}
+            {{validation-feedback errors=changeset.error.beneficiary_type.validation}}
+        </div>
+        {{#if isPersonal}}
+          {{date-picker
+            value=changeset.account_holder_dob
+            elementId="grp-beneficiary-dob"
+            class="col-6"
+            dobLabel=stringList.dobLabel
+            errors=changeset.error.account_holder_dob.validation
+            for="input-beneficiary-dob"}}
+            <div id="grp-beneficiary-nationality" class="col-6 has-feedback form-group bmd-form-group">
+                <label for="select-beneficiary-nationality" class="bmd-label-static">{{stringList.accountHolderNationalityLabel}}</label>
+                {{#x-select
+                    value=changeset.account_holder_nationality
+                    id='select-beneficiary-nationality'
+                    name='select-beneficiary-nationality'
+                    class='selectpicker w-100'
+                    data-style="select-with-transition"
+                    action=(action (mut changeset.account_holder_nationality))
+                    as |xs|}}
+                    {{#xs.option}}Select an option below{{/xs.option}}
+                    {{#each model.countries as |country|}}
+                        {{#xs.option value=country.abbreviation}}{{country.name}}{{/xs.option}}
+                    {{/each}}
+                {{/x-select}}
+                {{validation-feedback errors=changeset.error.account_holder_nationality.validation}}
+            </div>
+        {{/if}}
+        <div id="grp-beneficiary-account-holder" class="col-6 has-feedback form-group bmd-form-group">
+            <label for="input-beneficiary-account-holder" class="bmd-label-floating">{{stringList.accountHolderLabel}}</label>
+            {{input value=changeset.account_holder name='input-beneficiary-account-holder' type='text' class='form-control'}}
+            {{validation-feedback
+
+                errors=changeset.error.account_holder.validation}}
+        </div>
+        <div id="grp-beneficiary-country" class="col-6 has-feedback form-group bmd-form-group">
+            <label for="select-beneficiary-country" class="bmd-label-static">{{stringList.countryLabel}}</label>
+            {{#x-select
+                value=changeset.account_holder_country
+                id='select-beneficiary-country'
+                name='select-beneficiary-country'
+                class='selectpicker w-100'
+                data-style="select-with-transition"
+                action=(action (mut changeset.account_holder_country))
+                as |xs|}}
+                {{#xs.option}}Select an option below{{/xs.option}}
+                {{#each model.countries as |country|}}
+                    {{#xs.option value=country.abbreviation}}{{country.name}}{{/xs.option}}
+                {{/each}}
+            {{/x-select}}
+            {{validation-feedback errors=changeset.error.account_holder_country.validation}}
+        </div>
+        <div id="grp-beneficiary-address" class="col-6 has-feedback form-group bmd-form-group">
+            <label for="input-beneficiary-address" class="bmd-label-floating">{{stringList.addressLabel}}</label>
+            {{input value=changeset.account_holder_address  name='input-beneficiary-address' type='text' class='form-control'}}
+            {{validation-feedback errors=changeset.error.account_holder_address.validation}}
+        </div>
+        <div id="grp-beneficiary-city" class="col-6 has-feedback form-group bmd-form-group">
+            <label for="input-beneficiary-city" class="bmd-label-floating">{{stringList.cityLabel}}</label>
+            {{input value=changeset.account_holder_city  name='input-beneficiary-city' type='text' class='form-control'}}
+            {{validation-feedback errors=changeset.error.account_holder_city.validation}}
+        </div>
+        <div id="grp-beneficiary-province" class="col-6 has-feedback form-group bmd-form-group">
+            {{#if accountHolderIsUS}}
+                <label for="select-beneficiary-province" class="bmd-label-static">{{stringList.stateProvinceLabel}}</label>
+                {{#x-select
+                    value=changeset.account_holder_state_province
+                    id='select-beneficiary-province'
+                    name='select-beneficiary-province'
+                    class='selectpicker w-100'
+                    data-style="select-with-transition"
+                    action=(action (mut changeset.account_holder_state_province))
+                    as |xs|}}
+                    {{#xs.option}}Select an option below{{/xs.option}}
+                    {{#each model.states as |state|}}
+                        {{#xs.option value=state.abbreviation}}{{state.name}}{{/xs.option}}
+                    {{/each}}
+                {{/x-select}}
+                {{validation-feedback errors=changeset.error.account_holder_state_province.validation}}
+            {{else}}
+                <label for="input-beneficiary-province" class="bmd-label-floating">{{stringList.stateProvinceLabel}}</label>
+                {{input value=changeset.account_holder_state_province name='input-beneficiary-province' type='text' class='form-control'}}
+                {{validation-feedback errors=changeset.error.account_holder_state_province.validation}}
+            {{/if}}
+        </div>
+        <div id="grp-beneficiary-postal-code" class="col-6 has-feedback form-group bmd-form-group">
+            <label for="input-beneficiary-postal-code" class="bmd-label-floating">{{stringList.postalCodeLabel}}</label>
+            {{input value=changeset.account_holder_postal_code  name='input-beneficiary-postal-code' type='text' class='form-control'}}
+            {{validation-feedback errors=changeset.error.account_holder_postal_code.validation}}
+        </div>
+        <div id="grp-beneficiary-purpose" class="col-6 has-feedback form-group bmd-form-group">
+            <label for="input-beneficiary-purpose" class="bmd-label-floating">{{stringList.purposeLabel}}</label>
+            {{input class="form-control" value=changeset.purpose name='input-beneficiary-purpose' type="text"}}
+            {{validation-feedback errors=changeset.error.purpose.validation}}
+        </div>
+        <div id="grp-beneficiary-account-number" class="col-6 has-feedback form-group bmd-form-group">
+            <label for="input-beneficiary-account-number" class="bmd-label-floating">{{stringList.accountNumberLabel}}</label>
+            {{input value=changeset.account_number type='text' name='input-beneficiary-account-number'  class='form-control'}}
+            {{validation-feedback errors=changeset.error.account_number.validation}}
+        </div>
+        {{#if changeset.code_swift}}
+            <div id="grp-beneficiary-iban" class="col-6 has-feedback form-group bmd-form-group">
+                <label for="input-beneficiary-iban" class="bmd-label-floating">{{stringList.ibanLabel}}</label>
+                {{input value=changeset.account_iban name='input-beneficiary-iban'  type='text' class='form-control'}}
+                {{validation-feedback errors=changeset.error.account_iban.validation}}
+            </div>
+        {{/if}}
+    </div>
+{{/akx-form}}

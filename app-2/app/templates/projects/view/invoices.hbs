@@ -1,0 +1,91 @@
+<div class="side-panel-content">
+    <header class="akx-header">
+        <span>
+            {{if isMine stringList.invoices stringList.bills}}
+        </span>
+    </header>
+    <table class="table table-hover mt-5">
+        <thead class="thead-light">
+            <tr>
+                <th>{{stringList.company}}</th>
+                <th class="text-center">{{stringList.name}}</th>
+                <th class="text-right">{{stringList.amount}}</th>
+                <th class="text-center">{{stringList.status}}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {{#if draftInvoices}}
+            {{#each draftInvoices as |invoice|}}
+                {{#link-to 'authenticated.projects.view.invoices.edit' invoice.id
+                    tagName='tr'}}
+                    <td>
+                        {{if invoice.toCompany invoice.toCompany.name invoice.to_company_name}}
+                    </td>
+                    <td class="text-center">
+                        <strong>{{invoice.getName}}</strong>
+                    </td>
+                    <td class={{if isMine "text-success text-right" "text-danger text-right"}}>
+                        <strong>
+                            {{format-number invoice.total style='currency' currency=invoice.currency_id}}
+                        </strong>
+                    </td>
+                    <td class="text-center">{{{invoice.statusIcon}}}</td>
+                {{/link-to}}
+            {{/each}}
+        {{/if}}
+        {{#if pendingInvoices}}
+            {{#each pendingInvoices as |invoice|}}
+                {{#link-to 'authenticated.projects.view.invoices.view-invoice' invoice.id
+                    tagName='tr'}}
+                    <td>
+                        {{if invoice.toCompany invoice.toCompany.name invoice.to_company_name}}
+                    </td>
+                    <td class="text-center">
+                        <strong>{{invoice.getName}}</strong>
+                    </td>
+                    <td class={{if isMine "text-success text-right" "text-danger text-right"}}>
+                        <strong>
+                            {{format-number invoice.total style='currency' currency=invoice.currency_id}}
+                        </strong>
+                    </td>
+                    <td class="text-center">{{{invoice.statusIcon}}}</td>
+                {{/link-to}}
+            {{/each}}
+        {{/if}}
+        {{#if partialInvoices}}
+            {{#each partialInvoices as |invoice|}}
+                {{#link-to 'authenticated.projects.view.invoices.view-invoice' invoice.id
+                    tagName='tr'}}
+                    <td>
+                        {{if invoice.toCompany invoice.toCompany.name invoice.to_company_name}}
+                    </td>
+                    <td class="text-center">
+                        <strong>{{invoice.getName}}</strong>
+                    </td>
+                    <td class={{if isMine "text-success text-right" "text-danger text-right"}}>
+                        <strong>{{format-number invoice.total style='currency' currency=invoice.currency_id}}</strong>
+                    </td>
+                    <td class="text-center">{{{invoice.statusIcon}}}</td>
+                {{/link-to}}
+            {{/each}}
+        {{/if}}
+        {{#if paidInvoices}}
+            {{#each paidInvoices as |invoice|}}
+                {{#link-to 'authenticated.projects.view.invoices.view-invoice' invoice.id
+                    tagName='tr'}}
+                    <td>
+                        {{if invoice.toCompany invoice.toCompany.name invoice.to_company_name}}
+                    </td>
+                    <td class="text-center">
+                        <strong>{{invoice.getName}}</strong>
+                    </td>
+                    <td class={{if isMine "text-success text-right" "text-danger text-right"}}>
+                        <strong>{{format-number invoice.total style='currency' currency=invoice.currency_id}}</strong>
+                    </td>
+                    <td class="text-center">{{{invoice.statusIcon}}}</td>
+                {{/link-to}}
+            {{/each}}
+        {{/if}}
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,94 @@
+<div class="navbar-secondary" role="navigation">
+    <ul class="list-h">
+        <!--<li><a>XYZ{{company.account_number}} {{company.name}}</a></li>-->
+        {{#link-to 'companies.view' company.id tagName="li" href=false}}
+            <a {{bind-attr href="view.href"}}>
+                <i class="fa fa-building fa-fw"></i> XYZ{{company.account_number}} {{company.name}} {{company-status-icon company.status}}
+                {{#if companyRelationship.institution}}
+                    <span style="position:absolute; left: 107px; bottom: -15px;" class="x-small">XYZ{{companyRelationship.institution.account_number}} {{companyRelationship.institution.name}}</span>
+                {{/if}}
+            </a>
+        {{/link-to}}
+        {{outlet 'companyNavbar'}}
+    </ul>
+</div>
+<div class="pane-primary-content">
+    <div id="sticky-toolbar">
+        <ul>
+            {{#link-to 'companies.view.index' company.id tagName="li" class="text-white"}}
+                <i class="fa fa-suitcase fa-fw"></i><br/>
+                Company
+            {{/link-to}}
+            {{#link-to 'companies.view.users' company.id tagName="li" class="text-white"}}
+                <i class="fa fa-group fa-fw"></i><br/>
+                Users
+            {{/link-to}}
+            {{#link-to 'companies.view.accounts' tagName="li" class="text-white"}}
+                <i class="fa fa-money fa-fw"></i><br/>
+                Accounts
+            {{/link-to}}
+            {{#link-to 'companies.view.wires' tagName="li" class="text-white"}}
+                <i class="fa fa-refresh fa-fw"></i><br/>
+                Money Transfer
+            {{/link-to}}
+            {{#link-to 'companies.view.wire-templates' tagName="li" class="text-white"}}
+                <i class="fa fa-tasks fa-fw"></i><br/>
+                Wire Templates
+            {{/link-to}}
+            {{#link-to 'companies.view.fx-requests' tagName="li" class="text-white"}}
+                <i class="fa fa-exchange fa-fw"></i><br/>
+                Foreign Exchange
+            {{/link-to}}
+            {{#link-to 'companies.view.charges' tagName="li" class="text-white"}}
+                <i class="fa fa-shopping-basket fa-fw"></i><br/>
+                Fees
+            {{/link-to}}
+            {{#link-to 'companies.view.invoices' tagName="li" class="text-white"}}
+                <i class="fa fa-file-text-o fa-fw"></i><br/>
+                Invoices
+            {{/link-to}}
+
+            {{#link-to 'companies.view.tasks' tagName="li" class="text-white"}}
+                <i class="fa fa-tasks fa-fw"></i><br/>
+                Tasks/Notes
+            {{/link-to}}
+            {{#link-to 'companies.view.documents' tagName="li" class="text-white"}}
+                <i class="fa fa-files-o fa-fw"></i><br/>
+                Files
+            {{/link-to}}
+            {{#link-to 'companies.view.due-diligence' tagName="li" class="text-white"}}
+                <i class="fa fa-clipboard fa-fw"></i><br/>
+                D.D.
+            {{/link-to}}
+            {{#link-to 'companies.view.tickets' tagName="li" class="text-white"}}
+                <i class="fa fa-comments-o fa-fw"></i><br/>
+                Tickets
+            {{/link-to}}
+            {{#link-to 'companies.view.commissions.overview' tagName="li" class="text-white"}}
+                <i class="fa fa-diamond fa-fw"></i><br/>
+                Commissions
+            {{/link-to}}
+            {{#if companySetting.registration_id}}
+                {{#link-to 'registrations.view.info' companySetting.registration_id tagName="li" class="text-white"}}
+                    <i class="fa fa-child fa-fw"></i><br/>
+                    Registration
+                {{/link-to}}
+            {{/if}}
+            {{#link-to 'companies.view.info-requests' tagName='li' class="text-white"}}
+                <i class="fa fa-list-ul"></i><br/>
+                Info Requests
+            {{/link-to}}
+            {{#link-to 'companies.view.company-relationships' tagName='li' class="text-white"}}
+                <i class="fa fa-list-ul"></i><br/>
+                Clients
+            {{/link-to}}
+            {{#link-to 'companies.view.uber-sar-reports' tagName='li' class="text-white"}}
+                <i class="fa fa-question-circle"></i><br/>
+                SAR Reports
+            {{/link-to}}
+
+
+        </ul>
+    </div>
+    {{outlet 'companyPrimary'}}
+</div>

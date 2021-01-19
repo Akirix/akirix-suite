@@ -1,0 +1,16 @@
+<div class="side-panel-content">
+    <header class="akx-header">
+        <span>{{stringList.header}}</span>
+    </header>
+    <div class="mt-5">
+        {{upload-document name="upload-document" hide=true documents=model}}
+    </div>
+</div>
+{{#if noStatements}}
+    <div class="no-statements">
+        <div class="help-text">
+            <h2>{{stringList.helpTitle}}</h2>
+            <p class="font-16">{{stringList.helpText}}</p>
+        </div>
+    </div>
+{{/if}}

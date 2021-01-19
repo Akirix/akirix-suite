@@ -1,0 +1,21 @@
+<div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+    <div class="pane-secondary-content">
+        <div class="panel panel-default">
+            <div class="panel-heading text-center">
+                <strong>Upcoming Payouts</strong>
+            </div>
+            <div class="panel-body large">
+                {{#each item in commissionData}}
+                    <div class="row">
+                        <div class="col-xs-6 align-right">
+                            {{{item.currency_id}}}
+                        </div>
+                        <div class="col-xs-6">
+                            {{item.amount}}
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>

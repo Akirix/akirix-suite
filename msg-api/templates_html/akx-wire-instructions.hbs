@@ -1,0 +1,414 @@
+{{#email-wrapper}}
+    {{> header title="Deposit Instructions from {{@root.from_name}}"}}
+    {{#email-content}}
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="text-align:center;">
+            <tbody>
+
+            {{#if @root.name}}
+                {{#row}}<span style="color: #777777;">Dear {{@root.name}},</span>{{/row}}
+                {{spacer}}
+            {{/if}}
+
+            {{#row}}
+                <span style="font-size:24px;line-height:24px;font-weight:bold;letter-spacing:1px;">
+                    {{@root.from_name}}
+                </span>
+                <br>
+                <span style="font-size:14px;line-height:20px;color:#999999;">
+                    {{@root.from_company}}
+                </span>
+            {{/row}}
+            {{spacer}}
+
+            {{#row}}
+                <span style="color:#777777">has shared wire deposit instructions via email.</span>
+            {{/row}}
+            {{spacer size=10}}
+
+
+            </tbody>
+        </table>
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="text-align:center;">
+            <tr>
+                <td><h2>Preferred Account Instructions</h2></td>
+            </tr>
+            {{#each @root.preferred_wire_instructions}}
+                <tr>
+                    <td align="center">
+                        {{spacer}}
+                        {{hr-row}}
+                        {{spacer}}
+                        <table cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="padding: 20px 0;">
+                                    <table cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td width="100" align="center">
+                                                <table cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td align="left" style="padding: 0 10px;">
+                                                            <span style="font-size: 90px;">{{{this.currency.symbol}}}</span>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                            <td width="400" align="center">
+                                                <table cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td style="padding: 0 10px;">
+
+                                                            <table cellpadding="0" cellspacing="0">
+                                                                <tr>
+                                                                    <td width="150">
+                                                                        <strong>Bank Name:</strong>
+                                                                    </td>
+                                                                    <td width="250">
+                                                                        {{this.bank_name}}
+                                                                    </td>
+                                                                </tr>
+                                                                {{#if this.bank_address}}
+                                                                    <tr>
+                                                                        <td>
+                                                                            <strong>Bank Address:</strong>
+                                                                        </td>
+                                                                        <td>
+                                                                            {{this.bank_address}}
+                                                                        </td>
+                                                                    </tr>
+                                                                {{/if}}
+                                                                {{#if this.aba_routing_number}}
+                                                                    <tr>
+                                                                        <td>
+                                                                            <strong>ABA / Routing Number:</strong>
+                                                                        </td>
+                                                                        <td>
+                                                                            {{this.aba_routing_number}}
+                                                                        </td>
+                                                                    </tr>
+                                                                {{/if}}
+                                                                {{#if this.swift_code}}
+                                                                    <tr>
+                                                                        <td>
+                                                                            <strong>SWIFT Code:</strong>
+                                                                        </td>
+                                                                        <td>
+                                                                            {{this.swift_code}}
+                                                                        </td>
+                                                                    </tr>
+                                                                {{/if}}
+                                                                {{#if this.sort_code}}
+                                                                    <tr>
+                                                                        <td>
+                                                                            <strong>Sort Code:</strong>
+                                                                        </td>
+                                                                        <td>
+                                                                            {{this.sort_code}}
+                                                                        </td>
+                                                                    </tr>
+                                                                {{/if}}
+                                                                {{#if this.intermediary_bank_name}}
+                                                                    <tr>
+                                                                        <td>
+                                                                            <strong>Intermediary Bank:</strong>
+                                                                        </td>
+                                                                        <td>
+                                                                            {{this.intermediary_bank_name}}
+                                                                        </td>
+                                                                    </tr>
+                                                                {{/if}}
+                                                                {{#if this.intermediary_bank_address}}
+                                                                    <tr>
+                                                                        <td>
+                                                                            <strong>Intermediary Bank Address:</strong>
+                                                                        </td>
+                                                                        <td>
+                                                                            {{this.intermediary_bank_address}}
+                                                                        </td>
+                                                                    </tr>
+                                                                {{/if}}
+                                                                {{#if this.intermediary_aba_routing_number}}
+                                                                    <tr>
+                                                                        <td>
+                                                                            <strong>Intermediary ABA / Routing Number:</strong>
+                                                                        </td>
+                                                                        <td>
+                                                                            {{this.intermediary_aba_routing_number}}
+                                                                        </td>
+                                                                    </tr>
+                                                                {{/if}}
+                                                                {{#if this.intermediary_swift}}
+                                                                    <tr>
+                                                                        <td>
+                                                                            <strong>Intermediary SWIFT:</strong>
+                                                                        </td>
+                                                                        <td>
+                                                                            {{this.intermediary_swift}}
+                                                                        </td>
+                                                                    </tr>
+                                                                {{/if}}
+                                                                <tr>
+                                                                    <td>
+                                                                        <strong>Account Holder:</strong>
+                                                                    </td>
+                                                                    <td>
+                                                                        {{this.account_holder}}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <strong>Account Number:</strong>
+                                                                    </td>
+                                                                    <td>
+                                                                        {{this.account_number}}
+                                                                    </td>
+                                                                </tr>
+                                                                {{#if this.account_iban}}
+                                                                    <tr>
+                                                                        <td>
+                                                                            <strong>IBAN:</strong>
+                                                                        </td>
+                                                                        <td>
+                                                                            {{this.account_iban}}
+                                                                        </td>
+                                                                    </tr>
+                                                                {{/if}}
+                                                                <tr>
+                                                                    <td>
+                                                                        <strong>Notes to Beneficiary:</strong>
+                                                                    </td>
+                                                                    <td>
+                                                                        XYZ{{@root.account_number}} {{@root.from_company}}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <strong>ACH Deposit:</strong>
+                                                                    </td>
+                                                                    <td>
+                                                                        {{this.method_ach}}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <strong>Wire Deposit:</strong>
+                                                                    </td>
+                                                                    <td>
+                                                                        {{this.method_wire}}
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            {{/each}}
+            <tr>
+                <td><h2>Standard Instructions</h2></td>
+            </tr>
+            {{#each @root.standard_wire_instructions}}
+                <tr>
+                    <td align="center">
+                        {{spacer}}
+                        {{hr-row}}
+                        {{spacer}}
+                        <table cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="padding: 20px 0;">
+                                    <table cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td width="100" align="center">
+                                                <table cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td align="left" style="padding: 0 10px;">
+                                                            <span style="font-size: 90px;">{{{this.currency.symbol}}}</span>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                            <td width="400" align="center">
+                                                <table cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td style="padding: 0 10px;">
+
+                                                            <table cellpadding="0" cellspacing="0">
+                                                                <tr>
+                                                                    <td width="150">
+                                                                        <strong>Bank Name:</strong>
+                                                                    </td>
+                                                                    <td width="250">
+                                                                        {{this.bank_name}}
+                                                                    </td>
+                                                                </tr>
+                                                                {{#if this.bank_address}}
+                                                                    <tr>
+                                                                        <td>
+                                                                            <strong>Bank Address:</strong>
+                                                                        </td>
+                                                                        <td>
+                                                                            {{this.bank_address}}
+                                                                        </td>
+                                                                    </tr>
+                                                                {{/if}}
+                                                                {{#if this.aba_routing_number}}
+                                                                    <tr>
+                                                                        <td>
+                                                                            <strong>ABA / Routing Number:</strong>
+                                                                        </td>
+                                                                        <td>
+                                                                            {{this.aba_routing_number}}
+                                                                        </td>
+                                                                    </tr>
+                                                                {{/if}}
+                                                                {{#if this.swift_code}}
+                                                                    <tr>
+                                                                        <td>
+                                                                            <strong>SWIFT Code:</strong>
+                                                                        </td>
+                                                                        <td>
+                                                                            {{this.swift_code}}
+                                                                        </td>
+                                                                    </tr>
+                                                                {{/if}}
+                                                                {{#if this.intermediary_bank_name}}
+                                                                    <tr>
+                                                                        <td>
+                                                                            <strong>Intermediary Bank:</strong>
+                                                                        </td>
+                                                                        <td>
+                                                                            {{this.intermediary_bank_name}}
+                                                                        </td>
+                                                                    </tr>
+                                                                {{/if}}
+                                                                {{#if this.intermediary_bank_address}}
+                                                                    <tr>
+                                                                        <td>
+                                                                            <strong>Intermediary Bank Address:</strong>
+                                                                        </td>
+                                                                        <td>
+                                                                            {{this.intermediary_bank_address}}
+                                                                        </td>
+                                                                    </tr>
+                                                                {{/if}}
+                                                                {{#if this.intermediary_aba_routing_number}}
+                                                                    <tr>
+                                                                        <td>
+                                                                            <strong>Intermediary ABA / Routing Number:</strong>
+                                                                        </td>
+                                                                        <td>
+                                                                            {{this.intermediary_aba_routing_number}}
+                                                                        </td>
+                                                                    </tr>
+                                                                {{/if}}
+                                                                {{#if this.intermediary_swift}}
+                                                                    <tr>
+                                                                        <td>
+                                                                            <strong>Intermediary SWIFT:</strong>
+                                                                        </td>
+                                                                        <td>
+                                                                            {{this.intermediary_swift}}
+                                                                        </td>
+                                                                    </tr>
+                                                                {{/if}}
+                                                                <tr>
+                                                                    <td>
+                                                                        <strong>Account Holder:</strong>
+                                                                    </td>
+                                                                    <td>
+                                                                        {{this.account_holder}}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <strong>Account Number:</strong>
+                                                                    </td>
+                                                                    <td>
+                                                                        {{this.account_number}}
+                                                                    </td>
+                                                                </tr>
+                                                                {{#if this.account_iban}}
+                                                                    <tr>
+                                                                        <td>
+                                                                            <strong>IBAN:</strong>
+                                                                        </td>
+                                                                        <td>
+                                                                            {{this.account_iban}}
+                                                                        </td>
+                                                                    </tr>
+                                                                {{/if}}
+                                                                <tr>
+                                                                    <td>
+                                                                        <strong>Notes to Beneficiary:</strong>
+                                                                    </td>
+                                                                    <td>
+                                                                        XYZ{{@root.account_number}} {{@root.from_company}}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <strong>ACH Deposit:</strong>
+                                                                    </td>
+                                                                    <td>
+                                                                        {{this.method_ach}}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <strong>Wire Deposit:</strong>
+                                                                    </td>
+                                                                    <td>
+                                                                        {{this.method_wire}}
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            {{/each}}
+        </table>
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="text-align:center;">
+            <tbody>
+            <tr>
+                <td>
+                    {{spacer}}
+                    {{hr-row}}
+                    {{spacer}}
+
+                    {{#row}}
+                        <span style="color: #777777;">Enjoy the world of faster, secure payments.</span>
+                    {{/row}}
+                    {{spacer size=10}}
+
+                    {{#row}}
+                        <span style="color: #777777;">Registration is quick and simple.</span>
+                    {{/row}}
+                    {{spacer size=40}}
+
+                    {{#row}}
+                        {{#button-link href="https://www.xxx.com/products"}}LEARN MORE{{/button-link}}
+                    {{/row}}
+                    {{sign-off}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    {{/email-content}}
+    {{> footer}}
+{{/email-wrapper}}

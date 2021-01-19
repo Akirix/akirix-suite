@@ -1,0 +1,163 @@
+<legend>Pending Batches</legend>
+{{#if pendingBatches}}
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th class="col-xs-2">Date</th>
+            <th class="col-xs-2">Bank Route</th>
+            <th class="col-xs-2">Total Amount</th>
+            <th class="col-xs-2">Currencies Amount</th>
+            <th class="col-xs-2">Total Wires</th>
+            <th class="col-xs-2">Status</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {{#each batch in pendingBatches}}
+            {{#link-to 'dashboard.wire-summary.view-batch' batch.id tagName='tr' class='list-link'}}
+                <td class="valign-middle">
+                    <strong>{{batch.str_scheduled_date}}</strong><br/>
+                    {{batch.str_scheduled_time}}
+                </td>
+                <td class="valign-middle">
+                    {{batch.bankRoute.name}}
+                </td>
+                <td class="valign-middle">
+                    <b>{{batch.batch_total}}</b>
+                </td>
+                <td class="valign-middle small">
+                    {{#each curr in batch.batchCurrencies}}
+                        {{curr.currency_id}}: {{curr.str_amount}}<br/>
+                    {{/each}}
+                </td>
+                <td class="valign-middle">
+                    <b>{{batch.wires.length}}</b>
+                </td>
+                <td class="valign-middle">
+                    {{wirebatch-status-icon batch.status}}
+                </td>
+            {{/link-to}}
+        {{/each}}
+        </tbody>
+    </table>
+{{else}}
+    <div class="align-center valign-middle text-gray-light" style="padding: 100px; background-color: #f2f4f5; ">
+        No New Pending Batches
+    </div>
+{{/if}}
+
+<div style="height: 50px;"></div>
+
+<legend>Today's Incoming Wires <strong>{{incomingTotal}}</strong></legend>
+{{#if incomingWires}}
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th class="col-xs-1"></th>
+            <th class="col-xs-1">Date</th>
+            <th class="col-xs-2">Name</th>
+            <th class="col-xs-2">Company</th>
+            <th class="col-xs-3">Bank</th>
+            <th class="col-xs-2">Amount</th>
+            <th class="col-xs-1">Status</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {{#each wire in incomingWires}}
+            {{#link-to 'dashboard.wire-summary.view' wire.id tagName='tr' class='list-link'}}
+                <td class="small valign-middle align-center">{{checkbox-icon}}</td>
+                <td class="small valign-middle">
+                    <strong>{{wire.str_updated_at_date}}</strong><br/>
+                    {{wire.str_updated_at_time}}
+                </td>
+                <td class="valign-middle">
+                    {{wire-type-icon wire.type}} W-{{wire.name}}<br/>
+                    {{wire-method-icon wire.method wire.speedwire}}<br/>
+                    <span class="small text-gray"><i class="fa fa-level-up fa-fw"></i> {{wire.bankRoute.name}}</span>
+                </td>
+                <td class="valign-middle">
+                    {{wire.company.name}}<br/>
+                    XYZ{{wire.company.account_number}}
+                </td>
+                <td>
+                    <span class="medium">{{wire.account_holder}}</span><br/>
+                    <span class="small"><i class="fa fa-university fa-fw"></i> {{wire.bank_name}}
+                        ({{wire.account_number}})</span>
+                </td>
+                <td class="large valign-middle">
+                    {{{wire.str_sign_color}}} {{{wire.currency.symbol}}}{{wire.str_amount}}
+                </td>
+                <td class="medium valign-middle">
+                    {{wire-status-icon wire.status}}
+                </td>
+            {{/link-to}}
+        {{/each}}
+        </tbody>
+    </table>
+{{else}}
+    <div class="align-center valign-middle text-gray-light" style="padding: 100px; background-color: #f2f4f5; ">
+        No New Outgoing Wires
+    </div>
+{{/if}}
+
+<div style="height: 50px;"></div>
+
+<legend>Pending Wires</legend>
+{{#if pendingWires}}
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th class="col-xs-1">Date</th>
+            <th class="col-xs-2">Name</th>
+            <th class="col-xs-2">Company</th>
+            <th>Bank</th>
+            <th class="col-xs-2">Amount</th>
+            <th class="col-xs-1">Status</th>
+            <th class="col-xs-1"></th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {{#each wire in pendingWires}}
+            {{#link-to 'dashboard.wire-summary.view' wire.id tagName='tr' class='list-link'}}
+                <td class="small valign-middle">
+                    <strong>{{wire.str_updated_at_date}}</strong><br/>
+                    {{wire.str_updated_at_time}}
+                </td>
+                <td class="valign-middle">
+                    {{wire-type-icon wire.type}} W-{{wire.name}}<br/>
+                    {{#if wire.wire_batch_id}}<i class="fa fa-suitcase fa-fw"></i> {{/if}}
+                    {{wire-method-icon wire.method wire.speedwire}}<br/>
+                    <span class="small text-gray"><i class="fa fa-level-up fa-fw"></i> {{wire.bankRoute.name}}</span>
+                </td>
+                <td class="valign-middle">
+                    {{wire.company.name}}<br/>
+                    XYZ{{wire.company.account_number}}
+                </td>
+                <td>
+                    <span class="medium">{{wire-beneficiary-icon wire.beneficiary_type}}{{wire.account_holder}}</span><br/>
+                    <span class="small"><i class="fa fa-university fa-fw"></i> {{wire.bank_name}}
+                        ({{wire.account_number}})</span>
+                </td>
+                <td class="large valign-middle">
+                    {{{wire.str_sign_color}}} {{{wire.currency.symbol}}}{{wire.str_amount}}
+                </td>
+                <td class="medium valign-middle">
+                    {{wire-status-icon wire.status}}
+                </td>
+
+                <td class="valign-middle">
+
+                </td>
+
+            {{/link-to}}
+        {{/each}}
+        </tbody>
+    </table>
+{{else}}
+    <div class="align-center valign-middle text-gray-light" style="padding: 100px; background-color: #f2f4f5; ">
+        No New Outgoing Wires
+    </div>
+{{/if}}
+

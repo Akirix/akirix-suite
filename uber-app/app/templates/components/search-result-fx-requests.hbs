@@ -1,0 +1,97 @@
+<div class="col-xs-12">
+    <legend>
+        {{itemName}}
+    </legend>
+    {{#if items}}
+        <div class="pagination-centered">
+            <ul class="pagination">
+                {{#if canStepBackward}}
+                    <li class="arrow prev enabled-arrow">
+                        <a {{action "incrementPage" -1}}>&laquo;</a>
+                    </li>
+                {{else}}
+                    <li class="arrow prev disabled">
+                        <a {{action "incrementPage" -1}}>&laquo;</a>
+                    </li>
+                {{/if}}
+
+                {{#each item in pageItems}}
+                    {{#if item.current}}
+                        <li class="active page-number">
+                            <a>{{item.page}}</a>
+                        </li>
+                    {{else}}
+                        <li class="page-number">
+                            <a {{action "pageClicked" item.page}}>{{item.page}}</a>
+                        </li>
+                    {{/if}}
+                {{/each}}
+
+                {{#if canStepForward}}
+                    <li class="arrow next enabled-arrow">
+                        <a {{action "incrementPage" 1}}>&raquo;</a>
+                    </li>
+                {{else}}
+                    <li class="arrow next disabled">
+                        <a {{action "incrementPage" 1}}>&raquo;</a>
+                    </li>
+                {{/if}}
+            </ul>
+        </div>
+    {{/if}}
+    <div>
+        <table class="table table-hover table-high">
+            {{#if items}}
+                <thead>
+                <tr>
+                    <th class="col-md-1">Date</th>
+                    <th class="col-md-2">Name</th>
+                    <th class="col-md-2">Company</th>
+                    <th class="col-md-2">Base Currency</th>
+                    <th class="col-md-2">Counter Currency</th>
+                    <th class="col-md-2">Rates</th>
+                    <th class="col-md-1 align-center">Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#each item in items}}
+                    {{#link-to 'fx-requests.index.view' item.id tagName='tr' class='list-link'}}
+                        <td class="small valign-middle">
+                            <strong>{{item.str_updated_at_date}}</strong><br/>
+                            {{item.str_updated_at_time}}
+                        </td>
+                        <td class="valign-middle">
+                            FX-{{item.name}}<br/>
+                            <span class="small">{{item.str_type}}</span>
+                        </td>
+                        <td class="valign-middle">
+                            {{item.company.name}}<br/>
+                            <span class="small">XYZ{{item.company.account_number}}</span>
+                        </td>
+                        <td class="valign-middle large">
+                            {{{item.baseCurrency.symbol}}}{{item.str_base_amount}}
+                        </td>
+                        <td class="valign-middle large">
+                            {{{item.counterCurrency.symbol}}}{{item.str_counter_amount}}
+                        </td>
+                        <td class="valign-middle">
+                            <span class="medium">Customer Rate: {{item.str_customer_rate}}</span><br/>
+                            <span class="small">Base Rate: {{item.str_base_rate}}</span>
+                        </td>
+                        <td class="col-md-1 valign-middle align-center">
+                            {{fx-status-icon item.status}}
+                        </td>
+                    {{/link-to}}
+                {{/each}}
+                </tbody>
+            {{else}}
+                <tbody>
+                <tr class="borderless">
+                    <td class="text-center text-muted"><h5>No Results</h5></td>
+                </tr>
+                </tbody>
+            {{/if}}
+        </table>
+    </div>
+</div>
+

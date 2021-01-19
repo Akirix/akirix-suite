@@ -1,0 +1,146 @@
+<div class='go-back w-50' name="view-instructions-go-back" {{action 'goBack'}}>
+    <h2><i class="akx-icon akx-back"></i> {{stringList.header}} </h2>
+</div>
+<header id="section-header" class="akx-header">
+    <span>{{model.name}} {{stringList.subTitle}}</span>
+</header>
+<div class="row mt-5">
+    <div class="col-lg-8 col-md-12">
+        <h3>{{stringList.onlineDeposits}}</h3>
+        <h4>{{stringList.onlineListHeader}}</h4>
+        <ol>
+            <li>{{stringList.orderedList1}}</li>
+            <li>{{stringList.orderedList2}}</li>
+            <li>{{stringList.orderedList3}}</li>
+            <li>{{stringList.orderedList4}}</li>
+            <li>{{stringList.orderedList5}}</li>
+        </ol>
+        <div>
+            <p>
+                <strong class="font-h4">
+                    {{stringList.noteHead}}:
+                </strong>
+                {{stringList.note}}
+            </p>
+        </div>
+        <h3>{{stringList.inBank}}</h3>
+        <h4>{{stringList.inBankListHeader}}</h4>
+        <ul>
+            <li>{{stringList.unorderedList1}}</li>
+            <li>{{stringList.unorderedList2}}</li>
+            <li>{{stringList.unorderedList3}}</li>
+            <li>{{stringList.unorderedList4}}</li>
+            <li>{{stringList.unorderedList5}}</li>
+        </ul>
+        <div>
+            <p>
+                <strong class="font-h4">
+                    {{stringList.noteHead}}:
+                </strong>
+                {{stringList.note}}
+            </p>
+        </div>
+    </div><div class="col-lg-4 col-md-10 col-sm-12 m-auto">
+        {{#if filteredInstructions}}
+            {{#each filteredInstructions as |instruction|}}
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th colspan="2" class="text-center">
+                                {{{model.currencySymbol}}}
+                                {{stringList.panelHeader1}}
+                                {{model.account.currency_id}}
+                                {{stringList.panelHeader2}}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{stringList.bankName}}</td>
+                            <td>{{instruction.bank_name}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{stringList.accountName}}</td>
+                            <td>{{instruction.account_holder}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{stringList.accountNumber}}</td>
+                            <td>{{instruction.account_number}}</td>
+                        </tr>
+                        {{#if instruction.aba_routing_number}}
+                            <tr>
+                                <td>{{stringList.routingNumber}}</td>
+                                <td>{{instruction.aba_routing_number}}</td>
+                            </tr>
+                        {{/if}}
+                        {{#if instruction.swift_code}}
+                            <tr>
+                                <td>{{stringList.swift}}</td>
+                                <td>{{instruction.swift_code}}</td>
+                            </tr>
+                        {{/if}}
+                        {{#if instruction.sort_code}}
+                            <tr>
+                                <td>{{stringList.sortCode}}</td>
+                                <td>{{instruction.sort_code}}</td>
+                            </tr>
+                        {{/if}}
+                        {{#if instruction.account_iban}}
+                            <tr>
+                                <td>{{stringList.iban}}</td>
+                                <td>{{instruction.account_iban}}</td>
+                            </tr>
+                        {{/if}}
+                        <tr>
+                            <td>{{stringList.address}}</td>
+                            <td>{{instruction.bank_address}}</td>
+                        </tr>
+                        <tr class="align-items-flex-start">
+                            <td>{{stringList.instructionNotes}}</td>
+                            <td>
+                                {{stringList.includeInNotes}}
+                                <ul>
+                                    <li>{{stringList.companyName}}</li>
+                                    <li>{{stringList.akxNumber}}</li>
+                                    <li>{{stringList.comments}}</li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            {{/each}}
+        {{else}}
+            <div>
+                <div class="row border-bottom py-2">
+                    <div class="col-lg-6 text-right">
+                        <strong>{{stringList.office}}:</strong>
+                    </div>
+                    <div class="col-lg-6">+1 8013054300</div>
+                </div>
+                <div class="row border-bottom py-2">
+                    <div class="col-lg-6 text-right">
+                        <strong>{{stringList.supportEmail}}:</strong>
+                    </div>
+                    <div class="col-lg-6">support@acme.com</div>
+                </div>
+                <div class="row border-bottom py-2">
+                    <div class="col-lg-6 text-right">
+                        <strong>{{stringList.relationshipManager}}:</strong>
+                    </div>
+                    <div class="col-lg-6"></div>
+                </div>
+                <div class="row border-bottom py-2">
+                    <div class="col-lg-6 text-right">
+                        <strong>{{stringList.supportEmail}}:</strong>
+                    </div>
+                    <div class="col-lg-6">support@acme.com</div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <p>{{stringList.helpParagraph}}</p>
+                    </div>
+                </div>
+            </div>
+        {{/if}}
+    </div>
+</div>

@@ -1,0 +1,37 @@
+{{#link-to 'companies.view.wire-instructions.add' href=false class="btn btn-primary" tagName='button' }}
+    Add Instruction
+{{/link-to}}
+
+<table class="table table-hover table-high">
+    <thead>
+    <tr>
+        <th class="col-xs-1"></th>
+        <th class="col-xs-2">Currency</th>
+        <th class="col-xs-3">Bank</th>
+        <th class="col-xs-3">Account #</th>
+        <th class="col-xs-3">IBAN</th>
+    </tr>
+    </thead>
+    <tbody>
+	    {{#each wireInstruction in model}}
+	    	{{#link-to 'companies.view.wire-instructions.view' wireInstruction.id (query-params preferred=wireInstruction.preferred) tagName='tr' class='list-link'}}
+	            <td class="valign-middle medium">
+	                {{wireInstruction.type}}
+	            </td>
+	            <td class="valign-middle medium">
+	                {{wireInstruction.currency_id}}
+	            </td>
+	            <td class="valign-middle medium">
+	                {{wireInstruction.bank_name}}
+	            </td>
+	            <td class="valign-middle medium">
+	                {{wireInstruction.account_number}}
+	            </td>
+                <td class="valign-middle medium">
+                    {{wireInstruction.account_iban}}
+                </td>
+	        {{/link-to}}
+	        <td></td>
+		{{/each}}
+    </tbody>
+</table>

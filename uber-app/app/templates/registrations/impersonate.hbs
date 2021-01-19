@@ -1,0 +1,11 @@
+<div class="row">
+    <div class="col-xs-12">
+        <legend>
+            <small>Impersonation</small>
+            <button {{action 'createToken'}} class="btn btn-primary float-right">Create Token</button>
+        </legend>
+        {{#if token}}
+            <a {{bind-attr href=impersonationLink}} class="btn btn-primary">Impersonation Login</a>
+        {{/if}}
+    </div>
+</div>

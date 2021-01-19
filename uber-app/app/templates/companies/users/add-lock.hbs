@@ -1,0 +1,29 @@
+{{#akx-form action='save' isLocked=isLocked}}
+    <div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+        <div class="pane-secondary-content">
+            <div class="row">
+                <div class="form-group col-xs-12 has-feedback">
+                    <label>Message to User</label>
+                    {{textarea value=message class='form-control' rows=10}}
+                    {{validation-feedback errors=errors.message validated=validated}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="viewport viewport-bottom navbar-toolbar">
+        <div class="pane-actions">
+            <ul class="list-h">
+                <li>
+                    {{#link-to 'companies.view.users.view.locks' user.id tagName="button" class="btn btn-default btn-sm navbar-secondary-btn" type="button"}}
+                        Back
+                    {{/link-to}}
+                </li>
+            </ul>
+            <ul class="list-h pull-right">
+                <li>
+                    <button class="btn btn-warning btn-sm navbar-secondary-btn" type="submit">Add Lock</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+{{/akx-form}}

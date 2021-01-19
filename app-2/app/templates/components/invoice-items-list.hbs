@@ -1,0 +1,112 @@
+<table name="invoice-items-list" class="table mt-3">
+    <thead>
+        <tr>
+            <th>{{stringList.invoiceItemHeader1}}</th>
+            <th class="text-center">{{stringList.invoiceItemHeader2}}</th>
+            <th class="text-right">{{stringList.invoiceItemHeader3}}</th>
+            <th class="text-right">{{stringList.invoiceItemHeader4}}</th>
+            {{#unless disableEdit}}
+                <th class="text-center"></th>
+            {{/unless}}
+        </tr>
+    </thead>
+    <tbody>
+        {{#each changeset.invoiceItems as |item key|}}
+            {{#if disableEdit}}
+                <tr>
+                    <td>{{item.name}}</td>
+                    <td class="text-center">{{item.quantity}}</td>
+                    <td class="text-right">{{format-number item.price style='currency' currency=changeset.currency_id}}</td>
+                    <td class="text-right">{{format-number item.total style='currency' currency=changeset.currency_id}}</td>
+                </tr>
+            {{else}}
+                <tr name="invoice-item-row-{{key}}">
+                    <td name="invoice-item-row-{{key}}-description" class="form-group bmd-form-group has-feedback">
+                        {{input
+                            name=(concat "invoice-item-row-" key "-description-input")
+                            value=item.name
+                            type='text'
+                            placeholder='Description'
+                            class='form-control'}}
+                        {{validation-feedback errors=item.error.name}}
+                    </td>
+                    <td name="invoice-item-row-{{key}}-quantity" class="form-group bmd-form-group has-feedback">
+                        {{akx-format-number
+                            name=(concat "invoice-item-row-" key "-quantity-input")
+                            realValue=item.quantity
+                            type='text'
+                            class='form-control text-right'
+                            scale=10
+                            placeholder='0.00'}}
+                        {{validation-feedback errors=item.error.quantity}}
+                    </td>
+                    <td name="invoice-item-row-{{key}}-price" class="form-group bmd-form-group has-feedback">
+                        {{akx-format-number
+                            name=(concat "invoice-item-row-" key "-price-input")
+                            realValue=item.price
+                            type='text'
+                            scale=10
+                            class='form-control text-right'
+                            placeholder='0.00'}}
+                        {{validation-feedback errors=item.error.price}}
+                    </td>
+                    <td name="invoice-item-row-{{key}}-total" class="text-right">
+                        {{format-number item.total style='currency' currency=changeset.currency_id}}
+                    </td>
+                    <td name="invoice-item-row-{{key}}-delete">
+                        <i {{action 'deleteInvoiceItem' item}} class="akx-icon akx-rejected text-danger"></i>
+                    </td>
+                </tr>
+            {{/if}}
+        {{/each}}
+    </tbody>
+    <tfoot>
+        {{#unless disableEdit}}
+            <tr class="add-button">
+                <td colspan="5" class="has-feedback text-center text-danger">
+                    {{validation-feedback errors=changeset.error.invoiceItems.validation}}<br>
+                    <button name="btn-add-invoice-item" class='akx-button' {{action 'addInvoiceItem'}}>
+                        <span class="dark-blue">{{stringList.addItem}}</span>
+                    </button>
+                </td>
+            </tr>
+        {{/unless}}
+        <tr class="text-right">
+            <td colspan="3" class="small-padding">
+                <b>{{stringList.subTotal}}:</b>
+            </td>
+            {{#if changeset.invoiceItems}}
+                <td class="small-padding">
+                    {{format-number sub_total style='currency' currency=changeset.currency_id}}
+                </td>
+            {{/if}}
+        </tr>
+        <tr class="text-right">
+            <td colspan="3" class="small-padding">
+                {{stringList.taxRate}}({{invoice.tax_rate}}%)
+            </td>
+            {{#if disableEdit}}
+                <td class="text-right small-padding">
+                    {{format-number  tax style='currency' currency=changeset.currency_id}}
+                </td>
+            {{else}}
+                <td>
+                    {{akx-format-number
+                        name="invoice-tax-rate-input"
+                        realValue=changeset.tax_rate
+                        type='text'
+                        class='form-control text-right'}}
+                </td>
+            {{/if}}
+        </tr>
+        <tr class="text-right">
+            <td colspan="3" class="small-padding">{{stringList.invoiceTotal}}</td>
+            {{#if changeset.invoiceItems}}
+                <td class="small-padding has-feedback" name="invoice-amount">
+                    {{format-number total style='currency' currency=changeset.currency_id}}<br>
+                    {{validation-feedback class='text-danger' errors=changeset.error.amount.validation}}
+                </td>
+            {{/if}}
+        </tr>
+    </tfoot>
+</table>

@@ -1,0 +1,316 @@
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+<style>
+    #container {
+        width: 100%
+    }
+</style>
+
+<div class="row">
+    <div class="large align-center top-buffer">
+        {{@root.date}} End of Day Report
+    </div>
+</div>
+<div class="row">
+    <div class="small align-center top-buffer">
+    YTD Fee Volume
+</div>
+    <div id="container"></div>
+</div>
+<script>
+    Highcharts.chart( 'container', {
+
+        title: {
+            text: '',
+            style: {
+                display: 'none'
+            }
+        },
+        xAxis: {
+            type: 'datetime',
+            min: JSON.parse( decodeURI( "{{@root.min}}" )),
+            max: JSON.parse( decodeURI( "{{@root.max}}" ))
+        },
+        yAxis: {
+            title: {
+                text: 'Amount'
+            },
+            min: 0
+        },
+        exporting: { enabled: false },
+        legend: {
+            enabled: false
+        },
+
+        series: JSON.parse( decodeURI( "{{@root.chartData}}" ).replace( /&quot;/g, '"' ) )
+
+    } );
+</script>
+<p style="page-break-after:always;"></p>
+<div class="row">
+    <div class="small align-center top-buffer">
+        {{@root.date}} USD Fee Details
+    </div>
+    <div class="row top-buffer">
+        <table class="table" style="margin-bottom: 0px;">
+            <thead style=" background-color: #f5f5f5;">
+            <tr>
+                <th class="col-xs-3">Name</th>
+                <th class="col-xs-2">Count</th>
+                <th class="col-xs-3">Amount</th>
+                <th class="col-xs-4">Fee</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="small">
+                <td>Invoices</td>
+                <td>{{@root.tableData.USD.invoices_count}}</td>
+                <td>{{@root.tableData.USD.invoices_amount}}</td>
+                <td>{{@root.tableData.USD.invoices_fee}}</td>
+            </tr>
+            <tr class="small">
+                <td>Moeny In</td>
+                <td>{{@root.tableData.USD.wire_in_count}}</td>
+                <td>{{@root.tableData.USD.wire_in_amount}}</td>
+                <td>{{@root.tableData.USD.wire_in_fee}}</td>
+            </tr>
+            <tr class="x-small">
+                <td>Wire In Domestic</td>
+                <td>{{@root.tableData.USD.wire_in_domestic_count}}</td>
+                <td>{{@root.tableData.USD.wire_in_domestic_amount}}</td>
+                <td>{{@root.tableData.USD.wire_in_domestic_fee}}</td>
+            </tr>
+            <tr class="x-small">
+                <td>Wire In International</td>
+                <td>{{@root.tableData.USD.wires_in_international_count}}</td>
+                <td>{{@root.tableData.USD.wires_in_international_amount}}</td>
+                <td>{{@root.tableData.USD.wires_in_international_fee}}</td>
+            </tr>
+            <tr class="small">
+                <td>Money Out</td>
+                <td>{{@root.tableData.USD.wire_out_count}}</td>
+                <td>{{@root.tableData.USD.wire_out_amount}}</td>
+                <td>{{@root.tableData.USD.wire_out_fee}}</td>
+            </tr>
+            <tr class="x-small">
+                <td>Wire Out Domestic</td>
+                <td>{{@root.tableData.USD.wires_out_domestic_count}}</td>
+                <td>{{@root.tableData.USD.wires_out_domestic_amount}}</td>
+                <td>{{@root.tableData.USD.wires_out_domestic_fee}}</td>
+            </tr>
+            <tr class="x-small">
+                <td>Wire Out International</td>
+                <td>{{@root.tableData.USD.wires_out_international_count}}</td>
+                <td>{{@root.tableData.USD.wires_out_international_amount}}</td>
+                <td>{{@root.tableData.USD.wires_out_international_fee}}</td>
+            </tr>
+            <tr class="small">
+                <td>Internal Transfers</td>
+                <td>{{@root.tableData.USD.internal_transfers_count}}</td>
+                <td>{{@root.tableData.USD.internal_transfers_amount}}</td>
+                <td>{{@root.tableData.USD.internal_transfers_fee}}</td>
+            </tr>
+
+            <tr class="small">
+                <td>Foreign Exchange</td>
+                <td>{{@root.tableData.USD.fx_count}}</td>
+                <td>{{@root.tableData.USD.fx_amount}}</td>
+                <td>{{@root.tableData.USD.fx_fee}}</td>
+            </tr>
+
+            <tr class="small">
+                <td>Fee Refund</td>
+                <td>{{@root.tableData.USD.fee_refund_count}}</td>
+                <td></td>
+                <td>{{@root.tableData.USD.fee_refund_amount}}</td>
+            </tr>
+
+            <tr class="medium success">
+                <td>Total Profit</td>
+                <td></td>
+                <td></td>
+                <td>{{@root.tableData.USD.total_amount}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<hr>
+<p style="page-break-after:always;"></p>
+<div class="row">
+    <div class="small align-center top-buffer">
+        {{@root.date}} EUR Fee Details
+    </div>
+    <div class="row top-buffer">
+        <table class="table" style="margin-bottom: 0px;">
+            <thead style=" background-color: #f5f5f5;">
+            <tr>
+                <th class="col-xs-3">Name</th>
+                <th class="col-xs-2">Count</th>
+                <th class="col-xs-3">Amount</th>
+                <th class="col-xs-4">Fee</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="small">
+                <td>Invoices</td>
+                <td>{{@root.tableData.EUR.invoices_count}}</td>
+                <td>{{@root.tableData.EUR.invoices_amount}}</td>
+                <td>{{@root.tableData.EUR.invoices_fee}}</td>
+            </tr>
+            <tr class="small">
+                <td>Moeny In</td>
+                <td>{{@root.tableData.EUR.wire_in_count}}</td>
+                <td>{{@root.tableData.EUR.wire_in_amount}}</td>
+                <td>{{@root.tableData.EUR.wire_in_fee}}</td>
+            </tr>
+            <tr class="x-small">
+                <td>Wire In Domestic</td>
+                <td>{{@root.tableData.EUR.wire_in_domestic_count}}</td>
+                <td>{{@root.tableData.EUR.wire_in_domestic_amount}}</td>
+                <td>{{@root.tableData.EUR.wire_in_domestic_fee}}</td>
+            </tr>
+            <tr class="x-small">
+                <td>Wire In International</td>
+                <td>{{@root.tableData.EUR.wires_in_international_count}}</td>
+                <td>{{@root.tableData.EUR.wires_in_international_amount}}</td>
+                <td>{{@root.tableData.EUR.wires_in_international_fee}}</td>
+            </tr>
+            <tr class="small">
+                <td>Money Out</td>
+                <td>{{@root.tableData.EUR.wire_out_count}}</td>
+                <td>{{@root.tableData.EUR.wire_out_amount}}</td>
+                <td>{{@root.tableData.EUR.wire_out_fee}}</td>
+            </tr>
+            <tr class="x`small">
+                <td>Wire Out Domestic</td>
+                <td>{{@root.tableData.EUR.wires_out_domestic_count}}</td>
+                <td>{{@root.tableData.EUR.wires_out_domestic_amount}}</td>
+                <td>{{@root.tableData.EUR.wires_out_domestic_fee}}</td>
+            </tr>
+            <tr class="x-small">
+                <td>Wire Out International</td>
+                <td>{{@root.tableData.EUR.wires_out_international_count}}</td>
+                <td>{{@root.tableData.EUR.wires_out_international_amount}}</td>
+                <td>{{@root.tableData.EUR.wires_out_international_fee}}</td>
+            </tr>
+            <tr class="small">
+                <td>Internal Transfers</td>
+                <td>{{@root.tableData.EUR.internal_transfers_count}}</td>
+                <td>{{@root.tableData.EUR.internal_transfers_amount}}</td>
+                <td>{{@root.tableData.EUR.internal_transfers_fee}}</td>
+            </tr>
+
+            <tr class="small">
+                <td>Foreign Exchange</td>
+                <td>{{@root.tableData.EUR.fx_count}}</td>
+                <td>{{@root.tableData.EUR.fx_amount}}</td>
+                <td>{{@root.tableData.EUR.fx_fee}}</td>
+            </tr>
+
+            <tr class="small">
+                <td>Fee Refund</td>
+                <td>{{@root.tableData.EUR.fee_refund_count}}</td>
+                <td></td>
+                <td>{{@root.tableData.EUR.fee_refund_amount}}</td>
+            </tr>
+            <tr class="medium success">
+                <td>Total Profit</td>
+                <td></td>
+                <td></td>
+                <td>{{@root.tableData.EUR.total_amount}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<hr>
+<p style="page-break-after:always;"></p>
+<div class="row">
+    <div class="small align-center top-buffer">
+        {{@root.date}} GBP Fee Details
+    </div>
+    <div class="row top-buffer">
+        <table class="table" style="margin-bottom: 0px;">
+            <thead style=" background-color: #f5f5f5;">
+            <tr>
+                <th class="col-xs-3">Name</th>
+                <th class="col-xs-2">Count</th>
+                <th class="col-xs-3">Amount</th>
+                <th class="col-xs-4">Fee</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="small">
+                <td>Invoices</td>
+                <td>{{@root.tableData.GBP.invoices_count}}</td>
+                <td>{{@root.tableData.GBP.invoices_amount}}</
+                td>
+                <td>{{@root.tableData.GBP.invoices_fee}}</td>
+            </tr>
+            <tr class="small">
+                <td>Moeny In</td>
+                <td>{{@root.tableData.GBP.wire_in_count}}</td>
+                <td>{{@root.tableData.GBP.wire_in_amount}}</td>
+                <td>{{@root.tableData.GBP.wire_in_fee}}</td>
+            </tr>
+            <tr class="x-small">
+                <td>Wire In Domestic</td>
+                <td>{{@root.tableData.GBP.wire_in_domestic_count}}</td>
+                <td>{{@root.tableData.GBP.wire_in_domestic_amount}}</td>
+                <td>{{@root.tableData.GBP.wire_in_domestic_fee}}</td>
+            </tr>
+            <tr class="x-small">
+                <td>Wire In International</td>
+                <td>{{@root.tableData.GBP.wires_in_international_count}}</td>
+                <td>{{@root.tableData.GBP.wires_in_international_amount}}</td>
+                <td>{{@root.tableData.GBP.wires_in_international_fee}}</td>
+            </tr>
+            <tr class="small">
+                <td>Money Out</td>
+                <td>{{@root.tableData.GBP.wire_out_count}}</td>
+                <td>{{@root.tableData.GBP.wire_out_amount}}</td>
+                <td>{{@root.tableData.GBP.wire_out_fee}}</td>
+            </tr>
+            <tr class="x-small">
+                <td>Wire Out Domestic</td>
+                <td>{{@root.tableData.GBP.wires_out_domestic_count}}</td>
+                <td>{{@root.tableData.GBP.wires_out_domestic_amount}}</td>
+                <td>{{@root.tableData.GBP.wires_out_domestic_fee}}</td>
+            </tr>
+            <tr class="x-small">
+                <td>Wire Out International</td>
+                <td>{{@root.tableData.GBP.wires_out_international_count}}</td>
+                <td>{{@root.tableData.GBP.wires_out_international_amount}}</td>
+                <td>{{@root.tableData.GBP.wires_out_international_fee}}</td>
+            </tr>
+            <tr class="small">
+                <td>Internal Transfers</td>
+                <td>{{@root.tableData.GBP.internal_transfers_count}}</td>
+                <td>{{@root.tableData.GBP.internal_transfers_amount}}</td>
+                <td>{{@root.tableData.GBP.internal_transfers_fee}}</td>
+            </tr>
+            <tr class="small">
+                <td>Foreign Exchange</td>
+                <td>{{@root.tableData.GBP.fx_count}}</td>
+                <td>{{@root.tableData.GBP.fx_amount}}</td>
+                <td>{{@root.tableData.GBP.fx_fee}}</td>
+            </tr>
+            <tr class="small">
+                <td>Fee Refund</td>
+                <td>{{@root.tableData.GBP.fee_refund_count}}</td>
+                <td></td>
+                <td>{{@root.tableData.GBP.fee_refund_amount}}</td>
+            </tr>
+            <tr class="medium success">
+                <td>Total Profit</td>
+                <td></td>
+                <td></td>
+                <td>{{@root.tableData.GBP.total_amount}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+

@@ -1,0 +1,49 @@
+<div class="side-panel-content">
+    <header class="akx-header">
+        <span>{{stringList.downloadTrans}}</span>
+    </header>
+    {{#akx-form name="account-transitions-download" action='' isLocked=isLocked}}
+        <div class="row mt-5">
+            <div class="col-12 has-feedback form-group">
+                <label class="bmd-label-static">{{stringList.fileType}}</label>
+                {{#x-select
+                    class='selectpicker w-100'
+                    data-style="select-with-transition"
+                    action=(action (mut changeset.file_type))
+                    as |xs|}}
+                    {{#each fileTypes as |type|}}
+                        {{#xs.option value=type.val}}{{type.label}}{{/xs.option}}
+                    {{/each}}
+                {{/x-select}}
+                {{validation-feedback errors=changeset.error.file_type.validation}}
+            </div>
+            <div class="col-6 has-feedback form-group">
+                <label for="account-transition-period-from" class="bmd-label-static">{{stringList.fromDate}}</label>
+                {{input
+                    name="account-transition-period-from"
+                    type='text'
+                    value=changeset.period_from
+                    class='form-control datetimepicker'}}
+                {{validation-feedback errors=changeset.error.period_from.validation}}
+            </div>
+            <div class="col-6 has-feedback form-group">
+                <label for="account-transition-period-to" class="bmd-label-static">{{stringList.toDate}}</label>
+                {{input
+                    name="account-transition-period-to"
+                    type='text'
+                    value=changeset.period_to
+                    class='form-control datetimepicker'}}
+                {{validation-feedback errors=changeset.error.period_to.validation}}
+            </div>
+        </div>
+    {{/akx-form}} 
+</div>
+<div class="action-footer">
+    <div class="row pt-2">
+        <div class="col-12 text-center">
+            <button {{action 'downloadTransactions'}} name="download-transactions" class="btn btn-primary" type="button">
+                {{stringList.download}}
+            </button>
+        </div>
+    </div>
+</div>

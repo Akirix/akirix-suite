@@ -1,0 +1,73 @@
+{{#akx-form action='save' isLocked=isLocked }}
+    <div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+        <div class="pane-secondary-content">
+            <div class="row">
+                <div class="form-group col-xs-6 has-feedback required">
+                    <label>Name</label>
+                    {{input value=model.name type='text' class='form-control' placeholder='Name'}}
+                    {{validation-feedback errors=errors.model.name validated=validated}}
+                </div>
+                <div class="form-group col-xs-6">
+                    <label>From Email</label>
+                    {{input value=model.email type='text' class='form-control' placeholder='From Email'}}
+                </div>
+                <div class="form-group col-xs-6 has-feedback required">
+                    <label>Subject</label>
+                    {{input value=model.subject type='text' class='form-control' placeholder='Subject'}}
+                    {{validation-feedback errors=errors.model.subject validated=validated}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-xs-12">
+                    <a href="https://guides.github.com/features/mastering-markdown">Markdown Syntax Guide</a>
+                </div>
+            </div>
+            <div class="col-xs-12 form-group has-feedback">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a style="background-color: inherit !important" href="#content" aria-controls="home" role="tab" data-toggle="tab">Content</a></li>
+                    <li role="presentation"><a style="background-color: inherit !important" href="#preview" aria-controls="profile" role="tab" data-toggle="tab">Preview Content</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active" id="content">
+                        <br>
+                        <div class="col-xs-12 form-group has-feedback">
+                            <label>Content</label>
+                            {{textarea value=model.content class="form-control width-full" rows="15"}}
+                            {{validation-feedback errors=errors.model.content validated=validated}}
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="preview">
+                        <br>
+                        <div class="col-xs-12 form-group">
+                            {{{akx-markdown-preview markdownContent=model.content}}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="viewport viewport-bottom navbar-toolbar">
+        <div class="pane-actions">
+            <ul class="list-h">
+                <li>
+                    <button class="btn btn-default btn-sm navbar-secondary-btn" type="submit">
+                        <i class="fa fa-floppy-o"></i>
+                    </button>
+                </li>
+            </ul>
+            <ul class="list-h pull-right">
+                <li>
+                    {{view 'modal-confirmation'
+                           tagName='button'
+                           class='btn btn-danger btn-sm navbar-secondary-btn'
+                           button='<i class="fa fa-trash-o fa-fw"></i>'
+                           action='delete'
+                           actionContext=model
+                           headerTitle='Delete Uber Email Template'
+                           prompt='Hey are you sure you want to remove this uber email template?'
+                    }}
+                </li>
+            </ul>
+        </div>
+    </div>
+{{/akx-form}}

@@ -1,0 +1,12 @@
+<header class="akx-header mb-5">
+    <span>{{stringList.akxNumber}}</span>
+</header>
+<div class="col-lg-4 col-md-6 col-sm-12 m-auto">
+    {{find-company
+        name="invoice-company"
+        value=changeset.account_number
+        path='account_number'
+        validCompany=model.toCompany
+        changeset=changeset
+        companyId=changeset.company_id}}
+</div>

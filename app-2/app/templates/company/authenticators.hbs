@@ -1,0 +1,72 @@
+<h2>{{stringList.title}}</h2>
+<table class="table table-hover">
+    <thead class="thead-light">
+        <tr>
+            <th>{{stringList.authNameType}}</th>
+            <th>{{stringList.created}}</th>
+            <th>{{stringList.updated}}</th>
+            <th>{{stringList.authStatus}}</th>
+            <th>{{stringList.actions}}</th>
+        </tr>
+    </thead>
+    <tbody>
+    {{#each model as |auth|}}
+        {{#if auth.id}}
+            <tr>
+                <td>
+                    <p>{{{auth.authIcon}}} {{auth.name}}</p>
+                </td>
+                <td>
+                    <p>{{format-date auth.created_at}}</p>
+                </td>
+                <td>
+                    <p>{{format-date auth.updated_at}}</p>
+                </td>
+                <td>
+                    <p>{{auth.getStatus}}</p>
+                </td>
+                <td>
+                    {{#unless auth.isActive}}
+                        {{#if canActivate}}
+                            <button
+                                {{action (action 'activateDevicePane' auth)}}
+                                class="akx-button"
+                                type="button">
+                                <span class="green">{{stringList.activate}}</span>
+                            </button>
+                        {{/if}}
+                    {{/unless}}
+                    {{#if auth.canRemove}}
+                        {{#confirmation-modal
+                            tagName='button'
+                            classNames='akx-button'
+                            type='button'
+                            openModal='cancel'
+                            headerTitle=stringList.revokeHeader
+                            prompt=stringList.revokePrompt
+                            controller=this
+                            context=auth
+                            data-toggle="modal"
+                            data-target="#confirmationModal"
+                            action='revoke'}}
+                            <span class="orange">{{stringList.revoke}}</span>
+                        {{/confirmation-modal}}
+                    {{/if}}
+                </td>
+            </tr>
+        {{/if}}
+    {{/each}}
+    </tbody>
+</table>
+{{#if canAddAuth}}
+    <div class="row mt-4">
+        <div class="col-12 text-center">
+            {{#link-to 'authenticated.authenticators.add-authenticator'
+                class='akx-button'
+                tagName='button'
+                type='button'}}
+                <span class="dark-blue">{{stringList.add}}</span>
+            {{/link-to}}
+        </div>
+    </div>
+{{/if}}

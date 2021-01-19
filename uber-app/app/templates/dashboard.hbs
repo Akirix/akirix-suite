@@ -1,0 +1,62 @@
+<div class="viewport viewport-full viewport-content-with-nav">
+    <div class="viewport-t-pane-primary viewport-t-pane-primary-with-toolbar scroll-y">
+        <div class="pane-primary">
+            <div class="navbar-secondary" role="navigation">
+                <ul class="list-h">
+                    {{outlet 'dashboardNavbar'}}
+                </ul>
+            </div>
+            <div class="pane-primary-content">
+                <div id="sticky-toolbar">
+                    <ul>
+                        {{#link-to 'dashboard.wire-summary' tagName="li" class="text-white"}}
+                            <i class="fa fa-money fa-fw" style="position:relative"></i><br/>
+                            Summary
+                        {{/link-to}}
+                        {{#link-to 'dashboard.pending-out' tagName="li" class="text-white"}}
+                            <i class="fa fa-arrow-right fa-fw" style="position:relative">
+                                {{#if pendingOutCount}}<span class="badge badge-side-menu">{{pendingOutCount}}</span>{{/if}}
+                            </i><br/> Pending-Out
+                        {{/link-to}}
+                        {{#link-to 'dashboard.hold-out' tagName="li" class="text-orange"}}
+                            <i class="fa fa-arrow-right fa-fw" style="position:relative">
+                                {{#if itemCounts.wires.wireOut.hold}}<span class="badge badge-side-menu">{{itemCounts.wires.wireOut.hold}}</span>{{/if}}
+                            </i><br/> Hold-Out
+                        {{/link-to}}
+                        {{#link-to 'dashboard.pending-in' tagName="li" class="text-white"}}
+                            <i class="fa fa-arrow-left fa-fw" style="position:relative">
+                                {{#if itemCounts.wires.wireIn.new}}<span class="badge badge-side-menu">{{itemCounts.wires.wireIn.new}}</span>{{/if}}
+                            </i><br/> Pending-In
+                        {{/link-to}}
+                        {{#link-to 'dashboard.hold-in' tagName="li" class="text-orange"}}
+                            <i class="fa fa-arrow-right fa-fw" style="position:relative">
+                                {{#if itemCounts.wires.wireIn.hold}}<span class="badge badge-side-menu">{{itemCounts.wires.wireIn.hold}}</span>{{/if}}
+                            </i><br/> Hold-In
+                        {{/link-to}}
+                        {{#link-to 'dashboard.fx-requests' tagName="li" class="text-white"}}
+                            <i class="fa fa-exchange fa-fw" style="position:relative">
+                                {{#if itemCounts.fxRequests.open}}<span class="badge badge-side-menu">{{itemCounts.fxRequests.open}}</span>{{/if}}
+                            </i><br/> Foreign Exchange
+                        {{/link-to}}
+                        {{#link-to 'dashboard.pending-commission-payments' tagName="li" class="text-white"}}
+                            <i class="fa fa-diamond fa-fw" style="position:relative">
+                                {{#if itemCounts.commissionPayments.new}}<span class="badge badge-side-menu">{{itemCounts.commissionPayments.new}}</span>{{/if}}
+                            </i><br/> Commission Payments
+                        {{/link-to}}
+                        {{#link-to 'dashboard.ach-recall' tagName="li" class="text-white"}}
+                            <i class="fa fa-exclamation-circle fa-fw" style="position:relative"></i><br/> ACH Recall
+                        {{/link-to}}
+                        {{#link-to 'dashboard.queue' tagName="li" class="text-white"}}
+                            <i class="fa fa-question-circle-o fa-fw" style="position:relative"></i><br/> Wires Queue
+                        {{/link-to}}
+                    </ul>
+                </div>
+
+                {{outlet 'panePrimary'}}
+            </div>
+        </div>
+    </div>
+    <div class="viewport-right pane pane-secondary">
+        {{outlet 'paneSecondary'}}
+    </div>
+</div>

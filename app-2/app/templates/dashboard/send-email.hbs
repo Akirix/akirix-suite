@@ -1,0 +1,50 @@
+<div class="side-panel-content">
+    <fieldset class="akx-fieldset">
+        <legend align="center">{{stringList.inviteHeader}}</legend>
+    </fieldset>
+    <div class="invite-preview">
+        <header class="border-bottom pb-3">
+            <p>{{stringList.to}}: {{changeset.name}}</p>
+            <p>{{stringList.subject}}: {{stringList.from}} {{session.data.authenticated.company.name}}</p>
+        </header>
+        <div class="email-header">
+            <img src="/assets/akirix-full-logo.png" alt="akirix-icon">
+            <h3>Invitation from {{session.data.authenticated.user.name}}</h3>
+        </div>
+        <div class="email-body">
+            <span>{{stringList.greeting}} {{changeset.name}}</span>
+            <div class="first-paragraph">
+                <p>{{stringList.firstParagraph}}</p>
+            </div>
+            <div class="text-center">
+                <button id="btn-learn-more" type="button" class="btn btn-primary">{{stringList.learnMore}}</button>
+            </div>
+            {{!-- <p>{{stringList.ps}}</p>
+                Future feature to let users send a message with email
+            {{changeset.notes}} --}}
+        </div>
+    </div>
+    {{#if success}}
+        <div class="row text-center mt-5">
+            <div class="col-lg-4 col-md-8 col-sm-10 m-auto text-success">
+                <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                    <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                    <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                </svg>
+                <p class="font-h2">{{stringList.success}}</p>
+                <p>{{stringList.successMessage}}</p>
+            </div>
+        </div>
+    {{/if}}
+</div>
+{{#unless success}}
+    <div class="action-footer">
+        <div class="row py-2">
+            <div class="col-lg-12 text-center">
+                <button {{action 'sendInvite'}} id="btn-send-invite" type="button" class="btn btn-primary">
+                    {{stringList.sendEmail}}
+                </button>
+            </div>
+        </div>
+    </div>
+{{/unless}}

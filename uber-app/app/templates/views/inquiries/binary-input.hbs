@@ -1,0 +1,27 @@
+<div class="row">
+    <div class="col-sm-8 form-group">
+        {{view.inquiry.question}}
+        {{#unless view.inquiry.required}}
+            &nbsp;<span class="optional">optional</span>
+        {{/unless}}
+    </div>
+    <div class="col-sm-4 form-group">
+        <div class="radio-answer text-right">
+            <div class="has-feedback question-wrapper">
+                <label class="btn btn-default control-label">
+                    Yes
+                    {{radio-button value="Yes" checked=view.answer}}
+                </label>
+                {{validation-feedback errors=view.errors.answer validated=view.submitted}}
+            </div>
+            &nbsp;
+            <div class="has-feedback question-wrapper">
+                <label class="btn btn-default control-label">
+                    No
+                    {{radio-button value="No" checked=view.answer}}
+                </label>
+                {{validation-feedback errors=view.errors.answer validated=view.submitted}}
+            </div>
+        </div>
+    </div>
+</div>

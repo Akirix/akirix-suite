@@ -1,0 +1,63 @@
+<header class="akx-header mb-5">
+    <span>{{stringList.offPlatform}}</span>
+</header>
+{{#akx-form name="external-company-form" action='' class="col-lg-10 m-auto"}}
+    <div class="row align-items-end">
+        <div class="col-6 has-feedback form-group bmd-form-group">
+            <label for="input-external-company-name" class="bmd-label-floating">{{stringList.name}}</label>
+            {{input name="input-external-company-name" value=changeset.to_company_name type='text' class='form-control'}}
+            {{validation-feedback errors=changeset.error.to_company_name.validation}}
+        </div>
+        <div class="col-6 has-feedback form-group bmd-form-group">
+            <label for="input-external-company-email" class="bmd-label-floating">{{stringList.email}}</label>
+            {{input name="input-external-company-email" value=changeset.to_company_email type='text' class='form-control'}}
+            {{validation-feedback errors=changeset.error.to_company_email.validation}}
+        </div>
+        <div class="col-6 has-feedback form-group bmd-form-group">
+            <label for="select-external-company-country" class="bmd-label-static">{{stringList.country}}</label>
+            {{#x-select
+                id="select-external-company-country"
+                name="select-external-company-country"
+                class='selectpicker w-100'
+                data-style="select-with-transition"
+                action=(action (mut changeset.to_company_country)) as |xs|}}
+                {{#each model.countries as |country|}}
+                    {{#xs.option value=country.abbreviation}}{{country.name}}{{/xs.option}}
+                {{/each}}
+            {{/x-select}}
+            {{validation-feedback errors=changeset.error.to_company_country.validation}}
+        </div>
+        <div class="col-6 form-group bmd-form-group">
+            <label for="input-external-company-phone" class="bmd-label-floating">{{stringList.phone}}</label>
+            {{input name="input-external-company-phone" value=changeset.to_company_phone type='text' class='form-control'}}
+        </div>
+        <div class="col-6 form-group bmd-form-group">
+            <label for="input-external-company-address" class="bmd-label-floating">{{stringList.address}}</label>
+            {{input name="input-external-company-address" value=changeset.to_company_address type='text' class='form-control'}}
+        </div>
+        <div class="col-6 form-group bmd-form-group">
+            <label for="input-external-company-city" class="bmd-label-floating">{{stringList.city}}</label>
+            {{input name="input-external-company-city" value=changeset.to_company_city type='text' class='form-control'}}
+        </div>
+        <div class="col-6 form-group bmd-form-group">
+            <label for="select-external-company-province" class={{if toCompanyIsUs "bmd-label-static" "bmd-label-floating"}}>{{stringList.stateProvince}}</label>
+            {{#if toCompanyIsUs}}
+                {{#x-select
+                    name="select-external-company-province"
+                    class='selectpicker w-100'
+                    data-style="select-with-transition"
+                    action=(action (mut changeset.to_company_state_province)) as |xs|}}
+                    {{#each model.states as |state|}}
+                        {{#xs.option value=state.abbreviation}}{{state.name}}{{/xs.option}}
+                    {{/each}}
+                {{/x-select}}
+            {{else}}
+                {{input value=changeset.to_company_state_province type='text' class='form-control'}}
+            {{/if}}
+        </div>
+        <div class="col-6 form-group bmd-form-group">
+            <label for="input-external-company-postcode" class="bmd-label-floating">{{stringList.postalCode}}</label>
+            {{input name="input-external-company-postcode" value=changeset.to_company_postal_code type='text' class='form-control'}}
+        </div>
+    </div>
+{{/akx-form}}

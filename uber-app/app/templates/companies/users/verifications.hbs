@@ -1,0 +1,67 @@
+<div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+    <div class="pane-secondary-content">
+        <div id="locks" class="row">
+            <div class="col-md-12">
+                <fieldset>
+                    <div class="panel panel-default">
+                        <div class="panel-heading text-center">Verifications History</div>
+                        <table class="table table-hover">
+                            {{#if model}}
+                                <thead>
+                                <tr>
+                                    <th class="col-md-2"><strong>Expires</strong></th>
+                                    <th class="col-md-5"><strong>Verify</strong></th>
+                                    <th class="col-md-5"><strong>Code</strong></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {{#each verification in model}}
+                                    <tr>
+                                        <td class="valign-middle small">
+                                            <strong>{{verification.str_expiration_date}}</strong><br/>
+                                            {{verification.str_expiration_time}}
+                                        </td>
+                                        <td class="valign-middle">
+                                            {{verification.verify}}
+                                        </td>
+                                        <td class="valign-middle">
+                                            {{verification.code}}
+                                        </td>
+                                    </tr>
+                                {{/each}}
+                                </tbody>
+                            {{else}}
+                                <tbody>
+                                <tr>
+                                    <td class="valign-middle text-center">
+                                        <h5><strong>No Verifications Found</strong></h5>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            {{/if}}
+                        </table>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="viewport viewport-bottom navbar-toolbar">
+    <div class="pane-actions">
+        <ul class="list-h">
+            <li>
+                <button class="btn btn-default btn-sm navbar-secondary-btn" {{action 'goBack'}}>
+                    Back
+                </button>
+            </li>
+        </ul>
+        <ul class="list-h pull-right">
+            <li>
+                {{#link-to 'companies.view.users.view.verifications.add' tagName="button" class="btn btn-primary btn-sm navbar-secondary-btn" type="button"}}
+                    New Verification
+                {{/link-to}}
+            </li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+<div class="pane-primary-content">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th class="col-xs-1">Account Number</th>
+            <th>Name</th>
+            <th class="col-xs-1">Country</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each affiliate in model}}
+            {{#link-to 'affiliates.index.preview' affiliate.id tagName='tr' class="pointer list-link"}}
+                <td class="valign-middle">
+                    XYZ{{affiliate.account_number}}
+                </td>
+                <td class="valign-middle large">
+                    {{affiliate.name}}
+                </td>
+                <td class="text-center">
+                    {{country-flag affiliate.country}}
+                </td>
+            {{/link-to}}
+        {{/each}}
+        </tbody>
+
+    </table>
+
+    {{page-numbers content=content}}
+
+</div>

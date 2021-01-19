@@ -1,0 +1,137 @@
+<style>
+    .task-type input[type="radio"] {
+        opacity: 0;
+    }
+
+    .task-type input[type="radio"] + label {
+        position: relative;
+        width: 100%;
+        z-index: 10;
+    }
+
+    .task-type label.checked {
+        color: #fff;
+        background-color: #337ab7;
+        border-color: #2e6da4;
+    }
+
+    .task-type > div:first-child {
+        padding-right: 0;
+    }
+
+    .task-type > div:first-child > label {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        width: 100%;
+    }
+
+    .task-type > div:last-child {
+        padding-left: 0;
+    }
+
+    .task-type > div:last-child > label {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-left-width: 0;
+        width: 100%;
+    }
+</style>
+{{#akx-form action='createTask' isLocked=isLocked}}
+    <div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+        <div class="pane-secondary-content">
+            <div class="form-group col-xs-12 no-padding">
+                <div class="row task-type">
+                    <div class="col-xs-6">
+                        <label class="btn btn-lg btn-default">
+                            {{radio-button value='0' checked=task.type}}
+                            <i class="fa fa-tasks fa-fw"></i> Task
+                        </label>
+                    </div>
+                    <div class="col-xs-6">
+                        <label class="btn btn-lg btn-default">
+                            {{radio-button value='1' checked=task.type}}
+                            <i class="fa fa-sticky-note fa-fw"></i> Note
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            {{#if isTask}}
+                <div class="form-group col-md-6 has-feedback">
+                    <label>Assigned To</label>
+                    {{view 'select'
+                    value=task.uber_user_id
+                    content=uberUsers
+                    optionValuePath='content.id'
+                    optionLabelPath='content.name'
+                    class='form-control'}}
+                    {{validation-feedback errors=errors.task.uber_user_id validated=validated}}
+                </div>
+
+                <div class="form-group col-md-6 has-feedback">
+                    <label>Priority</label>
+                    {{view 'select'
+                    value=task.priority
+                    content=priorities
+                    optionValuePath='content.val'
+                    optionLabelPath='content.label'
+                    class='form-control'}}
+                    {{validation-feedback errors=errors.task.priority validated=validated}}
+                </div>
+
+                <div class="form-group col-xs-6 has-feedback">
+                    <label>Due Date</label>
+                    {{date-picker value=task.due_date class='form-control' placeholder='Due Date' valueFormat='YYYY-MM-DD' allowBlank=true}}
+                    {{validation-feedback errors=errors.task.due_date validated=validated}}
+                </div>
+            {{/if}}
+
+
+            <div class="form-group col-md-6 has-feedback">
+                <label>Sentiment</label>
+                {{view 'select'
+                value=task.sentiment
+                content=sentiments
+                optionValuePath='content.val'
+                optionLabelPath='content.label'
+                class='form-control'}}
+                {{validation-feedback errors=errors.task.sentiment validated=validated}}
+            </div>
+
+
+            <div class="form-group col-xs-12 has-feedback">
+                <label>Title</label>
+                {{input value=task.title type='text' class='form-control' placeholder='Title'}}
+                {{validation-feedback errors=errors.task.title validated=validated}}
+            </div>
+            <div class="col-xs-12 form-group has-feedback">
+                <label>Notes</label>
+                {{textarea value=task.notes_new class="form-control width-full" rows="15"}}
+                {{validation-feedback errors=errors.task.notes_new validated=validated}}
+            </div>
+
+            <div class="row col-xs-12">
+                {{view 'upload-document' documents=documents model='uber-task'}}
+            </div>
+
+        </div>
+    </div>
+    <div class="viewport viewport-bottom navbar-toolbar">
+        <div class="pane-actions">
+            <ul class="list-h">
+                <li>
+                    <button class="btn btn-default btn-sm navbar-secondary-btn" {{action 'goBack'}}>
+                        Cancel
+                    </button>
+                </li>
+            </ul>
+            <ul class="list-h pull-right">
+                <li>
+                    <button class="btn btn-primary btn-sm navbar-secondary-btn" type="submit">
+                        Add
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+{{/akx-form}}

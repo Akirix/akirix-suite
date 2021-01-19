@@ -1,0 +1,10 @@
+<div>
+    {{#link-to 'authenticated.projects.view.invoices'
+        tagName='i'
+        class='akx-icon akx-back'}}
+    {{/link-to}}
+</div>
+<div>
+    <i class="akx-icon akx-download mr-4" {{action 'getPdf'}}></i>
+    <i class="akx-icon akx-akx-rejected" {{action 'close'}}></i>
+</div>

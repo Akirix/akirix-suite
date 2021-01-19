@@ -1,0 +1,47 @@
+<div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+    {{slide-task-list model='registration' model_id=model._id}}
+    <div class="pane-secondary-content">
+        {{#if validationErrors}}
+            <div class="panel panel-default">
+                <div class="panel-heading text-center pointer" data-toggle="collapse" data-target="#reg-problems">
+                    <div style="position:relative">
+                        Registration Errors
+                        {{#if validationErrors.length}}
+                            <span class="badge" style="background-color: orangered; position: absolute; top: -18px; right: -24px;">
+                                {{validationErrors.length}}
+                            </span>
+                        {{/if}}
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div id="reg-problems" class="collapse">
+                        <table class="table table-high table-hover">
+                            <tbody>
+                            {{#each error in validationErrors}}
+                                <tr>
+                                    <td class="text-center valign-middle">{{registration-error error.level}}</td>
+                                    <td>{{error.message}}</td>
+                                </tr>
+                            {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="text-gray-light align-center pointer" data-toggle="collapse"
+                         data-target="#reg-problems"> Click To Toggle Errors
+                    </div>
+                </div>
+            </div>
+        {{/if}}
+    </div>
+</div>
+<div class="viewport viewport-bottom navbar-toolbar">
+    <div class="pane-actions">
+        <ul class="list-h">
+            <li>
+            </li>
+        </ul>
+
+        <ul class="list-h pull-right">
+        </ul>
+    </div>
+</div>

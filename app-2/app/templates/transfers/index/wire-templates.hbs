@@ -1,0 +1,60 @@
+{{#if sortedTemplates}}
+    <div class="d-flex align-items-end">
+        <h2>{{stringList.header}}</h2>
+        <span class="header-add">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+        <span class="header-add">
+            {{#link-to 'authenticated.transfers.wire-templates.add' 
+                id="btn-new-wire-template" 
+                tagName='button' 
+                class='btn btn-sm btn-success font-weight-bolder'}}
+                {{stringList.addTemplate}}
+            {{/link-to}}
+        </span>
+    </div>
+    <table id="tbl-wire-templates" class="table table-hover th-sticky mt-3">
+        <thead class="thead-light">
+            <tr>
+                <th class="akx-col-lrg-6 text-left">{{stringList.name}}</th>
+                <th class="akx-col-lrg-6 text-left">{{stringList.beneficiary}}</th>
+                <th class="akx-col-lrg-6 text-left">{{stringList.bank}}</th>
+                <th class="akx-col-lrg-4 text-left">{{stringList.purpose}}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {{#each sortedTemplates as |template key|}}
+            {{#link-to 'authenticated.transfers.wire-templates.view' template.id 
+                id=(concat "wire-template-row-" key)
+                tagName='tr'
+            }}
+                <td id="wire-template-col-name-{{key}}">
+                    {{template.name}}
+                </td>
+                <td id="wire-template-col-holder-{{key}}">
+                    <p class="font-h5">
+                        <strong>{{template.account_holder}}</strong>
+                    </p>
+                </td>
+                <td id="wire-template-col-bank-{{key}}">
+                    <p>{{template.bank_name}}</p>
+                </td>
+                <td id="wire-template-col-purpose-{{key}}">
+                    <p>{{template.purpose}}</p>
+                </td>
+            {{/link-to}}
+        {{/each}}
+        </tbody>
+    </table>
+{{else}}
+    <div class="empty-data">
+        <div class="text-center col-lg-4">
+            <i class="akx-icon akx-templates"></i>
+            <p>{{stringList.noData}}</p>
+            {{#link-to 'authenticated.transfers.wire-templates.add'
+                id="btn-new-wire-template"
+                tagName='button'
+                class='btn btn-success font-weight-bolder'}}
+                {{stringList.new}}
+            {{/link-to}}
+        </div>
+    </div>
+{{/if}}

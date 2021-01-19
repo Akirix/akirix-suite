@@ -1,0 +1,351 @@
+<style>
+    .edit {
+        text-transform: none;
+        float: right;
+        font-size: 14px;
+        padding-right: 5px;
+        line-height: 40px;
+    }
+
+    .table .edit {
+        line-height: 20px;
+    }
+
+    td:nth-child( even ) {
+        padding-left: 1em;
+        width: 50%;
+        font-size: 16px;
+        font-weight: 100;
+    }
+
+    td:nth-child( odd ) {
+        font-weight: bold;
+        text-align: right;
+        width: 50%;
+        font-size: 18px;
+        font-weight: 400;
+    }
+
+    .table > tbody tr td {
+        position: relative;
+        border-bottom: 2px solid #f2f1f3;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+
+    td:first-child:before {
+        content: "";
+        position: absolute;
+        width: 10px;
+        top: 0;
+        bottom: -2px;
+        left: 0;
+        background-color: #fff;
+    }
+
+    td:last-child:after {
+        content: "";
+        position: absolute;
+        width: 10px;
+        top: 0;
+        bottom: -2px;
+        right: 0;
+        background-color: #fff;
+    }
+
+    .questionnaire-details td:nth-child( even ) {
+        padding-left: 1em;
+    }
+
+    .questionnaire-details td:nth-child( odd ) {
+        width: 80%;
+    }
+
+    .documents-list {
+        margin: 0;
+    }
+
+    .documents-list li {
+        padding-bottom: 3px;
+    }
+
+    .documents-list li:last-child {
+        padding-bottom: 0;
+    }
+</style>
+<div class="row">
+    <div class="center_column col-sm-12">
+        <div class="row">
+            <div class="col-xs-12">
+                <h3 class="border-bottom padding-bottom-small">Registration Review</h3>
+                <h3 class="form-group">
+                    <small>Please review your information and make sure it is correct. If everything looks good you can
+                        complete your registration by clicking the button below.
+                    </small>
+                </h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="step-title">
+                    <h4>Account Type</h4>
+                    <i {{action 'goBackToStep' 'info'}} class="xrk-icon xrk-edit"></i>
+                </div>
+                <table class="table details">
+                    <tbody>
+                    <tr>
+                        <td>Account Type</td>
+                        <td>{{accountType}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {{#if registration.isBusiness}}
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="step-title">
+                        <h4>Company Profile</h4>
+                        <i {{action 'goBackToStep' 'info'}} class="xrk-icon xrk-edit"></i>
+                    </div>
+                    <table class="table details">
+                        <tbody>
+                            <tr>
+                                <td>Name</td>
+                                <td>{{registration.company.name}}</td>
+                            </tr>
+                            <tr>
+                                <td>Address</td>
+                                <td>
+                                    <span>{{registration.company.address}} {{registration.company.address_2}}</span>
+                                    <span>{{registration.company.city}}</span>
+                                    <span>{{registration.company.state_province}}</span>
+                                    <span>{{registration.company.postal_code}} {{registration.company.country}} {{country-flag
+                                            registration.company.country}}</span>
+                                </td>
+                            </tr>
+                        {{#if registration.company.trading_same}}
+                            <tr>
+                                <td>Trading Address</td>
+                                <td>
+                                    <span>Same as address</span>
+                                </td>
+                            </tr>
+                        {{else}}
+                            <tr>
+                                <td>Trading Address</td>
+                                <td>
+                                    <span>{{registration.company.trading_address}} {{registration.company.trading_address_2}}</span>
+                                    <span>{{registration.company.trading_city}}</span>
+                                    <span>{{registration.company.trading_state_province}}</span>
+                                    <span>{{registration.company.trading_postal_code}} {{registration.company.trading_country}} {{country-flag
+                                            registration.company.trading_country}}</span>
+                                </td>
+                            </tr>
+                        {{/if}}
+                        <tr>
+                            <td>Office Phone</td>
+                            <td>{{registration.company.phone_office}}</td>
+                        </tr>
+                        <tr>
+                            <td>Website</td>
+                            <td>
+                                {{#if registration.company.website}}
+                                    <a href="{{registration.company.website}}">{{registration.company.website}}</a>
+                                {{else}}
+                                    N/A
+                                {{/if}}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {{/if}}
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="step-title">
+                    <h4>User Profile</h4>
+                    <i {{action 'goBackToStep' 'info'}} class="xrk-icon xrk-edit"></i>
+                </div>
+                <table class="table details">
+                    <tbody>
+                    <tr>
+                        <td>Name</td>
+                        <td>{{registration.user.first_name}} {{registration.user.last_name}}</td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td>{{registration.user.email}}</td>
+                    </tr>
+                    {{#if registration.isPersonal}}
+                        <tr>
+                            <td>Address</td>
+                            <td>
+                                <span>{{registration.company.address}} {{registration.company.address_2}}</span><br>
+                                <span>{{registration.company.city}}</span><br>
+                                <span>{{registration.company.state_province}}</span><br>
+                                <span>{{registration.company.postal_code}} {{registration.company.country}} {{country-flag
+                                        registration.company.country}}</span>
+                            </td>
+                        </tr>
+                        {{#if registration.company.trading_same}}
+                            <tr>
+                                <td>Mailing Address</td>
+                                <td>
+                                    <span>Same as address</span>
+                                </td>
+                            </tr>
+                        {{else}}
+                            <tr>
+                                <td>Mailing Address</td>
+                                <td>
+                                    <span>{{registration.company.trading_address}} {{registration.company.trading_address_2}}</span><br>
+                                    <span>{{registration.company.trading_city}}</span><br>
+                                    <span>{{registration.company.trading_state_province}}</span><br>
+                                    <span>{{registration.company.trading_postal_code}} {{registration.company.trading_country}} {{country-flag
+                                            registration.company.trading_country}}</span>
+                                </td>
+                            </tr>
+                        {{/if}}
+                    {{/if}}
+                    <tr>
+                        <td>Mobile Phone</td>
+                        <td>{{registration.user.phone_mobile}}</td>
+                    </tr>
+                    <tr>
+                        <td>Office Phone</td>
+                        <td>{{registration.user.phone_office}}</td>
+                    </tr>
+                    <tr>
+                        <td>Date Of Birth</td>
+                        <td>{{mongo-date registration.user.date_of_birth format="YYYY/MM/DD"}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="step-title">
+                    <h4>Questionnaire</h4>
+                    <i {{action 'goBackToStep' 'questionnaire'}} class="xrk-icon xrk-edit"></i>
+                </div>
+                <table class="table questionnaire-details">
+                    <tbody>
+                        {{#each inquiry in registration.inquiries}}
+                            <tr>
+                                <td>{{handlebars-string templateString=inquiry.question templateContext=registration}}</td>
+                                <td>{{inquiry-answer inquiry.answer}}</td>
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="step-title">
+                    <h4>Owners</h4>
+                    <i {{action 'goBackToStep' 'owners'}} class="xrk-icon xrk-edit"></i>
+                </div>
+                <table class="table details">
+                    <tbody>
+                    {{#each owner in registration.owners}}
+                        <tr>
+                            <td>{{owner.name}}</td>
+                            <td>{{owner.percent_ownership}}%</td>
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="step-title">
+                    <h4>Verification</h4>
+                    <i {{action 'goBackToStep' 'verification'}} class="xrk-icon xrk-edit"></i>
+                </div>
+                <table class="table details">
+                    <tbody>
+                    {{#each documentType in documentTypes}}
+                        <tr>
+                            <td>{{documentType.display_name}}</td>
+                            <td>
+                                <ul class="documents-list list-unstyled">
+                                    {{#each document in documentType.documents}}
+                                        <li>
+                                            {{#if document.exemption}}
+                                                Exemption
+                                            {{else}}
+                                                {{#document-link document_id=document.document_id
+                                                                 token=session.access_token}}{{file-type-icon
+                                                        document.type}} {{document.name}}{{/document-link}}
+                                            {{/if}}
+                                        </li>
+                                    {{/each}}
+                                </ul>
+                            </td>
+                        </tr>
+                    {{/each}}
+                    <tr>
+                        <td>ID Type</td>
+                        <td>{{registration.user.id_type}}</td>
+                    </tr>
+                    <tr>
+                        <td>ID Country</td>
+                        <td>{{registration.user.id_country}}</td>
+                    </tr>
+                    <tr>
+                        <td>ID Number</td>
+                        <td>{{sensitive-data registration.user.id_num}}</td>
+                    </tr>
+                    <tr>
+                        <td>DUNS Number</td>
+                        <td>{{registration.company.duns_number}}</td>
+                    </tr>
+                    <tr>
+                        <td>Company Number</td>
+                        <td>{{registration.company.company_number}}</td>
+                    </tr>
+                    <tr>
+                        <td>Tax Number</td>
+                        <td>{{registration.company.tax_num}}</td>
+                    </tr>
+                    <tr>
+                        <td>Tax Authority</td>
+                        <td>{{registration.company.tax_num_type}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="clear"></div>
+            <div class="col-sm-8 center-column">
+                <button {{action 'complete'}} type="submit">Finalize Registration</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{#if confirmation}}
+    <div class="modal-backdrop fade in" style="z-index: 1050;"></div>
+    <div class="modal" tabindex="-1" role="dialog" style="display: block;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                {{#validator-form action="confirm" locked=formLocked}}
+                    <div class="modal-header">
+                        <h4 class="modal-title">Are you sure?</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>This is the last chance you'll have to make any changes before your registration is
+                            submitted to {{controllers.application.company.name}} for evaluation.</p>
+                        <button {{action "confirm"}} class="bottom-buffer" type="submit">Complete Registration</button>
+                        <button {{action "back"}} type="button" data-dismiss="modal">Cancel</button>
+                    </div>
+                {{/validator-form}}
+            </div>
+        </div>
+    </div>
+{{/if}}

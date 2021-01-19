@@ -1,0 +1,11 @@
+<div class="row form-group">
+    <div class="col-sm-8">
+        {{view.inquiry.question}}
+        {{#unless view.inquiry.required}}
+            &nbsp;<span class="optional">optional</span>
+        {{/unless}}
+    </div>
+    <div class="col-sm-4">
+        {{hear-inquiry answer=view.answer}}
+    </div>
+</div>

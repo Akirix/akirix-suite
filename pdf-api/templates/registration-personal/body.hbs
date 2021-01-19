@@ -1,0 +1,302 @@
+<style type="text/css">
+
+
+    .table tbody tr {
+        border-top: 1px solid #f5f5f5;
+    }
+
+    .table thead tr {
+        background-color: #f5f5f5;
+    }
+
+    .table tbody tr td {
+        border: none;
+    }
+
+    td, th {
+        font-size: 16px;
+    }
+
+    tr {
+        page-break-inside: avoid;
+    }
+</style>
+
+<div style="width: 1024px; height: 1225px; margin: 0px auto">
+    <div class="row align-center" style="margin: 25px 0 25px 0;">
+        <h2>Registration Info</h2>
+    </div>
+    <div class="row align-center" style="margin: 25px 0 25px 0;">
+        <h4>Name: {{user.first_name}} {{user.last_name}}</h4>
+        <h4>Activation Date: {{date date=modified}}</h4>
+    </div>
+
+    <!-- User Info -->
+
+    <div class="row align-center" style="margin: 25px 0 25px 0;">
+        <h3>User Information</h3>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <table class="table table-high">
+                <thead>
+                    <tr>
+                        <th class="col-xs-3">Name</th>
+                        <th class="col-xs-3">D.O.B</th>
+                        <th class="col-xs-3">Nationality</th>
+                        <th class="col-xs-3">ID (Country/Type/Num)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="valign-center">
+                            {{user.last_name}}, {{user.first_name}}
+                        </td>
+                        <td class="valign-center">
+                            {{date date=user.date_of_birth}}
+                        </td>
+                        <td class="valign-center">
+                            {{user.nationality}}
+                        </td>
+                        <td class="valign-center">
+                            {{user.id_country}} : {{user.id_type}} : {{user.id_num}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    {{!-- Address & Contact Information --}}
+
+    <div class="row align-center" style="margin: 25px 0 25px 0;">
+        <h3>Address & Contact Information</h3>
+    </div>
+
+    <div class="col-xs-12">
+        <table class="table table-high">
+            <thead>
+                <tr>
+                    <th class="col-xs-4"></th>
+                    <th class="col-xs-4">Registered</th>
+                    <th class="col-xs-4">Mailing</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="bold">
+                        Address
+                    </td>
+                    <td class="">
+                        {{company.address}}
+                    </td>
+                    <td class="">
+                        {{company.trading_address}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="bold">
+                        City
+                    </td>
+                    <td class="">
+                        {{company.city}}
+                    </td>
+                    <td class="">
+                        {{company.trading_city}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="bold">
+                        State/Province
+                    </td>
+                    <td class="">
+                        {{company.state_province}}
+                    </td>
+                    <td class="">
+                        {{company.trading_state_province}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="bold">
+                        Postal Code
+                    </td>
+                    <td class="">
+                        {{company.postal_code}}
+                    </td>
+                    <td class="">
+                        {{company.trading_postal_code}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="bold">
+                        Country
+                    </td>
+                    <td class="">
+                        {{company.country}}
+                    </td>
+                    <td class="">
+                        {{company.trading_country}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="bold">
+                        Office Phone
+                    </td>
+                    <td class="">
+                        {{company.phone_office}}
+                    </td>
+                    <td class="">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="bold">
+                        Mobile Phone
+                    </td>
+                    <td class="">
+                        {{user.phone_mobile}}
+                    </td>
+                    <td class="">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="bold">
+                        E-mail
+                    </td>
+                    <td class="">
+                        {{user.email}}
+                    </td>
+                    <td class="">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+<div class="page-break"></div>
+
+    {{!-- Inquiries --}}
+
+    <div class="row align-center" style="margin: 25px 0 25px 0;">
+        <h3>Inquiries</h3>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <table class="table table-high">
+                <thead>
+                    <tr>
+                        <th class="col-xs-2">Question</th>
+                        <th class="col-xs-2">Answer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each inquiries}}
+                    <tr>
+                    <td class="valign-center">
+                        {{this.question}}
+                    </td>
+                    <td class="valign-center">
+                        {{this.answer}}
+                    </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    {{!-- Documents --}}
+
+    <div class="row align-center" style="margin: 25px 0 25px 0;">
+        <h3>Documents</h3>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <table class="table table-high">
+                <thead>
+                    <tr>
+                        <th class="col-xs-3">Name</th>
+                        <th class="col-xs-1">Exemption</th>
+                        <th class="col-xs-4 text-center">Notes/Reason</th>
+                        <th class="col-xs-1">Verified</th>
+                        <th class="col-xs-3 text-center">Verified User</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each documents}}
+                        <tr>
+                            <td class="valign-center">
+                                {{this.name}}
+                            </td>
+                            <td class="valign-center">
+                                {{this.exemption}}
+                            </td>
+                            <td class="valign-center">
+                                {{this.notes}}
+                            </td>
+                            <td class="valign-center">
+                                {{this.verified}}
+                            </td>
+                            <td class="valign-center">
+                                {{this.vUser}}
+                            </td>
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Trading Volume -->
+
+    <div class="row align-center" style="margin: 25px 0 25px 0;">
+        <h3>Trading Volume</h3>
+    </div>
+    
+    <div class="row">
+        <div class="col-xs-12">
+            <table class="table table-high">
+                <thead>
+                    <tr>
+                        <th class="col-xs-3">Volume In Amount</th>
+                        <th class="col-xs-3">Volume In Frequency</th>
+                        <th class="col-xs-3">Volume Out Amount</th>
+                        <th class="col-xs-3">Volume Out Frequency</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="col-xs-3">{{tradingVolume.vol_in_amount}}</td>
+                        <td class="col-xs-3">{{tradingVolume.vol_in_type}}</td>
+                        <td class="col-xs-3">{{tradingVolume.vol_out_amount}}</td>
+                        <td class="col-xs-3">{{tradingVolume.vol_out_type}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+<div class="page-break"></div>
+
+    {{!-- Registration Agreement --}}
+
+    <div class="row align-center" style="margin: 25px 0 25px 0;">
+        <h3>Registration Agreement</h3>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <span class="col-border align-left" style="padding:10px;">{{{userAgreement.terms_and_condition}}}</span>
+            <table style="font-size:26px;">
+                <tr style="text-align: right;">
+                    Agreed On:
+                </tr>
+                <tr style="text-align: left;">
+                    {{date date=userAgreement.agreed_on}}
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+    </div>

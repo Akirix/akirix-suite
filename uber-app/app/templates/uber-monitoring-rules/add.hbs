@@ -1,0 +1,82 @@
+{{#akx-form action='createRule' isLocked=isLocked}}
+    <div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+        <div class="pane-secondary-content">
+            <div class="col-xs-12">
+                <legend>
+                    New Monitoring Rule
+                </legend>
+            </div>
+            <div class="row top-buffer">
+                <div class="form-group col-md-6 has-feedback">
+                    <label>Name:</label>
+                    {{input value=model.name class='form-control' valueFormat='YYYY-MM-DD'}}
+                    {{validation-feedback errors=errors.model.name validated=validated}}
+                </div>
+                <div class="form-group col-md-6 required has-feedback">
+                    <label>Rule applies to:</label>
+                    {{view 'select'
+                    value=model.model
+                    content=modelOptions
+                    prompt='Select what the rule applies to'
+                    class='form-control'}}
+                    {{validation-feedback errors=errors.model.model validated=validated}}
+                </div>
+            </div>
+            {{#if model.model}}
+                <hr>
+                <button class="btn btn-success btn-sm" {{action 'addField'}}>Add field</button>
+                {{#each field in fieldsArr}}
+                    <div class="row top-buffer">
+                        <div class="form-group col-md-3 required has-feedback">
+                            <label>Field name</label>
+                            {{view 'select'
+                            value=field.name
+                            content=getModelFields
+                            prompt='Select a Field'
+                            class='form-control'}}
+                            {{validation-feedback errors=field.errors.name validated=validated}}
+                        </div>
+                        <div class="form-group col-md-4 required has-feedback">
+                            <label>Match Type</label>
+                            {{view 'select'
+                            value=field.match_type
+                            content=matchTypes
+                            optionValuePath='content.value'
+                            optionLabelPath='content.label'
+                            prompt='Select an operator'
+                            class='form-control'}}
+                            {{validation-feedback errors=field.errors.match_type validated=validated}}
+                        </div>
+                        <div class="form-group col-md-4 required has-feedback">
+                            <label>Value of rule:</label>
+                            {{input value=field.value class='form-control' placeholder='Add a value'}}
+                            {{validation-feedback errors=field.errors.value validated=validated}}
+                        </div>
+                        <div class="form-group col-md-1">
+                            <span class="badge bg-danger valign-middle" style="margin-top:32px;" {{action 'deleteField' field}}>X</span>
+                        </div>
+                    </div>
+                {{/each}}
+            {{/if}}
+        </div>
+    </div>
+    <div class="viewport viewport-bottom navbar-toolbar">
+        <div class="pane-actions">
+            <ul class="list-h">
+                <li>
+                    <button class="btn btn-default btn-sm navbar-secondary-btn" {{action 'goBack'}}>
+                        Cancel
+                    </button>
+                </li>
+            </ul>
+
+            <ul class="list-h pull-right">
+                <li>
+                    <button class="btn btn-primary btn-sm navbar-secondary-btn" type="submit">
+                        Create Rule
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+{{/akx-form}}

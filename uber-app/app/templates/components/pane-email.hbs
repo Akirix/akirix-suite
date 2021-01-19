@@ -1,0 +1,94 @@
+<div class="panel panel-default main-tray-box" style="width: 600px;">
+    <div class="panel-heading rows">
+        <span>
+            <i class="fa fa-envelope fa-fw"></i> <strong class="panel-heading-format-text">{{{item.subject}}}</strong>
+        </span>
+        <div class="pull-right">
+            <span class="pull-right" {{action "removeFromGlobalPane" item}}>
+                &nbsp;&nbsp;&nbsp;<i class="fa fa-times fa-lg" aria-hidden="true"></i>
+            </span>
+            <span class="pull-right" {{action "toggleMinMax" item}}>
+                <i class="fa {{minMaxIcon}} fa-fw" aria-hidden="true"></i>
+            </span>
+        </div>
+    </div>
+    <div class="panel-body collapse {{minMaxClass}} no-padding small">
+        <div class="form-group col-xs-6 has-feedback">
+            {{#x-select value=templateSelected class='form-control input-sm' action="setAutoComplete"}}
+                {{#x-option}}Select a template{{/x-option}}
+                {{#each template in templates}}
+                    {{#x-option value=template }}{{template.name}} - {{template.subject}}{{/x-option}}
+                {{/each}}
+            {{/x-select}}
+        </div>
+        <div class="form-group col-xs-6 has-feedback">
+            {{input value=item.email type='text' class='form-control input-sm' placeholder='From Email'}}
+            {{validation-feedback errors=errors.item.email validated=validated}}
+        </div>
+        <div>
+            <div class="form-group col-xs-5 has-feedback">
+                {{input value=newPerson.name type='text' class="form-control input-sm" placeholder="Add Recipient Name"}}
+            </div>
+            <div class="form-group col-xs-5">
+                {{input value=newPerson.email type='text' class="form-control input-sm" placeholder="Add Recipient Email"}}
+            </div>
+            <div class="form-group col-xs-2 has-feedback">
+                <button type="submit" class="btn btn-success btn-sm" {{action 'addPerson' newPerson}}
+                        style="vertical-align: middle !important; text-align: center !important;">
+                    Add
+                </button>
+            </div>
+        </div>
+        <div class="form-group col-xs-12 has-feedback">
+            <ul class="list-inline fake-input-style">
+                <li class="list-inline-item" style="padding: 0; color: #999;"><span>To</span></li>
+                {{#each person in item.toEmails}}
+                    <li class="list-inline-item" style="padding: 0;">
+                        <span class="label label-akx-email">{{person.name}} &lt;{{person.email}}
+                            &gt;<span{{action 'removePerson' person}}>&nbsp;&nbsp;<i
+                                    class="fa fa-times"></i>&nbsp;</span></span>
+                    </li>
+                {{/each}}
+            </ul>
+            {{validation-feedback errors=errors.item.toEmails validated=validated}}
+        </div>
+        <div class="form-group col-xs-12 has-feedback">
+            {{input value=item.subject type='text' class='form-control input-sm' placeholder='Subject'}}
+            {{validation-feedback errors=errors.item.subject validated=validated}}
+        </div>
+
+        <div class="col-xs-12 form-group has-feedback">
+            <div>
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a style="background-color: inherit !important"
+                                                              href="#content{{attachIdx}}" aria-controls="home"
+                                                              role="tab"
+                                                              data-toggle="tab">Content</a></li>
+                    <li role="presentation"><a style="background-color: inherit !important" href="#preview{{attachIdx}}"
+                                               aria-controls="profile" role="tab" data-toggle="tab">Preview</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active" id="content{{attachIdx}}">
+                        <br>
+
+                        <div class="col-xs-12 form-group has-feedback">
+                            {{textarea value=item.content class="form-control input-sm" rows="15" placeholder='Markdown content goes here for email'}}
+                            {{validation-feedback errors=errors.item.content validated=validated}}
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="preview{{attachIdx}}" style="min-height: 314px;">
+                        <br>
+                        {{akx-markdown-preview markdownContent=item.content}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-footer collapse {{minMaxClass}} {{{item_collapsible}}}">
+        <button class="btn btn-primary btn-xs" type="button" {{action 'sendEmail'}}>
+            <i class="fa fa-paper-plane fa-fw"></i> Send Email
+        </button>
+    </div>
+</div>

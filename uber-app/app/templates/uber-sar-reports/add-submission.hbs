@@ -1,0 +1,74 @@
+<div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+    {{slide-task-list model='Ticket' model_id=ticket.id company_id=ticket.company_id}}
+    <div class="pane-secondary-content">
+        <div class="panel panel-default">
+            <div class="panel-heading text-center">
+                <strong>SAR Submission</strong>
+            </div>
+            <div class="panel-body">
+                <div class="form-group col-md-6 required has-feedback">
+                    <label>Type</label>
+                    {{view 'select'
+                           value=uberSarSubmission.type
+                           content=submissionTypes
+                           optionValuePath='content.val'
+                           optionLabelPath='content.label'
+                           prompt='Select Submission Type'
+                           class='form-control'}}
+                    {{validation-feedback errors=errors.uberSarSubmission.type validated=validated}}
+                </div>
+
+                <div class="form-group col-md-6 required has-feedback">
+                    <label>Status</label>
+                    {{view 'select'
+                           value=uberSarSubmission.status
+                           content=submissionStatuses
+                           optionValuePath='content.val'
+                           optionLabelPath='content.label'
+                           prompt='Select Status'
+                           class='form-control'}}
+                    {{validation-feedback errors=errors.ticket.uber_user_id validated=validated}}
+                </div>
+
+
+                <div class="form-group col-md-6 has-feedback">
+                    <label>Reference</label>
+                    {{input value=uberSarSubmission.reference type='text' class='form-control '
+                            placeholder='Reference'
+                    }}
+                    {{validation-feedback errors=errors.uberSarSubmission.reference
+                                          validated=validated}}
+                </div>
+
+                <div class="form-group col-md-6 has-feedback">
+                    <label>Confirmation</label>
+                    {{input value=uberSarSubmission.confirmation type='text' class='form-control '
+                            placeholder='Confirmation'
+                    }}
+                    {{validation-feedback errors=errors.uberSarSubmission.confirmation
+                                          validated=validated}}
+                </div>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+    </div>
+</div>
+<div class="viewport viewport-bottom navbar-toolbar">
+    <div class="pane-actions">
+        <ul class="list-h">
+            <li>
+                <button {{action 'goBack'}} class="btn btn-default navbar-secondary-btn btn-sm" type="button">Back
+                </button>
+            </li>
+            <li>
+                <button {{action 'createSubmission'}} class="btn btn-default btn-sm navbar-secondary-btn"><i
+                        class="fa fa-floppy-o fa-lg"></i></button>
+            </li>
+
+        </ul>
+        <ul class="list-h pull-right">
+
+        </ul>
+    </div>
+</div>

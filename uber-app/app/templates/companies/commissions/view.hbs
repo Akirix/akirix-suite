@@ -1,0 +1,81 @@
+<div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+    {{slide-task-list model='Commission' model_id=model.id company_id=model.affiliate_id}}
+    <div class="pane-secondary-content">
+        <div class="panel panel-default">
+            <div class="panel-heading text-center">
+                <strong>Commission Info</strong>
+            </div>
+            <div class="panel-body">
+                <div class="form-group col-md-12">
+                    {{input type="checkbox" checked=model.status }} <label>Active</label>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6 required has-feedback">
+                        <label>Rate ({{model.str_rate}})</label>
+                        {{input value=model.rate type='text' class='form-control' placeholder='.0'}}
+                        {{validation-feedback errors=errors.model.rate validated=validated}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6 required has-feedback">
+                        <label for="">Start Date</label>
+                        {{date-picker value=model.start_date class='form-control' placeholder='Start Date' valueFormat='YYYY-MM-DD' allowBlank=true}}
+                        {{validation-feedback errors=errors.model.start_date validated=validated}}
+                    </div>
+                    <div class="form-group col-md-6 required has-feedback">
+                        <label for="">End Date</label>
+                        {{date-picker value=model.end_date class='form-control' placeholder='End Date' valueFormat='YYYY-MM-DD' allowBlank=true}}
+                        {{validation-feedback errors=errors.model.end_date validated=validated}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading text-center">
+                <strong>Payment History</strong>
+            </div>
+            <div class="panel-body">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Period From</th>
+                        <th>Period To</th>
+                        <th>Rate</th>
+                        <th>Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#each item in paymentItems}}
+                        <tr>
+                            <td>{{item.str_period_from}}</td>
+                            <td>{{item.str_period_to}}</td>
+                            <td>{{item.str_rate}}</td>
+                            <td>{{{item.currency.symbol}}}{{item.str_amount}}</td>
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="viewport viewport-bottom navbar-toolbar">
+    <div class="pane-actions">
+        <ul class="list-h">
+            <li>
+                {{#link-to 'companies.view.commissions.index' tagName='button' class='btn btn-default navbar-secondary-btn btn-sm'}}
+                    Back
+                {{/link-to}}
+            </li>
+        </ul>
+        <ul class="list-h pull-right">
+            <li>
+                <button {{action 'updateCommission' item}} class="btn btn-primary navbar-secondary-btn btn-sm"
+                                                           type="button">
+                    Update
+                </button>
+            </li>
+        </ul>
+    </div>
+</div>

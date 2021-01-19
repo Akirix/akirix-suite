@@ -1,0 +1,43 @@
+<div class="navbar-secondary" role="navigation">
+    <ul class="list-h">
+    </ul>
+</div>
+<div class="pane-primary-content">
+    {{partial 'nav-controls'}}
+
+    {{#if content}}
+        {{page-numbers content=content}}
+    {{/if}}
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th class="col-xs-2">Date Checked</th>
+            <th class="col-xs-4">User Email</th>
+            <th class="col-xs-4">Name</th>
+            <th class="col-xs-2">Type</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each uber_pwned in model}}
+            {{#link-to 'uber-pwned.index.view' uber_pwned.id tagName='tr' class='list-link'}}
+                <td class="valign-middle">
+                    {{uber_pwned.str_created_at_date}}
+                </td>
+                <td class="valign-middle">
+                    {{uber_pwned.user_email}}
+                </td>
+                <td class="valign-middle">
+                    {{uber_pwned.name}}
+                </td>
+                <td class="valign-middle">
+                    {{uber-pwned-type uber_pwned.type}}
+                </td>
+            {{/link-to}}
+        {{/each}}
+        </tbody>
+    </table>
+    {{#if content}}
+        {{page-numbers content=content}}
+    {{/if}}
+</div>
+

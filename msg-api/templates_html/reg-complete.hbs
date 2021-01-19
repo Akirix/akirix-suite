@@ -1,0 +1,33 @@
+{{#email-wrapper}}
+    {{> header title="Registration Submitted"}}
+    {{#email-content}}
+        <table border="0" cellpadding="0" cellspacing="0" style="text-align:center;">
+            <tbody>
+
+            {{#row}}<span style="color: #777777;">Thank you for completing your Akirix Registration.</span>{{/row}}
+            {{spacer size=40}}
+
+            {{#row}}<strong style="letter-spacing: 1px;">What's Next</strong>{{/row}}
+            {{spacer size=10}}
+            {{#row}}<span style="color: #777777;">One of our team members is currently reviewing your application and will be in contact with you shortly. Once we have confirmed your details we will notify you that your account is active.</span>{{/row}}
+            {{spacer}}
+            {{#row}}<span style="color: #777777;">In the meantime please have a look around our {{#link href="https://kb.xxx.com"}}knowledge base{{/link}}.</span>{{/row}}
+
+            {{spacer size=40}}
+
+
+            {{#row}}<strong style="letter-spacing: 1px;">Verify Your Email</strong>{{/row}}
+            {{spacer size=10}}
+            {{#row}}<span style="color: #777777;">In order for us to better secure your account please verify your email by clicking the link below.</span>{{/row}}
+            {{spacer size=40}}
+
+            {{#row}}
+                {{#button-link href=@root.url}}Verify Email{{/button-link}}
+            {{/row}}
+
+            {{sign-off}}
+            </tbody>
+        </table>
+    {{/email-content}}
+    {{> footer}}
+{{/email-wrapper}}

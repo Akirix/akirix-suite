@@ -1,0 +1,78 @@
+<div class="side-panel-content">
+    <header id="side-header" class="akx-header">
+        <span>{{stringList.addSupplierNode}}</span>
+    </header>
+    <div class="pt-5">
+        <h4>{{stringList.akirixNumber}}</h4>
+    </div>
+    {{#if success}}
+        {{input value=changeset.account_number type="text" class='form-control' disabled=success}}
+    {{else}}
+        <div class="row mt-3">
+            <div class="col-6">
+                {{find-company
+                    value=changeset.account_number
+                    changeset=changeset
+                    path='account_number'
+                    companyId=model.project.node.company.id}}
+            </div>
+            {{#if model.project.isSmart}}
+                {{#if model.project.bnode}}
+                    <div class="col-6 form-group bmd-form-group has-feedback">
+                        <label class="bmd-label-floating">{{stringList.discountRate}}</label>
+                        {{#if model.project.isFixedProfitMargin}}
+                            {{input value=changeset.discount_rate type="text" class='form-control' disabled="disabled"}}
+                        {{else}}
+                            {{input value=changeset.discount_rate type="text" class='form-control' disabled=success}}
+                            {{validation-feedback errors=changeset.error.discount_rate.validation}}
+                            <p class="no-margin text-right">Fee: {{fee}}%</p>
+                            <p class="no-margin text-right"><b>Total: {{totalDiscountRate}}%</b></p>
+                        {{/if}}
+                    </div>
+                {{/if}}
+            {{/if}}
+        </div>
+    {{/if}}
+    {{#if model.project.isLinear}}
+        <div class="pt-3">
+            <h4>{{stringList.productPrices}}</h4>
+            {{node-items-list items=nodeItems project=model.project edit=false}}
+        </div>
+    {{/if}}
+    <div class="pt-3">
+        <h4 class="text-center">
+            {{stringList.documentsSubTitle}}
+            <i class="akx-icon akx-faq text-primary font-h4">
+                {{#akx-popover container='body' event='click'}}
+                    <div class="sub-item">
+                        <p>{{stringList.documentsHelp}}</p>
+                    </div>
+                {{/akx-popover}}
+            </i>
+        </h4>
+        {{upload-document model='node' documents=documents}}
+    </div>
+    {{#if success}}
+        <div class="row text-center mt-5">
+            <div class="col-lg-4 col-md-8 col-sm-10 m-auto text-success">
+                <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                    <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                    <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                </svg>
+                <p class="font-h2">{{stringList.success}}</p>
+                <p>{{stringList.successMessage}}</p>
+            </div>
+        </div>
+    {{/if}}
+</div>
+{{#unless success}}
+    <div class="action-footer">
+        <div class="row py-2">
+            <div class="col-12 text-center">
+                <button id="btn-add-supplier" {{action 'addNode'}} class="btn btn-primary" type="button">
+                    {{stringList.confirmSupplier}}
+                </button>
+            </div>
+        </div>
+    </div>
+{{/unless}}

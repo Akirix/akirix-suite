@@ -1,0 +1,7 @@
+{
+"disableAnalytics": true,
+"port": 4200,
+"host": "127.0.0.1",
+"live-reload": true,
+"live-reload-port": 35731
+}

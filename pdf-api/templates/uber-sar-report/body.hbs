@@ -1,0 +1,641 @@
+<style>
+    .blackHeader {
+        height: 40px;
+        background: black;
+        color: white;
+        font-size: large;
+        padding: 10px 40px 10px 50px;
+        text-align: center;
+    }
+
+    .partHeader {
+        height: 40px;
+        background: gray;
+        color: black;
+        font-size: large;
+        padding: 10px 40px 10px 50px;
+    }
+
+    .break {
+        page-break-inside: avoid;
+    }
+
+    textarea {
+        white-space: pre-wrap;
+        width: 100%;
+        margin: 10px 10px 10px 10px;
+    }
+</style>
+
+<div style="width: 1024px; height: 1225px; margin: 0px auto">
+    <div style="height: 20px;"></div>
+    <div class="row break">
+        <div class="col-xs-4">
+            <h2><strong>Suspicious Activity Report</strong></h2>
+        </div>
+        <div class="col-xs-4 align-center">
+            <img src="{{server}}/img/AkirixLogo-01.png" height="60">
+        </div>
+    </div>
+
+    <div class="blackHeader">ALWAYS COMPLETE ENTIRE FORM</div>
+
+    <div style="height: 25px;"></div>
+    
+    <div class="partHeader"><span class="pull-left">WHOLE REPORT</span> <span class="pull-right align-left">SUBMISSION INFORMATION</span></div>
+    
+    <div style="height: 25px;"></div>
+    
+    <div class="row break">
+        <div class="form col-xs-12">
+            <label for="name">Submission Date</label>
+            {{#if @root.has_submission_date}}
+            	<input type="text" class="form-control" id="name" value="{{@root.submission_date}}">
+            {{else}}
+            	<input type="text" class="form-control" id="name" value="">
+            {{/if}}
+        </div>
+    </div>
+    
+    <div style="height: 25px;"></div>
+
+    {{#each @root.activities}}
+        <div class="partHeader"><span class="pull-left">PART 1 FOR {{subheading}}</span> <span class="pull-right align-left">SUBJECT INFORMATION</span>
+        </div>
+
+        {{#each subjects}}
+            <div style="height: 25px;"></div>
+            <div class="row break">
+                <div class="form col-xs-6">
+                    <label for="name">Last Name or Entity Legal Name</label>
+                    <input type="text" class="form-control" id="name" value="{{name}}">
+                </div>
+                <div class="form col-xs-6">
+                    <label for="first_name">First Name</label>
+                    <input type="text" class="form-control" id="first_name" value="{{first_name}}">
+                </div>
+            </div>
+            <div class="row break">
+                <div class="form col-xs-6">
+                    <label for="address">Address</label>
+                    <input type="text" class="form-control" id="address" value="{{address}}">
+                </div>
+                <div class="form col-xs-6">
+                    <label for="city">City</label>
+                    <input type="text" class="form-control" id="city" value="{{city}}">
+                </div>
+            </div>
+            <div class="row break">
+                <div class="form col-xs-3">
+                    <label for="state">State</label>
+                    <input type="text" class="form-control" id="state" value="{{state_province}}">
+                </div>
+                <div class="form col-xs-6">
+                    <label for="postal_code">Postal Code</label>
+                    <input type="text" class="form-control" id="postal_code" value="{{postal_code}}">
+                </div>
+                <div class="form col-xs-3">
+                    <label for="country">Country</label>
+                    <input type="text" class="form-control" id="country" value="{{country}}">
+                </div>
+            </div>
+            <div class="row break">
+                <div class="form col-xs-6">
+                    <label for="phone">Phone</label>
+                    <input type="text" class="form-control" id="phone" value="{{phone}}">
+                </div>
+                <div class="form col-xs-6">
+                    <label for="email">Email Address</label>
+                    <input type="text" class="form-control" id="email" value="{{email}}">
+                </div>
+            </div>
+            <div class="row break">
+                <div class="form col-xs-4">
+                    <label for="id_type">Form of Identification</label>
+                    <input type="text" class="form-control" id="id_type" value="{{id_type}}">
+                </div>
+                <div class="form col-xs-4">
+                    <label for="id_number">Identification Number</label>
+                    <input type="text" class="form-control" id="id_number" value="{{id_number}}">
+                </div>
+                <div class="form col-xs-4">
+                    <label for="email">Identification Country</label>
+                    <input type="text" class="form-control" id="email" value="{{id_country}}">
+                </div>
+            </div>
+            <div class="row break">
+                <div class="form col-xs-6">
+                    <label for="tax_type">Tax Number</label>
+                    <input type="text" class="form-control" id="tax_type" value="{{tin_type}}">
+                </div>
+                <div class="form col-xs-6">
+                    <label for="tax_number">TIN</label>
+                    <input type="text" class="form-control" id="tax_number" value="{{tin}}">
+                </div>
+            </div>
+        {{/each}}
+
+        <div style="height: 20px;"></div>
+        <div class="partHeader"><span class="pull-left">PART 2 FOR {{subheading}}</span> <span class="pull-right align-left">TRANSACTION INFORMATION</span>
+        </div>
+
+        {{#each @root.transactions}}
+            <div style="height: 25px;"></div>
+            <div class="row break">
+                <div class="form col-xs-12">
+                    <label for="transaction_type">Type of Transaction</label>
+                    <input type="text" class="form-control" id="transaction_type" value="{{type}}">
+                </div>
+            </div>
+
+            <div class="row break">
+                <div class="form col-xs-6">
+                    <label for="transaction_name">Transaction ID</label>
+                    <input type="text" class="form-control" id="transaction_name" value="{{name}}">
+                </div>
+                <div class="form col-xs-6">
+                    <label for="transaction_date">Date</label>
+                    <input type="text" class="form-control" id="transaction_date" value="{{date}}">
+                </div>
+            </div>
+
+            {{#if isWire}}
+                <div class="row break">
+                    <div class="form col-xs-6">
+                        <label for="transaction_currency">Currency</label>
+                        <input type="text" class="form-control" id="transaction_currency" value="{{currency_id}}">
+                    </div>
+                    <div class="form col-xs-6">
+                        <label for="transaction_amount">Amount</label>
+                        <input type="text" class="form-control" id="transaction_amount" value="{{amount}}">
+                    </div>
+                </div>
+            {{else}}
+                <div class="row break">
+                    <div class="form col-xs-6">
+                        <label for="transaction_base_currency">Base Currency</label>
+                        <input type="text" class="form-control" id="transaction_base_currency" value="{{base_currency_id}}">
+                    </div>
+                    <div class="form col-xs-6">
+                        <label for="transaction_base_amount">Base Amount</label>
+                        <input type="text" class="form-control" id="transaction_base_amount" value="{{base_amount}}">
+                    </div>
+                </div>
+                <div class="row break">
+                    <div class="form col-xs-6">
+                        <label for="transaction_counter_currency">Counter Currency</label>
+                        <input type="text" class="form-control" id="transaction_counter_currency"
+                               value="{{counter_currency_id}}">
+                    </div>
+                    <div class="form col-xs-6">
+                        <label for="transaction_counter_amount">Counter Amount</label>
+                        <input type="text" class="form-control" id="transaction_counter_amount" value="{{counter_amount}}">
+                    </div>
+                </div>
+            {{/if}}
+
+        {{/each}}
+
+        <div style="height: 20px;"></div>
+        <div class="partHeader"><span class="pull-left">PART 3 FOR {{subheading}}</span> <span class="pull-right align-left">SUSPICIOUS ACTIVITY INFORMATION</span>
+        </div>
+        <div style="height: 20px;"></div>
+
+        <div class="row break">
+            <div class="form col-xs-6">
+                <label for="date_from">From</label>
+                <input type="text" class="form-control" id="date_from" value="{{dateFrom}}">
+            </div>
+            <div class="form col-xs-6">
+                <label for="date_to">To</label>
+                <input type="text" class="form-control" id="date_to" value="{{dateTo}}">
+            </div>
+        </div>
+        <div class="row break">
+            <div class="form col-xs-12">
+                <label for="activity_type">Type of activity</label>
+                <input type="text" class="form-control" id="activity_type" value="{{activityType}}">
+            </div>
+        </div>
+        <div class="row break">
+            <div class="form col-xs-12">
+                <label for="activity_subtype">Subtype of activity</label>
+                <input type="text" class="form-control" id="activity_subtype"
+                       value="{{activitySubtype}}">
+            </div>
+        </div>
+        <div class="row break">
+            <div class="form col-xs-12">
+                <label for="subtype_description">Activity Subtype Description (if subtype is 'Other')</label>
+                <input type="text" class="form-control" id="subtype_description"
+                       value="{{subtypeDescription}}">
+            </div>
+        </div>
+
+        <div style="height: 20px;"></div>
+        <div class="partHeader"><span class="pull-left">PART 4 FOR {{subheading}}</span> <span class="pull-right align-left">REPORTING FINANCIAL INSTITUTION INFORMATION</span>
+        </div>
+        <div style="height: 20px;"></div>
+
+        <div class="row break">
+            <div class="form col-xs-8">
+                <label for="institution_type">Type of Institution</label>
+                <input type="text" class="form-control" id="institution_name"
+                       value="{{@root.institution.type_of_institution}}">
+            </div>
+            <div class="form col-xs-4">
+                <label for="institution_type_description">Type of Institution Description (if type is 'Other')</label>
+                <input type="text" class="form-control" id="institution_type_description"
+                       value="{{@root.institution.type_of_institution_description}}">
+            </div>
+        </div>
+
+        <div class="row break">
+            <div class="form col-xs-8">
+                <label for="institution_federal_regulator">Federal Reg.</label>
+                <input type="text" class="form-control" id="institution_federal_regulator"
+                       value="{{@root.institution.federal_regulator}}">
+            </div>
+        </div>
+
+        <div class="row break">
+            <div class="form col-xs-6">
+                <label for="institution_tin">Institution TIN</label>
+                <input type="text" class="form-control" id="institution_tin"
+                       value="{{@root.institution.TIN}}">
+            </div>
+            <div class="form col-xs-6">
+                <label for="institution_tin_type"> Type of Institution TIN</label>
+                <input type="text" class="form-control" id="institution_tin_type"
+                       value="{{@root.institution.TIN_type}}">
+            </div>
+        </div>
+
+        <div class="row break">
+            <div class="form col-xs-8">
+                <label for="institution_name">Name of Filing Institution</label>
+                <input type="text" class="form-control" id="institution_name"
+                       value="{{@root.institution.name}}">
+            </div>
+
+        </div>
+        <div class="row break">
+            <div class="form col-xs-6">
+                <label for="institution_address">Address</label>
+                <input type="text" class="form-control" id="institution_address"
+                       value="{{@root.institution.address}}">
+            </div>
+            <div class="form col-xs-6">
+                <label for="institution_city">City</label>
+                <input type="text" class="form-control" id="institution_city"
+                       value="{{@root.institution.city}}">
+            </div>
+        </div>
+        <div class="row break">
+            <div class="form col-xs-3">
+                <label for="institution_state">State</label>
+                <input type="text" class="form-control" id="institution_state"
+                       value="{{@root.institution.state_province}}">
+            </div>
+            <div class="form col-xs-6">
+                <label for="institution_postal_code">Postal Code</label>
+                <input type="text" class="form-control" id="institution_postal_code"
+                       value="{{@root.institution.postal_code}}">
+            </div>
+            <div class="form col-xs-3">
+                <label for="institution_country">Country</label>
+                <input type="text" class="form-control" id="institution_country"
+                       value="{{@root.institution.country_code}}">
+            </div>
+        </div>
+        <div class="row break">
+            <div class="form col-xs-6">
+                <label for="institution_phone">Phone</label>
+                <input type="text" class="form-control" id="institution_phone"
+                       value="{{@root.institution.phone}}">
+            </div>
+        </div>
+
+        <div style="height: 20px;"></div>
+        <div class="partHeader"><span class="pull-left">PART 5 FOR {{subheading}}</span> <span class="pull-right align-left">FINANCIAL INSTITUTION CONTACT INFORMATION</span>
+        </div>
+        <div style="height: 20px;"></div>
+
+        <div class="row break">
+            <div class="form col-xs-8">
+                <label for="institution_type">Type of Institution</label>
+                <input type="text" class="form-control" id="institution_name"
+                       value="{{@root.institution.type_of_institution}}">
+            </div>
+            <div class="form col-xs-4">
+                <label for="institution_type_description">Type of Institution Description</label>
+                <input type="text" class="form-control" id="institution_type_description"
+                       value="{{@root.institution.type_of_institution_description}}">
+            </div>
+        </div>
+
+        <div class="row break">
+            <div class="form col-xs-8">
+                <label for="institution_federal_regulator">Federal Reg.</label>
+                <input type="text" class="form-control" id="institution_federal_regulator"
+                       value="{{@root.institution.federal_regulator}}">
+            </div>
+        </div>
+
+        <div class="row break">
+            <div class="form col-xs-6">
+                <label for="institution_tin">Institution TIN</label>
+                <input type="text" class="form-control" id="institution_tin"
+                       value="{{@root.institution.TIN}}">
+            </div>
+            <div class="form col-xs-6">
+                <label for="institution_tin_type"> Type of Institution TIN</label>
+                <input type="text" class="form-control" id="institution_tin_type"
+                       value="{{@root.institution.TIN_type}}">
+            </div>
+        </div>
+
+        <div class="row break">
+            <div class="form col-xs-8">
+                <label for="institution_name">Filing Institution Contact</label>
+                <input type="text" class="form-control" id="institution_name"
+                       value="{{@root.institution.official_contact}}">
+            </div>
+
+        </div>
+        <div class="row break">
+            <div class="form col-xs-6">
+                <label for="institution_address">Address</label>
+                <input type="text" class="form-control" id="institution_address"
+                       value="{{@root.institution.address}}">
+            </div>
+            <div class="form col-xs-6">
+                <label for="institution_city">City</label>
+                <input type="text" class="form-control" id="institution_city"
+                       value="{{@root.institution.city}}">
+            </div>
+        </div>
+        <div class="row break">
+            <div class="form col-xs-3">
+                <label for="institution_state">State</label>
+                <input type="text" class="form-control" id="institution_state"
+                       value="{{@root.institution.state_province}}">
+            </div>
+            <div class="form col-xs-6">
+                <label for="institution_postal_code">Postal Code</label>
+                <input type="text" class="form-control" id="institution_postal_code"
+                       value="{{@root.institution.postal_code}}">
+            </div>
+            <div class="form col-xs-3">
+                <label for="institution_country">Country</label>
+                <input type="text" class="form-control" id="institution_country"
+                       value="{{@root.institution.country_code}}">
+            </div>
+        </div>
+        <div class="row break">
+            <div class="form col-xs-6">
+                <label for="institution_phone">Phone</label>
+                <input type="text" class="form-control" id="institution_phone"
+                       value="{{@root.institution.phone}}">
+            </div>
+        </div>
+
+        <div class="row break">
+            <div class="form col-xs-6">
+                <label for="internal_control_number">Internal Control Number</label>
+                <input type="text" class="form-control" id="internal_control_number"
+                       value="{{@root.internal_control_number}}">
+            </div>
+        </div>
+
+        <div style="height: 20px;"></div>
+        <div class="partHeader"><span class="pull-left">PART 6 FOR {{subheading}}</span> <span class="pull-right align-left">NARRATIVE</span>
+        </div>
+        <div style="height: 20px;"></div>
+
+        <div class="row break">
+            <textarea rows="30">{{narrative}}</textarea>
+        </div>
+    {{/each}}
+
+
+    <div class="row ">
+        <div class="col-xs-12 col-border col-md-6" style="padding: 10px;">
+            <p><b>Explanation/description of known or suspected violation of law or suspicious activity.</b><br/>
+                This section of the report is <b>critical.</b> The care with which it is written may make the difference
+                in whether or not the described conduct and its possible criminal nature are clearly understood. Provide
+                below a chronological and <b>complete</b> account of the possible violation of law, including what is
+                unusual, irregular or suspicious about the transaction, using the following checklist as you prepare
+                your
+                account.<br/></p>
+            <ul>
+                <li><b>Describe</b> supporting documentation and retain for 5 years.</li>
+                <li><b>Explain</b> who benefited, financially or otherwise, from the transaction, how muhc, and how.
+                </li>
+                <li><b>Retain</b> any confession, admission, or explanation of the transaction provided by the suspect
+                    and indicate to whom and when it was given.
+                </li>
+                <li><b>Retain</b> any confession, admission, or explanation of the transaction provided by any other
+                    person and indicate to whom and when it was given.
+                </li>
+                <li><b>Retain</b> any evidence of cover-up or evidence of an attempt to deceive federal or state
+                    examiners or others.
+                </li>
+                <li><b>Indicate</b> where the possible violation took place (e.g. main office, branch, other).</li>
+            </ul>
+        </div>
+        <div class="col-xs-12 col-md-6" style="padding: 10px;">
+            <ul>
+                <li><b>Indicate</b> whether the possible violation is an isolated incident or relates to other
+                    transactions.
+                </li>
+                <li><b>Indicate</b> whether there is any related litigation; if so, specify.</li>
+                <li><b>Recommend</b> any further investigation that might assist law enforcement authorities.</li>
+                <li><b>Indicate</b> whether any information has been excluded from this report; if so, why?</li>
+                <li>If you are correcting a previously filed report, describe the changes that are being made.</li>
+            </ul>
+            <p>For Bank Secrecy Act/Structuring/Money Laundering reports, include the following additional
+                information:</p>
+            <ul>
+                <li><b>Indicate</b> whether currency and/or monetary instruments were involved. If so, provide the
+                    amount and/or description of the instrument (for example, bank draft, letter of credit, domestic or
+                    international money order, stocks, bonds, traveler's checks, wire transfers sent or received, cash,
+                    etc.).
+                </li>
+                <li><b>Indicate</b> any account number that may be involved or affected.</li>
+            </ul>
+
+        </div>
+    </div>
+    <div class="row row-border">
+        <div class="col-xs-12 col-border text-center">
+            <h3> Suspicious Activity Report Instructions</h3>
+        </div>
+    </div>
+
+    <div class="row row-border" style="padding: 10px;">
+        <div class="col-xs-12">
+            <p><b>Safe Harbor</b> Federal law (31 U.S.C. 5318 g)(3)) provides complete protection from civil liability
+                for all reports of suspicious transactions made to appropraite authories, including supporting
+                documentation, regardless of whether such reports are filed pursuant to this report's instruction or are
+                filed on a voluntary basis. Specifically, the law provides that a financial institution, and its
+                directors, officers, employees and agents, that make a disclosure of any possible violation of law or
+                regulation, including in connection with the preparation of suspicious activity reports, "shall not be
+                liable to any person under any law or regulation of the United States, any constitution, law, or
+                regulation of any State or political subdivision of any State, or under any contract or other legally
+                enforceable agreement (including any arbitration agreement), for such disclosure or for any failure to
+                provide notice of such disclosure to the person who is the subject of such disclosure or any other
+                person identified in the disclosure".<br/>
+                <b>Notification Prohibited</b> Federal law (31 U.S.C. 5318(g)(2)) requires that a financial institution,
+                and its directors, officers, employees and agents who, voluntarily or by menas of a suspicious activity
+                report, report suspected or known criminal violations or suspicious activities may not notify any person
+                involved in the transaction that the transaction has been reported.</p>
+        </div>
+    </div>
+
+    <div class="row row-border" style="padding: 10px;">
+        <div class="col-xs-12">
+            <p><b>In situations involving violations requiring immediate attention, such as when a reportable violation
+                is ongoing, the financial institution shall immediately notify, by telephone, appropriate law
+                enforecement and financial institution supervisory authories in addition to filing a timely suspicious
+                activity report.</b></p>
+        </div>
+    </div>
+
+    <div class="row row-border" style="padding: 10px;">
+        <div class="col-xs-12">
+            <p><b>WHEN TO MAKE A REPORT:</b><br/>
+                1. All financial instituion operatin in the United States, including insured banks, savings
+                associations, savings association service corporations, credit unions, bank holding companies, non-bank
+                susidiaries of bank holding companies, Edge and Agreement corporations, and U.S. branches and agencies
+                of foreign banks, are required to make this report following the discovery of:</p>
+            <ul>
+                <li><b>Insider abuse involding any amount.</b> Whenever the financial instituion detects any known or
+                    suspected Federal criminal violation, or pattern of criminal violations, committed or attempted
+                    against the financial institution or involving a transaction or transaction conducted throught the
+                    financial insstitution, where the financial institution believes that it was either an actual or
+                    potential victim of a criminal vilation, or series of criminal violations, or that the financial
+                    institution was used to facilitate a criminal transaction and the financial institution-affiliated
+                    parties as having committed or aided in the commission of a criminal act regardless of the amount
+                    involved in the violation.
+                </li>
+                <li><b>Violations aggregating $5,000 or more where a suspect can be identified.</b> Whenever the
+                    financial institution detects any known or suspected Federal criminal violation, or pattern of
+                    criminal violations, ocmmitted or attempted against the financial institution or involving a
+                    transaction or transactions conducted through the financial institution and involving or aggregating
+                    $5,000 or more in funds or other assets, where the financial institution belives that it was either
+                    an actual or potential victim of a criminal violation, or series of criminal violations, or that the
+                    financial institution was used to facilitate a criminal transaction, and the financial institution
+                    has a substantial basis for identifying a possbile suspect or group of suspects. If it is determined
+                    prior to filing this report that the identified suspect or group of suspects has used an "alias,"
+                    then information regarding the true identity of the suspect or group of suspects, as well as alias
+                    identifies, such as drivers' licenses or social security numbers, addresses and telephone numbers,
+                    must be reported.
+                </li>
+                <li><b>Violations aggregating $25,000 or more regardless of a potential suspect.</b> Whenver the
+                    financial institution detects any known or suspected Federal criminal violation, or pattern of
+                    criminal violations, committed or attempted against the financial institution or involving a
+                    transaction or transactions conducted through the financial institution and involving or aggregating
+                    $25,000 or more in funds or other assets, where the financial institution believes that it was
+                    either an actual or potential vicstim of a criminal transaction, even though there is no substantial
+                    basis for identifying a possible suspect or group of suspects.
+                </li>
+                <li><b>Transactions aggregating $5,000 or more that involved potential money laundering or violations of
+                    the Bank Secrecy Act.</b> Any transaction (which for purposed of this subsesction means a deposit,
+                    withdrawal, transfer between accounts, exchange of currency, loan, extension of credit, purchase or
+                    sale of any stock, bond, certificate of deposit, or other monetary instruemnt or investment
+                    security, or any other payment, transfer, or delivery by, through, or to a financial institution, by
+                    whatever means effected) conducted or attempted by, at or throught the financial institution and
+                    involving or aggregating $5,000 . or more in funds or other assets, if the financial institution
+                    knowns, suspects, or has reason to suspect that:
+                </li>
+                <ul>
+                    <li> The transaction involved funds derived from illegal activities or is intended or conducted in
+                        order to hide or disguise funds or assets derived from illegal activities (including, without
+                        limitation, the ownership, nature, source, location, or control of such funds or assets) as part
+                        of a plan to violate or evade any law ore regulation or to avoid any transaction reporting
+                        requirement under Federal law;
+                    </li>
+                    <li>the transaction is designed to evade any regulations promulgated under the Bank Secrecy Act;
+                        or
+                    </li>
+                    <li>The transaction has no business or apparent lawful purpose or is not the sort in which the
+                        particular customer would normally be expected to engage, and the financial institution knowns
+                        of no reasonable explanation for the transaction after examining the available facts, including
+                        the background and possible purpose of the transaction.
+                    </li>
+                </ul>
+            </ul>
+            <p>The Bank Secrecy Act requiresall financial institutions to file currency transaction reports (CTRs) in
+                accordance with the Department of the Treasury's implementing regulations (31 CFR Part 103). These
+                regulations require a financial institution to file a CTR whenever a currency transaction exceeds
+                $10,000. If a currency transaction exceeds $10,000 and is suspicious, the institution must file both a
+                CTR (reporting the currency transaction) and a suspicious activity report (reporting the suspicious or
+                criminal aspects of the transaction). If a currency transaction equals or is below $10,000 and is
+                suspicious, the institution should only file a suspicious activity report.<br/><br/>
+                2. <b>Computer Intrusion.</b> For purposes of this report, "computer intrusion" is defined as gaining
+                acess to a computer system of a financial institution to:</p>
+            <ul>
+                <li>Remove, steal, procure, or otherwise affect funds of the institution of the institution's
+                    customers;
+                </li>
+                <li>Remove, steal, procure, or otherwise affect critical information of the institution including
+                    customer acount information; or
+                </li>
+                <li>Damage, disable or otherwise affect critical systems of the institution.</li>
+            </ul>
+            <p>For purposes of this reporting requirement, computer intrusion does not mean attempted intrusions of
+                websites or other non-critical information systems of the institution that provide no access to
+                institution or customer financial or other critical information.<Br/><br/>
+
+                3. A financial institution is required to file a suspicious activity report no later than 30 calendar
+                days after the date of initial detection of facts that may constitute a basis for filing a suspicious
+                activity report. If no suspect was identified on the date of detection of the incident requiring the
+                filing, a financial institution may delay filing a suspicious activity report for an additional 30
+                calendar days to identify a suspect. In no case shall reporting by delayed more than 60 calendar days
+                after the date of initial decetion of a reportable transaction.<br/><br/>
+
+                4. This suspicious activity report does not need to be filed for those robberies and burglaries that are
+                reported to local authories, or (except for savings associations and services corporations) for lost,
+                missing, counterfeit, or stolen securities that are reported pursuant to the requirements of 17 CFR
+                240.17f-1.
+            </p>
+
+        </div>
+    </div>
+
+    <div class="row row-border">
+        <div class="col-xs-12 col-border text-center">
+            <h3>How to Make a Report:</h3>
+        </div>
+    </div>
+
+    <div class="row row-border" style="padding: 10px;">
+        <div class="col-xs-12">
+            <ol>
+                <li>Send each completed suspicious activity report to:<br/><br/>
+                    <span class="inputs" style="text-align: center;"><b>Detroit Computing Center, P.O. Box 33980, Detroit, MI 48232-0980</b></span><br/><br/>
+                </li>
+                <li>For items that do no apply or for which information is no available, leave blank.</li>
+                <li>If you are correcting a previously filed report, check the box at the top of the report (line 1).
+                    Complete the report in its entirety and include the corrected information in the applicable boxes.
+                    Then describe the changes that are beging made in Part 9 (Description of Suspicious Activity).
+                </li>
+                <li><b>Do not include any supporting documentation with the suspicious activity report.</b> Identify and
+                    retain a copy of the suspicious activity report and all original supporting documentation or
+                    business record equivalent for five (5) years from the date of the suspicious activity report. All
+                    supporting documentation must be made available to appropriate authorities upon request.
+                </li>
+                <li>If more space is needed to report additional suspects, attach copies of page 1 to provide the
+                    additional information. If more space is needed to report additional branch addresses, included this
+                    information in the narrative, Part 9.
+                </li>
+                <li>Financial institutions are encouraged to provide copies of suspicious activity reports to state and
+                    local authorities, where appropraite.
+                </li>
+            </ol>
+        </div>
+    </div>
+
+
+</div>

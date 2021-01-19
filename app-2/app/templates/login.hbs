@@ -1,0 +1,22 @@
+<div id="login-page" class="login">
+   <header>
+        <img src="/assets/akirix-logo.svg" alt="Logo">
+    </header>
+    {{#akx-form name="login" action='login' isLocked=isLocked}}
+        <div class="has-feedback form-group bmd-form-group">
+            <label for="login-email" class="bmd-label-floating">{{stringList.email}}</label>
+            {{input type='text' name="login-email" value=changeset.email class='form-control'}}
+            {{validation-feedback errors=changeset.error.email.validation}}
+        </div>
+        <div class="has-feedback form-group bmd-form-group">
+            <label for="login-password" class="bmd-label-floating">{{stringList.password}}</label>
+            {{input type='password' name="login-password" value=changeset.password class='form-control'}}
+            {{validation-feedback errors=changeset.error.password.validation}}
+        </div>
+        <button type="submit" name="login-submit" class="btn btn-primary w-100 mt-4">{{stringList.signIn}}</button>
+    {{/akx-form}}
+    <div class="links">
+        {{#link-to 'forgot' id="login-forgot-password"}}{{stringList.forgotPassword}}{{/link-to}}
+        {{#link-to 'sign-up' id="login-sign-up"}}{{stringList.signUp}}{{/link-to}}
+    </div>
+</div>

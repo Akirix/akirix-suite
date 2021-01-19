@@ -1,0 +1,82 @@
+<div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+    <div class="pane-secondary-content">
+        <div class="panel panel-default">
+            <div class="panel-heading text-center">
+                <span class="bold">
+                   {{model.user.name}} @ {{mode.ip}}
+                </span>
+            </div>
+            <div class="panel-body">
+                <div class="align-left">
+                    <table>
+                        <thead>
+                        <tr>
+                            <td class="col-xs-3"></td>
+                            <td class="col-xs-9"></td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td class="bold">IP:</td>
+                            <td>
+                                {{model.ip}}<br>
+                                {{model.service_provider}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="bold">Browser</td>
+                            <td>{{model.browser}} {{model.browser_version}}</td>
+                        </tr>
+                        <tr>
+                            <td class="bold">OS</td>
+                            <td>{{model.os}} {{model.os_version}}</td>
+                        </tr>
+                        <tr>
+                            <td class="bold">Device</td>
+                            <td>{{model.device}}</td>
+                        </tr>
+
+
+                        <tr>
+                            <td class="bold">City</td>
+                            <td>{{model.city}}</td>
+                        </tr>
+                        <tr>
+                            <td class="bold">State</td>
+                            <td>{{model.state}}</td>
+                        </tr>
+                        <tr>
+                            <td class="bold">Country</td>
+                            <td>{{model.country}}</td>
+                        </tr>
+                        <tr>
+                            <td class="bold">Long/Lat</td>
+                            <td>{{model.longitude}}, {{model.latitude}}</td>
+                        </tr>
+                        <tr>
+                            <td class="bold">Time Zone</td>
+                            <td>{{model.timezone}}</td>
+                        </tr>
+                        <tr>
+                            <td class="bold">User Agent</td>
+                            <td>{{model.user_agent}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="viewport viewport-bottom navbar-toolbar">
+    <div class="pane-actions">
+        <ul class="list-h">
+            <li>
+                <button  {{action 'goBack'}} class="btn btn-default navbar-secondary-btn btn-sm" type="button">
+                    Back
+                </button>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="row">
+    <div class="col-xs-12 form-group has-feedback required float-right">
+        {{view 'select'
+        prompt="Select Choice "
+        value=answer_1
+        class="form-control"
+        content=firstList
+        optionValuePath="content.value"
+        optionLabelPath="content.label"}}
+    </div>
+    {{#if showText}}
+        <div class="col-xs-12 form-group has-feedback required">
+            <label class="control-label">{{textLabel}}</label>
+            {{input
+            type="text"
+            class="form-control"
+            value=answer_2}}
+        </div>
+    {{/if}}
+    {{#if showSocial}}
+        <div class="col-xs-12 form-group has-feedback required">
+            {{view 'select'
+            prompt=" "
+            value=answer_2
+            class="form-control"
+            content=socialList
+            optionValuePath="content.key"
+            optionLabelPath="content.value"}}
+        </div>
+    {{/if}}
+</div>

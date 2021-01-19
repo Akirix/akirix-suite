@@ -1,0 +1,187 @@
+<div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+    <div class="pane-secondary-content">
+        {{#if duplicateWires}}
+            <div class="panel panel-default">
+                <div class="panel-heading text-center">
+                    <span class="large text-rose">POTENTIAL DUPLICATES:</span>
+                </div>
+                {{#each dup in duplicateWires}}
+                    <div class="bg-warning panel-body">
+                        <div class="large align-center strong">{{dup.account_holder}}</div>
+                        <div class="align-center">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th class="col-xs align-center">Date</th>
+                                    <th class="col-xs align-center">Name</th>
+                                    <th class="col-xs align-center">Company</th>
+                                    <th class="col-xs align-center">Amount</th>
+                                </tr>
+                                </thead>
+                                <td class="small valign-middle">
+                                    <strong>{{dup.str_updated_at_date}}</strong><br/>
+                                </td>
+                                <td class="small valign-middle">
+                                    {{wire-type-icon dup.type}} W-{{dup.name}}<br/>
+                                </td>
+                                <td class="valign-middle">
+                                    {{dup.company.name}}<br/>
+                                    XYZ{{dup.company.account_number}}
+                                </td>
+                                <td class="valign-middle">
+                                    {{{dup.str_sign_color}}} {{{dup.currency.symbol}}}{{dup.str_amount}}
+                                </td>
+                            </table>
+                        </div>
+                    </div>
+                    <br>
+                {{/each}}
+            </div>
+        {{/if}}
+        <div class="panel panel-default">
+            <div class="panel-heading text-center">
+                <span class="text-rose">
+                    WITHDRAWAL: {{str_method}}
+                </span>
+            </div>
+            <div class="panel-body">
+                <div style="height: 20px;"></div>
+                <div class="x-large align-center">
+                    {{wire-beneficiary-icon wire.beneficiary_type}} {{wire.account_holder}}
+                </div>
+                <div class="align-center">
+                    {{#if wire.account_holder_address}}{{wire.account_holder_address}}<br/>{{/if}}
+                    {{#if wire.account_holder_city}} {{wire.account_holder_city}}{{/if}}
+                    {{#if wire.account_holder_state_province}} {{wire.account_holder_state_province}}{{/if}}
+                    {{#if wire.account_holder_postal_code}} {{wire.account_holder_postal_code}}{{/if}}
+                    {{#if wire.account_holder_country}} {{wire.account_holder_country}}<br/>{{/if}}
+                    <ul class="list-h small text-gray-dark">
+                        {{#if wire.account_number}}
+                            <li><strong>Account #:</strong> {{wire.account_number}}</li>
+                        {{/if}}
+                        {{#if wire.account_iban}}
+                            <li><strong>IBAN:</strong> {{wire.account_iban}}</li>
+                        {{/if}}
+                        {{#if wire.account_holder_dob}}
+                            <li><strong>D.O.B.:</strong> {{wire.account_holder_dob}}</li>
+                        {{/if}}
+                    </ul>
+                    <br/>
+                </div>
+                <div style="height: 10px;"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr>
+                    </div>
+                </div>
+                <div style="height: 10px;"></div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <span class="large"><i class="fa fa-university"></i> {{wire.bank_name}}</span><br/>
+                        {{#if wire.bank_address}}{{wire.bank_address}}<br/>{{/if}}
+                        {{#if wire.bank_city}}{{wire.bank_city}}{{/if}}
+                        {{#if wire.bank_state_province}}, {{wire.bank_state_province}}{{/if}}
+                        {{#if wire.bank_postal_code}} {{wire.bank_postal_code}}{{/if}}
+                        <br/>
+                        {{#if wire.bank_country}}{{wire.bank_country}} {{country-flag wire.bank_country}}<br/>{{/if}}
+                        {{#if wire.bank_phone}}{{wire.bank_phone}}<br/>{{/if}}
+                    </div>
+                    <div class="col-md-6">
+                        {{#if wire.code_swift}}<strong>SWIFT:</strong> {{wire.code_swift}}<br/>{{/if}}
+                        {{#if wire.code_aba}}<strong>ABA / Routing #:</strong> {{wire.code_aba}}<br/>{{/if}}
+                        {{#if wire.code_irc}}<strong>IRC:</strong> {{wire.code_irc}}<br/>{{/if}}
+                    </div>
+                </div>
+                {{#if wire.intermediary_bank_name}}
+                    <div style="height: 10px;"></div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <hr>
+                        </div>
+                    </div>
+                    <div style="height: 10px;"></div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <span class="medium"><i class="fa fa-university"></i> {{wire.intermediary_bank_name}}</span><br/>
+                            {{#if wire.intermediary_bank_address}}{{wire.intermediary_bank_address}}<br/>{{/if}}
+                            {{#if wire.intermediary_bank_city}}{{wire.intermediary_bank_city}}{{/if}}
+                            {{#if wire.intermediary_bank_state_province}}
+                                , {{wire.intermediary_bank_state_province}}{{/if}}
+                            {{#if wire.intermediary_bank_postal_code}} {{wire.intermediary_bank_postal_code}}{{/if}}
+                            <br/>
+                            {{#if wire.intermediary_bank_country}}{{wire.intermediary_bank_country}} {{country-flag wire.intermediary_bank_country}}
+                                <br/>{{/if}}
+                        </div>
+                        <div class="col-md-6">
+                            {{#if wire.intermediary_bank_code_swift}}<strong>SWIFT:</strong> {{wire.intermediary_bank_code_swift}}<br/>{{/if}}
+                            {{#if wire.intermediary_bank_code_aba}}<strong>ABA / Routing #:</strong> {{wire.intermediary_bank_code_aba}}<br/>{{/if}}
+                        </div>
+                    </div>
+                {{/if}}
+                <div style="height: 10px;"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr>
+                    </div>
+                </div>
+                {{#if wire.notes}}
+                    <div style="height: 10px;"></div>
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            {{wire.notes}}
+                        </div>
+
+                    </div>
+                    <div style="height: 10px;"></div>
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <hr>
+                        </div>
+
+                    </div>
+                {{/if}}
+                <div style="height: 10px;"></div>
+                <div class="row">
+                    <div class="col-md-6 large text-rose">
+                        {{account.name}}
+                    </div>
+                    <div class="col-md-6 large align-right text-rose">
+                        {{{account.currency.symbol}}}{{format-number wire.amount}}
+                    </div>
+                </div>
+                <div style="height: 20px;"></div>
+            </div>
+            {{#if wire.isDone}}
+                <div class="panel-footer text-center">
+                    Created On {{wire.str_created_at_date}} {{wire.str_created_at_time}}<br/>
+                    Completed On {{wire.str_updated_at_date}} {{wire.str_updated_at_time}}<br/>
+                    Confirmation: {{wire.confirmation}}
+                </div>
+            {{/if}}
+        </div>
+    </div>
+</div>
+<div class="viewport viewport-bottom navbar-toolbar">
+    <div class="pane-actions">
+        <ul class="list-h">
+            <li>
+                <button {{action 'stepBack'}} class="btn btn-default navbar-secondary-btn btn-sm" type="button">
+                    Back
+                </button>
+            </li>
+        </ul>
+        <ul class="list-h pull-right">
+            <li>
+                {{view 'modal-confirmation'
+                class='btn btn-primary btn-sm navbar-secondary-btn'
+                button='Wire Out'
+                action='createWireOut'
+                headerTitle='Create wire out'
+                rompt='Are you sure you want to create a wire out'
+                }}
+            </li>
+        </ul>
+    </div>
+</div>

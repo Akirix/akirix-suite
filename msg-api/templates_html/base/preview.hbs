@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{subject}}</title>
+    <link rel="stylesheet" href="//normalize-css.googlecode.com/svn/trunk/normalize.css"/>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <style>
+        body {
+            margin: 0;
+        }
+
+        #wrapper {
+            padding-left: 250px;
+        }
+
+        #sidebar {
+            font-family: Avenir, Arial, Helvetica, sans-serif;
+            font-size: 16px;
+            float: left;
+            z-index: 10;
+            position: fixed;
+            left: 250px;
+            width: 250px;
+            height: 100%;
+            margin-left: -250px;
+            overflow-y: auto;
+            background: #f5f5f5;
+            padding: 0;
+            border-right: solid #ccc 1px;
+            -webkit-transition: all 0.5s ease;
+            -moz-transition: all 0.5s ease;
+            -o-transition: all 0.5s ease;
+            transition: all 0.5s ease;
+        }
+
+        #sidebar ul {
+            padding: 0;
+            margin: 30px 0;
+        }
+
+        #sidebar li {
+            list-style: none;
+        }
+
+        #sidebar li:hover {
+            background-color: rgba(51, 51, 51, 0.25);
+        }
+
+        #sidebar a {
+            line-height: 28px;
+            padding-left: 12px;
+        }
+
+        #sidebar li .active {
+            color: #424242;
+        }
+
+        #content {
+            height: 100vh;
+            position: relative;
+        }
+
+        .mandrill-version-btn {
+            position: fixed;
+            top: 5px;
+            right: 5px;
+            z-index: 1000;
+        }
+
+        .loading {
+            position: fixed;
+            z-index: 12;
+            height: 100vh;
+            width: 100vw;
+            background-color: rgba(51, 51, 51, 0.25);
+        }
+
+        .loading .fa.fa-spinner {
+            font-size: 72px;
+            color: #999;
+        }
+
+        .loading .table {
+            display: table;
+            height: 100%;
+            width: 100%;
+        }
+
+        .loading .cell {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        #template-body {
+            padding: 20px;
+            position: relative;
+            width: calc(100% - 40px);
+            float: left;
+            height: 100vh;
+        }
+
+        #mandrill-template {
+            width: calc(50% - 41px);
+            height: 100vh;
+            padding: 20px;
+            float: left;
+            border-left: solid 1px #ccc;
+        }
+
+        #wrapper.show-mandrill #template-body {
+            width: calc(50% - 40px);
+        }
+
+        #wrapper.show-mandrill #mandrill-template {
+            display: block !important;
+        }
+
+        .subject {
+            font-family: Avenir, Arial, Helvetica, sans-serif;
+            font-size: 16px;
+            color: #424242;
+            position: absolute;
+            left: 15px;
+            top: 15px;
+        }
+
+        @media print {
+            #sidebar {
+                display: none;
+            }
+
+            #wrapper {
+                padding-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="loading" style="display: none;">
+    <div class="table">
+        <div class="cell">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
+    </div>
+</div>
+<div id="wrapper">
+    <div id="sidebar">
+        <ul>
+            {{#each templateList}}
+                <li>
+                    {{#link target="_parent" href=link}}
+                        {{#if ../active}}
+                            <span class="active">{{../../name}}</span>
+                        {{else}}
+                            {{../../name}}
+                        {{/if}}
+                    {{/link}}
+                </li>
+            {{/each}}
+        </ul>
+    </div>
+    <div id="content">
+        {{#if @root.subject}}
+            <div class="subject">
+                {{@root.subject}}
+            </div>
+        {{/if}}
+        <button class="mandrill-version-btn" type="button">Get Mandrill Version</button>
+        <div id="template-body">
+            {{> currentTemplate}}
+        </div>
+        <div id="mandrill-template" style="display: none;">
+
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    <div style="clear: both;"></div>
+</div>
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
+<script type="text/javascript">
+    var templateName = "{{@root.templateName}}";
+    var mandrillData = null;
+
+    $( function(){
+        $( '.mandrill-version-btn' ).on( 'click', function(){
+            if( mandrillData !== null ){
+                processMandrillData( mandrillData );
+            }
+            else{
+                var loadingPane = $( '.loading' );
+
+                loadingPane.show();
+                $.ajax( {
+                    url: '/emails/mandrill',
+                    dataType: 'json'
+                } )
+                    .success( function( data, textStatus, jqXHR ){
+                        if( Array.isArray( data ) ){
+                            mandrillData = data;
+                            processMandrillData( data );
+                        }
+                    } )
+                    .complete( function(){
+                        loadingPane.hide();
+                    } );
+            }
+        } );
+
+        var processMandrillData = function( data ){
+            var mandrillTemplate;
+
+            $.each( data, function( key, template ){
+                if( template.name === templateName || template.slug === templateName ){
+                    mandrillTemplate = template;
+                }
+            } );
+
+            if( typeof mandrillTemplate !== 'undefined' ){
+                $( '#wrapper' ).addClass( 'show-mandrill' );
+                $( '#mandrill-template' ).html( mandrillTemplate.publish_code );
+            }
+        };
+    } );
+</script>
+</body>
+</html>

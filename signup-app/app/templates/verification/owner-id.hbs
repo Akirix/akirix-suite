@@ -1,0 +1,41 @@
+<div class="row">
+    <div class="col-xs-12 border-bottom bottom-buffer">
+        <h3 class="negative-margin title">
+            {{qtip-element
+                qtipContent=documentType.help_text
+                class="document-help-icon"
+                at="bottom center"
+                my="top left"
+                x=-3
+                y=-6}}
+            {{documentType.display_name}}
+        </h3>
+    </div>
+    <p class="text-muted">Please provide <strong>{{owner.id_type}} #{{owner.id_num}}</strong> of <strong>{{owner.name}}</strong>.</p>
+    <div class="col-xs-12 form-group">
+        <hr>
+    </div>
+    {{#if documentType.exemptible}}
+        <div class="col-xs-12">
+            {{view 'document-exemption' exemptionHelp=documentType.exemption_help}}
+        </div>
+    {{/if}}
+    <div class="col-xs-12 form-group">
+        {{view 'file-list'}}
+    </div>
+    <div class="col-xs-12 form-group">
+        {{#unless hasExemption}}
+            {{#if isValid}}
+                {{view 'document-upload'}}
+            {{/if}}
+        {{/unless}}
+    </div>
+</div>
+{{#if stepComplete}}
+    <div class="row">
+        <div class="col-xs-8 center-column form-group">
+            <button {{action 'nextStep'}}>Continue</button>
+        </div>
+    </div>
+{{/if}}
+

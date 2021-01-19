@@ -1,0 +1,187 @@
+<div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+    {{slide-task-list model='Wire' model_id=model.id company_id=model.company_id}}
+    <div class="pane-secondary-content">
+        <div class="panel panel-default">
+            <div class="panel-heading text-center">
+                <span class="text-rose bold">
+                    W-{{model.name}}
+                </span>
+                <br/>
+                {{#if model.company_id}}
+                    <span>
+                        {{#link-to 'companies.view' model.company.id}}
+                            XYZ{{model.company.account_number}} {{model.company.name}}
+                        {{/link-to}}
+                    </span>
+                    <br/>
+                {{/if}}
+                <span class="text-rose">
+                    WITHDRAWAL: {{model.str_method}} <i class="fa fa-level-up fa-fw"></i> {{model.bankRoute.name}}
+                </span>
+            </div>
+            <div class="panel-body">
+                <div style="height: 20px;"></div>
+                <div class="x-large align-center">
+                    {{wire-beneficiary-icon model.beneficiary_type}} {{model.account_holder}}
+                </div>
+                <div class="align-center">
+                    {{#if model.account_holder_address}}{{model.account_holder_address}} <br/>{{/if}}
+                    {{#if model.account_holder_city}}{{model.account_holder_city}} {{/if}}
+                    {{#if model.account_holder_state_province}}{{model.account_holder_state_province}} {{/if}}
+                    {{#if model.account_holder_postal_code}}{{model.account_holder_postal_code}} {{/if}}
+                    {{#if model.account_holder_country}}{{model.account_holder_country}}<br/>{{/if}}
+                    <ul class="list-h small text-gray-dark">
+                        {{#if model.account_number}}
+                            <li><strong>Account #:</strong> {{model.account_number}}</li>
+                        {{/if}}
+                        {{#if model.account_iban}}
+                            <li><strong>IBAN:</strong> {{model.account_iban}}</li>
+                        {{/if}}
+                        {{#if model.account_holder_dob}}
+                            <li><strong>D.O.B.:</strong> {{model.account_holder_dob}}</li>
+                        {{/if}}
+                        {{#if model.account_holder_nationality}}
+                            <li><strong>Nationality:</strong> {{model.account_holder_nationality}}</li>
+                        {{/if}}
+                        {{#if model.purpose}}
+                            <li><strong>Purpose:</strong> {{model.purpose}}</li>
+                        {{/if}}
+
+                    </ul>
+                    <br/>
+                </div>
+                <div style="height: 10px;"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr>
+                    </div>
+                </div>
+                <div style="height: 10px;"></div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <span class="large"><i class="fa fa-university"></i> {{model.bank_name}}</span><br/>
+                        {{#if model.bank_address}}{{model.bank_address}}<br/>{{/if}}
+                        {{#if model.bank_city}}{{model.bank_city}}{{/if}}
+                        {{#if model.bank_state_province}}, {{model.bank_state_province}}{{/if}}
+                        {{#if model.bank_postal_code}} {{model.bank_postal_code}}{{/if}}
+                        <br/>
+                        {{#if model.bank_country}}{{model.bank_country}} {{country-flag model.bank_country}}<br/>{{/if}}
+                        {{#if model.bank_phone}}{{model.bank_phone}}<br/>{{/if}}
+                    </div>
+                    <div class="col-md-6">
+                        {{#if model.code_swift}}<strong>SWIFT:</strong> {{model.code_swift}}<br/>{{/if}}
+                        {{#if model.code_aba}}<strong>ABA / Routing #:</strong> {{model.code_aba}}<br/>{{/if}}
+                        {{#if model.code_irc}}<strong>IRC:</strong> {{model.code_irc}}<br/>{{/if}}
+                    </div>
+                </div>
+                {{#if model.intermediary_bank_name}}
+                    <div style="height: 10px;"></div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <hr>
+                        </div>
+                    </div>
+                    <div style="height: 10px;"></div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <span class="medium"><i
+                                    class="fa fa-university"></i> {{model.intermediary_bank_name}}</span><br/>
+                            {{#if model.intermediary_bank_address}}{{model.intermediary_bank_address}}<br/>{{/if}}
+                            {{#if model.intermediary_bank_city}}{{model.intermediary_bank_city}}{{/if}}
+                            {{#if model.intermediary_bank_state_province}}
+                                , {{model.intermediary_bank_state_province}}{{/if}}
+                            {{#if model.intermediary_bank_postal_code}} {{model.intermediary_bank_postal_code}}{{/if}}
+                            <br/>
+                            {{#if model.intermediary_bank_country}}{{model.intermediary_bank_country}} {{country-flag
+                                    model.intermediary_bank_country}}
+                                <br/>{{/if}}
+                        </div>
+                        <div class="col-md-6">
+                            {{#if model.intermediary_bank_code_swift}}
+                                <strong>SWIFT:</strong> {{model.intermediary_bank_code_swift}}<br/>{{/if}}
+                            {{#if model.intermediary_bank_code_aba}}
+                                <strong>ABA / Routing #:</strong> {{model.intermediary_bank_code_aba}}<br/>{{/if}}
+                        </div>
+                    </div>
+                {{/if}}
+                <div style="height: 10px;"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr>
+                    </div>
+                </div>
+                {{#if model.notes}}
+                    <div style="height: 10px;"></div>
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            {{model.notes}}
+                        </div>
+
+                    </div>
+                    <div style="height: 10px;"></div>
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <hr>
+                        </div>
+
+                    </div>
+                {{/if}}
+
+                <div style="height: 10px;"></div>
+                <div class="row">
+                    <div class="col-md-6 large text-rose">
+                        {{model.account.name}}
+                    </div>
+                    <div class="col-md-6 large align-right text-rose">
+                        {{{model.currency.symbol}}}{{model.str_amount}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 small">
+                        Fee
+                    </div>
+                    <div class="col-md-6 small align-right">
+                        {{{model.currency.symbol}}}{{model.fee}}
+                    </div>
+                </div>
+                <div style="height: 20px;"></div>
+            </div>
+            {{#if model.isDone}}
+                <div class="panel-footer text-center">
+                    Created On {{model.str_created_at_date}} {{model.str_created_at_time}}<br/>
+                    Completed On {{model.str_updated_at_date}} {{model.str_updated_at_time}}<br/>
+                    Confirmation: {{model.confirmation}}
+                </div>
+            {{/if}}
+        </div>
+        {{uber-exception-history model='wire' model_id=model.id}}
+    </div>
+</div>
+<div class="viewport viewport-bottom navbar-toolbar">
+    <div class="pane-actions">
+        <ul class="list-h">
+            <li>
+                <button {{action 'goBack'}} class="btn btn-default navbar-secondary-btn btn-sm" type="button">
+                    Back
+                </button>
+            </li>
+        </ul>
+        <ul class="list-h pull-right">
+            <li>
+                <button {{action 'getPdf'}} class="btn btn-default navbar-secondary-btn btn-sm" type="button">
+                    <i class="fa fa-file-pdf-o fa-lg"></i>
+                </button>
+            </li>
+            {{#if model.isDone}}
+                <li>
+                    {{#link-to 'companies.view.wires.view.return' model.id tagName='button'
+                               class='btn btn-default navbar-secondary-btn btn-sm'}}
+                        Return Wire
+                    {{/link-to}}
+                </li>
+            {{/if}}
+        </ul>
+    </div>
+</div>

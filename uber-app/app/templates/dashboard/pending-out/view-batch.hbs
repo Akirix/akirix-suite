@@ -1,0 +1,102 @@
+{{#akx-form isLocked=isLocked}}
+    <div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+        <div class="pane-secondary-content">
+            <div class="row top-buffer">
+                <legend>
+                    <span>Batch Options</span>
+                </legend>
+                <div class="form-group col-md-6 required has-feedback">
+                    <label>Batch Type</label>
+                    {{#x-select value=wireBatch.type class='form-control'}}
+                        {{#x-option value=0}}Regular{{/x-option}}
+                        {{#x-option value=1}}Institution{{/x-option}}
+                        {{#x-option value=2}}SpeedWires{{/x-option}}
+                        {{#x-option value=3}}ACH{{/x-option}}
+                    {{/x-select}}
+                    {{validation-feedback errors=errors.type validated=validated}}
+                </div>
+                <div class="form-group col-md-6 required has-feedback">
+                    <label>Bank Route</label>
+                    {{#x-select value=wireBatch.bank_route_id class='form-control'}}
+                        {{#x-option}}Select a Bank Route{{/x-option}}
+                        {{#each route in bankRoutes}}
+                            {{#x-option value=route.id}}{{route.name}}{{/x-option}}
+                        {{/each}}
+                    {{/x-select}}
+                    {{validation-feedback errors=errors.wireBatch.bank_route_id validated=validated}}
+                </div>
+                <div class="form-group col-md-6 has-feedback">
+                    <label>Currency</label>
+                    {{#x-select value=wireBatch.currency_id class='form-control'}}
+                        {{#x-option}}Select a currency{{/x-option}}
+                        {{#each currency in currencies}}
+                            {{#x-option value=currency.id}}{{currency.id}}{{/x-option}}
+                        {{/each}}
+                    {{/x-select}}
+                </div>
+            </div>
+
+            {{#if wireBatch.isEmptyBatch}}
+                <div class="align-center valign-middle text-gray-light"
+                     style="padding: 200px 0; background-color: #f2f4f5; ">
+                    Batch Is Empty
+                </div>
+            {{else}}
+                <div class="row top-buffer">
+                    <legend>
+                        <span>Amounts Confirmation</span>
+                    </legend>
+                    Please transfer the appropriate amounts as specified below to the corresponding outgoing bank
+                    accounts.
+                    Confirm the transfers by typing in the amounts.
+                </div>
+
+                <div class="row top-buffer">
+                    {{#each item in batchMoneyData}}
+                        <div class="form-group col-md-12 has-feedback required">
+                            <label>{{item.currency_id}}: {{item.str_amount}}</label>
+                            {{formatted-number realValue=item.input type='text' class='form-control'
+                                               placeholder=item.amount}}
+                            {{validation-feedback errors=item.errors validated=validated}}
+                        </div>
+                    {{/each}}
+                </div>
+            {{/if}}
+        </div>
+    </div>
+{{/akx-form}}
+<div class="viewport viewport-bottom navbar-toolbar">
+    <div class="pane-actions">
+        <ul class="list-h">
+            <li>
+                <button {{action 'goBack'}} class="btn btn-default navbar-secondary-btn btn-sm" type="button">
+                    Back
+                </button>
+            </li>
+        </ul>
+        <ul class="list-h pull-right">
+            {{#unless wireBatch.isEmptyBatch}}
+                <li>
+                    {{view 'modal-confirmation'
+                           class='btn btn-warning btn-sm navbar-secondary-btn'
+                           button='Hold'
+                           action='holdBatch'
+                           headerTitle='Hold Batch'
+                           prompt='Are you sure you want to hold all the wires in this batch?'
+                    }}
+                </li>
+                <li>
+                    {{view 'modal-confirmation'
+                           class='btn btn-primary btn-sm navbar-secondary-btn'
+                           button='Send Batch'
+                           action='sendBatch'
+                           headerTitle='Send batch'
+                           prompt='Are you sure you want to send batch'
+
+                    }}
+                </li>
+            {{/unless}}
+        </ul>
+    </div>
+</div>
+

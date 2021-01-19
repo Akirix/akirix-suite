@@ -1,0 +1,50 @@
+<header id="section-header" class="akx-header">
+        <span>{{stringList.amountTitle}}</span>
+</header>
+<h5 class="text-center">
+    ( {{stringList.availableBalance}}
+    {{format-number availableAmount style='currency' currency=fromAccount.currency_id}} )
+</h5>
+{{#akx-form name='frm-transfer-amount' action=''}}
+    <div class="row">
+        <div id="grp-transfer-amount" class="col-lg-6 col-md-6 col-sm-10 m-auto has-feedback form-group bmd-form-group">
+            <label for="input-transfer-amount" class="bmd-label-floating">{{stringList.amount}}</label>
+            {{akx-format-number
+                id='input-transfer-amount'
+                name='input-transfer-amount'
+			    realValue=changeset.amount
+                type='text'
+                class='form-control'}}
+            {{validation-feedback errors=changeset.error.amount.validation}}
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div id="grp-transfer-notes" class="col-lg-8 col-md-10 col-sm-12 m-auto has-feedback form-group bmd-form-group">
+            <label for="input-transfer-notes" class="bmd-label-floating">{{stringList.notesLabel}}</label>
+            {{input 
+                id="input-transfer-notes" 
+                name="input-transfer-notes" 
+                class="form-control" 
+                value=changeset.notes type="text"
+            }}
+            {{validation-feedback errors=changeset.error.notes.validation}}
+        </div>
+    </div>
+    <div class="row mt-4">
+        {{#if isBankTransfer}}
+            <div id="grp-transfer-speedwire" class="col-lg-8 col-md-10 col-sm-12 m-auto has-feedback form-check form-check-inline pl-3">
+                <label class="form-check-label" name='transfer-speedwire'>
+                    {{stringList.speedwireLabel}}
+                    {{input checked=changeset.speedwire
+                        id='chk-transfer-speedwire'
+                        name='chk-transfer-speedwire'
+				        type='checkbox'
+                        class="form-check-input"}}
+                    <span class="form-check-sign" id="check-transfer-speedwire">
+                        <span class="check"></span>
+                    </span>
+                </label>
+            </div>
+        {{/if}}
+    </div>
+{{/akx-form}}

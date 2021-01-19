@@ -1,0 +1,125 @@
+.text-blue {
+    color: #428bca;
+}
+
+.text-green-dark {
+    color: #5cb85c !important;
+}
+
+.text-green {
+    color: #3ea134 !important;
+}
+
+.text-orange {
+    color: orangered !important;
+}
+
+.text-yellow {
+    color: #ffff00 !important;
+}
+
+.text-purple {
+    color: #563d7c !important;
+}
+
+.text-rose {
+    color: #e52817 !important;
+}
+
+.text-gray-dark {
+    color: #333333 !important;
+}
+
+.text-gray {
+    color: #666666 !important;
+}
+
+.text-gray-light {
+    color: #cccccc !important;
+}
+
+.text-white {
+    color: #ffffff !important;
+}
+
+.bg-lightblue {
+    background-color: rgba(82, 176, 255, 0.79) !important;
+}
+
+.bg-blue {
+    background-color: #428bca !important;
+}
+
+.bg-blue-green {
+    background-color: #66cc99 !important;
+}
+
+.bg-purple {
+    background-color: #cc3399 !important;
+}
+
+.bg-orange {
+    background-color: orangered !important;
+}
+
+.bg-green {
+    background-color: #66cc99 !important;
+}
+
+.xx-large {
+    font-size: 6em !important;
+}
+
+.x-large {
+    font-size: 3em !important;
+}
+
+.large {
+    font-size: 1.5em !important;
+}
+
+.medium {
+    font-size: 1.2em !important;
+    font-weight: 300 !important;
+}
+
+.small {
+    font-size: 0.9em !important;
+
+}
+
+.x-small {
+    font-size: 0.7em !important;
+}
+
+.bold {
+    font-weight: bold !important;
+}
+
+.italic {
+    font-style: italic
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.align-left {
+    text-align: left !important;
+}
+
+.align-center {
+    text-align: center !important;
+}
+
+.align-right {
+    text-align: right !important;
+}
+
+.valign-middle {
+    vertical-align: middle !important;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}

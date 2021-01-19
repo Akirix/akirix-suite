@@ -1,0 +1,11 @@
+{{#if item.company_id}}
+    {{#link-to modelRoute item.company_id item.model_id}}
+        <i class="fa fa-link" aria-hidden="true"></i>
+    {{/link-to}}
+{{else}}
+    {{#link-to modelRoute item.model_id }}
+        <i class="fa fa-link" aria-hidden="true"></i>
+    {{/link-to}}
+{{/if}}
+
+

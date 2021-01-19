@@ -1,0 +1,176 @@
+.rotating-card-container{
+    @include perspective(800px);
+
+    .card-rotate{
+        background: transparent;
+        box-shadow: none;
+
+        &:after{
+            display: none;
+        }
+    }
+
+    .card {
+        @include transitions(.8s,$transition-bezier-rotating-card);
+        @include transform-style(preserve-3d);
+        @include box-shadow($bmd-shadow-2dp);
+        &.active {
+            @include rotateY-180();
+        }
+        position: relative;
+
+        .back, .front {
+            @include backface-visibility(hidden);
+            position: absolute;
+            background-color: transparent;
+            border-radius: $border-radius-large;
+            top: 0;
+            left: 0;
+            justify-content:center;
+            align-content:center;
+            min-height: 170px;
+            color: $card-body-text;
+
+            justify-content:center;
+            align-content:center;
+            display: -webkit-flex;
+            display: -moz-flex;
+            display: -ms-flexbox;
+            display: -o-flex;
+            display: flex;
+            -webkit-flex-direction: column;
+            -moz-flex-direction: column;
+            -ms-flex-direction: column;
+            -o-flex-direction: column;
+            flex-direction: column;
+            .card-header {
+                border-radius: $border-radius-base;
+                padding: 13px 15px;
+                border: 0;
+                &.buyer-header {
+                    background: linear-gradient(60deg, $brand-info, darken($brand-info, 10%));
+                }
+                &.supplier-header {
+                    background: linear-gradient(60deg, $brand-primary, darken($brand-primary, 10%));
+                }
+            }
+            .card-body {
+                padding-top: 5px;
+                .actions {
+                    padding-top: 9px;
+                    // This is if we use icons
+                    // padding-top: 13px;
+                    // padding-left: 5px;
+                }
+            }
+        }
+        &.buyer-card{
+            @include shadow-4dp-color($card-active-shadow);
+        }
+        &.supplier-card {
+            @include shadow-4dp-color($card-active-shadow);
+        }
+
+        .front {
+            z-index: 2;
+            position: relative;
+        }
+        .back {
+            @include rotateY-180();
+            z-index: 5;
+            width: 100%;
+            height: 100%;
+
+            &.back-background{
+                &:after{
+                    position: absolute;
+                    z-index: 1;
+                    width: 100%;
+                    height: 100%;
+                    display: block;
+                    left: 0;
+                    top: 0;
+                    content: "";
+                    background-color: rgba(0,0,0,.56);
+                    border-radius: $border-radius-large;
+                }
+                .card-body{
+                    position: relative;
+                    z-index: 2;
+                }
+            }
+            .card-footer{
+                .btn{
+                    margin: 0;
+                }
+            }
+            // .card-body{
+            //     padding-left: 15px;
+            //     padding-right: 15px;
+            // }
+        }
+    }
+    .shadow-lg{
+        @include shadow-big-image();
+    }
+
+    &:not(.manual-flip):hover, &.hover.manual-flip {
+        .card{
+            @include rotateY-180();
+        }
+    }
+
+    &:hover, &.hover {
+        .buyer-card {
+            @include shadow-big-color($card-active-shadow);
+        }
+        .supplier-card {
+            @include shadow-big-color($card-active-shadow);
+        }
+    }
+
+    .card-profile &{
+        .front{
+            text-align: left;
+        }
+    }
+}
+
+.back-background{
+    .card-body{
+        min-height: auto;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+}
+
+.back-background,
+.front-background{
+  @extend %common-card-background;
+}
+
+
+
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    .rotating-card-container .card .front,
+    .rotating-card-container .card .back{
+        -ms-backface-visibility: visible;
+        backface-visibility: visible;
+    }
+
+    .rotating-card-container .card .back {
+        visibility: hidden;
+        transition: visibility .3s cubic-bezier(0.34, 1.45, 0.7, 1);
+    }
+    .rotating-card-container .card .front{
+        z-index: 4;
+    }
+
+    .rotating-card-container:not(.manual-flip):hover .card .back,
+    .rotating-card-container.manual-flip.hover .card .back,
+    .rotating-card-container .card.active {
+        z-index: 5;
+        visibility: visible;
+    }
+}

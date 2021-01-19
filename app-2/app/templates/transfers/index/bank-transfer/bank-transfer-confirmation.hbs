@@ -1,0 +1,123 @@
+<header id="section-header" class="akx-header">
+    <span>{{stringList.confirmTitle}}</span>
+</header>
+<h5 class="text-center text-danger">{{stringList.withdrawal}}</h5>
+<div class="row">
+    <div class="col-lg-8 col-md-12 col-sm-12 offset-lg-3">
+        {{!-- Beneficiary --}}
+        <div class="row">
+            <div class="col-12">
+                <h3><i class="akx-icon akx-account-holder icon-large"></i> {{changeset.account_holder}}</h3>
+            </div>
+            <div class="col-6">
+                <p>
+                    {{changeset.account_holder_address}}
+                    {{changeset.account_holder_city}}
+                    {{find-state changeset.account_holder_state_province model.states changeset.account_holder_country}}
+                    {{changeset.account_holder_postal_code}}
+                    {{find-country changeset.account_holder_country model.countries}}
+                </p>
+            </div>
+            <div class="col-6">
+                {{#if changeset.account_holder_dob}}
+                    <p>
+                        <b>{{stringList.dobLabel}}:</b>
+                        {{format-date changeset.account_holder_dob locale=locale timeZone='UTC'}}
+                    </p>
+                {{/if}}
+                {{#if changeset.account_holder_nationality}}
+                    <p>
+                        <b>{{stringList.accountHolderNationalityLabel}}:</b>
+                        {{find-country changeset.account_holder_nationality model.countries}}
+                    </p>
+                {{/if}}
+                {{#if changeset.account_number}}
+                    <p>
+                        <b>{{stringList.accountNumberLabel}}:</b>
+                        {{changeset.account_number}}
+                    </p>
+                {{/if}}
+                {{#if changeset.account_iban}}
+                    <p>
+                        <b>{{stringList.ibanLabel}}:</b> {{changeset.account_iban}}
+                    </p>
+                {{/if}}
+                <p><b>{{stringList.purposeLabel}}:</b> {{changeset.purpose}}</p>
+            </div>
+        </div>
+        {{!-- Bank --}}
+        <div class="row mt-3">
+            <div class="col-12">
+                <h3><i class="akx-icon akx-external-bank icon-6"></i> {{changeset.bank_name}}</h3>
+            </div>
+            <div class="col-6">
+                <p>
+                    {{changeset.bank_address}}
+                    {{changeset.bank_city}}
+                    {{find-state changeset.bank_state_province model.states changeset.bank_country}}
+                    {{changeset.bank_postal_code}}
+                    {{find-country changeset.bank_country model.countries}}
+                </p>
+            </div>
+            <div class="col-6">
+                <p><b>{{stringList.method}}:</b> {{strMethod}}</p>
+                {{#if changeset.code_swift}}
+                    <p><b>{{stringList.swiftLabel}}:</b> {{changeset.code_swift}}</p>
+                {{/if}}
+                {{#if changeset.code_aba}}
+                    <p><b>{{stringList.abaLabel}}:</b> {{changeset.code_aba}}</p>
+                {{/if}}
+                {{#if changeset.code_irc}}
+                    <p><b>{{stringList.ircLabel}}:</b> {{changeset.code_irc}}</p>
+                {{/if}}
+            </div>
+        </div>
+        {{!-- Int Bank --}}
+        {{#if changeset.intermediary_bank_name}}
+            <div class="row mt-3">
+                <div class="col-12">
+                    <h3><i class="akx-icon akx-external-bank icon-6"></i> {{changeset.intermediary_bank_name}}</h3>
+                </div>
+                <div class="col-6">
+                    <p>
+                        {{changeset.intermediary_bank_address}}
+                        {{changeset.intermediary_bank_city}}
+                        {{find-state changeset.intermediary_bank_state_province model.states changeset.intermediary_bank_country}}
+                        {{changeset.intermediary_bank_postal_code}}
+                        {{find-country changeset.intermediary_bank_country model.countries}}
+                    </p>
+                </div>
+                <div class="col-6">
+                    <p><b>{{stringList.method}}:</b> {{strMethod}}</p>
+                    {{#if changeset.intermediary_bank_code_swift}}
+                        <p><b>{{stringList.swiftLabel}}:</b> {{changeset.intermediary_bank_code_swift}}</p>
+                    {{/if}}
+                    {{#if changeset.intermediary_bank_code_aba}}
+                        <p><b>{{stringList.abaLabel}}:</b> {{changeset.intermediary_bank_code_aba}}</p>
+                    {{/if}}
+                    {{#if changeset.code_irc}}
+                        <p><b>{{stringList.ircLabel}}:</b> {{changeset.code_irc}}</p>
+                    {{/if}}
+                </div>
+            </div>
+        {{/if}}
+        {{!-- Notes & Confirmation --}}
+        <div class="pt-3"></div>
+        {{#if changeset.notes}}
+            <hr class="border-bottom">
+            <p>{{changeset.notes}}</p>
+            <hr class="border-bottom">
+        {{/if}}
+        {{!-- Amount --}}
+        <div class="row">
+            <div class="col-6">
+                <h3 class="text-danger">{{fromAccount.name}}</h3>
+            </div>
+            <div class="col-4">
+                {{#if changeset.amount}}
+                    <h3 class="text-danger">{{format-number changeset.amount style='currency' currency=changeset.currency_id}}</h3>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</div>

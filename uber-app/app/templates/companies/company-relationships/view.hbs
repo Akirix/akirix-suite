@@ -1,0 +1,56 @@
+<div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+    <div class="pane-secondary-content">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="thumbnail"
+                             style="margin-left: auto; margin-right: auto; width: 200px; height: 200px; color: #cfdae5;">
+                            {{#if company.logo}}
+                                <img {{bind-attr src=company.logo}}>
+                            {{else}}
+                                <p style="text-align:center; margin-top: 20px;">
+                                    <i style="font-size: 10em;" class="fa fa-camera-retro"></i>
+                                </p>
+                            {{/if}}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                <span class="text-blue" style="font-size: 42px; line-height: 52px; font-weight: 300;">
+                    {{model.company.name}}
+                </span>
+                        <br/>
+                        <span class="text-blue"><i class="fa fa-at"></i> {{model.company.str_account_number}} <i
+                                class="fa fa-calendar-o"></i> Since {{model.company.str_member_since}}
+                            {{#if model.company.country}}{{country-flag model.company.country}} {{model.company.country}}{{/if}}</span>
+                    </div>
+                    <div class="form-group col-md-8">
+                        {{model.company.notes}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="viewport viewport-bottom navbar-toolbar">
+    <div class="pane-actions">
+        <ul class="list-h">
+            <li>
+                <button {{action 'goBack'}} class="btn btn-default navbar-secondary-btn btn-sm" type="button">
+                    Back
+                </button>
+            </li>
+        </ul>
+        <ul class="list-h pull-right">
+            <li>
+                {{view 'modal-confirmation'
+                class='btn btn-danger btn-sm navbar-secondary-btn'
+                button='Remove'
+                action='removeRelationship'
+                headerTitle='Remove Relationship'
+                prompt='Are you sure you want to reomve this relationship?'
+                }}
+            </li>
+        </ul>
+    </div>
+</div>

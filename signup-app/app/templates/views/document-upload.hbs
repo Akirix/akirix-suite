@@ -1,0 +1,23 @@
+<div class="file-queue">
+    {{#each file in view.fileQueue}}
+        <div class="processing_document text_left text-muted">
+            <h6 class="truncate"><i class="fa fa-spinner fa-spin"></i>&nbsp;{{file.name}}</h6>
+            {{progress-bar file.progress}}
+        </div>
+    {{/each}}
+</div>
+
+{{#unless documents}}
+    <h4 class="text-center">Upload {{documentType.display_name}}</h4>
+{{/unless}}
+
+<p class="text-center text-muted">Drag and drop files to upload</p>
+<div class="row"><div class="col-xs-offset-4 col-xs-4 bottom-buffer"><hr></div></div>
+<div class="row">
+    <div class="center-column col-xs-6 text-center">
+        <button>
+            Browse
+            <input type="file" class="file-button" name="file" multiple="">
+        </button>
+    </div>
+</div>

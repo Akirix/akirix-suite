@@ -1,0 +1,68 @@
+<style>
+    body {
+        min-height: 1100px;
+    }
+
+    .table tbody tr {
+        border-top: 1px solid #f5f5f5;
+    }
+
+    .table tbody tr td {
+        border: none;
+    }
+
+    .bg-gray {
+        background-color: #fafafa;
+    }
+
+    .bottom-border {
+        border-bottom: 1px solid #666;
+    }
+
+    tr {
+        page-break-inside: avoid;
+    }
+</style>
+
+
+<div class="row bottom-border valign-middle">
+    <div class="col-xs-8">
+        <span style="">{{@root.company.name}}</span><br/>
+    </div>
+    <div class="col-xs-4" style="text-align:right;">
+        {{@root.today}}
+    </div>
+</div>
+
+
+<div class="row align-center" style="margin: 25px 0 25px 0;">
+    <h3>Notes</h3>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table table-high">
+            <thead>
+            <tr>
+                <th class="col-xs-2">Date</th>
+                <th class="col-xs-4">Title</th>
+                <th class="col-xs-6">Content</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each @root.notes}}
+                <tr>
+                    <td>
+                        {{date date=updated_at}}
+                    </td>
+                    <td>
+                        {{title}}
+                    </td>
+                    <td>
+                        {{notes}}
+                    </td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>

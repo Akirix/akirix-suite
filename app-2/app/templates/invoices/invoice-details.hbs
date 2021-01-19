@@ -1,0 +1,43 @@
+<header class="akx-header mb-5">
+    <span>{{stringList.invoiceDetailsTitle}}</span>
+</header>
+<div class="row">
+    {{#akx-form name="invoice-details-form" action='' isLocked=isLocked classNames='col-lg-9 col-md-12 col-sm-12 m-auto'}}
+        <div class="row align-items-center">
+            <div class="col-5 form-group bmd-form-group has-feedback">
+                <label for="invoice-title" class="bmd-label-static">{{stringList.invoiceTitle}}</label>
+                {{input name="invoice-title" class="form-control" value=changeset.title type="text"}}
+                {{validation-feedback errors=changeset.error.title.validation}}
+            </div>
+            {{date-picker
+              value=changeset.invoice_period_from
+              elementId="fromDate"
+              class="col-3"
+              dobLabel=stringList.fromDate
+              errors=changeset.error.invoice_period_from.validation
+              for="invoice-from-date"}}
+            <div class="col-1 text-center">To</div>
+            {{date-picker
+              value=changeset.invoice_period_to
+              elementId="toDate"
+              class="col-3"
+              dobLabel=stringList.toDate
+              errors=changeset.error.invoice_period_to.validation
+              for="invoice-to-date"}}
+        </div>
+        <div class="row">
+            <div class="col-12 form-group bmd-form-group has-feedback">
+                <label for="invoice-notes" class="bmd-label-static">
+                    {{stringList.invoiceNotes}}:
+                </label>
+                {{textarea name="invoice-notes" class="form-control" value=changeset.notes type="text"}}
+            </div>
+        </div>
+        <h3>{{stringList.itemTitle}}</h3>
+        {{invoice-items-list changeset=changeset}}
+        <header class="akx-header my-5">
+            <span>{{stringList.upload}}</span>
+        </header>
+        {{upload-document model='invoice' model_id=changeset.id documents=changeset.documents}}
+    {{/akx-form}}
+</div>

@@ -1,0 +1,29 @@
+<div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+    <div class="pane-secondary-content">
+        <legend>
+            {{model.name}}
+        </legend>
+        <div class="document row">
+            <div class="col-md-12">
+                {{#if isImage}}
+                    <img {{bind-attr src=srcUrl}} alt="test" style="min-width: 60px;max-width: 100%;">
+                {{else}}
+                    {{{iframeImage}}}
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="viewport viewport-bottom navbar-toolbar">
+    <div class="pane-actions">
+        <ul class="list-h">
+            <li>
+                <a class="btn btn-default btn-sm navbar-secondary-btn" target="_blank"
+                   style="padding: 5px 10px;" {{bind-attr href=downloadUrl}}><i class="fa fa-download fa-fw"></i></a>
+            </li>
+            <li>
+                <button class="btn btn-default btn-sm navbar-secondary-btn" {{action 'goBack'}}>Go Back</button>
+            </li>
+        </ul>
+    </div>
+</div>

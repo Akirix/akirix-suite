@@ -1,0 +1,90 @@
+<div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+    <div class="pane-secondary-content">
+        <div class="panel panel-default">
+            <div class="panel-heading text-center">
+                <span class="bold">
+                   Pwned Info
+                </span>
+            </div>
+            <div class="panel-body">
+                <div style="height: 20px;"></div>
+                <div class="large align-center">{{model.name}}</div>
+                <div class="align-center">
+                    <ul class="list-h small text-gray-dark">
+                        <br>
+                        {{#if model.title}}
+                            <li><strong>Title: </strong> {{model.title}}</li>
+                        {{/if}}
+                        <br>
+                        {{#if model.domain}}
+                            <li><strong>Domain: </strong> {{model.domain}}</li>
+                        {{/if}}
+                        <br>
+
+                    </ul>
+                </div>
+
+
+                <div style="height: 10px;"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr>
+                    </div>
+                </div>
+                <div style="height: 10px;"></div>
+                <div class="row">
+
+                    {{#if model.breached_date}}
+                        <li><strong>Breached Date: </strong>{{model.str_breached}}</li>
+                    {{/if}}
+                    {{#if model.added_date}}
+                        <li><strong>Added Date: </strong>{{model.str_added}}</li>
+                    {{/if}}
+
+                </div>
+                <div style="height: 10px;"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr>
+                    </div>
+                </div>
+                <div style="height: 10px;"></div>
+                <div class="row">
+
+                    {{#if model.data_classes}}
+                        <div class="medium align-center">Possible Information Breached</div>
+                        <br>
+                        <strong>Data: </strong>{{model.data_classes}}
+                    {{/if}}
+
+                </div>
+
+                <div style="height: 10px;"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr>
+                    </div>
+                </div>
+                <div style="height: 10px;"></div>
+                <div class="row">
+
+                    {{#if model.description}}
+                        <strong>Description: </strong>{{{model.description}}}
+                    {{/if}}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="viewport viewport-bottom navbar-toolbar">
+    <div class="pane-actions">
+        <ul class="list-h">
+            <li>
+                <button {{action 'goBack'}} class="btn btn-default navbar-secondary-btn btn-sm" type="button">
+                    Back
+                </button>
+            </li>
+        </ul>
+    </div>
+</div>

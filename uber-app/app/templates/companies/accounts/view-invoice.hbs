@@ -1,0 +1,282 @@
+<div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+    {{#if model.transaction.model}}
+        {{slide-task-list model=model.transaction.model model_id=model.transaction.model_id
+                          company_id=model.transaction.company_id}}
+    {{else}}
+        {{slide-task-list model='Transaction' model_id=model.transaction.id company_id=model.transactioncompany_id}}
+    {{/if}}
+    <div class="pane-secondary-content">
+        <div class="panel panel-default">
+            <div class="panel-heading text-center">
+                        <span class="text-blue bold">
+                            I-{{model.invoice.name}} {{model.invoice.title}}
+                        </span>
+            </div>
+            <div class="panel-body">
+                <div style="height: 20px;"></div>
+                <div class="align-center">
+                    <span class="x-large">{{model.invoice.company.name}}</span><br/>
+                    <span class="small">XYZ{{model.invoice.company.account_number}}</span><br/>
+                    {{#if model.invoice.company.address}}{{model.invoice.company.address}}<br/>{{/if}}
+                    {{#if model.invoice.company.city}}{{model.invoice.company.city}}{{/if}}
+                    {{#if model.invoice.company.state_province}}, {{model.invoice.company.state_province}}{{/if}}
+                    {{#if model.invoice.company.postal_code}} {{model.invoice.company.postal_code}}{{/if}}
+                    <br/>
+                    {{#if model.invoice.company.country}}
+                        {{model.invoice.company.country}} {{country-flag model.invoice.company.country}}<br/>
+                    {{/if}}
+                    {{#if model.invoice.company.phone}}<i class="fa fa-phone fa-fw"></i>{{model.invoice.company.phone}}
+                        <br/>{{/if}}
+                    {{#if model.invoice.company.fax}}<i class="fa fa-fax fa-fw"></i>{{model.invoice.company.fax}}
+                        <br/>{{/if}}
+                    {{#if model.invoice.company.email}}<i
+                            class="fa fa-envelope-o fa-fw"></i>{{model.invoice.company.email}}
+                        <br/>{{/if}}
+                    {{#if model.invoice.company.website}}
+                        <i class="fa fa-globe fa-fw"></i>{{model.invoice.company.website}}<br/>
+                    {{/if}}
+                </div>
+                <div style="height: 10px;"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr>
+                    </div>
+                </div>
+                <div class="row">
+                    {{#if model.invoice.isProjectInvoice}}
+                        <div class="col-md-6">
+                            <span class="large">{{model.bnode.company.name}}</span><br/>
+                            <span class="small">XYZ{{model.bnode.company.account_number}}</span><br/>
+                            {{#if model.bnode.company.address}}{{model.bnode.company.address}}<br/>{{/if}}
+                            {{#if model.bnode.company.city}}{{model.bnode.company.city}}{{/if}}
+                            {{#if model.bnode.company.state_province}}, {{model.bnode.company.state_province}}{{/if}}
+                            {{#if model.bnode.company.postal_code}} {{model.bnode.company.postal_code}}{{/if}}
+                            <br/>
+                            {{#if model.bnode.company.country}}{{model.bnode.company.country}} {{country-flag model.bnode.company.country}}
+                                <br/>{{/if}}
+                        </div>
+                        <div class="col-md-6">
+                            <strong>Invoice #: </strong>I-{{model.invoice.name}}<br/>
+                            <strong>Date: </strong>{{model.invoice.str_invoice_date}}<br/>
+                            {{#if model.invoice.invoice_period_from}}
+                                <strong>Period: </strong>{{model.invoice.str_invoice_period_from}}
+                                - {{model.invoice.str_invoice_period_to}}<br/>{{/if}}
+                            <strong>Project: </strong>P-{{model.invoice.project.name}}<br/>
+                        </div>
+                    {{/if}}
+                    {{#if model.invoice.isPlatformInvoice}}
+                        <div class="col-md-6">
+                            <span class="large">{{model.customer.name}}</span><br/>
+                            <span class="small">XYZ{{model.customer.account_number}}</span><br/>
+                            {{#if model.customer.address}}{{model.customer.address}}<br/>{{/if}}
+                            {{#if model.customer.city}}{{model.customer.city}}{{/if}}
+                            {{#if model.customer.state_province}}, {{model.customer.state_province}}{{/if}}
+                            {{#if model.customer.postal_code}} {{model.customer.postal_code}}{{/if}}
+                            <br/>
+                            {{#if model.customer.country}}{{model.customer.country}} {{country-flag model.customer.country}}
+                                <br/>{{/if}}
+                        </div>
+                        <div class="col-md-6">
+                            <strong>Invoice #: </strong>I-{{model.invoice.name}}<br/>
+                            <strong>Date: </strong>{{model.invoice.str_invoice_date}}<br/>
+                            {{#if model.invoice.invoice_period_from}}
+                                <strong>Period: </strong>{{model.invoice.str_invoice_period_from}}
+                                - {{model.invoice.str_invoice_period_to}}<br/>
+                            {{/if}}
+                        </div>
+                    {{/if}}
+                    {{#if model.invoice.isExternalInvoice}}
+                        <div class="col-md-6">
+                            <span class="large">{{model.invoice.to_company_name}}</span><br/>
+                            <span class="small">{{model.invoice.to_company_email}}</span><br/>
+                            {{#if model.invoice.to_company_address}}{{model.invoice.to_company_address}}<br/>{{/if}}
+                            {{#if model.invoice.to_company_city}}{{model.invoice.to_company_city}}{{/if}}
+                            {{#if model.invoice.to_company_state_province}}
+                                , {{model.invoice.to_company_state_province}}{{/if}}
+                            {{#if model.invoice.to_company_postal_code}} {{model.invoice.to_company_postal_code}}{{/if}}
+                            <br/>
+                            {{#if model.invoice.to_company_country}}
+                                {{model.invoice.to_company_country}} {{country-flag model.invoice.to_company_country}}
+                                <br/>
+                            {{/if}}
+                        </div>
+                        <div class="col-md-6">
+                            <strong>Invoice #: </strong>I-{{model.invoice.name}}<br/>
+                            <strong>Date: </strong>{{model.invoice.str_invoice_date}}<br/>
+                            {{#if model.invoice.invoice_period_from}}
+                                <strong>Period: </strong>{{model.invoice.str_invoice_period_from}}
+                                - {{model.invoice.str_invoice_period_to}}<br/>{{/if}}
+                        </div>
+                    {{/if}}
+                </div>
+                <div style="height: 10px;"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr>
+                    </div>
+                </div>
+                <div style="height: 10px;"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th class="col-md-4">Item Name</th>
+                                <th class="col-md-2">Unit</th>
+                                <th class="col-md-3">Price ({{{model.invoice.currency.symbol}}})</th>
+                                <th class="col-md-2">Qty.</th>
+                                <th class="col-md-2"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{#each item in model.invoice.sortedInvoiceItems}}
+                                <tr>
+                                    <td>
+                                        {{item.name}}
+                                    </td>
+                                    <td>
+                                        {{item.unit}}
+                                    </td>
+                                    <td>
+                                        {{item.str_price}}
+                                    </td>
+                                    <td>
+                                        {{item.quantity}}
+                                    </td>
+                                    <td>
+                                        {{{model.invoice.currency.symbol}}}{{item.str_total}}
+                                    </td>
+                                </tr>
+                            {{/each}}
+                            <tr>
+                                <td colspan="4" class="text-right">
+                                    <strong>Sub Total: </strong>
+                                </td>
+                                <td>
+                                    {{{model.invoice.currency.symbol}}}{{model.invoice.str_sub_total}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" class="text-right">
+                                    <strong>Tax Rate ({{model.invoice.tax_rate}}%): </strong>
+                                </td>
+                                <td>
+                                    {{{model.invoice.currency.symbol}}}{{model.invoice.str_tax}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" class="text-right large">
+                                    <strong>Invoice Total: </strong>
+                                </td>
+                                <td class="large">
+                                    {{{model.invoice.currency.symbol}}}{{model.invoice.str_total}}
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div style="height: 10px;"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr>
+                    </div>
+                </div>
+                {{#if model.invoice.notes}}
+                    <div style="height: 10px;"></div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{model.invoice.notes}}
+                        </div>
+                    </div>
+                    <div style="height: 10px;"></div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <hr>
+                        </div>
+                    </div>
+                {{/if}}
+                {{#if model.documents}}
+                    <div style="height: 10px;"></div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ul class="list-group">
+                                {{view 'list-documents' documents=model.documents}}
+                            </ul>
+                        </div>
+                    </div>
+                    <div style="height: 10px;"></div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <hr>
+                        </div>
+                    </div>
+                {{/if}}
+                <div style="height: 20px;"></div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading text-center">
+                        <span class="text-green-dark bold">
+                            Payment History
+                        </span>
+            </div>
+            <table class="table table-hover">
+                <tbody>
+                {{#each invTran in model.invoice_transactions}}
+                    {{#if invTran.isNotFee}}
+                        <tr>
+                            <td class="col-md-2">
+                                {{invTran.str_updated_at_date}}
+                            </td>
+                            <td>
+
+                            </td>
+                            <td class="col-md-3">
+                                {{{model.invoice.currency.symbol}}}{{invTran.str_amount}}
+                            </td>
+                        </tr>
+                    {{/if}}
+                {{/each}}
+                <tr>
+                    <td colspan=2 class="text-right">
+                        <strong>Paid Amount: </strong>
+                    </td>
+                    <td>
+                        {{{model.invoice.currency.symbol}}}{{str_amount_paid}}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan=2 class="text-right large">
+                        <strong>Remaining Amount: </strong>
+                    </td>
+                    <td class="large">
+                        {{{model.invoice.currency.symbol}}}{{model.invoice.str_remaining_total}}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan=2 class="text-right small text-gray">
+                        <strong>Fee Amount: </strong>
+                    </td>
+                    <td class="small text-gray">
+                        {{{model.invoice.currency.symbol}}}{{str_amount_fee}}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="viewport viewport-bottom navbar-toolbar">
+    <div class="pane-actions">
+        <ul class="list-h">
+            <button {{action 'goBack'}} class="btn btn-default navbar-secondary-btn btn-sm" type="button">Back
+            </button>
+        </ul>
+        <ul class="list-h pull-right">
+            <li>
+            </li>
+        </ul>
+    </div>
+</div>

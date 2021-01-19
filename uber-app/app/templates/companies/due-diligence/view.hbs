@@ -1,0 +1,92 @@
+{{#akx-form action='viewmodel' isLocked=isLocked}}
+    <div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+        <div class="pane-secondary-content">
+            <div class="panel panel-default">
+                <div class="panel-heading text-center">
+                    Due Diligence Request
+                </div>
+                <div class="panel-body">
+                    <table class="table table-high">
+                        <thead>
+                        <tr>
+                            <th class="col-xs-9">Options</th>
+                            <th class="col-xs-3"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td class="large">
+                                Trading Relationship
+                            </td>
+                            <td class="valign-middle">
+                                {{dd-option-status model.optionsObj.trading_relationship}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="large">
+                                Wire History
+                            </td>
+                            <td  class="valign-middle">
+                                {{dd-option-status model.optionsObj.wire_history}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="large">
+                                Tasks and Notes
+                            </td>
+                            <td  class="valign-middle">
+                                {{dd-option-status model.optionsObj.notes}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="large">
+                                Statements
+                            </td>
+                            <td  class="valign-middle">
+                                {{dd-option-status model.optionsObj.statements}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="large">
+                                Registration Documents
+                            </td>
+                            <td  class="valign-middle">
+                                {{dd-option-status model.optionsObj.registration_docs}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="large">
+                                SAR Reports
+                            </td>
+                            <td  class="valign-middle">
+                                {{dd-option-status model.optionsObj.sar_reports}}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="viewport viewport-bottom navbar-toolbar">
+        <div class="pane-actions">
+            <ul class="list-h">
+                <li>
+                    <button class="btn btn-default btn-sm navbar-secondary-btn" {{action 'goBack'}}>
+                        Back
+                    </button>
+                </li>
+                {{#if model.isFulfilled}}
+                    <li>
+                        <a class="btn btn-default btn-sm navbar-secondary-btn" target="_blank"
+                           style="padding: 5px 10px;" {{bind-attr href=downloadUrl}}><i
+                                class="fa fa-download fa-fw"></i></a>
+                    </li>
+                {{/if}}
+            </ul>
+        </div>
+    </div>
+{{/akx-form}}

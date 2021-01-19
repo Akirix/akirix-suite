@@ -1,0 +1,53 @@
+{{#if model}}
+    <div class="d-flex align-items-end">
+        <h2>{{stringList.header}}</h2>
+        <span class="header-add">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+        <span class="header-add">
+            {{#link-to 'authenticated.tickets.add' 
+                id="btn-new-ticket"
+                tagName='button' 
+                class='btn btn-sm btn-success font-weight-bolder'}}
+                {{stringList.addTicket}}
+            {{/link-to}}
+        </span>
+    </div>
+    <table id="tbl-tickets" class="table table-hover th-sticky mt-3">
+        <thead class="thead-light">
+            <tr>
+                <th>{{stringList.tableHead0}}</th>
+                <th>{{stringList.tableHead1}}</th>
+                <th>{{stringList.tableHead2}}</th>
+                <th class="text-center">{{stringList.tableHead3}}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {{#each model as |ticket key|}}
+            {{#link-to 'authenticated.tickets.view' ticket.id 
+                id=(concat "ticket-row-" key)
+                class=(if ticket.status 'closed' 'open')
+                tagName='tr'
+            }}
+                <td id="ticket-col-created-{{key}}">
+                    {{format-date ticket.created_at}}
+                </td>
+                <td id="ticket-col-id-{{key}}">T-{{ticket.name}}</td>
+                <td id="ticket-col-title-{{key}}">{{ticket.title}}</td>
+                <td id="ticket-col-status-{{key}}" class="text-center font-h4">{{{ticket.statusIcon}}}</td>
+            {{/link-to}}
+        {{/each}}
+        </tbody>
+    </table>
+{{else}}
+    <div class="empty-data">
+        <div class="text-center col-lg-4">
+            <i class="akx-icon akx-requests"></i>
+            <p>{{stringList.noData}}</p>
+            {{#link-to 'authenticated.tickets.add'
+                id="btn-new-ticket"
+                tagName='button'
+                class='btn btn-success font-weight-bolder'}}
+                {{stringList.new}}
+            {{/link-to}}
+        </div>
+    </div>
+{{/if}}

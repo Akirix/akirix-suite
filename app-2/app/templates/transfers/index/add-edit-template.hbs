@@ -1,0 +1,45 @@
+<h2>&nbsp;</h2>
+{{#step-group
+    steps=steps
+    currentStep=currentStep
+    as |template show lastStep|}}
+    <div class="step-content">
+        {{partial template}}
+        {{#if show}}
+            <div class="form-row my-5">
+                <div class="col-12 text-center">
+                    {{#confirmation-modal
+                        tagName='button'
+                        classNames='akx-button'
+                        type='button'
+                        name="add-edit-template-delete-modal"
+                        tagName='span'
+                        openModal='cancel'
+                        headerTitle=stringList.cancelHeader
+                        prompt=stringList.cancelPrompt
+                        controller=this
+                        data-toggle="modal"
+                        data-target="#confirmationModal"
+                        action='deleteModel'}}
+                        <span class="orange">{{stringList.cancel}}</span>
+                    {{/confirmation-modal}}
+                    {{#if lastStep}}
+                        <button
+                            name="template-save-model"
+                            class="btn btn-primary"
+                            {{action 'saveModel'}}>
+                            {{stringList.save}}
+                        </button>
+                    {{else}}
+                        <button
+                            name="template-next-step-btn"
+                            class="btn btn-primary ml-2"
+                            {{action 'nextStep'}}>
+                            {{stringList.nextStep}}
+                        </button>
+                    {{/if}}
+                </div>
+            </div>
+        {{/if}}
+    </div>
+{{/step-group}}

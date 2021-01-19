@@ -1,0 +1,59 @@
+{{advanced-search searchParams=searchParams parentController=this periodFrom=period_from periodTo=period_to}}
+{{page-numbers content=content}}
+<table class="table table-hover table-high">
+    <thead>
+    <tr>
+        <th class="col-xs-1">Updated Date</th>
+        <th class="col-xs-1">Created Date</th>
+        <th class="col-xs-3">Name</th>
+        <th>Bank</th>
+        <th class="col-xs-2">Credit Amount</th>
+        <th class="col-xs-2">Debit Amount</th>
+        <th class="col-xs-1 text-center">Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each wire in content}}
+        {{#link-to 'companies.view.wires.view' wire.id tagName='tr' class='list-link'}}
+            <td class="small valign-middle">
+                <strong>{{wire.str_updated_at_date}}</strong><br/>
+                {{wire.str_updated_at_time}}
+            </td>
+            <td class="small valign-middle">
+                <strong>{{wire.str_created_at_date}}</strong><br/>
+                {{wire.str_created_at_time}}
+            </td>
+            <td class="valign-middle">
+                {{wire-type-icon wire.type}} W-{{wire.name}}<br/>
+                {{#if wire.wire_batch_id}}<i class="fa fa-suitcase fa-fw"></i> {{/if}}
+                {{wire-method-icon wire.method wire.speedwire}}<br/>
+                <span class="small text-gray"><i class="fa fa-level-up fa-fw"></i> {{wire.bankRoute.name}}</span>
+            </td>
+            <td class="valign-middle">
+                {{#if wire.isBookTransfer}}
+                    {{wire-account-holder wire company wire.company.name wire.company.str_account_number}}
+                {{else}}
+                    <span class="medium">
+                        {{wire-beneficiary-icon wire.beneficiary_type}} {{wire.account_holder}}
+                    </span><br/>
+                    <span class="small">
+                        <i class="fa fa-university fa-fw"></i>{{country-flag wire.bank_country}} {{wire.bank_name}} ({{wire.account_number}})
+                    </span>
+                {{/if}}
+            </td>
+            <td class="valign-middle">
+                <span class="large">{{wire-amount wire wire.currency.symbol company false}}</span>
+            </td>
+            <td class="valign-middle">
+                <span class="large">{{wire-amount wire wire.currency.symbol company true}}</span>
+            </td>
+            <td class="valign-middle">
+                <span class="large">
+                    {{wire-status-icon wire.status}}
+                </span>
+            </td>
+        {{/link-to}}
+    {{/each}}
+    </tbody>
+</table>
+{{page-numbers content=content}}

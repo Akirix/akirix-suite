@@ -1,0 +1,51 @@
+<div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+    {{#if model.transaction.model}}
+        {{slide-task-list model=model.transaction.model model_id=model.transaction.model_id
+                          company_id=model.transaction.company_id}}
+    {{else}}
+        {{slide-task-list model='Transaction' model_id=model.transaction.id company_id=model.transactioncompany_id}}
+    {{/if}}
+    <div class="pane-secondary-content">
+        <div class="panel panel-default">
+            <div class="panel-heading text-center">
+                <strong>Payment Details</strong>
+            </div>
+            <div class="panel-body">
+                <table class="table table-high table-hover">
+                    <thead>
+                    <tr>
+                        <th>Company</th>
+                        <th>Period From</th>
+                        <th>Period To</th>
+                        <th>Rate</th>
+                        <th>Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#each item in model.commissionPaymentItems}}
+                        <tr>
+                            <td>XYZ{{item.company.account_number}} {{item.company.name}}</td>
+                            <td>{{item.str_period_from}}</td>
+                            <td>{{item.str_period_to}}</td>
+                            <td>{{item.str_rate}}</td>
+                            <td>{{{item.currency.symbol}}}{{item.str_amount}}</td>
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="viewport viewport-bottom navbar-toolbar">
+    <div class="pane-actions">
+        <ul class="list-h">
+            <button {{action 'goBack'}} class="btn btn-default navbar-secondary-btn btn-sm" type="button">Back
+            </button>
+        </ul>
+        <ul class="list-h pull-right">
+            <li>
+            </li>
+        </ul>
+    </div>
+</div>

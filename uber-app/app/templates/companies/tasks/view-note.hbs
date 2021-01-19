@@ -1,0 +1,61 @@
+{{#akx-form isLocked=isLocked}}
+    <div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+        <div class="pane-secondary-content">
+            <fieldset>
+                <div class="form-group col-md-6 has-feedback">
+                    <label>Sentiment</label>
+                    {{view 'select'
+                        value=model.sentiment
+                        content=sentiments
+                        optionValuePath='content.val'
+                        optionLabelPath='content.label'
+                        class='form-control'}}
+                    {{validation-feedback errors=errors.model.sentiment validated=validated}}
+                </div>
+
+
+                <div class="form-group col-xs-12 has-feedback">
+                    <label>Title</label>
+                    {{input value=model.title type='text' class='form-control' placeholder='Title'}}
+                    {{validation-feedback errors=errors.model.title validated=validated}}
+                </div>
+
+            {{#each msg in model.noteEntries}}
+                <div class="col-xs-12 form-group">
+                    <div class="panel panel-default">
+                        <div class="panel-heading bg-lightblue">
+                            <i class="fa fa-user fa-fw"></i><strong>{{msg.user}}</strong>
+                        </div>
+                        <div class="panel-body pre-line">{{msg.notes}}</div>
+                    </div>
+                </div>
+            {{/each}}
+            <div class="col-xs-12 form-group has-feedback">
+                {{textarea value=model.notes_new class="form-control" rows="6"}}
+                {{validation-feedback errors=errors.model.notes_new validated=validated}}
+            </div>
+
+                <div class="row col-xs-12">
+                    {{view 'upload-document' documents=documents model='uber-task' model_id=model.id
+                        company_id=model.company_id}}
+                </div>
+            </fieldset>
+        </div>
+    </div>
+{{/akx-form}}
+<div class="viewport viewport-bottom navbar-toolbar">
+    <div class="pane-actions">
+        <ul class="list-h">
+            <li>
+                <button {{action 'updateTask'}} class="btn btn-default navbar-secondary-btn btn-sm" type="button">
+                    <i class="fa fa-floppy-o fa-lg"></i>
+                </button>
+            </li>
+            <li>
+            </li>
+        </ul>
+        <ul class="list-h pull-right">
+
+        </ul>
+    </div>
+</div>

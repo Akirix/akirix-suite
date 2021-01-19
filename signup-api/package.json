@@ -1,0 +1,36 @@
+{
+  "name": "signup-api",
+  "version": "1.0.21",
+  "private": true,
+  "scripts": {
+    "start": "node app.js",
+    "test": "make -s test",
+    "preinstall": "mkdir -p log"
+  },
+  "dependencies": {
+    "bcrypt": "^0.8.3",
+    "cli": "^0.6.4",
+    "jwt-simple": "^0.2.0",
+    "lodash": "^3.8.0",
+    "moment-timezone": "0.0.3",
+    "mongoose": "~4.9",
+    "node-uuid": "^1.4.1",
+    "passport": "^0.2.0",
+    "passport-http-bearer": "^1.0.1",
+    "promise": "^6.0.0",
+    "prompt": "^0.2.14",
+    "request": "^2.55.0",
+    "restify": "~4.3",
+    "restify-validation": "git://github.com/Akirix/restify-validation.git",
+    "supertest": "^0.13.0",
+    "twilio": "^1.6.0",
+    "winston": "^0.7.3",
+    "xss": "^0.3.8",
+    "yuidoc-bootstrap-theme": "^1.0.6"
+  },
+  "devDependencies": {
+    "mocha": "^1.21.4",
+    "should": "^4.0.4",
+    "supertest": "^0.13.0"
+  }
+}

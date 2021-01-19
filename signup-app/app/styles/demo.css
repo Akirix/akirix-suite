@@ -1,0 +1,22 @@
+body > div.ember-view:before {
+    background-color: #d9534f;
+    content: 'Demo';
+    font-size: 16px;
+    font-weight: 600;
+    color: #f0f0f0;
+    position: fixed !important;
+    box-shadow: 0 0 3px rgba(0, 0, 0, .3);
+    text-align: center;
+    letter-spacing: 1px;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    padding: 1px 5px;
+    border-bottom-right-radius: 5px;
+}
+
+@media print {
+  body > div.ember-view:before {
+      display: none !important;
+  }
+}

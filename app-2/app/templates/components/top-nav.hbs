@@ -1,0 +1,54 @@
+<div class="welcome">
+    <i class="akx-icon akx-notifications"></i>
+    {{stringList.welcome}}
+    <p class="no-margin"><strong>{{companyName}} -{{getUserName}}</strong></p>
+    <p class="no-margin">XYZ {{accountNumber}}</p>
+</div>
+{{#if announcements}}
+    <div class="announcements-wrapper">
+        {{announcements-panel announcements=announcements}}
+    </div>
+{{/if}}
+<ul class="navbar-nav">
+    <li class="nav-item">
+        <i id="link-user-options" class="akx-icon akx-settings">
+            {{#if showPopover}}
+                {{#akx-popover container='body' event='click'}}
+                    {{#link-to 'authenticated.company' 
+                        id="link-company-settings" 
+                        tagName='div' 
+                        class='sub-item'}}
+                        <p>{{stringList.companySettings}}</p>
+                    {{/link-to}}
+                    {{#link-to 'authenticated.user' 
+                        id="link-user-settings" 
+                        tagName='div' 
+                        class='sub-item'}}
+                        <p>{{stringList.userSettings}}</p>
+                    {{/link-to}}
+                    {{#link-to 'authenticated.authenticators' 
+                        id="link-authenticators" 
+                        tagName='div' 
+                        class='sub-item'}}
+                        <p>{{stringList.authenticators}}</p>
+                    {{/link-to}}
+                    {{akx-switch settings=settings stringList=stringList}}
+                    <hr class="no-margin">
+                    <div class="sub-item">
+                        {{confirmation-modal
+                            id="link-app-logout"
+                            tagName='p'
+                            openModal='openModal'
+                            html='Log Out'
+                            headerTitle=stringList.signOff
+                            prompt=''
+                            controller=this
+                            data-toggle="modal"
+                            data-target="#confirmationModal"
+                            action='logout'}}
+                    </div>
+                {{/akx-popover}}
+            {{/if}}
+        </i>
+    </li>
+</ul>

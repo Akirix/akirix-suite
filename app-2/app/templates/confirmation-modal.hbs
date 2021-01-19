@@ -1,0 +1,27 @@
+<div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <header class="akx-header">
+                    <span>{{options.headerTitle}}</span>
+                </header>
+            </div>
+            <div class="modal-body text-center">
+                <p>{{options.prompt}}</p>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-dismiss" class="akx-button" data-dismiss="modal">
+                    <span class="orange">Cancel</span>
+                </button>
+                <button
+                    id="btn-confirm"
+                    class="btn btn-primary"
+                    data-toggle="modal"
+                    data-target="#confirmationModal"
+                    {{action 'confirmModal'}}>
+                    Yes
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

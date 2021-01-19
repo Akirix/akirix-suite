@@ -1,0 +1,45 @@
+<h2>{{stringList.title}}</h2>
+<div class="row">
+    <div class="col-lg-8 col-md-10 col-sm-12 m-auto">
+        {{#akx-form action='savePassword' isLocked=isLocked id="frm-save-password"}}
+            <div class="row align-items-start">
+                <div class="col-6 form-group bmd-form-group has-feedback">
+                    <label class="bmd-label-floating" for="password">{{stringList.newPassword}}</label>
+                    {{input value=changeset.password type='password' id='password' class='form-control'}}
+                    {{validation-feedback errors=changeset.error.password.validation}}
+                </div>
+                <div class="col-6 form-group bmd-form-group has-feedback">
+                    <label class="bmd-label-floating"  for="confirmation-password">{{stringList.confirmPassword}}</label>
+                    {{input value=changeset.confirmation type='password' id='confirmation-password'  class='form-control'}}
+                    {{validation-feedback errors=changeset.error.confirmation.validation}}
+                </div>
+                <div class="col-6">
+                    {{password-strength changeset=changeset}}
+                </div>
+            </div>
+            {{#if success}}
+                <div class="row text-center mt-5">
+                    <div class="col-lg-4 col-md-8 col-sm-10 m-auto text-success">
+                        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                            <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                            <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                        </svg>
+                        <p class="font-h2">{{stringList.success}}</p>
+                        <p>{{stringList.successMessage}}</p>
+                    </div>
+                </div>
+            {{else}}
+                <div class="row mt-4">
+                    <div class="col-12 text-center">
+                        <button {{action 'cancel'}} class="akx-button" type="button">
+                            <span class="orange">{{stringList.cancel}}</span>
+                        </button>
+                        <button class="btn btn-primary ml-3" type="submit">
+                            {{stringList.save}}
+                        </button>
+                    </div>
+                </div>
+            {{/if}}
+        {{/akx-form}}
+    </div>
+</div>

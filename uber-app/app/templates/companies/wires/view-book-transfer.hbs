@@ -1,0 +1,84 @@
+<div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+    {{slide-task-list model='Wire' model_id=model.id company_id=model.company_id}}
+    <div class="pane-secondary-content">
+        <div class="panel panel-default">
+            <div class="panel-heading text-center">
+                <span class="text-blue bold">
+                    W-{{model.name}}
+                </span>
+                <br/>
+                {{#if model.company_id}}
+                    <span>
+                        {{#link-to 'companies.view' model.company.id}}
+                            XYZ{{model.company.account_number}} {{model.company.name}}
+                        {{/link-to}}
+                    </span>
+                    <br/>
+                {{/if}}
+                <span class="text-blue">
+                    INTERNAL TRANSFER
+                </span>
+            </div>
+            <div class="panel-body">
+                <div style="height: 20px;"></div>
+                <div class="x-large align-center">{{model.company.name}}</div>
+                <div class="align-center">
+                    <ul class="list-h small text-gray-dark">
+                        <li><strong>Account #:</strong> {{model.company.account_number}}</li>
+                    </ul>
+                </div>
+                <div style="height: 10px;"></div>
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <hr>
+                    </div>
+
+                </div>
+                {{#if model.notes}}
+                    <div style="height: 10px;"></div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{model.notes}}
+                        </div>
+                    </div>
+                    <div style="height: 10px;"></div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <hr>
+                        </div>
+                    </div>
+                {{/if}}
+
+                <div style="height: 10px;"></div>
+                <div class="row">
+
+                    <div class="col-md-6 large text-rose">
+                        {{model.account.name}}
+                    </div>
+                    <div class="col-md-6 large align-right text-rose">
+                        {{{model.currency.symbol}}}{{model.str_amount}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 small">
+                        Fee
+                    </div>
+                    <div class="col-md-6 small align-right">
+                        {{{model.currency.symbol}}}{{model.fee}}
+                    </div>
+                </div>
+                <div style="height: 20px;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="viewport viewport-bottom navbar-toolbar">
+    <div class="pane-actions">
+        <ul class="list-h">
+            <button {{action 'goBack'}} class="btn btn-default navbar-secondary-btn btn-sm" type="button">Back</button>
+        </ul>
+        <ul class="list-h pull-right">
+        </ul>
+    </div>
+</div>

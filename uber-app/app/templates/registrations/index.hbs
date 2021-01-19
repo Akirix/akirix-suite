@@ -1,0 +1,90 @@
+<div class="navbar-secondary" role="navigation">
+    <ul class="list-h">
+        <li>
+            {{#link-to 'registrations.index' (query-params status="1" institution="0")}}
+                Completed
+            {{/link-to}}
+        </li>
+        <li>
+            {{#link-to 'registrations.index' (query-params status="1" institution="1")}}
+                Completed Institutions
+            {{/link-to}}
+        </li>
+        <li>
+            {{#link-to 'registrations.index' (query-params status="0" institution="0")}}
+                Active
+            {{/link-to}}
+        </li>
+        <li>
+            {{#link-to 'registrations.index' (query-params status="4" institution="0")}}
+                Archived
+            {{/link-to}}
+        </li>
+    </ul>
+</div>
+
+<div class="pane-primary-content">
+    <table class="table table-high table-hover">
+        <thead>
+        <tr>
+            <th class="col-xs-1">Date</th>
+            <th class="col-xs-3">Company</th>
+            <th class="col-xs-3">User</th>
+            <th class="col-xs-5">Progress</th>
+            <th class="col-xs-1"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each registration in model}}
+            {{#link-to 'registrations.index.preview' registration._id tagName='tr' class="pointer list-link"}}
+                <td class="valign-middle">
+                    {{mongo-date registration.created dateonly=true}}<br/>
+                    <span class="text-gray-light">{{registration.age}}</span>
+                </td>
+                <td class="valign-middle large">
+                    {{country-flag registration.company.country}} {{registration.company.name}}
+                    {{{risk-score registration.riskScore}}}
+                    {{registration.riskScore}}<br/>
+                    {{#if registration.institution}}
+                        <span class="text-gray-light x-small">XYZ{{registration.institution.account_number}} {{registration.institution.name}}</span>
+                    {{/if}}
+                </td>
+                <td class="valign-middle">
+                    {{#if int_go}}
+                        <span class="medium">{{registration.theInstitution.name}}</span><br/>
+                        <i class="fa fa-phone fa-fw"></i>{{registration.theInstitution.phone_mobile}} <i class="fa fa-envelope fa-fw"></i>{{registration.theInstitution.email}}
+                    {{else}}
+                        <span class="medium">{{registration.user.first_name}} {{registration.user.last_name}}</span><br/>
+                        <i class="fa fa-phone fa-fw"></i>{{registration.user.phone_mobile}} <i class="fa fa-envelope fa-fw"></i>{{registration.user.email}}
+                    {{/if}}
+                </td>
+                <td class="valign-middle">
+                    <div class="process">
+                        <div class="process-row">
+                            {{#each appStep in registration.sortedAppSteps}}
+                                <div class="process-step pointer">
+                                    {{#if appStep.complete}}
+                                        <span class="status-icon fa-stack">
+                                        <i class="fa fa-circle text-green fa-stack-2x"></i>
+                                        <i class="fa fa-check text-white fa-stack-1x"></i>
+                                    </span>
+                                    {{/if}}
+                                    <button type="button" class="btn btn-default btn-circle" disabled="disabled">
+                                        <i {{bind-attr class="appStep.icon"}}></i>
+                                    </button>
+                                </div>
+                            {{/each}}
+                        </div>
+                    </div>
+                </td>
+                <td class="valign-middle">
+                    {{#if registration.exceptions}}
+                        <span class="hint--left hint--rounded" data-hint="Has exceptions"><i
+                                class="fa fa-exclamation-triangle"></i></span>
+                    {{/if}}
+                </td>
+            {{/link-to}}
+        {{/each}}
+        </tbody>
+    </table>
+</div>

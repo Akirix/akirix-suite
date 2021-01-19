@@ -1,0 +1,55 @@
+<div class="navbar-secondary" role="navigation">
+    <ul class="list-h">
+        <li>
+            {{#link-to 'companies.index'}}
+                Companies
+            {{/link-to}}
+        </li>
+        <li>
+            {{#link-to 'account-aliases.index'}}
+                Preferred Accounts
+            {{/link-to}}
+        </li>
+    </ul>
+</div>
+<div class="pane-primary-content">
+	{{advanced-search searchParams=searchParams parentController=this showDateRange=false}}
+    {{page-numbers content=content}}
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th class="col-xs-2">Account Number</th>
+            <th class="col-xs-5">Name</th>
+            <th class="col-xs-4">Institution</th>
+            <th class="col-xs-1 text-center">Country</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{aliases}}
+        {{#each company in content}}
+            {{#link-to 'companies.view' company.id tagName='tr' class='pointer'}}
+                <td class="valign-middle">
+                    XYZ{{company.account_number}}&nbsp;
+                    {{#if company.aliases}}
+                        <span class="hint--top hint--rounded" data-hint="Preferred accounts">
+                        <i class="text-orange fa fa-star"></i>
+                    </span>
+                    {{/if}}
+                </td>
+                <td class="valign-middle large">
+                    {{company-status-icon company.status}} {{company.name}}
+                </td>
+                <td class="valign-middle">
+                    {{#each rel in company.companyRelationships}}
+                        {{rel.institution.name}}
+                    {{/each}}
+                </td>
+                <td class="text-center">
+                    {{country-flag company.country}}
+                </td>
+            {{/link-to}}
+        {{/each}}
+        </tbody>
+    </table>
+    {{page-numbers content=content}}
+</div>

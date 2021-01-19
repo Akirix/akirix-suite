@@ -1,0 +1,32 @@
+{{#if filteredInvoices}}
+    <table class="table table-hover mt-5">
+        <thead class="thead-light">
+            <tr>
+                <th>{{stringList.company}}</th>
+                <th class="text-center">{{stringList.name}}</th>
+                <th class="text-right">{{stringList.amount}}</th>
+                <th class="text-center">{{stringList.status}}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {{#each filteredInvoices as |bill idx|}}
+            <tr {{action selectBill bill}} id="item-row-{{idx}}">
+                <td id="item-col-company-{{idx}}">
+                    {{if bill.toCompany bill.toCompany.name bill.to_company_name}}
+                </td>
+                <td id="item-col-name-{{idx}}" class="text-center">
+                    <strong>{{bill.getName}}</strong>
+                </td>
+                <td id="item-col-amount-{{idx}}" class={{if isMine "text-success text-right" "text-danger text-right"}}>
+                    <strong>
+                        {{format-number bill.total style='currency' currency=bill.currency_id}}
+                    </strong>
+                </td>
+                <td id="item-col-status-{{idx}}" class="text-center">{{{bill.statusIcon}}}</td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+{{else}}
+    <h4 class="text-center">{{stringList.empty}}</h4>
+{{/if}}

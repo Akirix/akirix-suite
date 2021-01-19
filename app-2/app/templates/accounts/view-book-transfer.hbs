@@ -1,0 +1,37 @@
+<div class="side-panel-content">
+    <header class="akx-header">
+        <span class="text-primary">W-{{model.wire.name}}</span>
+    </header>
+    <h5 class="text-center text-primary">{{stringList.internalTransfer}}</h5>
+    <div class="text-center">
+        <h3>{{if model.wire.isMine model.wire.account_holder model.wire.company.name}}</h3>
+        <p><b>{{stringList.accountNumber}}:</b>{{if model.wire.isMine model.wire.account_number model.wire.company.account_number}}</p>
+    </div>
+    {{#if model.wire.notes}}
+        <hr class="border-bottom">
+        <p>{{model.wire.notes}}</p>
+        <hr class="border-bottom">
+    {{/if}}
+    {{!-- Amount --}}
+    <div class="row">
+        <div class="col-6">
+            <h3 class={{if model.wire.isMine "text-danger" "text-success"}}>
+                {{if model.wire.isMine model.wire.account.name model.account.name}}
+            </h3>
+            <p>{{stringList.fee}}</p>
+        </div>
+        <div class="col-6 text-right">
+            <h3 class={{if model.wire.isMine "text-danger"  "text-success"}}>
+                {{format-number model.wire.amount style='currency' currency=model.transaction.currency_id}}
+            </h3>
+            <p>
+                {{format-number model.wire.fee style='currency' currency=model.transaction.currency_id}}
+            </p>
+        </div>
+    </div>
+    {{#if model.documents}}
+        <div class="akx-col-lrg-14">
+            {{upload-documents documents=model.documents}}
+        </div>
+    {{/if}}
+</div>

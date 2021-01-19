@@ -1,0 +1,59 @@
+<table class="table table-high table-hover">
+    <thead>
+    <tr>
+        <th class="col-xs-1">Date</th>
+        <th class="col-xs-2">Task</th>
+        <th class="col-xs-6">Title</th>
+        <th class="col-xs-1">Status</th>
+        <th class="col-xs-2">User</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each task in model}}
+        {{#link-to 'mine.uber-tasks.view' task.id tagName='tr' class='list-link'}}
+            <td class="valign-middle">
+                {{#if task.isOpen}}
+                    {{task.str_due_date}}
+                    {{task.str_due_time}}
+                {{/if}}
+
+                {{#if task.isPending}}
+                    {{task.str_due_date}}
+                    {{task.str_due_time}}
+                {{/if}}
+
+                {{#if task.isComplete}}
+                    {{task.str_updated_at_date}}
+                    {{task.str_updated_at_time}}
+                {{/if}}
+
+            </td>
+            <td class="valign-middle">
+                {{#if task.isTask}}
+                    {{priority-icon task.priority}}
+                {{/if}}
+                {{sentiment-icon task.sentiment}}
+            </td>
+            <td class="valign-middle medium">
+                {{#if task.isTask}}
+                    <i class="fa fa-tasks fa-fw"></i>
+                {{/if}}
+                {{#if task.isNote}}
+                    <i class="fa fa-sticky-note fa-fw"></i>
+                {{/if}}
+
+                {{task.title}}<br/>
+                <span class="small"> <i class="fa fa-calendar-o x-small"></i> Created At: {{task.str_created_at_date}}</span>
+            </td>
+            <td class="valign-middle">
+                {{#if task.isTask}}
+                    {{task-status-icon task.status}}
+                {{/if}}
+            </td>
+            <td class="valign-middle">
+                <span class="small">{{task.uberUser.name}}</span>
+            </td>
+        {{/link-to}}
+    {{/each}}
+    </tbody>
+</table>

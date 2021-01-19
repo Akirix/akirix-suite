@@ -1,0 +1,49 @@
+{{#akx-form action='downloadWires' isLocked=isLocked}}
+    <div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+        <div class="pane-secondary-content">
+            <fieldset>
+                <legend>
+                    <span>Download Wires</span>
+                </legend>
+
+                <div class="row">
+                    <div class="form-group col-md-5 required has-feedback">
+                        <label>File Type</label>
+                        {{view 'select'
+                               value=type
+                               content=fileTypes
+                               optionValuePath='content.val'
+                               optionLabelPath='content.label'
+                               prompt='Please select a file type'
+                               class='form-control'}}
+                        {{validation-feedback errors=errors.type validated=validated}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-md-6 has-feedback required">
+                        <label>Period</label>
+                        {{date-picker value=period_from class='form-control' placeholder='Date From'
+                                      valueFormat='YYYY-MM-DD' allowBlank=true}}
+                        {{validation-feedback errors=errors.period_from validated=validated}}
+                    </div>
+                    <div class="form-group col-md-6 has-feedback">
+                        <label>&nbsp;</label>
+                        {{date-picker value=period_to class='form-control' placeholder='Date To'
+                                      valueFormat='YYYY-MM-DD' allowBlank=true}}
+                        {{validation-feedback errors=errors.period_to validated=validated}}
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <div class="viewport viewport-bottom navbar-toolbar pull-right">
+        <div class="pane-actions">
+            <ul class="list-h pull-right">
+                <li>
+                    <button class="btn btn-sm btn-primary navbar-secondary-btn" type="submit">Download</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+{{/akx-form}}

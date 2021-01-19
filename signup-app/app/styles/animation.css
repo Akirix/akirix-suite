@@ -1,0 +1,39 @@
+.animated.duration-05 {
+    -webkit-animation-duration: 0.5s !important;
+    animation-duration: 0.5s !important;
+}
+
+.animated.duration-075 {
+    -webkit-animation-duration: 0.75s !important;
+    animation-duration: 0.75s !important;
+}
+
+.animated.duration-15 {
+    -webkit-animation-duration: 0.75s !important;
+    animation-duration: 0.75s !important;
+}
+
+.animated.duration-2 {
+    -webkit-animation-duration: 2s !important;
+    animation-duration: 2s !important;
+}
+
+.animated.delay-025 {
+    -webkit-animation-delay: 0.25s;
+    animation-delay: 0.25s;
+}
+
+.animated.delay-05 {
+    -webkit-animation-delay: 0.5s;
+    animation-delay: 0.5s;
+}
+
+.animated.delay-075 {
+    -webkit-animation-delay: 0.75s;
+    animation-delay: 0.75s;
+}
+
+.animated.delay-1 {
+    -webkit-animation-delay: 1s;
+    animation-delay: 1s;
+}

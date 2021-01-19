@@ -1,0 +1,5 @@
+{{#each choices as |item key|}}
+    <tr name="{{name}}-row-{{key}}" class="akx-select-option" {{action 'selected' item.id}} id={{item.id}}>
+        {{yield item key}}
+    </tr>
+{{/each}}

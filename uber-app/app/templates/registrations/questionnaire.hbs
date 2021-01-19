@@ -1,0 +1,142 @@
+<style>
+    #questionnaire .radio-answer input[type="radio"] {
+        position: absolute;
+        z-index: -1;
+        opacity: 0;
+    }
+
+    #questionnaire .radio-answer input[type="radio"] + label {
+        position: relative;
+        z-index: 10;
+    }
+
+    #questionnaire .radio-answer input[type="radio"]:checked + label {
+        color: #fff;
+        background-color: #337ab7;
+        border-color: #2e6da4;
+    }
+
+    #questionnaire input[type="radio"] {
+        opacity: 0;
+        position: absolute;
+        z-index: -1;
+    }
+
+    #questionnaire .question-wrapper {
+        display: inline-block;
+    }
+
+    #questionnaire label.checked {
+        color: #fff;
+        background-color: #428bca;
+        border-color: #357ebd;
+    }
+
+    #questionnaire .question-wrapper.has-error label {
+        border-color: #a94442;
+        color: #a94442;
+    }
+
+    #questionnaire input[type="radio"]:checked + label {
+        color: #fff !important;
+        background-color: #428bca !important;
+        border-color: #357ebd !important;
+    }
+
+    #questionnaire .radio-answer .help-block {
+        display: none;
+    }
+</style>
+{{#akx-form action='save' isLocked=isLocked id="questionnaire"}}
+    <legend>
+        {{#if currentStep.complete}}
+            <i class="fa fa-check-circle text-green"></i>
+        {{else}}
+            <i {{bind-attr class=currentStep.icon}}></i>
+        {{/if}}
+        {{currentStep.name}}
+        {{#unless currentStep.complete}}
+            <button {{action 'skipStep' 'questionnaire'}} class="btn btn-default btn-sm float-right">Skip Step</button>
+        {{else}}
+            <button {{action 'revokeStep' 'questionnaire'}} class="btn btn-default btn-sm float-right">Revoke Step
+            </button>
+        {{/unless}}
+    </legend>
+    <div class="row">
+        <div class="col-xs-6 form-group">
+            <button class="btn btn-success" type="submit"><i class="fa fa-floppy-o"></i></button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 form-group">
+            {{#each inquiry in registration.inquiries}}
+                {{view 'inquiry-input' inquiry=inquiry}}
+                <div class="row form-group">
+                    <div class="col-xs-12">
+                        <hr>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+
+    <div class="row">
+        <h3 class="negative-margin">Trading Volume</h3>
+        <div class="row border-bottom bottom-buffer"></div>
+        <div class="col-xs-12">
+            <p class="text-muted help">
+                Anticipated trading volume in dollar value.
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-4 form-group has-feedback required">
+            <label for="name" class="control-label">In Volume</label>
+            {{view 'select'
+                   value=tradingVolume.vol_in_type
+                   content=volumeTypes
+                   optionValuePath='content.val'
+                   optionLabelPath='content.name'
+                   prompt='--'
+                   class='form-control'}}
+            {{validation-feedback errors=errors.tradingVolume.vol_in_type validated=validated}}
+        </div>
+        <div class="col-sm-8 form-group has-feedback required">
+            <label for="name" class="control-label">&nbsp;</label>
+            {{view 'select'
+                   value=tradingVolume.vol_in_amount
+                   content=volumeAmounts
+                   optionValuePath='content.val'
+                   optionLabelPath='content.name'
+                   prompt='--'
+                   class='form-control'}}
+            {{validation-feedback errors=errors.tradingVolume.vol_in_amount validated=validated}}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-4 form-group has-feedback required">
+            <label for="name" class="control-label">Out Volume</label>
+            {{view 'select'
+                   value=tradingVolume.vol_out_type
+                   content=volumeTypes
+                   optionValuePath='content.val'
+                   optionLabelPath='content.name'
+                   prompt='--'
+                   class='form-control'}}
+            {{validation-feedback errors=errors.tradingVolume.vol_out_type validated=validated}}
+        </div>
+        <div class="col-sm-8 form-group has-feedback required">
+            <label for="name" class="control-label">&nbsp;</label>
+            {{view 'select'
+                   value=tradingVolume.vol_out_amount
+                   content=volumeAmounts
+                   optionValuePath='content.val'
+                   optionLabelPath='content.name'
+                   prompt='--'
+                   class='form-control'}}
+            {{validation-feedback errors=errors.tradingVolume.vol_out_amount validated=validated}}
+        </div>
+    </div>
+{{/akx-form}}

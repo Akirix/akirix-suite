@@ -1,0 +1,87 @@
+<div class="navbar-secondary" role="navigation">
+    <ul class="list-h">
+        {{#link-to 'wires.index.download'  tagName="li" href=false}}
+            <a {{bind-attr href="view.href"}}>
+                <i class="fa fa-download fa-fw"></i> Download </a>
+        {{/link-to}}
+        {{outlet 'wireNavbar'}}
+    </ul>
+</div>
+
+
+<div class="pane-primary-content">
+    <div id="sticky-toolbar">
+        <ul>
+            {{#link-to 'wires' tagName="li" class="text-white"}}
+                <i class="fa fa-refresh fa-fw"></i><br/>
+                Wires
+            {{/link-to}}
+            {{#link-to 'wire-batches' tagName="li" class="text-white"}}
+                <i class="fa fa-suitcase fa-fw"></i><br/>
+                Batches
+            {{/link-to}}
+        </ul>
+    </div>
+    {{advanced-search searchParams=searchParams parentController=this periodFrom=period_from periodTo=period_to}}
+    {{page-numbers content=content}}
+    <table class="table table-hover table-high">
+        <thead>
+        <tr>
+            <th class="col-xs-1">Updated Date</th>
+            <th class="col-xs-1">Created Date</th>
+            <th class="col-xs-2">Name</th>
+            <th class="col-xs-2">Company</th>
+            <th class="col-xs-1">Bank</th>
+            <th class="col-xs-2">Credit Amount</th>
+            <th class="col-xs-1">Debit Amount</th>
+            <th class="col-xs-2 text-center">Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each wire in model}}
+            {{#link-to 'wires.index.view' wire.id tagName='tr' class='list-link'}}
+                <td class="small valign-middle">
+                    <strong>{{wire.str_updated_at_date}}</strong><br/>
+                    {{wire.str_updated_at_time}}
+                </td>
+                <td class="small valign-middle">
+                    <strong>{{wire.str_created_at_date}}</strong><br/>
+                    {{wire.str_created_at_time}}
+                </td>
+                <td class="valign-middle">
+                    {{wire-type-icon wire.type}} W-{{wire.name}}<br/>
+                    {{#if wire.wire_batch_id}}<i class="fa fa-suitcase fa-fw"></i> {{/if}}
+                    {{wire-method-icon wire.method wire.speedwire}}<br/>
+                    <span class="small text-gray"><i class="fa fa-level-up fa-fw"></i> {{wire.bankRoute.name}}</span>
+                </td>
+                <td class="valign-middle">
+                    {{wire.company.name}}<br/>
+                    <span class="small">XYZ{{wire.company.account_number}}</span>
+                </td>
+                <td>
+                    <span class="medium">{{wire-beneficiary-icon wire.beneficiary_type}} {{wire.account_holder}}</span><br/>
+                    <span class="small"><i class="fa fa-university fa-fw"></i>{{country-flag wire.bank_country}} {{wire.bank_name}} ({{wire.account_number}})</span>
+                </td>
+                <td class="valign-middle">
+                    {{#if wire.isCredit}}
+                        <span class="large">
+                            {{{wire.str_sign_color}}} {{{wire.currency.symbol}}}{{wire.str_amount}}
+                        </span>
+                    {{/if}}
+                </td>
+                <td class="valign-middle">
+                    {{#if wire.isDebit}}
+                        <span class="large">
+                            {{{wire.str_sign_color}}} {{{wire.currency.symbol}}}{{wire.str_amount}}
+                        </span>
+                    {{/if}}
+                </td>
+                <td class="medium valign-middle text-center">
+                    {{wire-status-icon wire.status}}
+                </td>
+            {{/link-to}}
+        {{/each}}
+        </tbody>
+    </table>
+    {{page-numbers content=content}}
+</div>

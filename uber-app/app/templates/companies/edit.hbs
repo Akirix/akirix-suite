@@ -1,0 +1,133 @@
+<div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+    <div class="pane-secondary-content">
+        {{#akx-form isLocked=isLocked}}
+            <fieldset>
+                <div class="row">
+                    <legend>
+                        <span>Company Info</span>
+                    </legend>
+
+                    <div class="align-right">
+                        <label> Member Since:</label>
+                        {{company.str_member_sinceDate}}
+                        <br>
+                        <small>{{company.str_member_since}}</small>
+                    </div>
+
+                    <div class="form-group col-md-6 has-feedback">
+                        <label>Status</label>
+                        {{view 'select'
+                               value=company.status
+                               content= statusLabels
+                               optionValuePath='content.value'
+                               optionLabelPath='content.label'
+                               prompt='Select a status'
+                               class='form-control'}}
+                        {{validation-feedback errors=errors.company.status validated=validated}}
+                    </div>
+                    {{#if companyStatusUpdated}}
+                        <div class="form-group col-md-12 has-feedback">
+                            {{textarea value=statusChangeNotes class='form-control' rows='5'
+                                       placeholder='Brief descript of the reason'  required="required"}}
+                            {{validation-feedback errors=errors.statusChangeNotes validated=validated}}
+                        </div>
+                    {{/if}}
+
+                    <div class="form-group col-md-12 has-feedback">
+                        <label>Name</label>
+                        {{input value=company.name type='text' class='form-control' placeholder='Company Name'}}
+                        {{validation-feedback errors=errors.company.name validated=validated}}
+                    </div>
+
+                    <div class="form-group col-md-6 has-feedback">
+                        <label>Phone</label>
+                        {{input value=company.phone type='text' class='form-control' placeholder='Main Phone'}}
+                        {{validation-feedback errors=errors.company.phone validated=validated}}
+                    </div>
+
+                    <div class="form-group col-md-6 has-feedback">
+                        <label>Fax</label>
+                        {{input value=company.fax type='text' class='form-control' placeholder='Fax'}}
+                        {{validation-feedback errors=errors.company.fax validated=validated}}
+                    </div>
+
+                    <div class="form-group col-md-6 has-feedback">
+                        <label>E-mail</label>
+                        {{input value=company.email type='text' class='form-control' placeholder='E-mail'}}
+                        {{validation-feedback errors=errors.company.email validated=validated}}
+                    </div>
+
+                    <div class="form-group col-md-6 has-feedback">
+                        <label>Website</label>
+                        {{input value=company.website type='text' class='form-control' placeholder='Website URL'}}
+                        {{validation-feedback errors=errors.company.website validated=validated}}
+                    </div>
+                </div>
+
+                <div class="row top-buffer">
+                    <legend>
+                        <span>Address</span>
+                    </legend>
+
+                    <div class="form-group col-md-6 has-feedback">
+                        <label>Address</label>
+                        {{input value=company.address type='text' class='form-control' placeholder='Address'}}
+                        {{validation-feedback errors=errors.company.address validated=validated}}
+                    </div>
+
+                    <div class="form-group col-md-6 has-feedback">
+                        <label>City</label>
+                        {{input value=company.city type='text' class='form-control' placeholder='City'}}
+                        {{validation-feedback errors=errors.company.city validated=validated}}
+                    </div>
+
+                    <div class="form-group col-md-6 has-feedback">
+                        <label>State / Province</label>
+                        {{input value=company.state_province type='text' class='form-control'
+                                placeholder='State / Province'}}
+                        {{validation-feedback errors=errors.company.state_province validated=validated}}
+                    </div>
+
+                    <div class="form-group col-md-6 has-feedback">
+                        <label>Postal Code</label>
+                        {{input value=company.postal_code type='text' class='form-control' placeholder='Postal Code'}}
+                        {{validation-feedback errors=errors.company.postal_code validated=validated}}
+                    </div>
+
+                    <div class="form-group col-md-6 has-feedback">
+                        <label>Country</label>
+                        {{view 'select'
+                               value=company.country
+                               content=controllers.application.countries
+                               optionValuePath='content.abbreviation'
+                               optionLabelPath='content.name'
+                               prompt='Select a Country'
+                               class='form-control'}}
+                        {{validation-feedback errors=errors.company.country validated=validated}}
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        {{textarea value=company.notes class='form-control' rows='5'
+                                   placeholder='Brief Description of the Company'}}
+                        {{validation-feedback errors=errors.company.notes validated=validated}}
+                    </div>
+                    <div class="form-group col-md-12">
+                        {{input type="checkbox" checked=company.affiliate}} <label>Affiliate</label>
+                        {{validation-feedback errors=errors.company.affiliate validated=validated}}
+                    </div>
+                </div>
+            </fieldset>
+        {{/akx-form}}
+    </div>
+</div>
+<div class="viewport viewport-bottom navbar-toolbar">
+    <div class="pane-actions">
+        <ul class="list-h">
+            <li>
+                <button {{action 'updateCompany'}} class="btn btn-default navbar-secondary-btn btn-sm" type="button">
+                    <i class="fa fa-floppy-o fa-lg"></i>
+                </button>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,166 @@
+<div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+    <div class="pane-secondary-content">
+        <div id="locks" class="row">
+            <div class="col-md-12">
+                <fieldset>
+                    <div class="panel panel-default">
+                        <div class="panel-heading text-center bold">Manual Security Questions</div>
+                        <table class="table table-hover">
+                            {{#if manualQuestionsUser}}
+                                <thead>
+                                <tr>
+                                    <th class="col-md-3"><strong>Date Added</strong></th>
+                                    <th class="col-md-6"><strong>Question</strong></th>
+                                    <th class="col-md-3"><strong>Answer</strong></th>
+                                    <th class="col-md-1"><strong></strong></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {{#each question in manualQuestionsCompany}}
+                                    <tr>
+                                        <td class="valign-middle small">
+                                            <strong>{{question.str_created_at_date}}</strong><br/>
+                                        </td>
+                                        <td class="valign-middle">
+                                            {{question.question}}
+                                        </td>
+                                        <td class="valign-middle">
+                                            <pre>{{question.answer}}</pre>
+                                        </td>
+                                        <td class="small valign-middle">
+                                            {{view 'modal-confirmation'
+                                                   tagName='a'
+                                                   class='pointer'
+                                                   button='<i class="text-rose fa fa-minus-circle fa-fw"></i>'
+                                                   action='deleteSecurityQuestion'
+                                                   actionContext=question
+                                                   headerTitle='Delete Security Question'
+                                                   prompt='Are you sure you want to delete this question?'
+                                            }}
+                                        </td>
+                                    </tr>
+                                {{/each}}
+                                {{#each question in manualQuestionsUser}}
+                                    <tr>
+                                        <td class="valign-middle small">
+                                            <strong>{{question.str_created_at_date}}</strong><br/>
+                                        </td>
+                                        <td class="valign-middle">
+                                            {{question.question}}
+                                        </td>
+                                        <td class="valign-middle">
+                                            <pre>{{question.answer}}</pre>
+                                        </td>
+                                        <td class="small valign-middle">
+                                            {{view 'modal-confirmation'
+                                                   tagName='a'
+                                                   class='pointer'
+                                                   button='<i class="text-rose fa fa-minus-circle fa-fw"></i>'
+                                                   action='deleteSecurityQuestion'
+                                                   actionContext=question
+                                                   headerTitle='Delete Security Question'
+                                                   prompt='Are you sure you want to delete this question?'
+                                            }}
+                                        </td>
+                                    </tr>
+                                {{/each}}
+                                </tbody>
+                            {{else}}
+                                <tbody>
+                                <tr>
+                                    <td class="valign-middle text-center text-gray">
+                                        No Manual Questions
+                                    </td>
+                                </tr>
+                                </tbody>
+                            {{/if}}
+                        </table>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading text-center bold">Generated Security Questions</div>
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th class="col-md-2"><strong>Date</strong></th>
+                                <th class="col-md-5"><strong>Question</strong></th>
+                                <th class="col-md-4"><strong>Answer</strong></th>
+                                <th class="col-md-1"><strong></strong></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{#each question in generatedQuestionsCompany}}
+                                <tr>
+                                    <td class="valign-middle small">
+                                        <strong>{{question.str_created_at_date}}</strong><br/>
+                                    </td>
+                                    <td class="valign-middle">
+                                        {{question.question}}
+                                    </td>
+                                    <td class="valign-middle">
+                                        <pre>{{question.answer}}</pre>
+                                    </td>
+                                    <td class="small valign-middle">
+                                        {{view 'modal-confirmation'
+                                               tagName='a'
+                                               class='pointer'
+                                               button='<i class="text-rose fa fa-minus-circle fa-fw"></i>'
+                                               action='deleteSecurityQuestion'
+                                               actionContext=question
+                                               headerTitle='Delete Security Question'
+                                               prompt='Are you sure you want to delete this question?'
+                                        }}
+                                    </td>
+                                </tr>
+                            {{/each}}
+                            {{#each question in generatedQuestionsUser}}
+                                <tr>
+                                    <td class="valign-middle small">
+                                        <strong>{{question.str_created_at_date}}</strong><br/>
+                                    </td>
+                                    <td class="valign-middle">
+                                        {{question.question}}
+                                    </td>
+                                    <td class="valign-middle">
+                                        <pre>{{question.answer}}</pre>
+                                    </td>
+                                    <td class="small valign-middle">
+                                        {{view 'modal-confirmation'
+                                               tagName='a'
+                                               class='pointer'
+                                               button='<i class="text-rose fa fa-minus-circle fa-fw"></i>'
+                                               action='deleteSecurityQuestion'
+                                               actionContext=question
+                                               headerTitle='Delete Security Question'
+                                               prompt='Are you sure you want to delete this question?'
+                                        }}
+                                    </td>
+                                </tr>
+                            {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="viewport viewport-bottom navbar-toolbar">
+    <div class="pane-actions">
+        <ul class="list-h">
+            <li>
+                <button class="btn btn-default btn-sm navbar-secondary-btn" {{action 'goBack'}}>
+                    Back
+                </button>
+            </li>
+        </ul>
+        <ul class="list-h pull-right">
+            <li>
+                {{#link-to 'companies.view.users.view.security-questions.add' tagName="button" class="btn btn-primary btn-sm navbar-secondary-btn" type="button"}}
+                    Add Question
+                {{/link-to}}
+            </li>
+        </ul>
+    </div>
+</div>

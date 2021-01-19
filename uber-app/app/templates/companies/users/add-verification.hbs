@@ -1,0 +1,35 @@
+{{#akx-form action='save' isLocked=isLocked}}
+    <div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+        <div class="pane-secondary-content">
+            <div class="row">
+                <div class="form-group col-md-12 required has-feedback">
+                    <label>Verification Type</label>
+                    {{view 'select'
+                    value=verification.type
+                    content=types
+                    optionValuePath='content.val'
+                    optionLabelPath='content.label'
+                    prompt='Select a type'
+                    class='form-control'}}
+                    {{validation-feedback errors=errors.verification.type validated=validated}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="viewport viewport-bottom navbar-toolbar">
+        <div class="pane-actions">
+            <ul class="list-h">
+                <li>
+                    <button class="btn btn-default btn-sm navbar-secondary-btn" {{action 'goBack'}}>
+                        Back
+                    </button>
+                </li>
+            </ul>
+            <ul class="list-h pull-right">
+                <li>
+                    <button class="btn btn-primary btn-sm navbar-secondary-btn" type="submit">Send</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+{{/akx-form}}

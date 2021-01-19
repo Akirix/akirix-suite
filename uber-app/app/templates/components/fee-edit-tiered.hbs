@@ -1,0 +1,49 @@
+<td colspan="4">
+    <table class="table-hover">
+        <thead>
+        <tr>
+            <th class="col-xs-3"></th>
+            <th class="col-xs-4"></th>
+            <th class="col-xs-3"></th>
+            <th class="col-xs-2"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr style="height: 60px">
+            <td class="col-xs-5 medium">{{fee.name}}</td>
+            <td>
+                <button {{action 'add' fee}} class="btn btn-primary">Add Tier</button>
+            </td>
+            <td>
+                {{view 'select'
+                value=fee.type
+                content=types
+                optionValuePath='content.name'
+                optionLabelPath='content.name'
+                class='form-control'
+                }}
+            </td>
+            <td class="col-md-4 text-center">
+                <button {{action 'save'}} class="btn btn-success">Save</button>
+            </td>
+        </tr>
+        {{#each item in fee.value}}
+            <tr style="height: 60px">
+                <td class="col-md-5 has-feedback required">
+                    {{input value=item.name type='text' class='form-control' placeholder=0}}
+                    {{validation-feedback errors=item.errors.name validated=validated}}
+                </td>
+                <td class="col-md-5 has-feedback required">
+                    {{input value=item.value type='text' class='form-control'}}
+                    {{validation-feedback errors=item.errors.value validated=validated}}
+                </td>
+                <td class="text-center"><strong>{{item.type}}</strong></td>
+                <td class="text-center">
+                    <i {{action 'deleteTier' fee item}} class="text-rose fa fa-minus-circle"></i>
+                </td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+    <div class=" has-feedback required">{{validation-feedback errors=table.errors validated=validated}}</div>
+</td>

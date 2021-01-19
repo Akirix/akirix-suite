@@ -1,0 +1,7 @@
+{{#if view.hasExemption}}
+    {{{view.exemptionHelp}}}
+{{/if}}
+<div>
+    {{input id=documentType.display_name type="checkbox" checked=view.checkExemption}}
+    <label for={{documentType.display_name}} class="text-muted side-label">I don't have {{documentType.display_name}}</label>
+</div>

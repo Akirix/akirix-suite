@@ -1,0 +1,23 @@
+<div class="login">
+    <header>
+        <img src="/assets/akirix-logo.svg" alt="Akirix-icon">
+    </header>
+    <div>
+        <h3>{{stringList.passwordRecovery}}</h3>
+        <div>
+            <p>{{stringList.passwordRecoveryHelp}}</p>
+            {{#akx-form action='forgot' isLocked=isLocked}}
+                <div class="has-feedback form-group bmd-form-group">
+                    <label class="bmd-label-floating">{{stringList.email}}</label>
+                    {{input type='text' value=changeset.email class='form-control'}}
+                    {{validation-feedback errors=changeset.error.password.validation}}
+                </div>
+                <button type="submit" class="btn btn-primary w-100 mt-4">{{stringList.submit}}</button>
+            {{/akx-form}}
+            <div class="links">
+                {{#link-to 'login'}}{{stringList.logIn}}{{/link-to}}
+                {{#link-to 'sign-up'}}{{stringList.signUp}}{{/link-to}}
+            </div>
+        </div>
+    </div>
+</div>

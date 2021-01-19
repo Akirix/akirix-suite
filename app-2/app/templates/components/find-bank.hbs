@@ -1,0 +1,112 @@
+{{#akx-form autocomplete="off" novalidate="true"}}
+    <div class="row">
+        <div class="form-group bmd-form-group col-lg-4 col-md-6 col-sm-10 m-auto has-feedback">
+            <label class="bmd-label-floating">{{stringList.bankIdLabel}}</label>
+            {{input
+                type="text"
+                class="form-control"
+                value=bankId
+                placeholder=stringList.bankIDPlaceHolder}}
+            {{validation-feedback errors=errors classNames='bmd-help'}}
+        </div>
+    </div>
+    <p {{action 'redraw'}} class="text-center pointer mt-3">
+        {{stringList.noBankId}}
+    </p>
+{{/akx-form}}
+
+{{#if bank}}
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 col-sm-12 text-center" {{action 'selectBank' bank}}>
+            {{#akx-cards title=bank.name class='text-left'}}
+                <div class="row">
+                    <div class="offset-1 col-4">
+                        {{stringList.addressLabel}}:
+                    </div>
+                    <div class="col-6">
+                        {{bank.address}}
+                        {{bank.bank_city}}
+                        {{bank.state_code}}
+                        {{bank.zip_code}}
+                        {{bank.country}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="offset-1 col-4">{{bank.type}}:</div>
+                    <div class="col-6">{{bank.id}}</div>
+                </div>
+                {{#if bank.branch}}
+                    <div class="row">
+                        <div class="offset-1 col-4">
+                            {{stringList.bankBranchLabel}}:
+                        </div>
+                        <div class="col-6">
+                            {{bank.branch}}
+                        </div>
+                    </div>
+                {{/if}}
+                {{#if bank.new_routing_number}}
+                    <div class="row">
+                        <div class="offset-1 col-4">
+                            {{stringList.routingNumberLabel}}
+                        </div>
+                        <div class="col-6">
+                            {{bank.new_routing_number}}
+                        </div>
+                    </div>
+                {{/if}}
+            {{/akx-cards}}
+            <p {{action 'clear'}} class="pointer text-center">{{stringList.notTheBank}}</p>
+        </div>
+    </div>
+{{else if banks}}
+    <div class="show-banks">
+        {{#each banks as |bank|}}
+            <div {{action 'selectBank' bank}} class="pb-3">
+                {{#akx-cards title=bank.name}}
+                    <div class="row">
+                        <div class="offset-1 col-4">
+                            {{stringList.addressLabel}}:
+                        </div>
+                        <div class="col-lg-7">
+                            {{bank.address}}
+                            {{bank.bank_city}}
+                            {{bank.state_code}}
+                            {{bank.zip_code}}
+                            {{bank.country}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="offset-1 col-4">{{bank.type}}:</div>
+                        <div class="col-7">{{bank.id}}</div>
+                    </div>
+                    {{#if bank.branch}}
+                        <div class="row">
+                            <div class="offset-1 col-4">
+                                {{stringList.bankBranchLabel}}:
+                            </div>
+                            <div class="col-7">
+                                {{bank.branch}}
+                            </div>
+                        </div>
+                    {{/if}}
+                    {{#if bank.new_routing_number}}
+                        <div class="row">
+                            <div class="offset-1 col-4">
+                                {{stringList.routingNumberLabel}}
+                            </div>
+                            <div class="col-7">
+                                {{bank.new_routing_number}}
+                            </div>
+                        </div>
+                    {{/if}}
+                {{/akx-cards}}
+            </div>
+        {{/each}}
+    </div>
+    {{#if hasMore}}
+        <div class="text-center mt-5 pt-3 animated infinite slowBounce">
+            <i class="akx-icon akx-down font-h1 text-gray"></i>
+        </div>
+    {{/if}}
+{{/if}}

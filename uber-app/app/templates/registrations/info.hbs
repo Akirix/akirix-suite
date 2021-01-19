@@ -1,0 +1,476 @@
+<style>
+    .account-type input[type="radio"] {
+        opacity: 0;
+        position: absolute;
+        z-index: -1;
+    }
+
+    .account-type label {
+        width: 50%;
+        position: relative;
+    }
+
+    .account-type input[value="business"] + label {
+        border-bottom-left-radius: 4px !important;
+        border-top-left-radius: 4px !important;
+    }
+
+    .account-type input[type="radio"]:checked + label {
+        color: #fff;
+        background-color: #337ab7;
+        border-color: #2e6da4;
+    }
+</style>
+{{#akx-form action='save' isLocked=isLocked}}
+    <legend>
+        {{#if currentStep.complete}}
+            <i class="fa fa-check-circle text-green"></i>
+        {{else}}
+            <i {{bind-attr class=currentStep.icon}}></i>
+        {{/if}}
+        {{currentStep.name}}
+        {{#unless currentStep.complete}}
+            <button {{action 'skipStep' 'info'}} class="btn btn-default btn-sm float-right">Skip Step</button>
+        {{else}}
+            <button {{action 'revokeStep' 'info'}} class="btn btn-default btn-sm float-right">Revoke Step</button>
+        {{/unless}}
+    </legend>
+    <div class="row">
+        <div class="col-xs-6 form-group">
+            <button class="btn btn-success" type="submit"><i class="fa fa-floppy-o"></i></button>
+        </div>
+    </div>
+    <div class="row">
+        <legend class="col-xs-12">
+            <small>Account Type</small>
+        </legend>
+        <div class="form-group col-xs-12 btn-group account-type" role="group">
+            {{akx-radio
+                    name='account_type'
+                    value='business'
+                    groupValue=registration.account_type
+                    label='Business'
+                    labelClass='btn btn-default'
+            }}
+            {{akx-radio
+                    name='account_type'
+                    value='personal'
+                    groupValue=registration.account_type
+                    label='Personal'
+                    labelClass='btn btn-default'
+            }}
+        </div>
+    </div>
+
+    {{#if registration.isBusiness}}
+        <h3 class="negative-margin">Company Information</h3>
+        <div class="row border-bottom bottom-buffer"></div>
+        <div class="row">
+            <div class="col-sm-8 form-group has-feedback required">
+                <label for="name" class="control-label">
+                    Company Name
+                </label>
+                {{input
+                        type="text"
+                        id="name"
+                        class="form-control"
+                        value=company.name}}
+                {{validation-feedback errors=errors.company.name validated=validated}}
+            </div>
+            <div class="col-sm-4 form-group has-feedback required">
+                <label for="country" class="control-label">Country</label>
+                {{view 'select'
+                       value=company.country
+                       content=controllers.application.countries
+                       optionValuePath='content.abbreviation'
+                       optionLabelPath='content.name'
+                       prompt='Registered Country'
+                       class='form-control'}}
+                {{validation-feedback errors=errors.company.country validated=validated}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 has-feedback required form-group">
+                <label for="address" class="control-label">Registered Address</label>
+                {{input
+                        type="text"
+                        id="address"
+                        class="form-control"
+                        value=company.address}}
+                {{validation-feedback errors=errors.company.address validated=validated}}
+            </div>
+            <div class="col-sm-4 form-group has-feedback required">
+                <label for="city" class="control-label">City</label>
+                {{input
+                        type="text"
+                        id="city"
+                        class="form-control"
+                        value=company.city}}
+                {{validation-feedback errors=errors.company.city validated=validated}}
+            </div>
+            <div class="col-sm-4 form-group has-feedback required">
+                <label for="state_province" class="control-label">State / Province</label>
+                {{#if isUS}}
+                    {{view 'select'
+                           value=company.state_province
+                           content=controllers.application.states
+                           optionValuePath='content.abbreviation'
+                           optionLabelPath='content.name'
+                           prompt='State'
+                           class='form-control'}}
+                {{else}}
+                    {{input
+                            type="text"
+                            id="state_province"
+                            class="form-control"
+                            value=company.state_province}}
+                {{/if}}
+                {{validation-feedback errors=errors.company.state_province validated=validated}}
+            </div>
+            <div class="col-sm-4 form-group has-feedback required">
+                <label for="postal_code" class="control-label">Zip / Postal Code</label>
+                {{input
+                        type="text"
+                        id="postal_code"
+                        class="form-control"
+                        value=company.postal_code}}
+                {{validation-feedback errors=errors.company.postal_code validated=validated}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 form-group has-feedback">
+                {{input id="tradingSame" type="checkbox" checked=company.trading_same}}
+                <label for="tradingSame" class="side-label">
+                    Company&#39;s physical address is the same as the registered address
+                </label>
+            </div>
+        </div>
+        {{#unless company.trading_same}}
+            <div class="row">
+                <div class="col-sm-4 form-group has-feedback required">
+                    <label class="control-label">Country</label>
+                    {{view 'select'
+                           value=company.trading_country
+                           content=controllers.application.countries
+                           optionValuePath='content.abbreviation'
+                           optionLabelPath='content.name'
+                           prompt='Physical Country'
+                           class='form-control'}}
+                    {{validation-feedback errors=errors.company.trading_country validated=validated}}
+                </div>
+                <div class="col-sm-8 form-group has-feedback required address">
+                    <label class="control-label">Physical Address</label>
+                    {{input type="text" class="form-control" value=company.trading_address}}
+                    {{validation-feedback errors=errors.company.trading_address validated=validated}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 form-group has-feedback required">
+                    <label class="control-label">City</label>
+                    {{input
+                            type="text"
+                            class="form-control"
+                            value=company.trading_city}}
+                    {{validation-feedback errors=errors.company.trading_city validated=validated}}
+                </div>
+                <div class="col-sm-4 form-group has-feedback required">
+                    <label class="control-label">State / Province</label>
+                    {{#if tradingIsUS}}
+                        {{view 'select'
+                               value=company.trading_state_province
+                               content=controllers.application.states
+                               optionValuePath='content.abbreviation'
+                               optionLabelPath='content.name'
+                               prompt='State'
+                               class='form-control'}}
+                    {{else}}
+                        {{input type="text" class="form-control" value=company.trading_state_province}}
+                    {{/if}}
+                    {{validation-feedback errors=errors.company.trading_state_province validated=validated}}
+                </div>
+                <div class="col-sm-4 form-group has-feedback required">
+                    <label class="control-label">Zip / Postal Code</label>
+                    {{input
+                            type="text"
+                            class="form-control"
+                            value=company.trading_postal_code}}
+                    {{validation-feedback errors=errors.company.trading_postal_code validated=validated}}
+                </div>
+            </div>
+        {{/unless}}
+        <div class="row">
+            <div class="col-sm-4 form-group has-feedback required">
+                <label for="name" class="control-label">Entity Type</label>
+                {{view 'select'
+                       value=company.entity_type
+                       content=model.entityTypes
+                       optionValuePath='content.val'
+                       optionLabelPath='content.name'
+                       prompt='--'
+                       class='form-control'}}
+                {{validation-feedback errors=errors.company.entity_type validated=validated}}
+            </div>
+            <div class="col-sm-4 form-group has-feedback required">
+                <label class="control-label">Company Number</label>
+                {{input value=company.company_number class="form-control"}}
+                {{validation-feedback errors=errors.company.company_number validated=validated}}
+            </div>
+            <div class="col-sm-4 form-group has-feedback">
+                <label class="control-label">
+                    DUNS Number
+                </label>
+                {{input value=company.duns_number class="form-control"}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 form-group has-feedback">
+                <label class="control-label">
+                    Tax Authority Name&nbsp;
+                </label>
+                {{input value=company.tax_num_type class="form-control"}}
+                {{validation-feedback errors=errors.company.tax_num_type validated=validated}}
+            </div>
+            <div class="col-sm-6 form-group has-feedback">
+                <label class="control-label">
+                    Tax Number
+                </label>
+                {{input value=company.tax_num class="form-control"}}
+                {{validation-feedback errors=errors.company.tax_num validated=validated}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 form-group has-feedback optional">
+                <label for="company_phone" class="control-label">Company Phone</label>
+                {{phone-input
+                        class="form-control"
+                        value=company.phone_office}}
+                {{validation-feedback errors=errors.company.phone_office validated=validated}}
+            </div>
+            <div class="col-sm-4 form-group has-feedback optional">
+                <label for="website" class="control-label">Website</label>
+                {{input
+                        type="text"
+                        class="form-control"
+                        value=company.website}}
+                {{validation-feedback errors=errors.company.website validated=validated}}
+            </div>
+            <div class="col-sm-4 form-group has-feedback optional">
+                <label for="website" class="control-label">Number of Employee&nbsp;</label>
+                {{view 'select'
+                       value=company.employee_count
+                       content=model.employees
+                       optionValuePath='content.val'
+                       optionLabelPath='content.name'
+                       prompt='--'
+                       class='form-control'}}
+                {{validation-feedback errors=errors.company.employee_count validated=validated}}
+            </div>
+        </div>
+    {{/if}}
+    {{#if registration.account_type}}
+        <h3 class="negative-margin">User Profile</h3>
+        <div class="row border-bottom bottom-buffer"></div>
+        <div class="row">
+            <div class="col-sm-6 form-group has-feedback required">
+                <label for="first_name" class="control-label">First Name</label>
+                {{input
+                        type="text"
+                        class="form-control"
+                        value=user.first_name}}
+                {{validation-feedback errors=errors.user.first_name validated=validated}}
+            </div>
+            <div class="col-sm-6 form-group has-feedback required">
+                <label for="last_name" class="control-label">Last Name</label>
+                {{input
+                        type="text"
+                        class="form-control"
+                        value=user.last_name}}
+                {{validation-feedback errors=errors.user.last_name validated=validated}}
+            </div>
+        </div>
+        {{#if registration.isPersonal}}
+            <div class="row">
+                <div class="col-sm-8 form-group has-feedback required">
+                    <label class="control-label">Address</label>
+                    {{input
+                            type="text"
+                            class="form-control"
+                            value=company.address}}
+                    {{validation-feedback errors=errors.company.address validated=validated}}
+                </div>
+                <div class="col-sm-4 form-group has-feedback required">
+                    <label class="control-label">Country</label>
+                    {{view 'select'
+                           value=company.country
+                           content=controllers.application.countries
+                           optionValuePath='content.abbreviation'
+                           optionLabelPath='content.name'
+                           prompt='Registered Country'
+                           class='form-control'}}
+                    {{validation-feedback errors=errors.company.country validated=validated}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 form-group has-feedback required">
+                    <label class="control-label">City</label>
+                    {{input
+                            type="text"
+                            class="form-control"
+                            value=company.city}}
+                    {{validation-feedback errors=errors.company.city validated=validated}}
+                </div>
+                <div class="col-sm-4 form-group has-feedback required">
+                    <label class="control-label">State / Province</label>
+                    {{input
+                            type="text"
+                            class="form-control"
+                            value=company.state_province}}
+                    {{validation-feedback errors=errors.company.state_province validated=validated}}
+                </div>
+                <div class="col-sm-4 form-group has-feedback required">
+                    <label class="control-label">Zip / Postal Code</label>
+                    {{input
+                            type="text"
+                            class="form-control"
+                            value=company.postal_code}}
+                    {{validation-feedback errors=errors.company.postal_code validated=validated}}
+                </div>
+                <div class="col-xs-12 form-group has-feedback">
+                    {{input type="checkbox" checked=company.trading_same}}
+                    <label for="tradingSame" class="side-label">
+                        My mailing address is the same as my registered address
+                    </label>
+                </div>
+            </div>
+            {{#unless company.trading_same}}
+                <div class="row">
+                    <div class="col-sm-8 form-group has-feedback required">
+                        <label class="control-label">Mailing Address</label>
+                        {{input
+                                type="text"
+                                class="form-control"
+                                value=company.trading_address}}
+                        {{validation-feedback errors=errors.company.trading_address validated=validated}}
+                    </div>
+                    <div class="col-sm-4 form-group has-feedback required">
+                        <label class="control-label">Mailing Country</label>
+                        {{view 'select'
+                               value=company.country
+                               content=controllers.application.countries
+                               optionValuePath='content.abbreviation'
+                               optionLabelPath='content.name'
+                               prompt='Registered Country'
+                               class='form-control'}}
+                        {{validation-feedback errors=errors.company.country validated=validated}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 form-group has-feedback required">
+                        <label class="control-label">Mailing State / Province</label>
+                        {{input
+                                type="text"
+                                class="form-control"
+                                value=company.trading_state_province}}
+                        {{validation-feedback errors=errors.company.trading_state_province validated=validated}}
+                    </div>
+                    <div class="col-sm-4 form-group has-feedback required">
+                        <label class="control-label">Mailing City</label>
+                        {{input
+                                type="text"
+                                class="form-control"
+                                value=company.trading_city}}
+                        {{validation-feedback errors=errors.company.trading_city validated=validated}}
+                    </div>
+                    <div class="col-sm-4 form-group has-feedback required">
+                        <label class="control-label">Mailing Zip / Postal Code</label>
+                        {{input
+                                type="text"
+                                class="form-control"
+                                value=company.trading_postal_code}}
+                        {{validation-feedback errors=errors.company.trading_postal_code validated=validated}}
+                    </div>
+                </div>
+            {{/unless}}
+        {{/if}}
+        <div class="row">
+            <div class="col-sm-6 form-group has-feedback required">
+                <label for="date_of_birth" class="control-label">Date of Birth</label>
+                {{date-picker value=user.date_of_birth class='form-control' placeholder='Date To' valueFormat='YYYY-MM-DD' allowBlank=true pastYearRange=100 futureYearRange=0}}
+                {{validation-feedback errors=errors.user.date_of_birth validated=validated}}
+            </div>
+            <div class="col-sm-6 form-group has-feedback required">
+                <label for="country" class="control-label">Nationality</label>
+                {{view 'select'
+                       value=user.nationality
+                       content=controllers.application.countries
+                       optionValuePath='content.abbreviation'
+                       optionLabelPath='content.name'
+                       prompt='Select a Country'
+                       class='form-control'}}
+                {{validation-feedback errors=errors.user.nationality validated=validated}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 form-group has-feedback required">
+                <label for="country" class="control-label">ID Country</label>
+                {{view 'select'
+                       value=user.id_country
+                       content=controllers.application.countries
+                       optionValuePath='content.abbreviation'
+                       optionLabelPath='content.name'
+                       prompt='Select a Country'
+                       class='form-control'}}
+                {{validation-feedback errors=errors.user.id_country validated=validated}}
+            </div>
+            <div class="col-sm-4 form-group has-feedback">
+                <label for="id_type" class="control-label">Identification Type</label>
+                {{view 'select'
+                       prompt="ID Type"
+                       value=user.id_type
+                       class="form-control"
+                       content=model.idTypes
+                       optionValuePath="content.key"
+                       optionLabelPath="content.value"
+                }}
+                {{validation-feedback errors=errors.user.id_type validated=validated}}
+            </div>
+            <div class="col-sm-4 form-group has-feedback">
+                <label class="control-label">ID Number</label>
+                {{input value=user.id_num class="form-control"}}
+                {{validation-feedback errors=errors.user.id_num validated=validated}}
+            </div>
+        </div>
+        <div class="row">
+            {{#if registration.isBusiness}}
+                <div class="col-sm-4 form-group has-feedback required">
+                    <label for="position" class="control-label">Position in Company</label>
+                    {{input type="text" class="form-control" value=user.position}}
+                    {{validation-feedback errors=errors.user.position validated=validated}}
+                </div>
+            {{/if}}
+            <div class="col-sm-4 form-group has-feedback required">
+                <label for="mobile_phone" class="control-label">Mobile Phone</label>
+                {{phone-input class="form-control" value=user.phone_mobile}}
+                {{validation-feedback errors=errors.user.phone_mobile validated=validated}}
+            </div>
+            <div class="col-sm-4 form-group has-feedback optional">
+                <label for="direct_office_phone" class="control-label">
+                    Direct Office Phone
+                </label>
+                {{phone-input class="form-control" formattedValue=user.phone_office errors=errors.user.phone_office}}
+                {{validation-feedback errors=errors.user.phone_office validated=validated}}
+            </div>
+            <div class="clear"></div>
+        </div>
+        {{#if registration.isBusiness}}
+            <div class="row">
+                <div class="col-xs-12 form-group has-feedback">
+                    {{input id="isOwner" type="checkbox" checked=user.is_owner}}
+                    <label for="isOwner" class="side-label">
+                        I am the owner of the entity.
+                    </label>
+                </div>
+            </div>
+        {{/if}}
+    {{/if}}
+{{/akx-form}}

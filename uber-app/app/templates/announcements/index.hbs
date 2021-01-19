@@ -1,0 +1,32 @@
+<div class="pane-primary-content">
+    {{partial 'nav-uber-settings'}}
+
+    <table class="table table-hover table-high">
+        <thead>
+        <tr>
+            <th class="col-xs-4">Subject</th>
+            <th class="col-xs-2">Publish From</th>
+            <th class="col-xs-2">Publish To</th>
+            <th class="col-xs-2"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each announcement in content}}
+            {{#link-to 'announcements.index.view' announcement.id tagName='tr' class='list-link'}}
+                <td class="valign-middle">
+                    {{announcement.name}}
+                </td>
+                <td class="valign-middle ">
+                    {{announcement.str_publish_from}}
+                </td>
+                <td class="valign-middle ">
+                    {{announcement.str_publish_to}}
+                </td>
+                <td></td>
+            {{/link-to}}
+        {{/each}}
+        </tbody>
+    </table>
+</div>
+
+

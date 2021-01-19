@@ -1,0 +1,37 @@
+<header id="section-header" class="akx-header mt-5">
+        <span>{{stringList.typeTitle}}</span>
+</header>
+<div id="transfer-type-section" class="row mt-5 text-center justify-content-center type-selection">
+    {{#if canAccountTransfer}}
+        {{#type-select
+            id='type-selection-internal-transfer'
+            classNames='py-3 col-lg-4 col-md-4 col-sm-12'
+            value=0}}
+            {{#link-to 'authenticated.transfers.account-transfer'
+                tagName='div'}}
+                    <i class="akx-icon akx-personal-account font-h1"></i>
+                    <h4>{{stringList.internalAccount}}</h4>
+            {{/link-to}}
+        {{/type-select}}
+    {{/if}}
+    {{#type-select
+        id='type-selection-book-transfer'
+        classNames='col-lg-4 col-md-4 col-sm-12 py-3'
+        value=1}}
+        {{#link-to 'authenticated.transfers.book-transfer'
+            tagName='div'}}
+                <i class="akx-icon akx-personal-account font-h1"></i>
+                <h4>{{stringList.bookTransfer}}</h4>
+        {{/link-to}}
+    {{/type-select}}
+    {{#type-select
+        id='type-selection-bank-transfer'
+        classNames='col-lg-4 col-md-4 col-sm-12 py-3'
+        value=2}}
+        {{#link-to 'authenticated.transfers.bank-transfer'
+            tagName='div'}}
+                <i class="akx-icon akx-personal-account font-h1"></i>
+                <h4>{{stringList.bankTransfer}}</h4>
+        {{/link-to}}
+    {{/type-select}}
+</div>

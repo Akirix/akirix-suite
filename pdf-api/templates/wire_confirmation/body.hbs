@@ -1,0 +1,266 @@
+<style>
+    body {
+        min-height: 1100px;
+    }
+
+    body:after {
+        background-size: cover;
+        background-repeat: no-repeat;
+        content: "";
+        opacity: 0.05;
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=05)";
+        filter: alpha(opacity=05);
+        -moz-opacity: 0.05;
+        -khtml-opacity: 0.05;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        position: absolute;
+        z-index: -1;
+    }
+</style>
+<div style="height: 30px;"></div>
+
+<div class="row">
+    <div class="col-xs-6">
+        <img src="{{server}}/img/AkirixLogo_Bl.png" height="65" width="229"><br>
+        Wire Transfer Detail Report<br>As of {{date}}
+    </div>
+    <div class="col-xs-6 small align-right">
+        <span class="large">{{@root.wire.company.name}}</span><br>
+        <span class="small">XYZ{{@root.wire.company.account_number}}</span><br>
+        {{date date=@root.wire.updated_at format="YYYY-MM-DD HH:ss"}} GMT<br>
+        Currency: {{@root.wire.currency_id}}
+    </div>
+</div>
+
+<div style="height: 10px;">
+    <hr>
+</div>
+
+<div class="row">
+    <table class="table" style="margin-bottom: 0px;">
+        <thead style=" background-color: #f5f5f5;">
+        <tr>
+            <th class="col-xs-2">Akirix Reference:</th>
+            <th class="col-xs-2">Value Date</th>
+            <th class="col-xs-3">Debit Wire Amount</th>
+            <th class="col-xs-4" style="padding-left: 30px;">Beneficiary:</th>
+            <th class="align-right col-xs-1">Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="small">
+            <td><strong>W-{{@root.wire.name}}</strong></td>
+            <td><strong>{{date date=@root.wire.updated_at}}</strong></td>
+            <td><strong>{{number @root.wire.amount}}</strong></td>
+            <td style="padding-left: 30px;">
+                <strong>
+                    {{@root.wire.account_holder}}<br>
+                    {{#if @root.wire.account_number}}
+                        {{@root.wire.account_number}}<br>
+                    {{else}}
+                        {{#if @root.wire.account_iban}}{{@root.wire.account_iban}}<br>{{/if}}
+                    {{/if}}
+                    {{#if @root.wire.bank_name}}{{@root.wire.bank_name}}<br>{{/if}}
+                    {{address-combiner city=@root.wire.bank_city state=@root.wire.bank_state_province postal_code=@root.wire.bank_postal_code country=@root.wire.bank_country}}
+                </strong>
+            </td>
+            <td class="align-right">
+                <strong>
+                    {{status status=@root.wire.status}}
+                </strong>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="row">
+    <div class="col-xs-12 medium">
+        <strong>
+            {{@root.wire.confirmation}}
+        </strong>
+    </div>
+</div>
+
+<div style="height: 20px;"></div>
+
+<div class="row">
+    <div class="col-xs-5">
+        <table class="table small">
+            <tbody>
+            <tr>
+                <td>
+                    Beneficiary Name:<br>
+                    <strong>{{@root.wire.account_holder}}</strong>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Beneficiary Bank Name and Address:<br>
+                    <strong>
+                        {{#if @root.wire.bank_name}}{{@root.wire.bank_name}},<br>{{/if}}
+                        {{address-combiner city=@root.wire.bank_city state=@root.wire.state_province postal_code=@root.wire.bank_postal_code country=@root.wire.bank_country}}
+                    </strong>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Wire Amount:<br>
+                    <strong>{{number @root.wire.amount}}</strong>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Exchange Rate:<br>
+                    <strong>1.000000</strong>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    USD Equivalent Amount:<br>
+                    <strong>
+                        {{#is-value test="USD" value=@root.wire.currency_id}}
+                            {{number @root.wire.amount}}
+                        {{/is-value}}
+                    </strong>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Beneficiary Code/ID:<br>
+                    <strong>N/A</strong>
+                </td>
+            </tr>
+            <tr>
+                <td>Beneficiary Reference ID:<br>
+                    <strong>
+                        {{#if @root.wire.account_number}}
+                            {{@root.wire.account_number}}
+                        {{else}}
+                            {{#if @root.wire.account_iban}}
+                                {{@root.wire.account_iban}}
+                            {{else}}
+                                N/A
+                            {{/if}}
+                        {{/if}}
+                    </strong>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Beneficiary Bank Code/ID:<br>
+                    <strong>
+                        {{#if @root.wire.code_swift}}
+                            {{@root.wire.code_swift}}
+                        {{else}}
+                            {{#if @root.wire.code_aba}}
+                                {{@root.wire.code_aba}}
+                            {{else}}
+                                N/A
+                            {{/if}}
+                        {{/if}}
+                    </strong>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Wire Service Reference Number:<br>
+                    <strong>
+                        {{not-empty @root.wire.confirmation}}
+                    </strong>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Transaction Reference Number:<br>
+                    <strong>{{not-empty @root.wire.reference}}</strong>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Originator to Beneficiary Info:<br>
+                    <strong>{{not-empty @root.wire.notes}}</strong>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-xs-2"></div>
+
+    <div class="col-xs-5">
+        <table class="table small">
+            <tbody>
+            <tr>
+                <td>
+                    Instructing Bank Code/ID:<br>
+                    <strong>N/A</strong>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Instructing Bank Name and Address:<br>
+                    <strong>N/A</strong>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Sending Bank:<br>
+                    <strong>{{@root.wire.bankRoute.name}}</strong>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Sending Party ID:<br>
+                    <strong>000009042856170</strong>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Instructed Currency/Amount:<br>
+                    <strong>{{@root.wire.currency_id}}/{{number @root.wire.amount}}</strong>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Completed Timestamp:<br>
+                    <strong>{{date date=@root.wire.updated_at format="YYYY-MM-DD HH:ss"}} GMT</strong>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Sender Reference Number:<br>
+                    <strong>N/A</strong>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Originating Bank Code/ID:<br>
+                    <strong>N/A</strong>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Originating Bank Name and Address:<br>
+                    <strong>N/A</strong>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Originator ID:<br>
+                    <strong>N/A</strong>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Receiving Party ID:<br>
+                    <strong>{{not-empty @root.wire.code_irc}}</strong>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

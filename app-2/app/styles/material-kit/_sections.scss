@@ -1,0 +1,135 @@
+.section-white{
+    background: $white-color;
+}
+.section-white-to-gray{
+    background-color: $white-color;
+    background: rgba($rgb-black, 0) linear-gradient(0deg, $medium-nav-item 0%, $white-color 100%) repeat scroll 0 0;
+}
+.section-gray{
+    background: $medium-nav-item;
+}
+.section-light-gray{
+    background: $section-light-gray;
+}
+
+// colored sections
+.section-primary{
+    @include linear-gradient($light-blue, $dark-blue);
+}
+.section-info{
+    @include linear-gradient($teal, $cyan);
+}
+.section-success{
+    @include linear-gradient($akx-green, $green);
+}
+.section-warning{
+    @include linear-gradient($akx-mustard, $yellow);
+}
+.section-danger{
+    @include linear-gradient($akx-orange, $red);
+}
+.section-rose{
+    @include linear-gradient($pink, $pink-500);
+}
+
+.section-space{
+    height: 70px;
+    display: block;
+}
+.section{
+    padding: 70px 0;
+}
+.section-navbars{
+    padding-bottom: 0;
+}
+
+.section-full-screen{
+    height: 100vh;
+}
+.section-signup{
+    padding-top: 20vh;
+}
+.section-dark,
+.section-image{
+    background-color: $section-image-bg;
+    background-size: 200% 240%;
+    @include radial-gradient($section-image-radial-gradient-black,$section-image-radial-gradient-gray);
+}
+
+.section-dark,
+.section-image{
+    .title,
+    .card-plain .card-title,
+    .card-plain .icon i{
+        color: $white-color;
+    }
+
+    .description,
+    .card-plain .card-description,
+    .card-plain .icon{
+        color: rgba($white-color, .76);
+    }
+
+    .card-plain{
+        [class*="text-"],
+        ul li b{
+            color: $white-color;
+        }
+        .card-category{
+            color: rgba($white-color,.5);
+        }
+    }
+
+    .card .card-image .colored-shadow{
+        top: 0px;
+    }
+
+}
+
+.section-image{
+    position: relative;
+
+    &:after{
+        position: absolute;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+        display: block;
+        left: 0;
+        top: 0;
+        content: "";
+        background-color: $section-image-after;
+    }
+
+    .container{
+        z-index: 2;
+        position: relative;
+    }
+}
+
+.section,
+.section-image{
+    background-position: center center;
+    background-size: cover;
+}
+
+[class*="features-"],
+[class*="team-"],
+[class*="projects-"],
+[class*="pricing-"],
+[class*="testimonials-"],
+[class*="contactus-"]{
+    padding: 80px 0;
+}
+
+// @import 'sections/_headers';
+// @import 'sections/_features';
+// @import 'sections/_blogs';
+// @import 'sections/_team';
+// @import 'sections/_projects';
+// @import 'sections/_pricing';
+// @import 'sections/_testimonials';
+// @import 'sections/_contactus';
+// @import 'sections/_footers';
+//
+// @import 'sections/_social-subscribe-lines';

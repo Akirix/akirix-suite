@@ -1,0 +1,10 @@
+<div class="side-panel-content">
+    <header class="akx-header">
+        <span>{{stringList.forward}}</span>
+    </header>
+    <h5 class="text-center">
+        {{stringList.forwardHelp1}} <b>{{model.snode.company.name}}</b>
+        {{stringList.forwardHelp2}} <b>{{model.project.bnode.company.name}}</b>
+    </h5>
+    {{can-create-child selectBill=(action 'selectBill') invoices=model.snode.invoices stringList=stringList}}
+</div>

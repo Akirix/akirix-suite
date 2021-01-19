@@ -1,0 +1,156 @@
+<div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+    {{slide-task-list model='Ticket' model_id=ticket.id company_id=ticket.company_id}}
+    <div class="pane-secondary-content">
+        <div class="panel panel-default">
+            <div class="panel-heading text-center">
+                <strong>Ticket Info</strong>
+            </div>
+            <div class="panel-body">
+                <div class="form-group col-md-6 required has-feedback">
+                    <label>Priority</label>
+                    {{view 'select'
+                           value=ticket.priority
+                           content=ticketPriorities
+                           optionValuePath='content.val'
+                           optionLabelPath='content.label'
+                           prompt='Select Priority Level'
+                           class='form-control'}}
+                    {{validation-feedback errors=errors.ticket.priority validated=validated}}
+                </div>
+                <div class="form-group col-md-6 required has-feedback">
+                    <label>Assign To</label>
+                    {{view 'select'
+                           value=ticket.uber_user_id
+                           content=uberUsers
+                           optionValuePath='content.id'
+                           optionLabelPath='content.first_name'
+                           prompt='Select Uber User'
+                           class='form-control'}}
+                    {{validation-feedback errors=errors.ticket.uber_user_id validated=validated}}
+                </div>
+                {{uber-tags model_id=ticket.id model='ticket' tags=tags restrictions=restrictions}}
+            </div>
+        </div>
+        {{#each msg in ticketMessages}}
+            {{#if msg.user}}
+                <div class="row col-xs-10 no-padding">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-user fa-fw"></i><strong>{{msg.user.first_name}} {{msg.user.last_name}}</strong>
+
+                            <div class="float-right small text-gray-light">
+                                {{msg.str_updated_at_date}} {{msg.str_updated_at_time}}
+                            </div>
+                        </div>
+
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12 no-padding">
+                                    {{msg.notes}}
+                                </div>
+                            </div>
+                            {{#if msg.documents}}
+                                <div class="row top-buffer">
+                                    <div class="col-md-12 no-padding">
+                                        <ul class="list-group">
+                                            {{view 'list-documents' documents=msg.documents}}
+                                        </ul>
+                                    </div>
+                                </div>
+                            {{/if}}
+                        </div>
+                    </div>
+                </div>
+            {{else}}
+                <div class="row col-xs-10 float-right no-padding">
+                    <div class="panel panel-default">
+                        <div class="panel-heading bg-lightblue">
+                            <i class="fa fa-user fa-fw"></i><strong>{{msg.uberUser.name}}</strong>
+
+                            <div class="float-right small text-gray">
+                                {{msg.str_updated_at_date}} {{msg.str_updated_at_time}}
+                            </div>
+                        </div>
+
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12 no-padding">
+                                    {{msg.notes}}
+                                </div>
+                            </div>
+                            {{#if msg.documents}}
+                                <div class="row top-buffer">
+                                    <div class="col-md-12 no-padding">
+                                        <ul class="list-group">
+                                            {{view 'list-documents' documents=msg.documents}}
+                                        </ul>
+                                    </div>
+                                </div>
+                            {{/if}}
+                        </div>
+                    </div>
+                </div>
+            {{/if}}
+        {{/each}}
+        {{#if ticket.isPending}}
+            <div class="clearfix"></div>
+            <hr>
+            <div class="row col-xs-12 no-padding">
+                <div class="form-group">
+                    <label>New Message</label>
+                    <span class="help-block"></span>
+                    {{textarea value=data.notes class='form-control' rows='3' placeholder=''}}
+                </div>
+            </div>
+            <div class="row col-xs-12">
+                {{view 'upload-client-document' documents=documents model='ticket-message'
+                       company_id=ticket.company_id}}
+            </div>
+        {{/if}}
+        <div class="clearfix"></div>
+    </div>
+</div>
+<div class="viewport viewport-bottom navbar-toolbar">
+    <div class="pane-actions">
+        <ul class="list-h">
+            <li>
+                <button {{action 'goBack'}} class="btn btn-default navbar-secondary-btn btn-sm" type="button">Back
+                </button>
+            </li>
+            <li>
+                <button {{action 'updateTicket'}} class="btn btn-default btn-sm navbar-secondary-btn"><i
+                        class="fa fa-floppy-o fa-lg"></i></button>
+            </li>
+            {{#if ticket.isPending}}
+                <li>
+                    {{view 'modal-confirmation'
+                           class='btn btn-warning btn-sm navbar-secondary-btn'
+                           button='Close Ticket'
+                           action='closeTicket'
+                           headerTitle='Close Support Ticket'
+                           prompt='Are you sure you want to close this ticket?'
+                    }}
+                </li>
+            {{/if}}
+        </ul>
+        <ul class="list-h pull-right">
+            {{#if ticket.isClosed}}
+                <li>
+                    <button {{action 'openTicket'}} class="btn btn-warning navbar-secondary-btn btn-sm"
+                                                    type="button">
+                        Re-Open Ticket
+                    </button>
+                </li>
+            {{else}}
+                <li>
+                </li>
+                <li>
+                    <button {{action 'addTicketMessage'}} class="btn btn-primary navbar-secondary-btn btn-sm"
+                                                          type="button">
+                        Send Message
+                    </button>
+                </li>
+            {{/if}}
+        </ul>
+    </div>
+</div>

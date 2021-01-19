@@ -1,0 +1,222 @@
+<legend>Outgoing Wires</legend>
+{{#if hasNewWires}}
+    <table id="outgoing" class="table table-hover">
+        <thead>
+        <tr>
+            <th class="col-xs-1">Updated Date</th>
+            <th class="col-xs-1">Created Date</th>
+            <th class="col-xs-1">Name</th>
+            <th class="col-xs-2">Company</th>
+            <th class="col-xs-3">Bank</th>
+            <th class="col-xs-2">Amount</th>
+            <th class="col-xs-1">Status</th>
+            <th class="col-xs-1"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each wire in startedWires}}
+            {{#link-to 'dashboard.pending-out.view' wire.id tagName='tr'}}
+                <td class="small valign-middle">
+                    <strong>{{wire.str_updated_at_date}}</strong><br/>
+                    {{wire.str_updated_at_time}}
+                </td>
+                <td class="small valign-middle">
+                    <strong>{{wire.str_created_at_date}}</strong><br/>
+                    {{wire.str_created_at_time}}
+                </td>
+                <td class="valign-middle">
+                    {{wire-type-icon wire.type}} W-{{wire.name}}<br/>
+                    {{wire-method-icon wire.method wire.speedwire}}<br/>
+                    <span class="small text-gray"><i class="fa fa-level-up fa-fw"></i> {{wire.bankRoute.name}}</span>
+                </td>
+                <td class="valign-middle">
+                    {{wire.company.name}}<br/>
+                    XYZ{{wire.company.account_number}}
+                </td>
+                <td>
+                    <span class="medium">{{wire-beneficiary-icon wire.beneficiary_type}} {{wire.account_holder}}</span><br/>
+                    <span class="small"><i class="fa fa-university fa-fw"></i>{{country-flag wire.bank_country}} {{wire.bank_name}}
+                        ({{wire.account_number}})</span>
+                </td>
+                <td class="large valign-middle">
+                    {{{wire.str_sign_color}}} {{{wire.currency.symbol}}}{{wire.str_amount}}
+                </td>
+                <td class="medium valign-middle">
+                    {{wire-status-icon wire.status}}
+                </td>
+                <td class="valign-middle">
+
+                </td>
+            {{/link-to}}
+        {{/each}}
+
+        {{#each wire in wires}}
+            {{#draggable-item id=wire.id class="list-link" content=wire tagName='tr' action='goToWire' draggableOpt=wire.isNewWire}}
+                <td class="small valign-middle">
+                    <strong>{{wire.str_updated_at_date}}</strong><br/>
+                    {{wire.str_updated_at_time}}
+                </td>
+                <td class="small valign-middle">
+                    <strong>{{wire.str_created_at_date}}</strong><br/>
+                    {{wire.str_created_at_time}}
+                </td>
+                <td class="valign-middle">
+                    {{wire-type-icon wire.type}} W-{{wire.name}}<br/>
+                    {{wire-method-icon wire.method wire.speedwire}}<br/>
+                    <span class="small text-gray"><i class="fa fa-level-up fa-fw"></i> {{wire.bankRoute.name}}</span>
+                </td>
+                <td class="valign-middle">
+                    {{wire.company.name}}<br/>
+                    XYZ{{wire.company.account_number}}
+                </td>
+                <td>
+                    <span class="medium">{{wire-beneficiary-icon wire.beneficiary_type}} {{wire.account_holder}}</span><br/>
+                    <span class="small"><i class="fa fa-university fa-fw"></i> {{wire.bank_name}}
+                        ({{wire.account_number}})</span>
+                </td>
+                <td class="large valign-middle">
+                    {{{wire.str_sign_color}}} {{{wire.currency.symbol}}}{{wire.str_amount}}
+                </td>
+                <td class="medium valign-middle">
+                    {{wire-status-icon wire.status}}
+                    {{#if wire.notes}}<i class="fa fa-sticky-note-o fa-fw"></i>{{/if}}
+                    {{#if wire.notes_akirix}}<i class="fa fa-sticky-note fa-fw"></i>{{/if}}
+                </td>
+
+                <td class="valign-middle">
+                    {{!--#if wire.isNewWire}}
+                        <ul class="list-h">
+                            <li {{action "addToBatch" wire on="click"}}>
+                                <i class="text-green-dark fa fa-plus-circle fa-fw"></i>
+                            </li>
+                        </ul>
+                    {{/if--}}
+                </td>
+            {{/draggable-item}}
+        {{/each}}
+        </tbody>
+    </table>
+{{else}}
+    <div class="align-center valign-middle text-gray-light" style="padding: 100px; background-color: #f2f4f5; ">
+        No New Outgoing Wires
+    </div>
+{{/if}}
+
+<div style="height: 50px;"></div>
+
+<legend>Batches</legend>
+{{#if newBatches}}
+    <table id="batches" class="table table-hover">
+        <thead>
+        <tr>
+            <th class="col-xs-1">Scheduled</th>
+            <th class="col-xs-2">Bank Route</th>
+            <th class="col-xs-1">Currency</th>
+            <th class="col-xs-1">Count</th>
+            <th class="col-xs-2">Total Amount</th>
+            <th class="col-xs-2">Currencies Amount</th>
+            <th class="col-xs-1">Type</th>
+            <th class="col-xs-1">Status</th>
+            <th class="col-xs-1"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each batch in newBatches}}
+            {{#draggable-dropzone id=batch.id class="list-link toggle-content" dropped="addToBatch" action="goToBatch" tagName='tr' content=batch.id}}
+                <td class="small valign-middle">
+                    <strong>{{batch.str_scheduled_date}}</strong><br/>
+                    {{batch.str_scheduled_time}}
+                </td>
+                <td class="valign-middle">
+                    {{batch.bankRoute.name}}
+                </td>
+                <td class="medium valign-middle">
+                    {{batch.currency_id}}
+                </td>
+                <td class="medium valign-middle">
+                    {{batch.wires.length}}
+                </td>
+                <td class="medium valign-middle">
+                    <strong>{{batch.batch_total}}</strong>
+                </td>
+                <td class="small valign-middle">
+                    {{#each curr in batch.batchCurrencies}}
+                        {{curr.currency_id}}: {{curr.str_amount}}<br/>
+                    {{/each}}
+                </td>
+                <td class="medium valign-middle">
+                    {{#if batch.isSpeedWire}}
+                        <span class="text-orange">{{batch.str_type}}</span>
+                    {{else}}
+                        {{batch.str_type}}
+                    {{/if}}
+                </td>
+                <td class="medium valign-middle">
+                    {{wirebatch-status-icon batch.status}}
+                </td>
+                <td class="medium valign-middle">
+                    {{#if batch.isEmptyBatch}}
+                        <ul class="list-h">
+                            <li {{action "deleteBatch" batch}}>
+                                <i class="text-rose fa fa-minus-circle fa-fw"></i>
+                            </li>
+                        </ul>
+                    {{/if}}
+                </td>
+                <td class="valign-middle">{{akx-collapse content=batch action='toggleContent'}}</td>
+            {{/draggable-dropzone}}
+            {{#each wire in batch.wires}}
+                {{#if batch.isVisible}}
+                    {{#link-to 'dashboard.pending-out.view' wire.id tagName='tr' id=wire.id class='toggle-content list-link'}}
+                        <td class="valign-middle">
+
+                        </td>
+                        <td class="small valign-middle">
+                            {{wire-type-icon wire.type}} W-{{wire.name}}<br/>
+                            {{wire-method-icon wire.method wire.speedwire}}
+                        </td>
+                        <td class="valign-middle">
+                            {{wire.currency_id}}
+                        </td>
+                        <td class="valign-middle">
+                            {{wire.company.name}}<br/>
+                            <span class="small">XYZ{{wire.company.account_number}}</span>
+                        </td>
+                        <td>
+                            <span class="">{{wire-beneficiary-icon wire.beneficiary_type}} {{wire.account_holder}}</span><br/>
+                            <span class="small">
+                            <i class="fa fa-university fa-fw"></i> {{wire.bank_name}} ({{wire.account_number}})
+                        </span>
+                        </td>
+                        <td class="small valign-middle">
+                            <span class="">
+                                {{{wire.str_sign_color}}} {{{wire.currency.symbol}}}{{wire.str_amount}}
+                            </span>
+                        </td>
+                        <td></td>
+                        <td class="small valign-middle">
+                            <span class="">
+                                {{wire-status-icon wire.status}}
+                            </span>
+                        </td>
+                        <td class="valign-middle">
+                            <ul class="list-h">
+                                <li {{action "removeFromBatch" wire}}>
+                                    <i class="text-rose fa fa-minus-circle fa-fw"></i>
+                                </li>
+                            </ul>
+                        </td>
+                    {{/link-to}}
+                {{/if}}
+            {{/each}}
+        {{/each}}
+        </tbody>
+    </table>
+{{else}}
+    <div class="align-center valign-middle text-gray-light" style="padding: 100px; background-color: #f2f4f5; ">
+        No New
+        Wire Batches
+    </div>
+{{/if}}
+
+<div style="height: 50px;"></div>

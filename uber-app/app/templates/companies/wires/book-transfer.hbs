@@ -1,0 +1,68 @@
+{{#akx-form isLocked=isLocked}}
+    <div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+        <div class="pane-secondary-content">
+            <fieldset>
+                <div class="row">
+                    <div class="form-group col-md-6 has-feedback required">
+                        <label>Recipient Akirix Account Number: </label>
+                        {{view 'validate-company' content=company account_number=wire.account_number current_company_account=company.account_number}}
+                        {{validation-feedback errors=errors.wire.account_number validated=validated}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6 required has-feedback">
+                        <label>From Account</label>
+                        {{view 'select'
+                        value=wire.account_id
+                        content=accounts
+                        optionValuePath='content.id'
+                        optionLabelPath='content.str_long_name'
+                        prompt='Select an account'
+                        class='form-control'
+                        selection=account}}
+                        {{validation-feedback errors=errors.wire.account_id validated=validated}}
+                    </div>
+
+                    <div class="form-group col-md-6 required has-feedback">
+                        <label>Amount</label>
+                        {{formatted-number realValue=wire.amount type='text' class='form-control' placeholder='0.00'}}
+                        {{validation-feedback errors=errors.wire.amount validated=validated}}
+                    </div>
+
+                    <div class="form-group col-md-6 required has-feedback">
+                        <label>Wire Fee</label>
+                        {{input value=wire.fee type='text' class='form-control' placeholder='0.00' }}
+                        {{validation-feedback errors=errors.wire.fee validated=validated}}
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        <label>Notes &amp; References</label>
+                        {{textarea value=wire.notes class='form-control' rows='3'}}
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <div class="viewport viewport-bottom navbar-toolbar">
+        <div class="pane-actions">
+            <ul class="list-h">
+                <li>
+                    <button {{action 'goBack'}} class="btn btn-default navbar-secondary-btn btn-sm" type="button">
+                        Cancel
+                    </button>
+                </li>
+            </ul>
+            <ul class="list-h pull-right">
+                <li>
+                    {{view 'modal-confirmation'
+                    class='btn btn-primary btn-sm navbar-secondary-btn'
+                    button='Internal Transfer'
+                    action='createBookTransfer'
+                    headerTitle='Create Internal Transfer'
+                    prompt='Are you sure you want to perform this internal money transfer?'
+                    }}
+                </li>
+            </ul>
+        </div>
+    </div>
+{{/akx-form}}

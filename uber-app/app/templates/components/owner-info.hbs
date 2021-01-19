@@ -1,0 +1,120 @@
+<div style="padding-top:20px">
+    <div class="row">
+        <div class="col-xs-12" style="font-size: 1.38em;">
+            <i class="fa fa-fw fa-user"></i>
+                {{#if owner.name}}
+                    {{owner.name}}
+                {{else}}
+                    <span>Owner {{ownerId}}</span>
+                {{/if}}
+        </div>
+    </div>
+    <div class="row border-bottom bottom-buffer"></div>
+    <div class="row">
+        <div class="col-sm-6 form-group has-feedback required">
+            <label for="name" class="control-label">Full Name</label>
+            {{input type="text" class="form-control" value=owner.name}}
+            {{validation-feedback errors=errors.owner.name validated=validated}}
+        </div>
+        <div class="col-sm-6 form-group has-feedback required">
+            <label for="percent_ownership" class="control-label">Ownership Percentage (%)</label>
+            {{input type="text" class="form-control" value=owner.percent_ownership}}
+            {{validation-feedback errors=errors.owner.percent_ownership validated=validated}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 form-group has-feedback required">
+            <label for="date_of_birth" class="control-label">Date of Birth</label>
+            {{date-picker value=owner.date_of_birth class='form-control' placeholder='Birthday' valueFormat='YYYY-MM-DD' allowBlank=true}}
+            {{validation-feedback errors=errors.owner.date_of_birth validated=validated}}
+        </div>
+        <div class="col-sm-6 form-group has-feedback required">
+            <label for="country" class="control-label">Nationality</label>
+            {{view 'select'
+                   value=owner.nationality
+                   content=countries
+                   optionValuePath='content.abbreviation'
+                   optionLabelPath='content.name'
+                   prompt='Country'
+                   class='form-control'}}
+            {{validation-feedback errors=errors.owner.nationality validated=validated}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-8 form-group has-feedback required">
+            <label class="control-label">Address</label>
+            {{input
+                    type="text"
+                    class="form-control"
+                    value=owner.address}}
+            {{validation-feedback errors=errors.owner.address validated=validated}}
+        </div>
+        <div class="col-sm-4 form-group has-feedback required">
+            <label class="control-label">City</label>
+            {{input
+                    type="text"
+                    class="form-control"
+                    value=owner.city}}
+            {{validation-feedback errors=errors.owner.city validated=validated}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4 form-group has-feedback required">
+            <label class="control-label">State / Province</label>
+            {{input
+                    type="text"
+                    class="form-control"
+                    value=owner.state_province}}
+            {{validation-feedback errors=errors.owner.state_province validated=validated}}
+        </div>
+        <div class="col-sm-4 form-group has-feedback required">
+            <label class="control-label">Zip / Postal Code</label>
+            {{input
+                    type="text"
+                    class="form-control"
+                    value=owner.postal_code}}
+            {{validation-feedback errors=errors.owner.postal_code validated=validated}}
+        </div>
+        <div class="col-sm-4 form-group has-feedback required">
+            <label class="control-label">Country</label>
+            {{view 'select'
+                   value=owner.country
+                   content=countries
+                   optionValuePath='content.abbreviation'
+                   optionLabelPath='content.name'
+                   prompt='Select a Country'
+                   class='form-control'}}
+            {{validation-feedback errors=errors.owner.country validated=validated}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4 form-group has-feedback required">
+            <label for="country" class="control-label">ID Country</label>
+            {{view 'select'
+                   value=owner.id_country
+                   content=countries
+                   optionValuePath='content.abbreviation'
+                   optionLabelPath='content.name'
+                   prompt='Select a Country'
+                   class='form-control'}}
+            {{validation-feedback errors=errors.owner.id_country validated=validated}}
+        </div>
+        <div class="col-sm-4 form-group has-feedback">
+            <label for="id_type" class="control-label">ID Type</label>
+            {{view 'select'
+                   prompt="Identification Type"
+                   value=owner.id_type
+                   class="form-control"
+                   content=idTypes
+                   optionValuePath="content.key"
+                   optionLabelPath="content.value"
+            }}
+            {{validation-feedback errors=errors.owner.id_type validated=validated}}
+        </div>
+        <div class="col-sm-4 form-group has-feedback">
+            <label class="control-label">ID Number</label>
+            {{input value=owner.id_num class="form-control"}}
+            {{validation-feedback errors=errors.owner.id_num validated=validated}}
+        </div>
+    </div>
+</div>

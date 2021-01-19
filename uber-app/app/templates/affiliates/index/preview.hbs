@@ -1,0 +1,43 @@
+<div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+    <div class="pane-secondary-content">
+        <div class="row">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th class="col-xs-8">Company</th>
+                    <th class="col-xs-2">Rate</th>
+                    <th class="col-xs-2">Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#each item in commissions}}
+                    <tr>
+                        <td>XYZ{{item.company.account_number}} {{item.company.name}}</td>
+                        <td>{{item.str_rate}}</td>
+                        <td class="text-center">{{commission-status-icon item.status}}</td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+        <div></div>
+    </div>
+</div>
+<div class="viewport viewport-bottom navbar-toolbar">
+    <div class="pane-actions">
+        <ul class="list-h">
+            <li>
+                {{#link-to 'affiliates.index.index' tagName='button' class='btn btn-default navbar-secondary-btn btn-sm'}}
+                    Back
+                {{/link-to}}
+            </li>
+        </ul>
+        <ul class="list-h pull-right">
+            <li>
+                {{#link-to 'companies.view.commissions' model.id tagName='button' class='btn btn-default navbar-secondary-btn btn-sm'}}
+                    Affiliate Details
+                {{/link-to}}
+            </li>
+        </ul>
+    </div>
+</div>

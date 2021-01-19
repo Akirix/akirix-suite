@@ -1,0 +1,206 @@
+<div class="side-panel-content">
+    <header id="side-header" class="akx-header">
+            <span>{{stringList.title}}</span>
+    </header>
+    {{#akx-form name="frm-new-project" action='' class='mt-5'}}
+        <div class="row align-items-end">
+            <div id="grp-project-type" class="col-6 form-group bmd-form-group has-feedback">
+                <label for="select-project-type" class="bmd-label-static">
+                    {{stringList.projectType}}&nbsp;
+                    <i class="akx-icon akx-faq text-primary font-h4">
+                        {{#akx-popover container='body' event='click'}}
+                            <div class="sub-item">
+                                <p>{{stringList.projectTypeHelp}}</p>
+                                <p>{{stringList.genericHelp}}</p>
+                                <p>{{stringList.voipHelp}}</p>
+                                <p>{{stringList.smartHelp}}</p>
+                            </div>
+                        {{/akx-popover}}
+                    </i>
+                </label>
+                {{#x-select
+                    id='select-project-type'
+                    name='select-project-type'
+                    value=changeset.type
+                    class='selectpicker w-100'
+                    data-style='select-with-transition'
+                    action=(action (mut changeset.type))
+                    as |xs|}}
+                    {{#xs.option value='T'}}&nbsp;{{/xs.option}}
+                    {{#each projectTypes as |projectType|}}
+                        {{#xs.option value=projectType.val}}{{projectType.label}}{{/xs.option}}
+                    {{/each}}
+                {{/x-select}}
+                {{validation-feedback errors=changeset.error.type.validation}}
+            </div>
+            <div id="grp-project-account" class="col-6 form-group bmd-form-group has-feedback">
+                <label for="select-project-account" class="bmd-label-static">
+                    {{stringList.accounts}}&nbsp;
+                    <i class="akx-icon akx-faq text-primary font-h4">
+                        {{#akx-popover container='body' event='click'}}
+                            <div class="sub-item">
+                                <p>{{stringList.accountHelp}}</p>
+                            </div>
+                        {{/akx-popover}}
+                    </i>
+                </label>
+                {{#x-select
+                    id='select-project-account'
+                    name='select-project-account'
+                    class='selectpicker w-100'
+                    data-style="select-with-transition"
+                    action=(action 'setAccount')
+                    as |xs|}}
+                    {{#each model.accounts as |account|}}
+                        {{#xs.option value=account}}
+                            {{account.name}} {{{account.currencySymbol}}}{{account.balance}}
+                        {{/xs.option}}
+                    {{/each}}
+                {{/x-select}}
+                {{validation-feedback errors=changeset.error.account_id.validation}}
+            </div>
+            <div id="grp-project-nickname" class="col-6 form-group bmd-form-group has-feedback">
+                <label for="input-project-nickname" class="bmd-label-static">
+                    {{stringList.name}}&nbsp;
+                    <i class="akx-icon akx-faq text-primary font-h4">
+                        {{#akx-popover container='body' event='click'}}
+                            <div class="sub-item">
+                                <p>{{stringList.nameHelp}}</p>
+                            </div>
+                        {{/akx-popover}}
+                    </i>
+                </label>
+                {{input name="input-project-nickname" value=changeset.name type='text' class='form-control'}}
+                {{validation-feedback errors=changeset.error.name.validation}}
+            </div>
+            {{#if isSmart}}
+                <div id="grp-project-deadline" class="col-6 form-group bmd-form-group has-feedback">
+                    <label for="select-project-deadline">
+                        {{stringList.invoiceDeadline}}&nbsp;
+                        <i class="akx-icon akx-faq text-primary font-h4">
+                            {{#akx-popover container='body' event='click'}}
+                                <div class="sub-item">
+                                    <p>{{stringList.invoiceHelp}}</p>
+                                </div>
+                            {{/akx-popover}}
+                        </i>
+                    </label>
+                    {{#x-select
+                        id='select-project-deadline'
+                        name='select-project-deadline'
+                        value=changeset.invoice_deadline
+                        class='selectpicker w-100'
+                        data-style="select-with-transition"
+                        action=(action (mut changeset.invoice_deadline))
+                        as |xs|}}
+                        {{#each deadlineOptions as |contract|}}
+                            {{#xs.option value=contract.val}}{{contract.label}}{{/xs.option}}
+                        {{/each}}
+                    {{/x-select}}
+                    {{validation-feedback errors=changeset.error.invoice_deadline.validation}}
+                </div>
+            {{/if}}
+        </div>
+        {{#if isSmart}}
+            <div class="row">
+                <div class="col-6">
+                    <div id="grp-unlocked-project" class="form-check form-check-radio pl-1">
+                        <label class="form-check-label">
+                            {{stringList.unLockProfit}}
+                            {{radio-input
+                                id='radio-input-unlocked-project'
+                                name='akx-radio'
+                                groupValue=changeset.fixed_profit_margin
+                                value=0}}
+                            <span id="radio-unlocked-project" class="circle">
+                                <span class="check"></span>
+                            </span>
+                        </label>
+                    </div>
+                    <div id="grp-locked-project" class="grp-locked-project form-check form-check-radio pl-1">
+                        <label class="form-check-label">
+                            {{stringList.lockProfit}}
+                            {{radio-input
+                                id='radio-input-locked-project'
+                                name='akx-radio'
+                                groupValue=changeset.fixed_profit_margin
+                                value=1}}
+                            <span id="radio-locked-project" class="circle">
+                                <span class="check"></span>
+                            </span>
+                        </label>
+                        {{!-- {{validation-feedback errors=changeset.error.fixed_profit_margin.validation}} --}}
+                    </div>
+                </div>
+                {{#if changeset.fixed_profit_margin}}
+                    <div id="grp-project-discount-rate" class="col-6 form-group has-feedback">
+                        <label for="input-project-discount-rate" class="bmd-label-static">
+                            {{stringList.discountRate}}&nbsp;
+                            <i class="akx-icon akx-faq text-primary font-h4">
+                                {{#akx-popover container='body' event='click'}}
+                                    <div class="sub-item">
+                                        <p>{{stringList.profitHelp}}</p>
+                                    </div>
+                                {{/akx-popover}}
+                            </i>
+                        </label>
+                        {{input value=changeset.discount_rate name='input-project-discount-rate' type='text' class='form-control'}}
+                        {{validation-feedback errors=changeset.error.discount_rate.validation}}
+                    </div>
+                {{/if}}
+            </div>
+        {{/if}}
+        <div id="grp-project-notes" class="form-group bmd-form-group mt-3 has-feedback">
+            <label for="input-project-notes" class="bmd-label-static">
+                {{stringList.notes}}&nbsp;
+                <i class="akx-icon akx-faq text-primary font-h4">
+                    {{#akx-popover container='body' event='click'}}
+                        <div class="sub-item">
+                            <p>{{stringList.notesHelp}}</p>
+                        </div>
+                    {{/akx-popover}}
+                </i>
+            </label>
+            {{textarea name="input-project-notes" value=changeset.notes class="form-control" rows=4}}
+            {{validation-feedback errors=changeset.error.notes.validation}}
+        </div>
+        {{#if isLinear}}
+            <div id="grp-project-product-list" class="form-group bmd-form-group mt-3 has-feedback">
+                <label for="input-project-product-list" class="bmd-label-static">
+                    {{stringList.nodeItems}}&nbsp;
+                    <i class="akx-icon akx-faq text-primary font-h4">
+                        {{#akx-popover container='body' event='click'}}
+                            <div class="sub-item">
+                                <p>{{stringList.nodeItemsHelp}}</p>
+                            </div>
+                        {{/akx-popover}}
+                    </i>
+                </label>
+                {{node-items-list items=nodeItems edit=true project=model.project}}
+                {{validation-feedback errors=nodeItemsErrors}}
+            </div>
+        {{/if}}
+        {{!-- <div class="mt-5 text-center">
+            <h4 class="text-center">
+                {{stringList.documents}}
+                <i class="akx-icon akx-faq text-primary font-h4">
+                    {{#akx-popover container='body' event='click'}}
+                        <div class="sub-item">
+                            <p>{{stringList.documentsHelp}}</p>
+                        </div>
+                    {{/akx-popover}}
+                </i>
+            </h4>
+            {{upload-document model='project' documents=documents}}
+        </div> --}}
+    {{/akx-form}}
+</div>
+<div class="action-footer">
+    <div class="row py-2">
+        <div class="col-12 text-center">
+            <button name="btn-confirm-project" {{action 'confirm'}} class="btn btn-primary" type="button">
+                {{stringList.confirmProject}}
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="row">
+    <span class="btn btn-success btn-file btn-sm">
+        <i class="fa fa-plus"></i>
+        Add Files
+        <input type="file" name="newDocument" multiple="multiple">
+    </span>
+</div>
+<div style="height: 10px"></div>
+<div class="row">
+    <ul class="list-group">
+        {{#each item in documents}}
+            <li class="list-group-item col-xs-12">
+                <span class="badge bg-danger" {{action 'removeDocument' item.id target='view'}}>X</span>
+                <span class="small bold">{{item.str_created_at_date}}</span> {{document-download-link item.url_download view.token item.name item.type}}
+            </li>
+        {{/each}}
+    </ul>
+</div>
+
+<div id="progress" class="progress progress-striped hide">
+    <div class="progress-bar progress-bar-success"></div>
+</div>

@@ -1,0 +1,24 @@
+<div id="sticky-toolbar">
+    <ul>
+        {{#link-to 'announcements' tagName="li" class="text-white"}}
+            <i class="fa fa-bell fa-fw"></i>
+            Announcements
+        {{/link-to}}
+        {{#link-to 'uber-email-templates' tagName="li" class="text-white"}}
+            <i class="fa fa-envelope fa-fw"></i><br>
+            Email Templates
+        {{/link-to}}
+        {{#link-to 'account-alias-rules.index' tagName="li" class="text-white"}}
+            <i class="fa fa-file-text-o fa-lg"></i><br/>
+            Preferred Account Rules
+        {{/link-to}}
+        {{#link-to 'uber-monitoring-rules' (query-params status= 1 ) tagName="li" class="text-white"}}
+            <i class="fa fa-thumb-tack"></i><br/>
+            Monitoring Rules
+        {{/link-to}}
+        {{#link-to 'wire-instructions' tagName="li" class="text-white"}}
+            <i class="fa fa-thumb-tack"></i><br/>
+            Wire Instructions
+        {{/link-to}}
+    </ul>
+</div>

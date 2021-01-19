@@ -1,0 +1,31 @@
+<div class="side-panel-content">
+    {{pay-invoice
+        invoice=model.invoice
+        account=model.account
+        node=model.node
+        changeset=changeset
+        fee=model.fee}}
+    {{#if success}}
+        <div class="row text-center mt-5">
+            <div class="col-lg-4 col-md-8 col-sm-10 m-auto text-success">
+                <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                    <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                    <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                </svg>
+                <p class="font-h2">{{stringList.success}}</p>
+                <p>{{stringList.successMessage}}</p>
+            </div>
+        </div>
+    {{/if}}
+</div>
+{{#unless success}}
+    <div class="action-footer">
+        <div class="row py-2">
+            <div class="col-lg-12 text-center">
+                <button {{action 'payInvoice'}} class="btn btn-primary" type="button">
+                    {{stringList.makePayment}}
+                </button>
+            </div>
+        </div>
+    </div>
+{{/unless}}

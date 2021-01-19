@@ -1,0 +1,114 @@
+<div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+	{{slide-task-list model='uberSarReport' model_id=uberSarReport.id company_id=uberSarReport.company_id}}
+    <div class="pane-secondary-content">
+        <legend>
+            <span>New Suspicious Activity Report</span>
+        </legend>
+
+        <!-- BEGIN Transaction Section BEGIN -->
+
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="form-group">
+                    <legend>
+                        <span class="small">Transaction with Suspicious Activities</span>
+                    </legend>
+                </div>
+
+                {{#each uberSarReport.transactions as |transaction|}}
+                    {{uber-sar-transaction transaction=transaction}}
+                {{/each}}
+
+            </div>
+        </div>
+        <!-- END Transaction Section END -->
+
+        <!-- BEGIN Activities Section BEGIN -->
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="form-group">
+                    <legend>
+                        <span class="small">Suspicious Activities on Transaction</span>
+                    </legend>
+                </div>
+
+                {{#each uberSarReport.activities as |activity activity-id|}}
+                    {{#uber-sar-activity uberSarReport=uberSarReport activity=activity activity-id=activity-id disabled=true as |title|}}
+                        <div class="panel-heading">
+                            <div class="row pointer">
+                                <a data-toggle="collapse" data-target="#activity-{{activity-id}}" class="collapsed" style="display:none;"></a>
+                                <a {{action "togglePanel" activity-id}}>
+                                    <div class="col-md-10">
+                                        <span >{{title}}</span>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <i class="fa fa-chevron-down pull-right"></i>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    {{/uber-sar-activity}}
+                {{/each}}
+
+            </div>
+        </div>
+
+        <!-- END Activities Section END -->
+
+        <!-- BEGIN Report Meta Section BEGIN -->
+
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="form-group">
+                    <legend>
+                        <span class="small">Report Metadata</span>
+                    </legend>
+                </div>
+
+                <div class="form-group">
+                    <label>Akirix Notes <span class="x-small">Internal Use Only</span> </label>
+                    {{textarea value=uberSarReport.notes class="form-control  width-full" rows="6" disabled=true}}
+                </div>
+            </div>
+        </div>
+
+        <!-- END Report Meta Section END -->
+    </div>
+</div>
+<div class="viewport viewport-bottom navbar-toolbar pull-right">
+    <div class="pane-actions">
+        <ul class="list-h pull-left">
+            <button {{action 'goBack'}} class="btn btn-default navbar-secondary-btn btn-sm" type="button">Go Back
+            </button>
+
+        </ul>
+        <ul class="list-h pull-left">
+            <button {{action 'getPdf'}} class="btn btn-default navbar-secondary-btn btn-sm" type="button">
+                <i class="fa fa-file-pdf-o fa-lg"></i>
+            </button>
+        </ul>
+        <ul class="list-h pull-left">
+            <button {{action 'getgoAML'}} class="btn btn-default navbar-secondary-btn btn-sm" type="button">
+                <i class="fa fa-download fa-lg"></i> goAML
+            </button>
+        </ul>
+        <ul class="list-h pull-left">
+            <button {{action 'getFinCEN' 'ascii'}} class="btn btn-default navbar-secondary-btn btn-sm" type="button">
+                <i class="fa fa-download fa-lg"></i> FinCEN ASCII
+            </button>
+        </ul>
+        <ul class="list-h pull-left">
+            <button {{action 'getFinCEN' 'xml'}} class="btn btn-default navbar-secondary-btn btn-sm" type="button">
+                <i class="fa fa-download fa-lg"></i> FinCEN XML
+            </button>
+        </ul>
+        <ul class="list-h pull-right">
+            {{#link-to 'uber-sar-reports.index.view.uber-sar-submissions.add' uberSarReport.id class="btn btn-success btn-sm navbar-secondary-btn"}}
+                Add Submission
+            {{/link-to}}
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+<header class="akx-header">
+    <span class="text-primary">{{stringList.confirm}}</span>
+</header>
+<div class="row">
+    <div class="col-lg-6 col-md-8 col-sm-10 m-auto">
+        <h5 class="text-center text-primary">{{stringList.internalTransfer}}</h5>
+        <div class="text-center">
+            <h3>{{model.toCompany.name}}</h3>
+            <p>XYZ {{changeset.account_number}}</p>
+        </div>
+        {{#if changeset.notes}}
+            <hr class="border-bottom">
+            <p>{{changeset.notes}}</p>
+            <hr class="border-bottom">
+        {{/if}}
+        {{!-- Amount --}}
+        <div class="row">
+            <div class="col-6">
+                <h3 class="text-danger">
+                    {{fromAccount.name}}
+                </h3>
+                <p>{{stringList.fee}}</p>
+            </div>
+            <div class="col-6 text-right">
+                <h3 class="text-danger">
+                    {{format-number changeset.amount style='currency' currency=fromAccount.currency_id}}
+                </h3>
+                <p>
+                    {{format-number getFee style='currency' currency=fromAccount.currency_id}}
+                </p>
+            </div>
+        </div>
+        {{#if model.documents}}
+            <div class="akx-col-lrg-14">
+                {{upload-documents name='book-transfer-confirmation-upload-documents' documents=model.documents}}
+            </div>
+        {{/if}}
+    </div>
+</div>

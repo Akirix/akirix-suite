@@ -1,0 +1,20 @@
+{{#email-wrapper}}
+    {{> header title="Account Activated"}}
+    {{#email-content}}
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="text-align:center;">
+            <tbody>
+
+            {{#row}}
+                <span style="color: #777777;">
+                    Your XXX Account {{@root.account_number}}
+                    has been activated. You may now log on at {{#link href="https://app.xxx.com"}}
+                    app.xxx.com{{/link}} with the same email and password used for your application.
+                </span>
+            {{/row}}
+
+            {{sign-off}}
+            </tbody>
+        </table>
+    {{/email-content}}
+    {{> footer}}
+{{/email-wrapper}}

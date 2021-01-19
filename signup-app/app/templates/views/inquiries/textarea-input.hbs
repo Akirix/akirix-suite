@@ -1,0 +1,18 @@
+<div class="row">
+    <div class="col-sm-8 form-group">
+        {{inquiry.question}}
+        {{#if inquiry.help_text}}
+            {{qtip-element
+                    qtipContent=inquiry.help_text
+                    label="<i class=\"fa fa-question-circle helpIcon\"></i>"
+                    class="display_inline"
+                    at="bottom center"
+                    my="top left"
+            }}
+        {{/if}}
+    </div>
+    <div class="col-sm-4 form-group form-group has-feedback textarea-answer">
+        {{textarea value=view.answer rows=3}}
+        {{validation-feedback errors=view.errors.answer validated=view.submitted}}
+    </div>
+</div>

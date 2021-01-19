@@ -1,0 +1,23 @@
+<div class="documents-row">
+    {{#each documents as |item|}}
+        <div class="document" {{action 'download' item}}>
+            <i class="akx-icon akx-document medium-grey"></i>
+            {{#unless hide}}
+                {{#if (eq session.data.authenticated.company.id item.company_id)}}
+                    <i {{action 'removeDocument' item bubbles=false}} class="akx-icon akx-rejected"></i>
+                {{/if}}
+            {{/unless}}
+            <p>{{item.name}}</p>
+        </div>
+    {{/each}}
+</div>
+{{#unless hide}}
+    {{#file-upload
+    name="newDocument"
+    classNames='akx-button'
+    accept="gif|jpe?g|svg|png|pdf|xls|csv|xlsx|doc|docx|txt"
+    multiple=true
+    onfileadd=(action "uploadDocument")}}
+        <span class="dark-blue">{{stringList.uploadBtn}}</span>
+    {{/file-upload}}
+{{/unless}}

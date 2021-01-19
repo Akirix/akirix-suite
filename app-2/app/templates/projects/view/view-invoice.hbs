@@ -1,0 +1,46 @@
+<div class="side-panel-content">
+    {{invoice-view model=model}}
+</div>
+<div class="action-footer">
+    <div class="row py-2">
+        <div class="col-12 text-center">
+            {{#if model.invoice.isMine}}
+                {{#unless model.invoice.isPaidFull}}
+                    {{confirmation-modal
+                        tagName='button'
+                        classNames='btn btn-primary'
+                        openModal='cancel'
+                        html=stringList.markAsBtn
+                        headerTitle=stringList.markAsPaidHeader
+                        prompt=stringList.markAsPaidPrompt
+                        controller=this
+                        data-toggle="modal"
+                        data-target="#confirmationModal"
+                        action='markPaidInvoice'}}
+                {{/unless}}
+                {{#if model.invoice.isPending}}
+                    {{confirmation-modal
+                        tagName='button'
+                        classNames='btn btn-primary ml-2'
+                        openModal='cancel'
+                        html=stringList.recallInvoiceBtn
+                        headerTitle=stringList.recallInvoiceHeader
+                        prompt=stringList.recallPrompt
+                        controller=this
+                        data-toggle="modal"
+                        data-target="#confirmationModal"
+                        action='recallInvoice'}}
+                {{/if}}
+            {{else}}
+                {{#unless model.invoice.isPaidFull}}
+                    {{#link-to 'authenticated.projects.view.invoices.view-invoice.pay-invoice'
+                        model.invoice.id
+                        tagName='button'
+                        class='btn btn-primary'}}
+                        {{stringList.payBtn}}
+                    {{/link-to}}
+                {{/unless}}
+            {{/if}}
+        </div>
+    </div>
+</div>

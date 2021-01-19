@@ -1,0 +1,111 @@
+{{#if showResults}}
+    <div class="d-flex align-items-end">
+        <h2>{{stringList.header}}</h2>
+        <span class="header-add">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+        <span class="header-add">
+            {{#link-to 'authenticated.transfers.wire-options' 
+                id="btn-new-transfer"
+                tagName='button' 
+                class='btn btn-sm btn-success font-weight-bolder'}}
+                {{stringList.addTransfer}}
+            {{/link-to}}
+        </span>
+    </div>
+    <div class="form-row align-items-center">
+        <div class="col-8">
+            {{akx-pagination 
+                page=page
+                perPage=perPage
+                meta=model.meta
+                action='refresh'}}
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="akx-icon akx-search font-h3"></i>
+                        </span>
+                    </div>
+                    {{input
+                        type='text'
+                        name='transfers-search'
+                        value=query
+                        class='form-control'
+                        insert-newline='search'
+                        placeholder=stringList.searchHelp}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <table id="tbl-transfers" class="table table-hover th-sticky">
+        <thead class="thead-light">
+            <tr>
+                <th style="width:10%">{{stringList.tableHead0}}</th>
+                <th style="width:15%">{{stringList.tableHead1}}</th>
+                <th style="width:20%">{{stringList.tableHead2}}</th>
+                <th style="width:20%" class="text-right">{{stringList.tableHead3}}</th>
+                <th style="width:20%" class="text-right">{{stringList.tableHead4}}</th>
+                <th style="width:15%" class="text-center">{{stringList.tableHead5}}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {{#each sortWires as |wire key|}}
+            {{#link-to 'authenticated.transfers.view' wire.id 
+                id=(concat "transfer-row-" key)
+                tagName='tr'}}
+                <td id="transfer-col-created-{{key}}">
+                    {{format-date wire.created_at}}<br>
+                    {{format-time wire.created_at format='hhmmss'}}
+                </td>
+                <td id="transfer-col-name-{{key}}">
+                    W-{{wire.name}}
+                </td>
+                <td id="transfer-col-holder-{{key}}">
+                    <p class="font-h5">{{wire.account_holder}}</p>
+                    <p>
+                        {{#if wire.isBookTransfer}}
+                        {{else if wire.isCredit}}
+                            <i class="akx-icon akx-pending-in"></i>
+                        {{else}}
+                            <i class="akx-icon akx-external-bank"></i>
+                        {{/if}}
+                        {{wire.bank_name}}
+                    </p>
+                </td>
+                <td id="transfer-col-currency-{{key}}" class="text-danger text-right">
+                    {{#unless wire.isCredit}}
+                        <b>
+                            {{format-number wire.amount style='currency' currency=wire.currency_id}}
+                        </b>
+                    {{/unless}}
+                </td>
+                <td id="transfer-col-amount-{{key}}" class="text-success text-right">
+                    {{#if wire.isCredit}}
+                        <strong>
+                            {{format-number wire.amount style='currency' currency=wire.currency_id}}
+                        </strong>
+                    {{/if}}
+                </td>
+                <td id="transfer-col-status-{{key}}" class="text-center font-h4">
+                    {{{wire.wireStatus}}}
+                </td>
+            {{/link-to}}
+        {{/each}}
+        </tbody>
+    </table>
+    {{akx-pagination page=page perPage=perPage meta=model.meta action='refresh' class='mt-4'}}
+{{else}}
+    <div class="empty-data">
+        <div class="text-center col-lg-4">
+            <i class="akx-icon akx-money-transfer"></i>
+            <p>{{stringList.noData}}</p>
+            {{#link-to 'authenticated.transfers.wire-options'
+                id="btn-new-transfer"
+                tagName='button'
+                class='btn btn-success font-weight-bolder'}}
+                {{stringList.new}}
+            {{/link-to}}
+        </div>
+    </div>
+{{/if}}

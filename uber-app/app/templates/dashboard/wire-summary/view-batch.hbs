@@ -1,0 +1,81 @@
+<div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+    <div class="pane-secondary-content">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th class="col-xs-3">Name</th>
+                <th class="col-xs-3">Company</th>
+                <th>Bank</th>
+                <th class="col-xs-2">Amount</th>
+                <th class="col-xs-1">Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each wire in model.wires}}
+                <tr>
+                    <td class="x-small valign-middle">
+                        {{wire-type-icon wire.type}} W-{{wire.name}}<br/>
+                        {{wire-method-icon wire.method wire.speedwire}}<br/>
+                        <span class="small text-gray"><i class="fa fa-level-up fa-fw"></i> {{wire.bankRoute.name}}</span>
+                    </td>
+                    <td class="x-small valign-middle">
+                        {{wire.company.name}}<br/>
+                        XYZ{{wire.company.account_number}}
+                    </td>
+                    <td class="x-small">
+                        {{wire.account_holder}}<br/>
+                        <i class="fa fa-university fa-fw"></i> {{wire.bank_name}} ({{wire.account_number}})
+                    </td>
+                    <td class="x-small valign-middle">
+                        {{{wire.str_sign_color}}} {{{wire.currency.symbol}}}{{wire.str_amount}}
+                    </td>
+                    <td class="medium valign-middle">
+                        {{wire-status-icon wire.status}}
+                    </td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+
+        <div style="height: 20px;"></div>
+
+        {{#if model.isSent}}
+            <div class="form-group col-md-12 required has-feedback">
+                <label>Acknowledgement</label>
+                {{input value=model.response type='text' class='form-control' placeholder='Bank Reference Number'}}
+                {{validation-feedback errors=errors.model.response validated=validated}}
+            </div>
+        {{/if}}
+    </div>
+</div>
+<div class="viewport viewport-bottom navbar-toolbar">
+    <div class="pane-actions">
+        <ul class="list-h">
+            <li>
+                <button {{action 'goBack'}} class="btn btn-default navbar-secondary-btn btn-sm" type="button">
+                    Back
+                </button>
+            </li>
+        </ul>
+        <ul class="list-h pull-right">
+            <li>
+                <button {{action 'downloadRawData'}} class="btn btn-default navbar-secondary-btn btn-sm" type="button">
+                    <i class="fa fa-file-o fa-lg"></i>
+                </button>
+            </li>
+            {{#if model.isSent}}
+                <li>
+                    {{view 'modal-confirmation'
+                           class='btn btn-success btn-sm navbar-secondary-btn'
+                           button='Received'
+                           action='markReceived'
+                           headerTitle='Mark Batch as Received'
+                           prompt='Are you sure you want to mark the batch received by the bank?'
+                    }}
+                </li>
+            {{/if}}
+        </ul>
+    </div>
+</div>
+
+

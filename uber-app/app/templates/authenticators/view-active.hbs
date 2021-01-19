@@ -1,0 +1,54 @@
+<div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+    <div class="pane-secondary-content">
+        <div class="panel panel-default">
+            <div class="panel-body align-center">
+                <p style="font-size: 18px; font-weight: bold; color: #666666">Device Name: {{authenticator.name}}</p>
+                <hr/>
+                <div class="row">
+                    <div class="form-group col-xs-6 align-left">
+                        <span class="small"><strong>Created:</strong> {{authenticator.str_created_at_date}}</span><br/>
+                    </div>
+                    <div class="form-group col-xs-6 align-right">
+                        <span class="small"><strong>Last
+                            used:</strong> {{authenticator.str_updated_at_date}} {{authenticator.str_updated_at_time}}</span><br/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-xs-6 align-left">
+                        <span class="small"><strong>Device Type:</strong> {{authenticator.deviceLabel}} </span><br/>
+                    </div>
+                    <div class="form-group col-xs-6 align-right">
+                        <span class="small"><strong>Status: </strong> {{authenticator.deviceStatus}}</span><br/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="viewport viewport-bottom navbar-toolbar">
+    <div class="pane-actions">
+        <div class="navbar-collapse">
+            <ul class="nav navbar-nav pull-left">
+                <li>
+                    <button {{action 'goBack'}} class="btn btn-default btn-sm navbar-secondary-btn btn-sm"
+                                                type="button">Cancel
+                    </button>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav pull-right">
+                <li>
+                    {{view 'modal-confirmation'
+                    class='btn btn-sm btn-warning navbar-secondary-btn'
+                    button='Revoke'
+                    prompt='Are you sure?'
+                    action='revokeDevice'
+                    actionContext=authenticator.id
+                    headerTitle='Revoke Authenticator'
+                    }}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+

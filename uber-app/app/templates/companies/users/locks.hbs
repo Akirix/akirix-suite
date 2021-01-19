@@ -1,0 +1,67 @@
+<div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+    <div class="pane-secondary-content">
+        <div id="locks" class="row">
+            <div class="col-md-12">
+                <fieldset>
+                    <div class="panel panel-default">
+                        <div class="panel-heading text-center">Lock History</div>
+                        <table class="table table-hover">
+                            {{#if model}}
+                                <thead>
+                                <tr>
+                                    <th class="col-md-2">Date</th>
+                                    <th class="col-md-7">Message</th>
+                                    <th class="col-md-2">Admin</th>
+                                    <th class="col-md-1"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {{#each lock in model}}
+                                    <tr>
+                                        <td class="valign-middle small">{{lock.str_created_at_date}}</td>
+                                        <td class="valign-middle wrap">{{lock.message}}</td>
+                                        <td class="valign-middle x-small">{{lock.uberUser.name}}</td>
+                                        <td class="valign-middle text-center">
+                                            {{#if lock.isActive}}
+                                                <i class="fa fa-trash-o text-rose pointer" {{action 'remove' lock}}></i>
+                                            {{/if}}
+                                        </td>
+                                    </tr>
+                                {{/each}}
+                                </tbody>
+                            {{else}}
+                                <tbody>
+                                <tr>
+                                    <td class="valign-middle text-center">
+                                        <h5>No Locks Found</h5>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            {{/if}}
+                        </table>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="viewport viewport-bottom navbar-toolbar">
+    <div class="pane-actions">
+        <ul class="list-h">
+            <li>
+                <button class="btn btn-default btn-sm navbar-secondary-btn" {{action 'goBack'}}>
+                    Cancel
+                </button>
+            </li>
+        </ul>
+        <ul class="list-h pull-right">
+            {{#unless hasActiveLock}}
+                <li>
+                    {{#link-to 'companies.view.users.view.add-lock' tagName="button" class="btn btn-warning btn-sm navbar-secondary-btn" type="button"}}
+                        Add Lock
+                    {{/link-to}}
+                </li>
+            {{/unless}}
+        </ul>
+    </div>
+</div>

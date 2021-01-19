@@ -1,0 +1,87 @@
+<div style="padding-top:20px">
+    <div class="row">
+        <div class="col-xs-11" style="font-size: 1.38em;">
+            <i class="fa fa-fw fa-user"></i>
+                {{#if executive.name}}
+                    {{executive.name}}
+                {{else}}
+                    <span>Member {{executiveId}}</span>
+                {{/if}}
+        </div>
+        <div class="col-xs-1">
+            {{#if moreThanOne}}
+                <i {{action 'removeSelf'}} class="text-red fa fa-fw fa-trash pointer" style="font-size: 20px; line-height: 30px;"></i>
+            {{/if}}
+        </div>
+    </div>
+    <div class="row border-bottom bottom-buffer"></div>
+    <div class="row">
+        <div class="col-sm-4 form-group has-feedback required">
+            <label for="name" class="control-label">Full Name</label>
+            {{input type="text" class="form-control" value=executive.name}}
+            {{validation-feedback errors=errors.executive.name validated=validated}}
+        </div>
+        <div class="col-sm-4 form-group has-feedback required">
+            <label for="name" class="control-label">Position</label>
+            {{input type="text" class="form-control" value=executive.position}}
+            {{validation-feedback errors=errors.executive.position validated=validated}}
+        </div>
+        <div class="col-sm-4 form-group has-feedback optional">
+            <label for="phone" class="control-label">
+                Phone
+            </label>
+            {{phone-input
+                    class="form-control"
+                    formattedValue=executive.phone}}
+            {{validation-feedback errors=errors.executive.phone validated=validated}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 form-group has-feedback required">
+            <label for="date_of_birth" class="control-label">Date of Birth</label>
+            {{akx-date date=executive.date_of_birth maxYear=2000 minYear=1930}}
+            {{validation-feedback errors=errors.executive.date_of_birth validated=validated}}
+        </div>
+        <div class="col-sm-6 form-group has-feedback required">
+            <label for="country" class="control-label">Nationality</label>
+            {{view 'select'
+                   value=executive.nationality
+                   content=countries
+                   optionValuePath='content.abbreviation'
+                   optionLabelPath='content.name'
+                   prompt='Select a Country'
+                   class='form-control'}}
+            {{validation-feedback errors=errors.executive.nationality validated=validated}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4 form-group has-feedback required">
+            <label for="country" class="control-label">ID Country</label>
+            {{view 'select'
+                   value=executive.id_country
+                   content=countries
+                   optionValuePath='content.abbreviation'
+                   optionLabelPath='content.name'
+                   prompt='Select a Country'
+                   class='form-control'}}
+            {{validation-feedback errors=errors.executive.id_country validated=validated}}
+        </div>
+        <div class="col-sm-4 form-group has-feedback">
+            <label for="id_type" class="control-label">ID Type</label>
+            {{view 'select'
+                   prompt="Identification Type"
+                   value=executive.id_type
+                   class="form-control"
+                   content=idTypes
+                   optionValuePath="content.key"
+                   optionLabelPath="content.value"
+            }}
+            {{validation-feedback errors=errors.executive.id_type validated=validated}}
+        </div>
+        <div class="col-sm-4 form-group has-feedback">
+            <label class="control-label">ID Number</label>
+            {{input value=executive.id_num class="form-control"}}
+            {{validation-feedback errors=errors.executive.id_num validated=validated}}
+        </div>
+    </div>
+</div>

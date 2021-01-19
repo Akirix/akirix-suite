@@ -1,0 +1,40 @@
+<section>
+    {{#if email}}
+        <h2>Company Invitation<br>
+            <small>Let's get started, tell us about yourself</small>
+        </h2>
+        <hr>
+        <br>
+
+        <div class="row">
+            <div class="col-xs-12 col-md-8 col-lg-6">
+                {{#validator-form id="inviteeWelcomeForm" action="submit" locked=formLocked}}
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h4>Email: {{email}}</h4>
+                        </div>
+                        <div class="col-sm-6">
+                            {{akx-input
+                            type="password"
+                            value=password
+                            errors=errors.password
+                            required=true
+                            label="Password"}}
+                        </div>
+                        <div class="col-sm-6">
+                            {{akx-input
+                            type="password"
+                            value=passwordConfirmation
+                            errors=errors.passwordConfirmation
+                            required=true
+                            label="Password Confirm"}}
+                        </div>
+                        <div class="col-sm-12">
+                            <button type="submit" class="btn btn-primary">Create My Account</button>
+                        </div>
+                    </div>
+                {{/validator-form}}
+            </div>
+        </div>
+    {{/if}}
+</section>

@@ -1,0 +1,27 @@
+<header id="section-header" class="akx-header">
+    <span>{{stringList.selectAccount}}</span>
+</header>
+<div class="row">
+    <div class="col-lg-8 m-auto">
+        <table id="tbl-account-select" class="table table-hover mt-5">
+            {{#akx-select
+                name="tbl-account-select"
+                value=changeset.account_id
+                next=(action 'nextStep' 1)
+                choices=model.accounts as |account key|}}
+                <td name="tbl-account-select-col-symbol-{{key}}">
+                    <strong>{{{account.currencySymbol}}}</strong>
+                </td>
+                <td name="tbl-account-select-col-name-{{key}}">
+                    {{account.name}}
+                </td>
+                <td name="tbl-account-select-col-balance-{{key}}">
+                    {{format-number account.balance style='currency' currency=account.currency_id}}
+                </td>
+            {{/akx-select}}
+        </table>
+    </div>
+</div>
+<div class="text-center text-danger">
+    {{validation-feedback errors=changeset.error.account_id.validation}}
+</div>

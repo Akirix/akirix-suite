@@ -1,0 +1,173 @@
+<div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+    <div class="pane-secondary-content">
+        <legend>
+            <span>P-{{model.project.name}}</span>
+        </legend>
+
+        {{#if model.project.isWaitingActive}}
+            {{#if canAddPAN}}
+                <div class="form-group">
+                    {{input type="checkbox" checked=noInstructionNedeed}} <label>No instructions needed</label>
+                </div>
+                {{#unless noInstructionNedeed}}
+                    <div class="panel panel-default">
+                        <div class="panel-heading text-center bold">
+                            New Preferred Account
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="row">
+                                    <div class="form-group col-md-6 has-feedback required">
+                                        <label>Account Number</label>
+                                        {{input value=accountAlias.name type='text' class='form-control' placeholder='Preferred Account Number'}}
+                                        {{validation-feedback errors=errors.accountAlias.name validated=validated}}
+                                    </div>
+
+                                    <div class="form-group col-md-6 has-feedback">
+                                        <label>IBAN</label>
+                                        {{input value=accountAlias.iban type='text' class='form-control' placeholder='IBAN'}}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6 required has-feedback">
+                                        <label>Wire Instruction</label>
+                                        {{view 'select'
+                                            value=accountAlias.wire_instruction_id
+                                            content=model.wireInstructions
+                                            optionValuePath='content.id'
+                                            optionLabelPath='content.name'
+                                            prompt='Select a bank'
+                                            class='form-control'
+                                            selection=wireInstruction}}
+                                        {{validation-feedback errors=errors.accountAlias.wire_instruction_id validated=validated}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <button {{action 'createAccountAlias'}} class="btn btn-primary btn-sm navbar-secondary-btn" type="submit">
+                                    Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                {{/unless}}
+            {{/if}}
+        {{/if}}
+
+        {{#if model.instruction}}
+            <div class="panel panel-default">
+                <div class="panel-heading text-center bold">
+                    Wire instructions
+                </div>
+                <div class="panel-body">
+                    <div class="mt-5">
+                        <div class="row border-bottom">
+                            <div class="col-lg-6 text-right">
+                                <strong>Beneficiary:</strong>
+                            </div>
+                            <div class="col-lg-6">{{model.instruction.account_holder}}</div>
+                        </div>
+                        <div class="row border-bottom py-2">
+                            <div class="col-lg-6 text-right">
+                                <strong>Account Number:</strong>
+                            </div>
+                            <div class="col-lg-6">{{model.instruction.account_number}}</div>
+                        </div>
+                        <div class="row border-bottom py-2">
+                            <div class="col-lg-6 text-right">
+                                <strong>Bank Name:</strong>
+                            </div>
+                            <div class="col-lg-6">{{model.instruction.bank_name}}</div>
+                        </div>
+                        <div class="row border-bottom py-2">
+                            <div class="col-lg-6 text-right">
+                                <strong>Bank Address:</strong>
+                            </div>
+                            <div class="col-lg-6">{{model.instruction.bank_address}}</div>
+                        </div>
+                        {{#if model.instruction.aba_routing_number}}
+                            <div class="row border-bottom py-2">
+                                <div class="col-lg-6 text-right">
+                                    <strong>Routing Number:</strong>
+                                </div>
+                                <div class="col-lg-6">{{model.instruction.aba_routing_number}}</div>
+                            </div>
+                        {{/if}}
+                        {{#if model.instruction.swift_code}}
+                            <div class="row border-bottom py-2">
+                                <div class="col-lg-6 text-right">
+                                    <strong>Swift:</strong>
+                                </div>
+                                <div class="col-lg-6">{{model.instruction.swift_code}}</div>
+                            </div>
+                        {{/if}}
+                        <div class="row border-bottom py-2">
+                            <div class="col-lg-6 text-right">
+                                <strong>ACH:</strong>
+                            </div>
+                            <div class="col-lg-6">{{model.instruction.strMethodAch}}</div>
+                        </div>
+                        <div class="row border-bottom py-2">
+                            <div class="col-lg-6 text-right">
+                                <strong>Wire:</strong>
+                            </div>
+                            <div class="col-lg-6">{{model.instruction.strMethodWire}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{/if}}
+        <div class="panel panel-default">
+            <div class="panel-heading text-center bold">
+                External Buyers
+            </div>
+            <div class="panel-body">
+                <table style="width:100%">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Contact</th>
+                        <th>Phone</th>
+                        <th>E-mail</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#each eNode in model.externalNodes}}
+                        <tr>
+                            <td>{{eNode.name}}</td>
+                            <td>{{eNode.point_of_contact}}</td>
+                            <td>{{eNode.phone}}</td>
+                            <td>{{eNode.email}}</td>
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        {{node-view theNode=endBuyerNode}}
+
+    </div>
+</div>
+<div class="viewport viewport-bottom navbar-toolbar">
+    <div class="pane-actions">
+        <ul class="list-h">
+            <li>
+                <button {{action 'goBack'}} class="btn btn-default navbar-secondary-btn btn-sm" type="button">
+                    Back
+                </button>
+            </li>
+            {{#if model.project.isWaitingActive}}
+                {{#if canActivate}}
+                    <li>
+                        <button {{action 'activate'}} class="btn btn-success navbar-secondary-btn btn-sm" type="button">
+                            Activate
+                        </button>
+                    </li>
+                {{/if}}
+            {{/if}}
+        </ul>
+        <ul class="list-h pull-right">
+        </ul>
+    </div>
+</div>

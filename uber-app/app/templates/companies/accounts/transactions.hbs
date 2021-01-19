@@ -1,0 +1,96 @@
+<style>
+    .clear-search {
+        position: absolute;
+        display: inline-block;
+        line-height: 34px;
+        right: 0;
+        width: 32px;
+        z-index: 10;
+        text-align: center;
+    }
+</style>
+
+{{advanced-search searchParams=searchParams parentController=this periodFrom=period_from periodTo=period_to}}
+
+<div class="relative">
+    {{page-numbers content=content}}
+    {{#if searched}}
+        <p class="text-muted">
+            Search results for "{{search}}"
+        </p>
+    {{/if}}
+
+    <table class="table table-high table-hover">
+        <tbody>
+        {{#each item in model}}
+            {{#if item.isPoint}}
+            {{else}}
+                {{#if item.isBalance}}
+                    <tr style="height: 40px;" class="bg-lightblue text-gray italic">
+                        <td class="col-md-2 valign-middle" style="border-top: 1px solid #000000;">
+                            {{item.str_updated_at_date}}
+                        </td>
+                        <td class="valign-middle" style="border-top: 1px solid #000000;">
+                            Ending Daily Balance
+                        </td>
+                        <td class="col-md-2 valign-middle" style="border-top: 1px solid #000000;">
+                            &nbsp;
+                        </td>
+                        <td class="col-md-2 valign-middle" style="border-top: 1px solid #000000;">
+                            {{{item.currency.symbol}}}{{item.str_amount}}
+                        </td>
+                    </tr>
+                {{else}}
+                    {{#link-to 'companies.view.accounts.view.transactions.view' item.id tagName='tr' class='list-link'}}
+                        <td class="col-md-2 small valign-middle">
+                            <strong>{{item.str_updated_at_date}}</strong><br/>
+                            {{item.str_updated_at_time}}
+                        </td>
+                        <td class="valign-middle">
+
+                            {{view 'transaction-name' model=item.model model_id=item.model_id
+                                   to_account_id=item.to_account_id type=item.type company_id=company_id
+                                   is_mine=item.isMine}}
+                        </td>
+                        <td class="col-md-2 valign-middle">
+                            {{#if item.isDebit}}
+                                <span class="bold">
+                                    {{transaction-amount item item.currency.symbol}}
+                                </span>
+                            {{/if}}
+                        </td>
+                        <td class="col-md-2 valign-middle">
+                            {{#if item.isCredit}}
+                                <span class="bold">
+                                    {{transaction-amount item item.currency.symbol}}
+                                </span>
+                            {{/if}}
+                        </td>
+                    {{/link-to}}
+                {{/if}}
+            {{/if}}
+        {{/each}}
+        {{#if hasMorePages}}
+            <tr {{action 'next'}}>
+                <td colspan="5" class="text-muted text-center">
+                    {{#if loadingRecords}}
+                        <i class="fa fa-spinner fa-spin"></i>
+                    {{else}}
+                        <div class="row">
+                            <div class="col-xs-4 text-center">
+                                <i class="fa fa-chevron-down"></i>
+                            </div>
+                            <div class="col-xs-4 text-center">
+                                Load More
+                            </div>
+                            <div class="col-xs-4 text-center">
+                                <i class="fa fa-chevron-down"></i>
+                            </div>
+                        </div>
+                    {{/if}}
+                </td>
+            </tr>
+        {{/if}}
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,75 @@
+{{#akx-form isLocked=isLocked}}
+    <div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+        <div class="pane-secondary-content">
+            <fieldset>
+                <div class="row top-buffer">
+                    <legend>
+                        <span>From Account</span>
+                    </legend>
+                    <div class="form-group col-md-6 required has-feedback">
+                        {{view 'select'
+                        value=data.account_id
+                        content=accounts
+                        optionValuePath='content.id'
+                        optionLabelPath='content.str_long_name'
+                        prompt='Select an account'
+                        class='form-control'
+                        selection=account}}
+                        {{validation-feedback errors=errors.data.from_account_id validated=validated}}
+                    </div>
+                </div>
+                {{#if data.account_id}}
+                    <div class="row top-buffer">
+                        <legend>
+                            <span>To Account</span>
+                        </legend>
+                        <div class="form-group col-md-6 required has-feedback">
+                            {{view 'select'
+                            value=data.to_account_id
+                            content=targetAccounts
+                            optionValuePath='content.id'
+                            optionLabelPath='content.str_long_name'
+                            prompt='Select an account'
+                            class='form-control'
+                            selection=toAccount}}
+                            {{validation-feedback errors=errors.data.to_account_id validated=validated}}
+                        </div>
+                    </div>
+                    {{#if data.to_account_id}}
+                        <div class="row top-buffer">
+                            <legend>
+                                <span>Amount</span>
+                            </legend>
+                            <div class="form-group col-md-6 required has-feedback">
+                                {{formatted-number realValue=data.amount type='text' class='form-control' placeholder='0.00'}}
+                                {{validation-feedback errors=errors.data.amount validated=validated}}
+                            </div>
+                        </div>
+                    {{/if}}
+                {{/if}}
+            </fieldset>
+        </div>
+    </div>
+    <div class="viewport viewport-bottom navbar-toolbar">
+        <div class="pane-actions">
+            <ul class="list-h">
+                <li>
+                    <button {{action 'goBack'}} class="btn btn-default navbar-secondary-btn btn-sm" type="button">
+                        Cancel
+                    </button>
+                </li>
+            </ul>
+            <ul class="list-h pull-right">
+                <li>
+                    {{view 'modal-confirmation'
+                    class='btn btn-primary btn-sm navbar-secondary-btn'
+                    button='Account Transfer'
+                    action='createAccountTransfer'
+                    headerTitle='Create Internal Account Transfer'
+                    prompt='Are you sure you want to perform this internal money transfer?'
+                    }}
+                </li>
+            </ul>
+        </div>
+    </div>
+{{/akx-form}}

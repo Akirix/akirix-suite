@@ -1,0 +1,25 @@
+<div class="row">
+    {{#if restrictions}}
+        <div class="form-group col-md-12">
+            <label>Assign Tags</label>
+            <select class="form-control" {{action 'addNewTag' on="change"}}>
+                {{#each restriction  in restrictions}}
+                    <option value={{restriction.val}}>{{restriction.label}}</option>
+                {{/each}}
+            </select>
+        </div>
+    {{else}}
+        <span class="form-group col-md-6">
+            <label>Add tags</label>
+            {{input class="form-control" value=tagName}}
+        </span>
+    {{/if}}
+</div>
+<ul class="list-h">
+    {{#each tag in tags}}
+        <li>
+            <span class="badge bg-danger" {{action 'deleteTag' tag}}>X</span>
+            {{tag.name}}
+        </li>
+    {{/each}}
+</ul>

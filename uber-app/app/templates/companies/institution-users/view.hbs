@@ -1,0 +1,60 @@
+{{#akx-form isLocked=isLocked}}
+    <div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+        <div class="pane-secondary-content">
+            <div id="user" class="row">
+                <div class="form-group col-xs-6 has-feedback">
+                    <label>First Name</label>
+                    {{input value=model.first_name type='text' class='form-control' placeholder='First Name'}}
+                    {{validation-feedback errors=errors.model.first_name validated=validated}}
+                </div>
+                <div class="form-group col-xs-6 has-feedback">
+                    <label>Last Name</label>
+                    {{input value=model.last_name type='text' class='form-control' placeholder='Last Name'}}
+                    {{validation-feedback errors=errors.model.last_name validated=validated}}
+                </div>
+                <div class="form-group col-xs-6 has-feedback">
+                    <label>Email</label>
+                    {{input value=model.email type='email' class='form-control' placeholder='Email'}}
+                    {{validation-feedback errors=errors.model.email validated=validated}}
+                </div>
+                <div class="form-group col-xs-6 has-feedback">
+                    <label>Mobile Phone</label>
+                    {{input value=model.phone_mobile type='tel' class='form-control' placeholder='Mobile Number'}}
+                    {{validation-feedback errors=errors.model.phone_mobile validated=validated}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 has-feedback">
+                    <div class="checkbox"> <label>Active User</label>
+                        <label>
+                            {{input type='checkbox' checked=model.status}}
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div>
+                {{akx-permissions access=model.access}}
+            </div>
+        </div>
+    </div>
+{{/akx-form}}
+<div class="viewport viewport-bottom navbar-toolbar">
+    <div class="pane-actions">
+        <ul class="list-h">
+            <li>
+                <button {{action 'goBack'}} class="btn btn-default navbar-secondary-btn btn-sm" type="button">
+                    Back
+                </button>
+            </li>
+        </ul>
+        <ul class="list-h pull-right">
+            <li>
+                <button {{action 'updateInstitutionUser'}} class="btn btn-default navbar-secondary-btn btn-sm"
+                                                           type="button">
+                    <i class="fa fa-floppy-o fa-lg"></i>
+                </button>
+            </li>
+        </ul>
+    </div>
+</div>
+

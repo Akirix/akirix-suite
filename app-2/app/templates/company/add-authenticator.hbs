@@ -1,0 +1,60 @@
+<div class="side-panel-content">
+    <header class="akx-header">
+        <span>{{stringList.title}}</span>
+    </header>
+    {{#akx-form action='' isLocked=isLocked class='mt-5'}}
+        <div class="row align-items-end">
+            <div class="col-6 form-group bmd-form-group has-feedback">
+                <label class="bmd-label-static">{{stringList.authName}}</label>
+                {{input value=changeset.name type='text' class='form-control'}}
+                {{validation-feedback errors=changeset.error.name.validation}}
+            </div>
+            <div class="col-6 form-group bmd-form-group has-feedback">
+                <label class="bmd-label-static">{{stringList.authType}}</label>
+                {{#x-select
+                    value=changeset.type
+                    class='selectpicker w-100'
+                    data-style="select-with-transition"
+                    action=(action (mut changeset.type))
+                    as |xs|}}
+                    {{#each deviceTypes as |device|}}
+                        {{#xs.option value=device.val}}{{device.label}}{{/xs.option}}
+                    {{/each}}
+                {{/x-select}}
+                {{validation-feedback errors=changeset.error.type.validation}}
+            </div>
+        </div>
+    {{/akx-form}}
+    {{#if success}}
+        <div class="row text-center mt-5">
+            <div class="col-lg-4 col-md-8 col-sm-10 m-auto text-success">
+                <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                    <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                    <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                </svg>
+                <p class="font-h2">{{stringList.success}}</p>
+                <p>{{stringList.successMessage}}</p>
+            </div>
+        </div>
+    {{/if}}
+</div>
+{{#unless success}}
+    <div class="action-footer">
+        <div class="row py-2">
+            <div class="col-12 text-center">
+                <button
+                    {{action 'cancel'}}
+                    class="akx-button"
+                    type="button">
+                    <span class="orange">{{stringList.cancel}}</span>
+                </button>
+                <button
+                    {{action 'saveAuth'}}
+                    class="btn btn-primary ml-2"
+                    type="button">
+                    {{stringList.save}}
+                </button>
+            </div>
+        </div>
+    </div>
+{{/unless}}

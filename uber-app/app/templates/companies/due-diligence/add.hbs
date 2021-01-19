@@ -1,0 +1,72 @@
+{{#akx-form action='createDueDiligence' isLocked=isLocked}}
+<div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+    <div class="pane-secondary-content">
+            <div class="row">
+                <legend>
+                    <span>Due Diligence Pack</span>
+                </legend>
+            </div>
+        <div class="form-group row col-md-12">
+            <div class="checkbox has-feedback">
+                <label>
+                    {{input checked=options.trading_relationship type='checkbox' class="toggle"}} Trading Relationship
+                </label>
+            </div>
+        </div>
+        <div class="form-group row col-md-12">
+            <div class="checkbox has-feedback">
+                <label>
+                    {{input checked=options.wire_history type='checkbox' class="toggle"}} Wire Information
+                </label>
+            </div>
+        </div>
+        <div class="form-group row col-md-12">
+            <div class="checkbox has-feedback">
+                <label>
+                    {{input checked=options.notes type='checkbox' class="toggle"}} Tasks and Notes
+                </label>
+            </div>
+        </div>
+        <div class="form-group row col-md-12">
+            <div class="checkbox has-feedback">
+                <label>
+                    {{input checked=options.statements type='checkbox' class="toggle"}} Statements
+                </label>
+            </div>
+        </div>
+        <div class="form-group row col-md-12">
+            <div class="checkbox has-feedback">
+                <label>
+                    {{input checked=options.registration_docs type='checkbox' class="toggle"}} Registration Documents
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group row col-md-12">
+            <div class="checkbox has-feedback">
+                <label>
+                    {{input checked=options.sar_reports type='checkbox' class="toggle"}} SAR Reports
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="viewport viewport-bottom navbar-toolbar">
+    <div class="pane-actions">
+        <ul class="list-h">
+            <li>
+                <button class="btn btn-default btn-sm navbar-secondary-btn" {{action 'goBack'}}>
+                    Cancel
+                </button>
+            </li>
+        </ul>
+        <ul class="list-h pull-right">
+            <li>
+                <button class="btn btn-primary btn-sm navbar-secondary-btn" type="submit">
+                    Generate
+                </button>
+            </li>
+        </ul>
+    </div>
+</div>
+{{/akx-form}}

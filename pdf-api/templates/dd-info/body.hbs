@@ -1,0 +1,350 @@
+<style>
+    body {
+        min-height: 1100px;
+    }
+
+    .table tbody tr {
+        border-top: 1px solid #f5f5f5;
+    }
+
+    .table tbody tr td {
+        border: none;
+    }
+
+    .bg-gray {
+        background-color: #fafafa;
+    }
+
+    .bottom-border {
+        border-bottom: 1px solid #666;
+    }
+</style>
+
+<!-- Cover -->
+<div style="height: 350px;"></div>
+<div class="row" style="text-align:center;">
+    <h1 style="font-size:3em;">{{@root.company.name}}</h1>
+    <h3>XYZ{{@root.company.account_number}}</h3><br><br><br>
+    <h3>Due Diligence Packet</h3><br>
+    <h3>{{@root.today}}</h3>
+</div>
+
+<div class="page-break"></div>
+
+<!-- Company Info -->
+
+<div class="row bottom-border valign-middle">
+    <div class="col-xs-8">
+        <span style="">{{@root.company.name}}</span><br/>
+    </div>
+    <div class="col-xs-4" style="text-align:right;">
+        {{@root.today}}
+    </div>
+</div>
+
+
+<div class="row align-center" style="margin: 25px 0 25px 0;">
+    <h3>Company Info</h3>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table table-high">
+            <thead>
+            <tr>
+                <th class="col-xs-3"></th>
+                <th class="col-xs-3">Public</th>
+                <th class="col-xs-3">Registration</th>
+                <th class="col-xs-3">Trading</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="bold">
+                    Name:
+                </td>
+                <td class="">
+                    {{@root.company.name}}
+                </td>
+                <td class="">
+                    {{@root.registration.company.name}}
+                </td>
+                <td class="">
+                    {{@root.registration.company.trading_name}}
+                </td>
+            </tr>
+            <tr>
+                <td class="bold">
+                    Address:
+                </td>
+                <td class="">
+                    {{@root.company.address}}
+                </td>
+                <td class="">
+                    {{@root.registration.company.address}}
+                </td>
+                <td class="">
+                    {{@root.registration.company.trading_address}}
+                </td>
+            </tr>
+            <tr>
+                <td class="bold">
+                    City:
+                </td>
+                <td class="">
+                    {{@root.company.city}}
+                </td>
+                <td class="">
+                    {{@root.registration.company.city}}
+                </td>
+                <td class="">
+                    {{@root.registration.company.trading_city}}
+                </td>
+            </tr>
+            <tr>
+                <td class="bold">
+                    State/Province:
+                </td>
+                <td class="">
+                    {{@root.company.state_province}}
+                </td>
+                <td class="">
+                    {{@root.registration.company.state_province}}
+                </td>
+                <td class="">
+                    {{@root.registration.company.trading_state_province}}
+                </td>
+            </tr>
+            <tr>
+                <td class="bold">
+                    Postal Code:
+                </td>
+                <td class="">
+                    {{@root.company.postal_code}}
+                </td>
+                <td class="">
+                    {{@root.registration.company.postal_code}}
+                </td>
+                <td class="">
+                    {{@root.registration.company.trading_postal_code}}
+                </td>
+            </tr>
+            <tr>
+                <td class="bold">
+                    Country:
+                </td>
+                <td class="">
+                    {{@root.company.country}}
+                </td>
+                <td class="">
+                    {{@root.registration.company.country}}
+                </td>
+                <td class="">
+                    {{@root.registration.company.trading_country}}
+                </td>
+            </tr>
+            <tr>
+                <td class="bold">
+                    Phone:
+                </td>
+                <td class="">
+                    {{@root.company.phone}}
+                </td>
+                <td class="">
+                    {{@root.registration.company.phone_office}}
+                </td>
+                <td class="">
+
+                </td>
+            </tr>
+            <tr>
+                <td class="bold">
+                    E-mail:
+                </td>
+                <td class="">
+                    {{@root.company.email}}
+                </td>
+                <td class="">
+
+                </td>
+                <td class="">
+
+                </td>
+            </tr>
+            <tr>
+                <td class="bold">
+                    Website:
+                </td>
+                <td class="">
+                    {{@root.company.website}}
+                </td>
+                <td class="">
+                    {{@root.registration.company.website}}
+                </td>
+                <td class="">
+
+                </td>
+            </tr>
+            <tr>
+                <td class="bold">
+                    Registration Number:
+                </td>
+                <td class="">
+
+                </td>
+                <td class="">
+                    {{@root.registration.company.company_number}}
+                </td>
+                <td class="">
+
+                </td>
+            </tr>
+            <tr>
+                <td class="bold">
+                    DUNS Number:
+                </td>
+                <td class="">
+
+                </td>
+                <td class="">
+                    {{@root.registration.company.duns_number}}
+                </td>
+                <td class="">
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- Registration User Info -->
+
+<div class="row bottom-border valign-middle">
+    <div class="col-xs-8">
+        <span style="">{{@root.company.name}}</span><br/>
+    </div>
+    <div class="col-xs-4" style="text-align:right;">
+        {{@root.today}}
+    </div>
+</div>
+
+
+<div class="row align-center" style="margin: 25px 0 25px 0;">
+    <h3>Registration User Info</h3>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table table-high">
+            <thead>
+            <tr>
+                <th class="col-xs-2">Name</th>
+                <th class="col-xs-2">D.O.B</th>
+                <th class="col-xs-3">E-Mail</th>
+                <th class="col-xs-3">Phone</th>
+                <th class="col-xs-2">ID</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="valign-center">
+                    {{@root.registration.user.last_name}}, {{@root.registration.user.first_name}}
+                </td>
+                <td class="valign-center">
+                    {{date date=@root.registration.user.date_of_birth}}
+                </td>
+                <td class="valign-center">
+                    {{@root.registration.user.email}}
+                </td>
+                <td class="valign-center">
+                    {{@root.registration.user.phone_mobile}}
+                </td>
+                <td class="valign-center">
+                    {{@root.registration.user.id_type}}: {{@root.registration.user.id_num}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row align-center" style="margin: 25px 0 25px 0;">
+    <h3>Platform User Info</h3>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table table-high">
+            <thead>
+            <tr>
+                <th class="col-xs-2">Created</th>
+                <th class="col-xs-2">Name</th>
+                <th class="col-xs-3">E-Mail</th>
+                <th class="col-xs-3">Phone</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each @root.company.users}}
+                <tr>
+                    <td class="valign-center">
+                        {{date date=created_at}}
+                    </td>
+                    <td class="valign-center">
+                        {{last_name}}, {{first_name}}
+                    </td>
+                    <td class="valign-center">
+                        {{email}}
+                    </td>
+                    <td class="valign-center">
+                        {{phone_mobile}}
+                    </td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- Registration User Info -->
+
+<div class="row bottom-border valign-middle">
+    <div class="col-xs-8">
+        <span style="">{{@root.company.name}}</span><br/>
+    </div>
+    <div class="col-xs-4" style="text-align:right;">
+        {{@root.today}}
+    </div>
+</div>
+
+
+<div class="row align-center" style="margin: 25px 0 25px 0;">
+    <h3>Registration Questionnaire</h3>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table table-high">
+            <thead>
+            <tr>
+                <th class="col-xs-8">Question</th>
+                <th class="col-xs-4">Response</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each @root.registration.inquiries}}
+                <tr>
+                    <td class="valign-center">
+                        {{question}}
+                    </td>
+                    <td class="valign-center">
+                        {{answer}}
+                    </td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="page-break"></div>

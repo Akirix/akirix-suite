@@ -1,0 +1,95 @@
+<div class="side-panel-content">
+    <header id="side-header" class="akx-header">
+        <span>{{stringList.invitationHeader}}</span>
+    </header>
+    {{#akx-form name="frm-invitation-response" action='' class='pt-5'}}
+        <div class="row align-items-end">
+            <div class="col-6 form-group bmd-form-group has-feedback">
+                <label for="input-project-nickname" class="bmd-label-floating">{{stringList.nickName}}</label>
+                {{input name="input-project-nickname" value=changeset.name type='text' class='form-control'}}
+                {{validation-feedback errors=changeset.error.name.validation}}
+            </div>
+            <div class="col-6 form-group bmd-form-group has-feedback">
+                <label for="select-project-account" class="bmd-label-static">{{stringList.accounts}}</label>
+                {{#x-select
+                    name="select-project-account"
+                    value=changeset.account_id
+                    class='selectpicker w-100'
+                    data-style="select-with-transition"
+                    action=(action (mut changeset.account_id))
+                    as |xs|}}
+                    {{#each model.accounts as |account|}}
+                        {{#xs.option value=account.id}}
+                            {{account.name}}
+                            {{format-number
+                                account.balance
+                                style='currency'
+                                currency=account.currency_id}}
+                        {{/xs.option}}
+                    {{/each}}
+                {{/x-select}}
+                {{validation-feedback errors=changeset.error.account_id.validation}}
+            </div>
+            <div class="col-12 form-group bmd-form-group has-feedback">
+                <label for="input-project-notes" class="bmd-label-floating">{{stringList.notes}}</label>
+                {{input name="input-project-notes" value=changeset.notes type="text" class='form-control'}}
+            </div>
+        </div>
+    {{/akx-form}}
+    {{#if model.nodeItems}}
+        <h4 class="text-center">{{stringList.productPrices}}</h4>
+        {{node-items-list items=model.nodeItems edit=false}}
+    {{/if}}
+    {{#if model.documents}}
+        <h4 class="text-center">{{stringList.projectDocs}}</h4>
+        {{upload-document model='project' documents=model.documents hide=true}}
+    {{/if}}
+    {{#if model.nodeDocuments}}
+        <h4 class="text-center">{{stringList.nodeDocs}}</h4>
+        {{upload-document model='project' documents=model.nodeDocuments hide=true}}
+    {{/if}}
+    <div class="pl-4">
+        <div class="row mt-5">
+            <div class="col-10 has-feedback form-check">
+                <label class="form-check-label">
+                    <a href="/docs/service_agreement.pdf" target="_blank">{{stringList.checkBox1}}</a>
+                    {{input name="chk-service-agreement" checked=changeset.akx_agreement type='checkbox' class="form-check-input"}}
+                    <span id="check-service-agreement" class="form-check-sign">
+                        <span class="check"></span>
+                    </span>
+                </label>
+                <p>
+                    {{validation-feedback
+                        class='text-danger'
+                        errors=changeset.error.akx_agreement.validation}}
+                </p>
+            </div>
+            <div class="col-10 has-feedback form-check">
+                <label class="form-check-label">
+                    <a href="/docs/terms_of_service.pdf" target="_blank">{{stringList.checkBox2}}</a>
+                    {{input name="chk-terms-and-conditions" checked=changeset.akx_terms type='checkbox' class="form-check-input"}}
+                    <span id="check-terms-and-conditions" class="form-check-sign">
+                        <span class="check"></span>
+                    </span>
+                </label>
+                <p>
+                    {{validation-feedback
+                        class='text-danger'
+                        errors=changeset.error.akx_terms.validation}}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="action-footer">
+    <div class="row py-2">
+        <div class="col-12 text-center">
+            <button id="btn-decline-invitation" {{action 'declineInvitation'}} class="akx-button" type="button">
+                <span class="orange">{{stringList.declineInvitation}}</span>
+            </button>
+            <button id="btn-accept-invitation" {{action 'acceptInvitation'}} class="btn btn-primary ml-2" type="button">
+                {{stringList.acceptInvitation}}
+            </button>
+        </div>
+    </div>
+</div>

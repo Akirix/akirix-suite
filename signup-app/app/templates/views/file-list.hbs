@@ -1,0 +1,11 @@
+{{#unless view.hasExemption}}
+    {{#if view.documents}}
+       {{#each document in view.documents}}
+            <div class="document">
+                <i class="xrk-icon xrk-document"></i>
+                <i {{action 'remove' document target='view'}} class="xrk-icon xrk-rejected"></i>
+                <small>{{document.name}}</small>
+            </div>
+        {{/each}}
+    {{/if}}
+{{/unless}}

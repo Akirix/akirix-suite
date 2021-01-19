@@ -1,0 +1,10 @@
+<i class="akx akx-icon akx-warning text-danger"></i>
+<span class="text-danger"><b>{{getName}}</b> | </span>
+<span class="font-small">{{{akx-markdown-preview markdownContent=getNotes}}}</span>
+{{#if hasMoreThanOne}}
+    <ol>
+        {{#each announcements as |announce|}}
+            <li><small>{{{akx-markdown-preview markdownContent=announce.notes}}}</small></li>
+        {{/each}}
+    </ol>
+{{/if}}

@@ -1,0 +1,43 @@
+<div class="side-panel-content">
+    {{invoice-view model=model}}
+    <h3>{{stringList.documentsSubTitle}}</h3>
+    {{upload-document hide=true documents=changeset.documents}}
+    <div class="form-row my-5">
+        <div class="col-12 text-center">
+            {{#if success}}
+                <div class="row text-center mt-5">
+                    <div class="col-lg-4 col-md-8 col-sm-10 m-auto text-success">
+                        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                            <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                            <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                        </svg>
+                        <p class="font-h2">{{stringList.success}}</p>
+                        <p>{{stringList.successMessage}}</p>
+                    </div>
+                </div>
+            {{/if}}
+        </div>
+    </div>
+</div>
+{{#unless success}}
+    <div class="action-footer">
+        <div class="row py-2">
+            <div class="col-12 text-center">
+                <button {{action 'saveInvoice'}} class="btn btn-primary mx-2" type="button">
+                    {{stringList.saveInvoice}}
+                </button>
+                {{confirmation-modal
+                    tagName='button'
+                    classNames='btn btn-primary'
+                    openModal='cancel'
+                    html=stringList.sendInvoice
+                    headerTitle=stringList.sendHeader
+                    prompt=stringList.sendPrompt
+                    controller=this
+                    data-toggle="modal"
+                    data-target="#confirmationModal"
+                    action='sendInvoice'}}
+            </div>
+        </div>
+    </div>
+{{/unless}}

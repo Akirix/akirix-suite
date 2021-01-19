@@ -1,0 +1,91 @@
+.document-type {
+    line-height: 32px;
+}
+
+.document-type a {
+    color: rgb(51, 51, 51);
+    text-decoration: none;
+}
+
+.document-type a:hover {
+    text-decoration: none;
+}
+
+.document-type .fa {
+    width: 16px;
+    text-align: center;
+}
+
+.document-type[data-active="true"] {
+    font-weight: bold;
+}
+
+.document-type .status-icon {
+    font-size: 0.5em;
+}
+
+.document-upload {
+    position: relative;
+}
+
+.document-upload input[type="file"].file-button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    cursor: inherit;
+    display: block;
+}
+
+.document-upload .progress {
+    height: 1px;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+}
+
+.file-list {
+    width: 60%;
+    margin-top: 30px;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.file-list .document {
+    position: relative;
+    vertical-align: top;
+    margin: 10px 0;
+    width: 120px;
+}
+
+.file-list small {
+    font-size: 12px;
+    margin-top: 10px;
+    display: block;
+}
+
+.file-list i {
+    vertical-align: text-top;
+}
+
+.file-list i.xrk-document {
+    font-size: 50px;
+}
+
+.file-list i.xrk-rejected {
+    position: absolute;
+    top: -5px;
+    right: 20px;
+    font-size: 15px;
+    color: #e31e1e;
+}

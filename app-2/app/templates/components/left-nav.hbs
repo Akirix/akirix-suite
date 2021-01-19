@@ -1,0 +1,43 @@
+<ul id="ul-left-nav" class="nav-list">
+    <li class="logo">
+        <div>
+            <img src="/assets/akirix-logo.svg" width="50" height="50" alt="">
+        </div>
+    </li>
+    {{#each routes as |route|}}
+        {{#link-to route.route 
+            tagName='li' 
+            title=route.id 
+            id=(concat "nav-" route.id )
+            classNames='nav-item'}}
+            {{{route.icon}}}
+            <p>{{route.label}}</p>
+            {{#if route.subRoutes}}
+                {{#akx-popover container='body' id=(concat 'sub-pop-' route.id) event='hover'}}
+                    {{#each route.subRoutes as |subRoute|}}
+                        {{#if subRoute.params}}
+                            {{#link-to subRoute.route subRoute.params 
+                                bubbles=false 
+                                id=(concat 'sub-nav-' subRoute.id) 
+                                tagName='div' 
+                                classNames='sub-item' 
+                            }}
+                                <p>{{{subRoute.icon}}} {{subRoute.label}}</p>
+                            {{/link-to}}
+                        {{else}}
+                            {{#link-to subRoute.route 
+                                bubbles=false 
+                                tagName='div' 
+                                id=(concat 'sub-nav-' subRoute.id) 
+                                classNames='sub-item' 
+                            }}
+                                <p>{{{subRoute.icon}}} {{subRoute.label}}</p>
+                            {{/link-to}}
+                        {{/if}}
+                    {{/each}}
+                {{/akx-popover}}
+            {{/if}}
+            <hr>
+        {{/link-to}}
+    {{/each}}
+</ul>

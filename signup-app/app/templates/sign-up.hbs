@@ -1,0 +1,32 @@
+<div class="login">
+    <header>
+        <img src="/assets/img/logo.svg" alt="Logo">
+    </header>
+    {{#akx-form action='signUp' isLocked=isLocked}}
+        <div class="has-feedback">
+            {{input value=email type='text' required=true}}
+            <label for="email">Email</label>
+            {{validation-feedback errors=errors.email validated=validated}}
+        </div>
+        <div class="has-feedback">
+            {{input value=emailConfirmation type='text' required=true}}
+            <label for="email">Confirm E-mail</label>
+            {{validation-feedback errors=errors.emailConfirmation validated=validated}}
+        </div>
+        <div class="has-feedback">
+            {{input type='password' value=password required=true}}
+            <label for="password">Password</label>
+            {{validation-feedback errors=errors.password validated=validated}}
+        </div>
+        <div class="has-feedback">
+            {{input type='password' value=passwordConfirmation required=true}}
+            <label for="confirmation">Confirm Password</label>
+            {{validation-feedback errors=errors.passwordConfirmation validated=validated}}
+        </div>
+        <button type="submit">Sign Up</button>
+    {{/akx-form}}
+    <div class="links">
+        {{#link-to 'forgot' tagName='span'}}Forgot Password{{/link-to}}
+        {{#link-to 'login' tagName='span'}}Log in{{/link-to}}
+    </div>
+</div>

@@ -1,0 +1,22 @@
+{
+  "name": "msg-api",
+  "version": "1.0.29",
+  "private": true,
+  "scripts": {
+    "start": "node app.js",
+    "preinstall": "mkdir -p log"
+  },
+  "dependencies": {
+    "bluebird": "^2.9.25",
+    "handlebars": "^3.0.3",
+    "html-entities": "^1.2.0",
+    "lodash": "^3.8.0",
+    "mandrill-api": "^1.0.45",
+    "mathjs": "^0.27.0",
+    "moment-timezone": "0.0.3",
+    "request": "^2.56.0",
+    "restify": "~4.3",
+    "restify-validation": "git://github.com/Akirix/restify-validation.git",
+    "winston": "^0.8.1"
+  }
+}

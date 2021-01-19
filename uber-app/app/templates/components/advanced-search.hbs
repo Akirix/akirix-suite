@@ -1,0 +1,27 @@
+<div class="row">
+    {{#if showDateRange}}
+    <div class="form-group col-xs-2">
+        {{date-picker value=periodFrom class='form-control' placeholder='Date From' valueFormat='YYYY-MM-DD'
+                      allowBlank=true}}
+    </div>
+
+    <div class="form-group col-xs-2">
+        {{date-picker value=periodTo class='form-control' placeholder='Date To' valueFormat='YYYY-MM-DD'
+                      allowBlank=true}}
+    </div>
+    {{/if}}
+
+    <div class="col-xs-2">
+        <div style="line-height: 30px">
+            {{#popover-display title="Advanced Options" tagName="a" class="pointer"}}
+                {{#each param in searchParams}}
+                    {{search-input param=param  parentController=parentController}}
+                {{/each}}
+            {{/popover-display}}
+        </div>
+    </div>
+
+    <div class="col-xs-1">
+        <button class="btn btn-sm btn-primary" {{action 'search'}}>Search</button>
+    </div>
+</div>

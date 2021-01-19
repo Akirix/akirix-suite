@@ -1,0 +1,53 @@
+<div class="navbar-secondary" role="navigation">
+    <ul class="list-h">
+        <li>
+
+        </li>
+        <li>
+
+        </li>
+    </ul>
+</div>
+<div class="pane-primary-content">
+    {{partial 'nav-uber-settings'}}
+
+    {{#each sweep in model}}
+        <table class="table table-high table-hover">
+            <thead>
+            <tr>
+                <th class="col-xs-2"></th>
+                <th class="col-xs-6">Account Name</th>
+                <th class="col-xs-4">Amount</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each fAcct in sweep.fromAccounts}}
+                <tr>
+                    <td class="valign-middle">{{input type='checkbox' checked=fAcct.isChecked ame=fAcct.name }}</td>
+                    <td class="valign-middle">
+                        <span class="medium">{{fAcct.name}}</span><br/>
+                        <span class="small">{{fAcct.company.name}}</span>
+                    </td>
+                    <td class="valign-middle medium">
+                        {{{fAcct.currency.symbol}}} {{format-number fAcct.balance}}
+                    </td>
+                </tr>
+            {{/each}}
+                <tr style="font-weight: bold">
+                    <td class="valign-middle large">To:</td>
+                    <td class="valign-middle large">{{sweep.toAccount.name}}</td>
+                    <td class="valign-middle large"></td>
+                </tr>
+            </tbody>
+        </table>
+    {{/each}}
+
+    {{view 'modal-confirmation'
+    class='btn btn-primary float-right'
+    button='Sweep Accounts'
+    action='sweepAccounts'
+    headerTitle='Sweep Fee Accounts'
+    prompt='Are you sure you want to sweep these accounts?'
+    }}
+</div>
+

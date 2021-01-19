@@ -1,0 +1,22 @@
+<table class="table table-high">
+    <thead>
+    <tr>
+        <th>Company</th>
+        <th>Period From</th>
+        <th>Period To</th>
+        <th>Rate</th>
+        <th>Amount</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each item in model}}
+        <tr>
+            <td>XYZ{{item.company.account_number}} {{item.company.name}}</td>
+            <td>{{item.str_period_from}}</td>
+            <td>{{item.str_period_to}}</td>
+            <td>{{item.str_rate}}</td>
+            <td>{{{item.currency.symbol}}}{{item.str_amount}}</td>
+        </tr>
+    {{/each}}
+    </tbody>
+</table>

@@ -1,0 +1,11 @@
+<header class="akx-header mb-5">
+    <span>{{stringList.chooseCompany}}</span>
+</header>
+<div class="col-lg-5 col-md-8 col-sm-12 m-auto">
+    {{find-company
+        value=changeset.account_number
+        path='account_number'
+        validCompany=model.toCompany
+        name='choose-company'
+        companyId=changeset.company_id}}
+</div>

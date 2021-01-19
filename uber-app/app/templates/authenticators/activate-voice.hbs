@@ -1,0 +1,63 @@
+<div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+    <div class="pane-secondary-content">
+        <h2>{{authenticator.name}}</h2>
+
+        <div style="height: 100px"></div>
+
+
+        {{#if authenticator.status}}
+            <div class="row top-buffer">
+                <div class="col-xs-12 text-center medium">
+                    This device is now active.
+                </div>
+            </div>
+        {{else}}
+            {{#if isCalling}}
+                <div class="row top-buffer">
+                    <div class="col-xs-12 text-center medium">
+                        <p>Now Calling You...</p>
+
+                        <p>Please leave this screen open.</p>
+                    </div>
+                </div>
+            {{else}}
+                <div class="row top-buffer">
+                    <div class="col-xs-12 text-center">
+                        Click the button below to start the activation process.
+                    </div>
+                </div>
+
+                <div class="row top-buffer">
+                    <div class="col-xs-12 text-center">
+                        <button {{action 'activateDeviceVoice'}} class="btn btn-lg btn-primary">
+                            Start
+                        </button>
+                    </div>
+                </div>
+            {{/if}}
+        {{/if}}
+
+    </div>
+</div>
+<div class="viewport viewport-bottom navbar-toolbar">
+    <div class="pane-actions">
+        <ul class="list-h">
+            <li>
+                <button {{action 'goBack'}} class="btn btn-default btn-sm navbar-secondary-btn" type="button">Back
+                </button>
+            </li>
+        </ul>
+        <ul class="list-h pull-right">
+            <li>
+                {{view 'modal-confirmation'
+                class='btn btn-sm btn-warning navbar-secondary-btn'
+                button='Revoke'
+                prompt='Are you sure?'
+                action='revokeDevice'
+                actionContext=authenticator.id
+                headerTitle='Revoke Authenticator'
+                }}
+            </li>
+        </ul>
+    </div>
+</div>

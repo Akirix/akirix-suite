@@ -1,0 +1,227 @@
+{{#akx-form isLocked=isLocked}}
+    <div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+        {{slide-task-list model='Wire' model_id=wire.id company_id=wire.company_id}}
+        <div class="pane-secondary-content">
+            <fieldset>
+                <div class="row">
+                    <div class="form-group col-md-6 required has-feedback">
+                        <label>Method</label>
+                        {{view 'select'
+                               value=wire.method
+                               content=wireMethods
+                               optionValuePath='content.val'
+                               optionLabelPath='content.label'
+                               class='form-control'
+                               disabled="true"
+                        }}
+                    </div>
+                </div>
+                <div class="row">
+                    <legend>Sender Info</legend>
+                    <div class="form-group col-md-6 has-feedback required">
+                        <label>Sending Akirix Account Number:</label>
+
+                        {{#if wire.company}}
+                            {{view 'validate-company' company_id=wire.company_id
+                                   account_number=wire.company.account_number found=found}}
+                        {{else}}
+                            {{view 'validate-company' company_id=wire.company_id found=found}}
+                        {{/if}}
+                        {{validation-feedback errors=errors.wire.company_id validated=validated}}
+                    </div>
+                    <div class="form-group col-md-6 required has-feedback">
+                        <label>Account</label>
+                        {{view 'select'
+                               value=wire.account_id
+                               content=availableAccounts
+                               optionValuePath='content.id'
+                               optionLabelPath='content.str_long_name'
+                               prompt='Select an account'
+                               selection=account
+                               class='form-control'}}
+                        {{validation-feedback errors=errors.wire.account_id validated=validated}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-md-6 required has-feedback">
+                        <label>Bank Name</label>
+                        {{input value=wire.bank_name type='text' class='form-control' placeholder='Bank Name'}}
+                        {{validation-feedback errors=errors.wire.bank_name validated=validated}}
+                    </div>
+
+                    <div class="form-group col-md-6 required has-feedback">
+                        <label>Bank Country</label>
+                        {{#if wire.isWire}}
+                            {{view 'select'
+                                   value=wire.bank_country
+                                   content=controllers.application.countries
+                                   optionValuePath='content.abbreviation'
+                                   optionLabelPath='content.name'
+                                   prompt='Select a country'
+                                   class='form-control'}}
+                        {{else}}
+                            {{view 'select'
+                                   value=wire.bank_country
+                                   content=controllers.application.countries
+                                   optionValuePath='content.abbreviation'
+                                   optionLabelPath='content.name'
+                                   prompt='Select a country'
+                                   class='form-control'
+                                   disabled='disabled'}}
+                        {{/if}}
+                        {{validation-feedback errors=errors.wire.bank_country validated=validated}}
+                    </div>
+
+
+                    <div class="form-group col-md-6 has-feedback">
+                        <label>Bank Address</label>
+                        {{input value=wire.bank_address type='text' class='form-control' placeholder='Address'}}
+                        {{validation-feedback errors=errors.wire.bank_address validated=validated}}
+                    </div>
+
+                    <div class="form-group col-md-6 has-feedback">
+                        <label>Bank City</label>
+                        {{input value=wire.bank_city type='text' class='form-control' placeholder='City'}}
+                        {{validation-feedback errors=errors.wire.bank_city validated=validated}}
+                    </div>
+
+
+                    <div class="form-group col-md-6 has-feedback">
+                        <label>Bank State / Province</label>
+                        {{#if isUS}}
+                            {{view 'select'
+                                   value=wire.bank_state_province
+                                   content=controllers.application.states
+                                   optionValuePath='content.abbreviation'
+                                   optionLabelPath='content.name'
+                                   prompt='Select a state'
+                                   class='form-control'}}
+                        {{else}}
+                            {{input value=wire.bank_state_province type='text' class='form-control'
+                                    placeholder='State / Province'}}
+                        {{/if}}
+                        {{validation-feedback errors=errors.wire.bank_state_province validated=validated}}
+                    </div>
+
+                    <div class="form-group col-md-6 has-feedback">
+                        <label>Bank Postal Code</label>
+                        {{input value=wire.bank_postal_code type='text' class='form-control' placeholder='Postal Code'}}
+                        {{validation-feedback errors=errors.wire.bank_postal_code validated=validated}}
+                    </div>
+
+                    <div class="form-group col-md-6 has-feedback">
+                        <label>Bank Phone</label>
+                        {{input value=wire.bank_phone type='text' class='form-control' placeholder='Phone'}}
+                        {{validation-feedback errors=errors.wire.bank_phone validated=validated}}
+                    </div>
+                </div>
+                <div class="row top-buffer">
+                    {{#if wire.isWire}}
+                        <div class="form-group col-md-6 has-feedback">
+                            <label>SWIFT</label>
+                            {{input value=wire.code_swift type='text' class='form-control' placeholder='SWIFT Code'}}
+                            {{validation-feedback errors=errors.wire.code_swift validated=validated}}
+                        </div>
+                        {{#if isUS}}
+                            <div class="form-group col-md-6 has-feedback">
+                                <label>ABA / Routing</label>
+                                {{input value=wire.code_aba type='text' class='form-control'
+                                        placeholder='ABA / Routing Number'}}
+                                {{validation-feedback errors=errors.wire.code_aba validated=validated}}
+                            </div>
+                        {{else}}
+                            <div class="form-group col-md-6 has-feedback">
+                                <label class="control-label">International Routing Code (IRC)</label>
+                                {{input value=wire.code_irc type='text' class='form-control'
+                                        placeholder='International Routing Code'}}
+                                {{validation-feedback errors=errors.wire.code_irc validated=validated}}
+                            </div>
+                        {{/if}}
+                    {{else}}
+                        <div class="form-group col-md-6 has-feedback">
+                            <label>ABA / Routing</label>
+                            {{input value=wire.code_aba type='text' class='form-control'
+                                    placeholder='ABA / Routing Number'}}
+                            {{validation-feedback errors=errors.wire.code_aba validated=validated}}
+                        </div>
+                    {{/if}}
+                </div>
+
+                <div class="row top-buffer">
+                    <div class="form-group col-md-6 required has-feedback">
+                        <label>Wire Amount</label> ({{{account.currency.symbol}}}{{str_available_amount}} Available)
+                        {{formatted-number realValue=wire.amount type='text' class='form-control' placeholder='0.00'}}
+                        {{validation-feedback errors=errors.wire.amount validated=validated}}
+                    </div>
+
+                    <div class="form-group col-md-6 required has-feedback">
+                        <label>Account Holder</label>
+                        {{input value=wire.account_holder type='text' class='form-control'
+                                placeholder='Account Holder'}}
+                        {{validation-feedback errors=errors.wire.account_holder validated=validated}}
+                    </div>
+
+                    <div class="form-group col-md-6 required has-feedback">
+                        <label>Wire Fee</label>
+                        {{input value=wire.fee type='text' class='form-control' placeholder='0.00' }}
+                        {{validation-feedback errors=errors.wire.fee validated=validated}}
+                    </div>
+                    {{#if wire.code_swift}}
+                        <div class="form-group col-md-6 has-feedback">
+                            <label>IBAN</label>
+                            {{input value=wire.account_iban type='text' class='form-control' placeholder='IBAN'}}
+                            {{validation-feedback errors=errors.wire.account_iban validated=validated}}
+                        </div>
+                    {{/if}}
+                    {{#if wire.isWire}}
+                        <div class="form-group col-md-12">
+                            <div class="checkbox">
+                                <label>
+                                    {{input type='checkbox' checked=wire.speedwire class="toggle"}} This is a
+                                    Speed
+                                    Wire
+                                </label>
+                            </div>
+                        </div>
+                    {{/if}}
+                    <div class="form-group col-md-12">
+                        <label>Notes To Akirix</label>
+                        {{textarea value=wire.notes_akirix class='form-control' rows='3'}}
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        <label>Notes &amp; References To Send With Wire</label>
+                        {{textarea value=wire.notes class='form-control' rows='3'}}
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+
+
+    <div class="viewport viewport-bottom navbar-toolbar">
+        <div class="pane-actions">
+            <ul class="list-h">
+                <li>
+                    <button {{action 'goBack'}} class="btn btn-default navbar-secondary-btn btn-sm" type="button">
+                        Back
+                    </button>
+                </li>
+            </ul>
+            <ul class="list-h pull-right">
+                <li>
+                    {{view 'modal-confirmation'
+                           class='btn btn-success btn-sm navbar-secondary-btn'
+                           button='Complete'
+                           action='completeWire'
+                           actionContext = wire.id
+                           headerTitle='Complete Wire'
+                           prompt='Are you sure you want to complete this wire?'
+                    }}
+                </li>
+            </ul>
+        </div>
+    </div>
+
+{{/akx-form}}

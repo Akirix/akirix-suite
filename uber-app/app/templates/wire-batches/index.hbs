@@ -1,0 +1,67 @@
+<div class="navbar-secondary navbar" role="navigation">
+    <ul class="list-h">
+        {{outlet 'wireNavbar'}}
+    </ul>
+</div>
+
+<div class="pane-primary-content">
+    <div id="sticky-toolbar">
+        <ul>
+            {{#link-to 'wires' tagName="li" class="text-white"}}
+                <i class="fa fa-refresh fa-fw"></i><br/>
+                Wires
+            {{/link-to}}
+            {{#link-to 'wire-batches' tagName="li" class="text-white"}}
+                <i class="fa fa-suitcase fa-fw"></i><br/>
+                Batches
+            {{/link-to}}
+        </ul>
+    </div>
+    {{page-numbers content=content}}
+    <table class="table table-hover table-high">
+        <thead>
+        <tr>
+            <th class="col-xs-1">Scheduled</th>
+            <th class="col-xs-2">Bank Route</th>
+            <th class="col-xs-3">Count</th>
+            <th class="">Total Amount</th>
+            <th class="col-xs-3">Currencies Amount</th>
+            <th class="col-xs-1">Status</th>
+            <th class="col-xs-1"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each batch in model}}
+            {{#link-to 'wire-batches.index.view' batch.id tagName='tr' class='list-link'}}
+                <td class="small valign-middle">
+                    <strong>{{batch.str_scheduled_date}}</strong><br/>
+                    {{batch.str_scheduled_time}}
+                </td>
+                <td class="valign-middle">
+                    {{batch.bankRoute.name}}
+                </td>
+                <td class="medium valign-middle">
+                    {{batch.wires.length}}
+                </td>
+                <td class="medium valign-middle">
+                    <strong>{{batch.batch_total}}</strong><br/>
+                </td>
+                <td class="small valign-middle">
+                    {{#each curr in batch.batchCurrencies}}
+                        {{curr.currency_id}}: {{curr.str_amount}}<br/>
+                    {{/each}}
+                </td>
+                <td class="medium valign-middle">
+                    {{wirebatch-status-icon batch.status}}
+                </td>
+                <td></td>
+            {{/link-to}}
+        {{/each}}
+        </tbody>
+    </table>
+
+    {{page-numbers content=content}}
+</div>
+
+
+

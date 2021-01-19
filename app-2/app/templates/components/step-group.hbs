@@ -1,0 +1,24 @@
+{{yield template show lastStep}}
+<div id="container-of-steps" class="steps">
+    <ul id="list-of-steps" class="step-group mb-5">
+        {{#each steps as |step idx|}}
+            {{#if step.class}}
+                <li id="list-of-steps-item-{{idx}}" class={{step.class}}></li>
+            {{else}}
+                <li id="list-of-steps-item-{{idx}}" completed={{step.completed}} active={{step.active}} {{action 'goToStep' idx}}>
+                    <p>
+                        {{#if step.completed}}
+                            <span class="text-success">&#10003;</span>
+                        {{else if step.active}}
+                            <span class="text-primary">&#9656;</span>
+                        {{/if}}
+                        {{step.name}}
+                    </p>
+                    <div id="list-of-steps-go-to-step-{{idx}}" class="go-to-step">
+                        <span class="step-information">{{{step.title}}}</span>
+                    </div>
+                </li>
+            {{/if}}
+        {{/each}}
+    </ul>
+</div>

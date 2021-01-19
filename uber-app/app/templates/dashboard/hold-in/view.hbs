@@ -1,0 +1,173 @@
+<div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+    {{slide-task-list model='Wire' model_id=wire.id company_id=wire.company_id}}
+    <div class="pane-secondary-content">
+        {{uber-exceptions model='wire' model_id=wire.id hasException=hasException}}
+        <div class="panel panel-default">
+            <div class="panel-heading text-center">
+                <span class="text-green-dark bold">
+                    W-{{wire.name}}
+                </span>
+                <br/>
+                <span class="text-green-dark">
+                    Deposit
+                </span>
+            </div>
+            <div class="panel-body">
+                <div style="height: 20px;"></div>
+                <div class="x-large align-center">
+                    {{wire-beneficiary-icon wire.beneficiary_type}} {{wire.account_holder}}
+                </div>
+                <div class="align-center">
+                    <ul class="list-h small text-gray-dark">
+                        {{#if wire.account_number}}
+                            <li><strong>Account #:</strong> {{wire.account_number}}</li>
+                        {{/if}}
+                        {{#if wire.account_iban}}
+                            <li><strong>IBAN:</strong> {{wire.account_iban}}</li>
+                        {{/if}}
+                        {{#if wire.account_holder_dob}}
+                            <li><strong>D.O.B.:</strong> {{wire.account_holder_dob}}</li>
+                        {{/if}}
+                        {{#if wire.account_holder_nationality}}
+                            <li><strong>Nationality:</strong> {{wire.account_holder_nationality}}</li>
+                        {{/if}}
+                        {{#if wire.purpose}}
+                            <li><strong>Purpose:</strong> {{wire.purpose}}</li>
+                        {{/if}}
+                    </ul>
+                </div>
+                <div style="height: 10px;"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr>
+                    </div>
+                </div>
+                <div style="height: 10px;"></div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <span class="large"><i class="fa fa-university"></i> {{wire.bank_name}}</span><br/>
+                        {{#if wire.bank_address}}{{wire.bank_address}}<br/>{{/if}}
+                        {{#if wire.bank_city}}{{wire.bank_city}}{{/if}}
+                        {{#if wire.bank_state_province}}, {{wire.bank_state_province}}{{/if}}
+                        {{#if wire.bank_postal_code}} {{wire.bank_postal_code}}{{/if}}
+                        <br/>
+                        {{#if wire.bank_country}}{{wire.bank_country}} {{country-flag wire.bank_country}}
+                            <br/>{{/if}}
+                        {{#if wire.bank_phone}}{{wire.bank_phone}}<br/>{{/if}}
+                    </div>
+                    <div class="col-md-6">
+                        {{#if wire.code_swift}}<strong>SWIFT:</strong> {{wire.code_swift}}<br/>{{/if}}
+                        {{#if wire.code_aba}}<strong>ABA / Routing #:</strong> {{wire.code_aba}}<br/>{{/if}}
+                        {{#if wire.code_irc}}<strong>IRC:</strong> {{wire.code_irc}}<br/>{{/if}}
+                    </div>
+                </div>
+                <div style="height: 10px;"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr>
+                    </div>
+                </div>
+                {{#if wire.notes}}
+                    <div style="height: 10px;"></div>
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            {{wire.notes}}
+                        </div>
+
+                    </div>
+                    <div style="height: 10px;"></div>
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <hr>
+                        </div>
+
+                    </div>
+                {{/if}}
+
+                {{#if wire.raw_data}}
+                    <div style="height: 10px;"></div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{wire.raw_data}}
+                        </div>
+                    </div>
+                    <div style="height: 10px;"></div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <hr>
+                        </div>
+                    </div>
+                {{/if}}
+
+                <div style="height: 10px;"></div>
+                <div class="row">
+                    <div class="col-md-6 large text-green-dark">
+                        {{wire.account.name}}
+                    </div>
+                    <div class="col-md-6 large align-right text-green-dark">
+                        {{{wire.currency.symbol}}}{{wire.str_amount}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 small">
+                        Fee
+                    </div>
+                    <div class="col-md-6 small align-right">
+                        {{{wire.currency.symbol}}}{{wire.fee}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr>
+                    </div>
+                </div>
+                {{#if wire.isNotInBatch}}
+                    {{#if wire.isStarted}}
+                        <div class="form-group col-md-12 required has-feedback">
+                            <label>Confirmation</label>
+                            {{input value=wire.confirmation type='text' class='form-control'
+                                    placeholder='Confirmation Number'}}
+                            {{validation-feedback errors=errors.wire.confirmation validated=validated}}
+                        </div>
+                    {{/if}}
+                {{/if}}
+                <div style="height: 20px;"></div>
+            </div>
+            {{#if wire.isDone}}
+                <div class="panel-footer text-center">
+                    Created On {{wire.str_created_at_date}} {{wire.str_created_at_time}}<br/>
+                    Completed On {{wire.str_updated_at_date}} {{wire.str_updated_at_time}}<br/>
+                    Confirmation: {{wire.confirmation}}
+                </div>
+            {{/if}}
+        </div>
+        {{uber-exception-history model='wire' model_id=wire.id}}
+    </div>
+</div>
+<div class="viewport viewport-bottom navbar-toolbar">
+    <div class="pane-actions">
+        <ul class="list-h valign-middle">
+            <li>
+                <button {{action 'goBack'}} class="btn btn-default navbar-secondary-btn btn-sm" type="button">
+                    Back
+                </button>
+            </li>
+        </ul>
+        <ul class="list-h pull-right">
+            {{#unless hasException}}
+                <li>
+                    {{view 'modal-confirmation'
+                           class='btn btn-success btn-sm navbar-secondary-btn'
+                           button='Unhold'
+                           action='unholdWire'
+                           headerTitle='Hold Wire'
+                           prompt='Are you sure you want to unhold this wire?'
+                    }}
+                </li>
+            {{/unless}}
+
+        </ul>
+    </div>
+</div>

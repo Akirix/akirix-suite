@@ -1,0 +1,32 @@
+<table class="table table-hover table-high">
+    <thead>
+    <tr>
+        <th class="col-xs-4">Company</th>
+        <th class="col-xs-2">Start Date</th>
+        <th class="col-xs-2">End Date</th>
+        <th class="col-xs-2">Rate</th>
+        <th class="col-xs-2">Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each item in commissions}}
+        {{#link-to 'companies.view.commissions.view' item.id tagName='tr' class='pointer list-link'}}
+          <td class="valign-middle col-xs-2">
+              XYZ{{item.company.account_number}} {{item.company.name}}
+          </td>
+         <td  class="valign-middle col-xs-2">
+             {{item.str_start_date}}
+         </td>
+          <td  class="valign-middle col-xs-2">
+              {{item.str_end_date}}
+          </td>
+         <td class="valign-middle col-xs-2">
+             {{item.str_rate}}
+         </td>
+         <td class="valign-middle col-xs-2">
+             {{commission-status-icon item.status}}
+         </td>
+        {{/link-to}}
+    {{/each}}
+    </tbody>
+</table>

@@ -1,0 +1,29 @@
+<table class="table table-high table-hover top-buffer">
+    <thead>
+    <tr>
+        <th class="col-xs-2">Name</th>
+        <th class="col-xs-2">Value</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each fee in feeArray}}
+        {{#if fee.isWire}}
+            <tr class="list-link">
+                <td class="text-gray valign-middle medium">{{format-text fee.key}}</td>
+                <td class="valign-middle" style="padding-left: 50px;"></td>
+            </tr>
+            {{#each currency in wireArray}}
+                <tr class="list-link" {{action 'view' currency fee.key}}>
+                    <td class="text-gray valign-middle" style="padding-left: 50px;">{{currency.key}}</td>
+                    <td class="text-gray valign-middle" style="padding-left: 50px;">Multiple values</td>
+                </tr>
+            {{/each}}
+        {{else}}
+            <tr class="list-link" {{action 'view' fee fee.key}}>
+                <td class="text-gray valign-middle medium">{{format-text fee.key}}</td>
+                <td class="text-gray valign-middle">{{fee.placeholder}}</td>
+            </tr>
+        {{/if}}
+    {{/each}}
+    </tbody>
+</table>

@@ -1,0 +1,7 @@
+<div></div>
+<div class="d-flex">
+    {{#if model.wire.canConfirm}}
+        {{download-pdf model=model.wire}}
+    {{/if}}
+    <i class="akx-icon akx-rejected" name="close-side-panel" {{action 'closeSidePanel'}}></i>
+</div>

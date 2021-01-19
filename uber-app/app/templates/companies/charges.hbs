@@ -1,0 +1,23 @@
+<table class="table table-hover table-high">
+    <thead>
+    <tr>
+        <th class="col-xs-5">Title</th>
+        <th class="col-xs-2">Start Date</th>
+        <th class="col-xs-2">Next Payment Date</th>
+        <th class="col-xs-2">Amount</th>
+        <th class="col-xs-1">Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each model as |charge|}}
+        {{#link-to 'companies.view.charges.view' charge.id tagName='tr' class='list-link'}}
+            <td class="valign-middle">{{charge-type-icon charge.type}} {{charge.title}}</td>
+            <td class="valign-middle">{{charge.str_start_date}}</td>
+            <td class="valign-middle">{{charge.str_next_payment_date}}</td>
+            <td class="valign-middle">{{{charge.currency.symbol}}}{{charge.str_amount}}</td>
+            <td class="valign-middle">{{charge-status-icon charge.status}}</td>
+        {{/link-to}}
+    {{/each}}
+    </tbody>
+</table>
+

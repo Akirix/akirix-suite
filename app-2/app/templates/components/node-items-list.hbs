@@ -1,0 +1,46 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th colspan="2">{{stringList.itemName}}</th>
+            <th colspan="2">{{stringList.price}}</th>
+        </tr>
+    </thead>
+    <tbody>
+    {{#each items as |item|}}
+        {{#if edit}}
+            <tr>
+                <td>&nbsp;</td>
+                <td class="has-feedback form-group bmd-form-group">
+                    {{input value=item.name type='text' class='form-control'}}
+                    {{validation-feedback errors=item.errors.name}}
+                </td>
+                <td class="has-feedback form-group bmd-form-group">
+                    {{akx-format-number
+                        realValue=item.price
+                        type='text'
+                        scale=10
+                        class='form-control'}}
+                    {{validation-feedback errors=item.errors.price}}
+                </td>
+                <td class="akx-col-lrg-2 text-center">
+                    <i {{action 'deleteNodeItem' item}} class="akx-icon akx-rejected text-danger"></i>
+                </td>
+            </tr>
+        {{else}}
+            <tr>
+                <td colspan="2">{{item.name}}</td>
+                <td colspan="2">{{item.price}}</td>
+            </tr>
+        {{/if}}
+    {{/each}}
+    {{#if edit}}
+        <tr>
+            <td colspan="4" class="text-center">
+                <button {{action 'addNodeItem'}} class="akx-button">
+                    <span class="dark-blue">{{stringList.addItem}}</span>
+                </button>
+            </td>
+        </tr>
+    {{/if}}
+    </tbody>
+</table>

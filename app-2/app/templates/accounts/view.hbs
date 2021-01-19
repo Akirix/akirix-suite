@@ -1,0 +1,126 @@
+{{#link-to 'authenticated.accounts' class='go-back' tagName='div'}}
+    <h2><i class="akx-icon akx-back"></i>  {{model.account.name}}</h2>
+{{/link-to}}
+<div class="form-row align-items-center">
+    <div class="col-8">
+        {{akx-pagination 
+        page=page
+        perPage=perPage
+        meta=model.transactions.meta
+        action='refresh'}}
+    </div>
+    <div class="col-4">
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="akx-icon akx-search font-h3"></i>
+                    </span>
+                </div>
+                {{input
+                    type='text'
+                    name="account-search"
+                    value=query
+                    class='form-control'
+                    insert-newline='search'
+                    placeholder=stringList.searchHelp}}
+                {{#link-to
+                    'authenticated.accounts.view.download'
+                    (query-params accountID=model.account.id)
+                    class='akx-icon akx-download font-h3 pl-3 pr-2 pt-3'
+                    tagName='i'}}
+                {{/link-to}}
+            </div>
+        </div>
+    </div>
+</div>
+<table class="table table-hover th-sticky">
+    <thead class="thead-light">
+        <tr>
+            <th>{{stringList.tableHead0}}</th>
+            <th>{{stringList.tableHead1}}</th>
+            <th>{{stringList.tableHead2}}</th>
+            <th class="text-right">{{stringList.tableHead3}}</th>
+            <th class="text-right">{{stringList.tableHead4}}</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    {{#each sortTransactions as |transaction|}}
+        {{#if transaction.isNotFee}}
+            {{#if transaction.isPoint}}
+            {{else}}
+                {{#if transaction.isBalance}}
+                    <tr class="is-balance text-primary">
+                        <td colspan="2">
+                            <b>{{format-date transaction.created_at}}</b>
+                        </td>
+                        <td>
+                            <b>{{stringList.endingDay}}</b>
+                        </td>
+                        <td class="text-right" colspan="3">
+                            <b>
+                                {{format-number transaction.amount style='currency' currency=transaction.currency_id}}
+                            </b>
+                        </td>
+                    </tr>
+                {{else}}
+                    {{#link-to 'authenticated.accounts.view.view-transaction' transaction.id tagName='tr'}}
+                        <td>
+                            {{format-date transaction.created_at}}
+                        </td>
+                        <td><strong>{{transaction.getName}}</strong></td>
+                        <td>
+                            {{#transaction-name transaction=transaction as |description|}}
+                                <p>{{{description}}}</p>
+                            {{/transaction-name}}
+                        </td>
+                        <td class="text-danger text-right">
+                            {{#if transaction.isDebit}}
+                                {{#transaction-amount transaction=transaction as |strTotalAmount|}}
+                                    <strong>{{strTotalAmount}}</strong>
+                                {{/transaction-amount}}
+                            {{/if}}
+                        </td>
+                        <td class="text-success text-right">
+                            {{#if transaction.isCredit}}
+                                {{#transaction-amount transaction=transaction as |strTotalAmount|}}
+                                    <strong>{{strTotalAmount}}</strong>
+                                {{/transaction-amount}}
+                            {{/if}}
+                        </td>
+                        <td></td>
+                    {{/link-to}}
+                {{/if}}
+            {{/if}}
+        {{else}}
+            {{#if transaction.isCharge}}
+                {{#link-to 'authenticated.accounts.view.view-transaction' transaction.id tagName='tr'}}
+                    <td>{{format-date transaction.created_at}}</td>
+                    <td><strong>{{stringList.fee}}</strong></td>
+                    <td>
+                        {{#transaction-name transaction=transaction as |description|}}
+                            <p>{{{description}}}</p>
+                        {{/transaction-name}}
+                    </td>
+                    <td class="text-danger text-right">
+                        <strong>{{format-number transaction.amount style='currency' currency=transaction.currency_id}}</strong>
+                    </td>
+                    <td></td>
+                    <td></td>
+                {{/link-to}}
+            {{else if transaction.isCredit}}
+                <tr>
+                    <td>{{format-date transaction.created_at}}</td>
+                    <td colspan="3"><strong>{{stringList.feeRefund}}</strong></td>
+                    <td class="text-success text-right">
+                        <strong>{{format-number transaction.amount style='currency' currency=transaction.currency_id}}</strong>
+                    </td>
+                    <td></td>
+                </tr>
+            {{/if}}
+        {{/if}}
+    {{/each}}
+    </tbody>
+</table>
+{{akx-pagination page=page perPage=perPage meta=model.transactions.meta action='refresh' class='mt-4'}}

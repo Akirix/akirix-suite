@@ -1,0 +1,246 @@
+<div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+    <div class="pane-secondary-content">
+        {{#if info-req.isPending}}
+            <div class="panel panel-default">
+                <div class="panel-heading text-center">
+                    <p class="medium">
+                        {{info-req.title}}
+                    </p>
+                </div>
+                <div class="panel-body">
+                    <div class="row top-buffer">
+                        <div class="form-group col-md-6 required has-feedback">
+                            <label>To Whom</label>
+                            {{view 'select'
+                            value=info-req.model
+                            content=modelOptions
+                            optionValuePath='content.val'
+                            optionLabelPath='content.label'
+                            prompt='Select To whom the request is for'
+                            class='form-control'}}
+                            {{validation-feedback errors=errors.info-req.model validated=validated}}
+                        </div>
+                        {{#if isUser}}
+                            <div class="form-group col-md-6 required has-feedback">
+                                <label>Choose User</label>
+                                {{view 'select'
+                                value=info-req.model_id
+                                content=users
+                                optionValuePath='content.id'
+                                optionLabelPath='content.name'
+                                prompt='Choose user in company'
+                                class='form-control'}}
+                                {{validation-feedback errors=errors.info-req.model_id validated=validated}}
+                            </div>
+                        {{else}}
+                            <div class="form-group col-md-6 required has-feedback">
+                                <label>Company {{companyName}} Selected</label>
+                                {{view 'select'
+                                value=info-req.model_id
+                                content=company
+                                optionValuePath='content.company_id'
+                                optionLabelPath='content.companyName'
+                                class='form-control'
+                                disabled='disabled'}}
+                                {{validation-feedback errors=errors.info-req.model_id validated=validated}}
+                            </div>
+                        {{/if}}
+                    </div>
+                    <div class="row top-buffer">
+                        <label>Type of request:</label>
+                        <div class="col-md-12 has-feedback">
+                            {{view 'select'
+                            value=info-req.type
+                            content=typesOfInfoRequests
+                            optionValuePath='content.val'
+                            optionLabelPath='content.label'
+                            class='form-control'}}
+                            {{validation-feedback errors=errors.info-req.type validated=validated}}
+                        </div>
+                    </div>
+                    <div class="row top-buffer">
+                        <div class="col-md-6 has-feedback">
+                            <label>Deadline:</label>
+                            {{date-picker value=info-req.deadline class='form-control' placeholder=info-req.deadline valueFormat='YYYY-MM-DD' allowBlank=true}}
+                            {{validation-feedback errors=errors.info-req.deadline validated=validated}}
+                        </div>
+                        <div class="col-md-6 has-feedback">
+                            <label>Title:</label>
+                            {{input value=info-req.title class='form-control' placeholder=info-req.title valueFormat='YYYY-MM-DD' allowBlank=true}}
+                            {{validation-feedback errors=errors.info-req.title validated=validated}}
+                        </div>
+                    </div>
+                    <div class="row top-buffer">
+                        <label>Requesting from client:</label>
+                        <div class="col-md-12 has-feedback">
+                            {{textarea value=info-req.notes type='text' class='form-control' rows='5'}}
+                            {{validation-feedback errors=errors.info-req.notes validated=validated}}
+                        </div>
+                    </div>
+                    <br/>
+                </div>
+            </div>
+            {{#if info-req.isDocument}}
+                {{#if documents}}
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            {{#each doc in documents}}
+                                <li class="list-group-item">
+                                    <span class="small bold">{{doc.str_created_at_date}}</span> {{document-download-link doc.url_download token doc.name doc.type}}
+                                </li>
+                            {{/each}}
+                        </div>
+                    </div>
+                {{/if}}
+            {{/if}}
+        {{else}}
+            {{#if info-req.isText}}
+                <div class="panel panel-default">
+                    <div class="panel-heading text-center">
+                        <p class="medium">
+                            <strong>{{info-req.title}}</strong>
+                        </p>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row top-buffer">
+                            <div class=" align-center">
+                                <label>Type of Request:</label> {{info-request-type info-req.type}}
+                            </div>
+                            <div class=" align-center">
+                                <label>Requested from client:</label> {{info-req.notes}}
+                            </div>
+                            <div class="align-center">
+                                <ul class="list-h small text-gray-dark">
+                                    <label>Deadline:</label> {{info-req.str_deadline}}
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row top-buffer">
+                            <div class="col-md-12">
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="row top-buffer">
+                            <div class=" align-center">
+                                <label>Client Response:</label>
+                                <br>
+                                {{info-req.response}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {{/if}}
+            {{#if info-req.isDocument}}
+                <div class="panel panel-default">
+                    <div class="panel-heading text-center">
+                        <p class="medium">
+                            <strong>Type of request:</strong> {{info-req.type}}
+                        </p>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row top-buffer">
+                            <div class=" align-center">
+                                <label>Requested from client:</label> {{info-req.notes}}
+                            </div>
+                            <div class="align-center">
+                                <ul class="list-h small text-gray-dark">
+                                    <label>Deadline:</label> {{info-req.str_deadline}}
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row top-buffer">
+                            <div class="col-md-12">
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="row top-buffer">
+                            <div class=" align-center">
+                                <label>Client Response:</label>
+                                {{#each doc in documents}}
+                                    <li class="list-group-item">
+                                        <span class="small bold">{{doc.str_created_at_date}}</span> {{document-download-link doc.url_download token doc.name doc.type}}
+                                    </li>
+                                {{/each}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {{/if}}
+            {{#if info-req.isTerms}}
+                <div class="panel panel-default">
+                    <div class="panel-heading text-center">
+                        <p class="medium">
+                            <label>Type of Request:</label> {{info-req.type}}
+                        </p>
+                    </div>
+                    <div class="panel-body row text-center">
+                        <div class="row top-buffer">
+                            <div id="agreementDetails">
+                                {{{info-req.notes}}}
+                            </div>
+                            <div class="row top-buffer">
+                                <div class="align-center">
+                                    <ul class="list-h small text-gray-dark">
+                                        <label>Deadline:</label> {{info-req.str_deadline}}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row top-buffer">
+                            <div class="col-md-12">
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="row top-buffer">
+                            <div class=" align-center">
+                                <label>Client Response:</label>
+                                <br>
+                                {{info-req.response}}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            {{/if}}
+        {{/if}}
+    </div>
+</div>
+<div class="viewport viewport-bottom navbar-toolbar">
+    <div class="pane-actions">
+        <ul class="list-h">
+            <li>
+                <button {{action 'goBack'}} class="btn btn-default navbar-secondary-btn btn-sm">Back</button>
+            </li>
+        </ul>
+        {{#if info-req.isPending}}
+            <ul class="pull-right list-h">
+                <li>
+                    <button {{action 'update'}} class="btn btn-success navbar-secondary-btn btn-sm">Update</button>
+                </li>
+                <li>
+                    {{view 'modal-confirmation'
+                    class='btn btn-sm btn-warning navbar-secondary-btn'
+                    button='Close Request'
+                    prompt='Are you sure you want to close information request?'
+                    action='close'
+                    actionContext=info-req.id
+                    headerTitle='Close information request'
+                    }}
+                </li>
+            </ul>
+        {{else}}
+            <ul class="pull-right list-h">
+                <li>
+                    {{view 'modal-confirmation'
+                    class='btn btn-sm btn-primary navbar-secondary-btn'
+                    button='Open Request'
+                    prompt='Are you sure you want to re-open information request?'
+                    action='open'
+                    actionContext=info-req.id
+                    headerTitle='Open information request'
+                    }}
+                </li>
+            </ul>
+        {{/if}}
+    </div>
+</div>

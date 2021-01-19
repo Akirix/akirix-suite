@@ -1,0 +1,40 @@
+<header id="side-header" class="akx-header">
+    <span>{{stringList.title}}</span>
+</header>
+<div class="map">
+    <div class="d-flex flex-column align-items-center mt-5">
+        {{#add-buyer-supplier}}
+            <div class="buyer">
+                <i class={{if success "akx-icon akx-plus" "akx-icon akx-plus text-gray"}}></i>
+            </div>
+        {{/add-buyer-supplier}}
+        {{#add-project class='you-card add-project text-center'}}
+            {{#if success}}
+                <b>{{model.project.node.company.name}}</b>
+                <p class="no-margin font-small">
+                    <b>{{stringList.you}}:</b>
+                    XYZ {{model.project.node.company.account_number}}
+                </p>
+                <p class="no-margin">{{stringList.pointsIn}}</p>
+                <p>
+                    <strong class="text-success active">0.00</strong>
+                </p>
+            {{else}}
+                <div class="pt-4">
+                    <button class="akx-button" type="button">
+                        {{#link-to 'authenticated.projects.view.add'
+                            tagName='span'
+                            class='dark-blue'}}
+                            {{stringList.start}}
+                        {{/link-to}}
+                    </button>
+                </div>
+            {{/if}}
+        {{/add-project}}
+        {{#add-buyer-supplier class='mt-2 mb-4'}}
+            <div class="supplier">
+                <i class={{if success "akx-icon akx-plus" "akx-icon akx-plus text-gray"}}></i>
+            </div>
+        {{/add-buyer-supplier}}
+    </div>
+</div>

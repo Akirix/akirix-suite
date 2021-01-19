@@ -1,0 +1,39 @@
+<div class="document-upload row">
+    <div class="col-xs-12 file-queue">
+        {{#each file in fileQueue}}
+            <div class="processing_document row natural">
+                <div class="col-xs-10 form-group">
+                    <h4>{{{file-icon file.type}}}&nbsp;{{file.name}}</h4>
+                </div>
+                <div class="col-xs-2 form-group text-right">
+                    <button class="btn btn-danger btn-sm" type="button" {{action 'remove' file}}>
+                        <i class="fa fa-trash-o"></i>
+                    </button>
+                </div>
+                <div class="col-xs-12">
+                    <label>Document Type</label>
+                    {{view 'select'
+                        value=file.documentType
+                        content=documentTypes
+                        optionValuePath='content.name'
+                        optionLabelPath='content.display_name'
+                        prompt=''
+                        class='form-control form-group'}}
+                </div>
+            </div>
+        {{/each}}
+    </div>
+    <div class="col-xs-6 upload-area form-group">
+        <button type="button" class="btn btn-default btn-file">
+            Browse
+            <input type="file" class="file-button" name="file" multiple="">
+        </button>
+    </div>
+    {{#if fileQueue}}
+        <div class="col-xs-6 form-group text-right">
+            <button type="button" class="btn btn-success" {{action 'upload'}}>
+                <i class="fa fa-upload"></i>&nbsp;Upload
+            </button>
+        </div>
+    {{/if}}
+</div>

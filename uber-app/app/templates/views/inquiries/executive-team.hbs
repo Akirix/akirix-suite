@@ -1,0 +1,57 @@
+<div class="row form-group">
+    <div class="col-sm-8">
+        {{handlebars-string templateString=view.inquiry.question templateContext=registration}}
+        {{#unless view.inquiry.required}}
+            &nbsp;<span class="optional">optional</span>
+        {{/unless}}
+    </div>
+    <div class="col-sm-4">
+        <div class="radio-answer text-right">
+            <div class="has-feedback question-wrapper">
+                <label class="btn btn-default control-label">
+                    Yes
+                    {{radio-button value="Yes" checked=view.binaryAnswer}}
+                </label>
+                {{validation-feedback errors=view.errors.binaryAnswer validated=view.submitted}}
+            </div>
+            &nbsp;
+            <div class="has-feedback question-wrapper">
+                <label class="btn btn-default control-label">
+                    No
+                    {{radio-button value="No" checked=view.binaryAnswer}}
+                </label>
+                {{validation-feedback errors=view.errors.binaryAnswer validated=view.submitted}}
+            </div>
+        </div>
+    </div>
+</div>
+{{#if view.showContactDetails}}
+    <div class="row">
+        <div class="col-xs-12">
+            <p class="text-muted">Please provide contact detail for an executive we may contact</p>
+        </div>
+        <div class="col-xs-4 form-group has-feedback">
+            <label class="control-label">Position</label>
+            {{input
+            type="text"
+            class="form-control"
+            value=view.position}}
+            {{validation-feedback errors=view.errors.position validated=view.submitted}}
+        </div>
+        <div class="col-xs-4 form-group has-feedback">
+            <label class="control-label">Name</label>
+            {{input
+            type="text"
+            class="form-control"
+            value=view.name}}
+            {{validation-feedback errors=view.errors.name validated=view.submitted}}
+        </div>
+        <div class="col-xs-4 form-group has-feedback">
+            <label class="control-label">Phone Number</label>
+            {{phone-input
+            class="form-control"
+            value=view.contact}}
+            {{validation-feedback errors=view.errors.contact validated=view.submitted}}
+        </div>
+    </div>
+{{/if}}

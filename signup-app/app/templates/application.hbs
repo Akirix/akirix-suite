@@ -1,0 +1,33 @@
+<div class="wrapper" {{bind-attr authenticated='session.isAuthenticated' showProcess='showProcess'}}>
+    <div class="content">
+        {{#if showProcess}}
+            <div id="process" class="container">
+                <div class="logo"><img src="/assets/img/logo.svg" alt="Logo"></div>
+                <div class="process">
+                    <div class="process-row">
+                        {{#each appStep in model.sortedAppSteps}}
+                            <div class="process-step" {{bind-attr active="appStep.active" complete="appStep.status"}}>
+                                <span class="status-icon fa-stack">
+                                    <i class="fa fa-circle text_green fa-stack-2x"></i>
+                                    <i class="fa fa-check text_white fa-stack-1x"></i>
+                                </span>
+                                <button {{action 'goBackToStep' appStep.route}} type="button" class="btn btn-default btn-circle">
+                                    <i {{bind-attr class="appStep.icon"}}></i>
+                                </button>
+                                <p class="hidden-xs">{{appStep.name}}</p>
+                            </div>
+                        {{/each}}
+                    </div>
+                </div>
+                <div class="logout">
+                    <span class="pointer">Save and Logout</span>
+                    <i {{action 'logout'}} class="xrk-icon xrk-log-out icon-small" aria-hidden="true"></i>
+                </div>
+            </div>
+        {{/if}}
+        <div id="main" class="container">
+            {{outlet}}
+        </div>
+    </div>
+</div>
+{{ember-notify messageStyle='bootstrap'}}

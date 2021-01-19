@@ -1,0 +1,108 @@
+{{#email-wrapper}}
+    {{> header title="{{@root.wire.type}} W-{{@root.wire.name}} Created"}}
+    {{#email-content}}
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="text-align:center;">
+
+            {{#row}}
+                <span style="color: #777777;">A wire has been created for</span>
+            {{/row}}
+            {{spacer}}
+
+            {{#row}}
+                <span
+                    style="font-size:24px;line-height:24px;font-weight:bold;letter-spacing:1px;">{{@root.company.name}}</span>
+                <br>
+                <span style="font-size:14px;line-height:20px;color:#999999;">{{@root.company.account_number}}</span>
+            {{/row}}
+            {{spacer}}
+
+            {{#row}}
+                <span
+                    style="font-size:24px;line-height:24px;font-weight:bold;letter-spacing:1px;">{{@root.wire.account_holder}}</span>
+                <br>
+                <span style="font-size:14px;line-height:20px;color:#999999;">Account Holder</span>
+            {{/row}}
+            {{spacer}}
+
+            {{#row}}
+                <span style="font-size:24px;line-height:24px;font-weight:bold;letter-spacing:1px;">
+                    {{{@root.currency.symbol}}}{{@root.wire.amount}}
+                </span>
+                <br>
+                <span style="font-size:14px;line-height:20px;color:#999999;">Amount</span>
+            {{/row}}
+            {{spacer size=40}}
+
+            <tr>
+                <td align="center">
+
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%"
+                           style="text-align:left; width: 360px;">
+                        <tbody>
+                        <tr>
+                            <td style="vertical-align: top;"><strong>Bank Country:</strong></td>
+                            <td>{{@root.wire.bank_country}}</td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;"><strong>Bank Name:</strong></td>
+                            <td>{{@root.wire.bank_name}}</td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;"><strong>Bank Address:</strong></td>
+                            <td>{{@root.wire.bank_address}}</td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;"><strong>Bank City:</strong></td>
+                            <td>{{@root.wire.bank_city}}</td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;"><strong>Bank State/Province:</strong></td>
+                            <td>{{@root.wire.bank_state_province}}</td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;"><strong>Bank Phone:</strong></td>
+                            <td>{{@root.wire.bank_phone}}</td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;"><strong>SWIFT:</strong></td>
+                            <td>{{@root.wire.code_swift}}</td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;"><strong>ABA/Routing Number:</strong></td>
+                            <td>{{@root.wire.code_aba}}</td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;"><strong>Account Number:</strong></td>
+                            <td>{{@root.wire.account_number}}</td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;"><strong>Account IBAN:</strong></td>
+                            <td>{{@root.wire.account_iban}}</td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;"><strong>Notes:</strong></td>
+                            <td>{{@root.wire.notes}}</td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;"><strong>Akirix Notes:</strong></td>
+                            <td>{{@root.wire.notes_akirix}}</td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;"><strong>User:</strong></td>
+                            <td>
+                                {{@root.user.first_name}} {{@root.user.last_name}}
+                                <br>
+                                ( {{@root.user.email}} )
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+
+                </td>
+            </tr>
+            {{sign-off}}
+        </table>
+    {{/email-content}}
+    {{> footer}}
+{{/email-wrapper}}

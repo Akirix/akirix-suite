@@ -1,0 +1,31 @@
+{{account.name}} {{format-number account.balance_total style='currency' currency=account.currency_id}}
+{{#if showPopover}}
+    {{#akx-popover container='body' id=(concat 'acc-' account.id) placement='top'}}
+        <ul class="popover-balances">
+            <li>
+                <span class="type-label">Cash:</span>
+                {{format-number account.balance style='currency' currency=account.currency_id}}
+            </li>
+            <li>
+                <span class="type-label">On Hold:</span>
+                {{format-number account.balance_hold style='currency' currency=account.currency_id}}
+            </li>
+            <li>
+                <span class="type-label">Points-In:</span>
+                {{format-number account.points_in style='currency' currency=account.currency_id}}
+            </li>
+            <li>
+                <span class="type-label">Points-Out:</span>
+                {{format-number account.points_out style='currency' currency=account.currency_id}}
+            </li>
+            <li>
+                <span class="type-label">Pending-In:</span>
+                {{format-number account.pending_in style='currency' currency=account.currency_id}}
+            </li>
+            <li>
+                <span class="type-label">Pending-Out:</span>
+                {{format-number account.pending_out style='currency' currency=account.currency_id}}
+            </li>
+        </ul>
+    {{/akx-popover}}
+{{/if}}

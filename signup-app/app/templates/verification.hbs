@@ -1,0 +1,26 @@
+<style>
+    a.active {
+        font-weight: bold;
+    }
+</style>
+<div class="center-column">
+    <div class="row">
+        <div class="col-sm-4 document-type-list">
+            {{#each documentType in model}}
+                <div class="document-type">
+                    {{#link-to documentType.route ( query-params documentTypeName=documentType.name uid=documentType.uid) }}
+                        {{#if documentType.complete}}
+                            <i class="fa fa-check-square-o text_green fa-fw"></i>
+                        {{else}}
+                            <i class="fa fa-square-o fa-fw"></i>
+                        {{/if}}
+                        <i class="{{documentType.icon}}"></i> {{documentType.display_name}}
+                    {{/link-to}}
+                </div>
+            {{/each}}
+        </div>
+        <div class="col-sm-8">
+            {{outlet 'verificationOutlet'}}
+        </div>
+    </div>
+</div>

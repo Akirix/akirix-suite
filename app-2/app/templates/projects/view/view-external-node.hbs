@@ -1,0 +1,71 @@
+<div class="side-panel-content">
+    <header class="akx-header">
+        <span>{{stringList.buyerDetails}}</span>
+    </header>
+    <div class="row mt-5">
+        <div class="col-12">
+            <h3><i class="akx-icon akx-account-holder"></i> {{model.externalNode.name}}</h3>
+        </div>
+        <div class="col-6">
+            <p class="no-margin">{{model.externalNode.point_of_contact}}</p>
+            <p class="no-margin">{{model.externalNode.phone}} {{model.externalNode.email}}</p>
+            <p class="no-margin">{{model.project.node.account.currency_id}} {{stringList.title}}</p>
+        </div>
+    </div>
+    {{#each model.wireInstructions as |instruction|}}
+        <div class="mt-5">
+            <div class="row border-bottom py-2">
+                <div class="col-lg-6 text-right">
+                    <strong>{{stringList.beneficiary}}:</strong>
+                </div>
+                <div class="col-lg-6">{{instruction.account_holder}}</div>
+            </div>
+            <div class="row border-bottom py-2">
+                <div class="col-lg-6 text-right">
+                    <strong>{{stringList.accountNumber}}:</strong>
+                </div>
+                <div class="col-lg-6">{{instruction.account_number}}</div>
+            </div>
+            <div class="row border-bottom py-2">
+                <div class="col-lg-6 text-right">
+                    <strong>{{stringList.bankName}}:</strong>
+                </div>
+                <div class="col-lg-6">{{instruction.bank_name}}</div>
+            </div>
+            <div class="row border-bottom py-2">
+                <div class="col-lg-6 text-right">
+                    <strong>{{stringList.bankAddress}}:</strong>
+                </div>
+                <div class="col-lg-6">{{instruction.bank_address}}</div>
+            </div>
+            {{#if instruction.aba_routing_number}}
+                <div class="row border-bottom py-2">
+                    <div class="col-lg-6 text-right">
+                        <strong>{{stringList.routingNumber}}:</strong>
+                    </div>
+                    <div class="col-lg-6">{{instruction.aba_routing_number}}</div>
+                </div>
+            {{/if}}
+            {{#if instruction.swift_code}}
+                <div class="row border-bottom py-2">
+                    <div class="col-lg-6 text-right">
+                        <strong>{{stringList.swift}}:</strong>
+                    </div>
+                    <div class="col-lg-6">{{instruction.swift_code}}</div>
+                </div>
+            {{/if}}
+            <div class="row border-bottom py-2">
+                <div class="col-lg-6 text-right">
+                    <strong>{{stringList.ach}}:</strong>
+                </div>
+                <div class="col-lg-6">{{instruction.strMethodAch}}</div>
+            </div>
+            <div class="row border-bottom py-2">
+                <div class="col-lg-6 text-right">
+                    <strong>{{stringList.wire}}:</strong>
+                </div>
+                <div class="col-lg-6">{{instruction.strMethodWire}}</div>
+            </div>
+        </div>
+    {{/each}}
+</div>

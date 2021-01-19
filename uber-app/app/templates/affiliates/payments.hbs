@@ -1,0 +1,33 @@
+<div class="pane-primary-content">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th class="col-xs-2">Payout Date</th>
+            <th>Affiliate</th>
+            <th class="col-xs-2">Amount</th>
+            <th class="col-xs-2">Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each payment in model}}
+            {{#link-to 'affiliates.payments.view' payment.id tagName='tr' class="pointer list-link"}}
+                <td>
+                    {{payment.str_payout_date}}
+                </td>
+                <td>
+                    <i class="fa fa-diamond fa-fw"></i> XYZ{{payment.affiliate.account_number}} {{payment.affiliate.name}}
+                </td>
+                <td>
+                    {{{payment.currency.symbol}}}{{payment.str_amount}}
+                </td>
+                <td>
+                    {{commission-payment-status-icon payment.status}}
+                </td>
+            {{/link-to}}
+        {{/each}}
+        </tbody>
+    </table>
+
+    {{page-numbers content=content}}
+
+</div>

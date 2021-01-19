@@ -1,0 +1,51 @@
+{{#akx-form action='addDevice' isLocked=isLocked}}
+    <div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+        <div class="pane-secondary-content">
+            <div class="col-xs-12">
+                <legend>
+                    Add a New Device
+                </legend>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-5 has-feedback">
+                    <label>Nickname</label>
+                    {{input value=authenticator.name type='text' class='form-control' placeholder='Give the device a nickname'}}
+                    {{validation-feedback errors=errors.authenticator.name validated=validated}}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-5 has-feedback">
+                    <label>Device Type</label>
+                    {{view 'select'
+                    value=authenticator.type
+                    content=deviceTypes
+                    optionValuePath='content.val'
+                    optionLabelPath='content.label'
+                    prompt='Please select a device type'
+                    class='form-control'}}
+                    {{validation-feedback errors=errors.authenticator.type validated=validated}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="viewport viewport-bottom navbar-toolbar">
+        <div class="pane-actions">
+            <ul class="list-h">
+                <li>
+                    <button class="btn btn-default btn-sm navbar-secondary-btn" {{action 'goBack'}}>
+                        Cancel
+                    </button>
+                </li>
+            </ul>
+            <ul class="list-h pull-right">
+                <li>
+                    <button class="btn btn-primary btn-sm navbar-secondary-btn" type="submit">
+                        Add
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+{{/akx-form}}
+

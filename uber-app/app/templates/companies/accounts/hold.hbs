@@ -1,0 +1,27 @@
+{{#akx-form action='holdFund' isLocked=isLocked }}
+    <div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+        <div class="pane-secondary-content">
+            <div class="row top-buffer">
+                <legend>
+                    <span>Cash On Hold</span>
+                </legend>
+                <div class="form-group col-xs-6 has-feedback">
+                    <label>Hold Amount:</label>
+                    {{input value=data.amount type='text' class='form-control' placeholder='Lock Amount'}}
+                    {{validation-feedback errors=errors.data.amount validated=validated}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="viewport viewport-bottom navbar-toolbar">
+        <div class="pane-actions">
+            <ul class="list-h pull-right">
+                <li>
+                    <button class="ember-view btn btn-primary btn-sm navbar-secondary-btn" type="submit">
+                        Lock
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+{{/akx-form}}

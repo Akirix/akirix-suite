@@ -1,0 +1,45 @@
+<!--<div class="row">-->
+<!--<div class="col-xs-6">-->
+<div class="panel" pending={{theNode.isInvited}} active={{theNode.isActive}} waiting={{theNode.isWaiting}}>
+    <div class="panel-heading text-center bold">
+        {{theNode.company.name}}<br/>
+        <span class="small">XYZ{{theNode.company.account_number}}</span>
+    </div>
+    <div class="panel-body">
+        <table style="width:100%;">
+            <tr>
+                <td class="bold">Points:</td>
+                <td>{{{theNode.account.currency.symbol}}} {{theNode.points}}</td>
+            </tr>
+            <tr>
+                <td class="bold">Points Cash:</td>
+                <td>{{{theNode.account.currency.symbol}}} {{theNode.points_cash}}</td>
+            </tr>
+            <tr>
+                <td class="bold">Points Gurantee:</td>
+                <td>{{{theNode.account.currency.symbol}}} {{theNode.points_gurantee}}</td>
+            </tr>
+            <tr>
+                <td class="bold">Profit Margin:</td>
+                <td>{{theNode.discount_rate}}%</td>
+            </tr>
+            <tr>
+                {{#if sNodes}}
+                    {{#each snode in sNodes}}
+                        <td style="vertical-align: top;" colspan="2">
+                            {{node-view theNode=snode}}
+                        </td>
+                    {{/each}}
+                {{else if getNodeItems}}
+                    <td style="vertical-align: top;" colspan="2">
+                        {{node-items-list items=nodeItems}}
+                    </td>
+                {{/if}}
+            </tr>
+        </table>
+    </div>
+</div>
+<!--</div>-->
+<!--</div>-->
+
+

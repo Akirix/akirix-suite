@@ -1,0 +1,110 @@
+.main-box {
+    position: fixed;
+    top: 140px;
+    right: 0;
+    background-color: #ffffff;
+    height: 3em;
+    width: 3em;
+    text-align: center;
+    line-height: 3em;
+    z-index: 92;
+    border-top: 1px solid #e0e2e3;
+    border-bottom: 1px solid #e0e2e3;
+    border-left: 1px solid #e0e2e3;
+}
+
+.pane-toggle {
+    position: fixed;
+    right: 0;
+    top: 125px;
+    bottom: 0;
+    width: 420px;
+    display: none;
+    height: 100%;
+    overflow-y: scroll;
+    z-index: 91;
+    background-color: #ffffff;
+    word-break: break-all;
+}
+
+.item-panel-footer-fix {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+.tray {
+    position: fixed;
+    left: 83px;
+    bottom: 0;
+    z-index: 88;
+    max-width: 100%;
+
+
+    overflow: hidden;
+
+}
+
+.main-tray-box {
+    position: relative;
+    z-index: 99;
+    width: 300px;
+    color: #ffffff;
+    display: inline-block;
+    margin-bottom: 0;
+}
+
+.main-tray-box .panel-body {
+    background-color: #ffffff;
+    overflow-y: scroll;
+    padding-top: 10px;
+    height: 50vh;
+    width: 100%;
+}
+
+.pre-line {
+    white-space: pre-line;
+}
+
+.move-right-menu {
+    right: 419px;
+}
+
+.tray-badge-fix {
+    right: 30px;
+    top: -10px;
+}
+
+.label-akx-email {
+    color: #222;
+    background-color: #f5f5f5;
+    border: 1px solid #d9d9d9;
+    font-size: 90% !important;
+    line-height: 2 !important;
+    font-weight: normal !important;
+}
+
+.fake-input-style {
+    min-height: 30px !important;
+    padding: 5px 10px;
+    line-height: 1.5;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    margin-left: 0;
+}
+.panel-heading-format-text {
+    word-break: break-all;
+}
+
+.panel-heading a i.fa-chevron-down {
+    margin-top: 1px;
+}
+.panel-heading a i.fa-chevron-up {
+    margin-top: 1px;
+}
+.panel-heading.collapse-heading {
+    cursor: pointer;
+}
+.panel-collapse hr {
+    margin-top: 0;
+}

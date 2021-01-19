@@ -1,0 +1,26 @@
+<div class="no-padding">
+    <div style="text-align:center; margin-top: 100px;">
+        {{#akx-form action='login' isLocked=isLocked class="form-signin"}}
+            <span class="xx-large" style=>&Uuml;BER</span>
+            {{#if token}}
+            {{else}}
+                <div class="form-group no-margin has-feedback">
+                    {{input placeholder='E-mail' class='form-control' value=identification}}
+                    {{validation-feedback errors=errors.identification validated=validated}}
+                </div>
+                <div class="form-group no-margin has-feedback">
+                    {{input placeholder='Password' class='form-control' type='password' value=password}}
+                    {{validation-feedback errors=errors.password validated=validated}}
+                </div>
+            {{/if}}
+            <button class="btn btn-lg btn-dark btn-block" type="submit">Sign in</button>
+
+            <div class="text-center top-buffer">
+                {{#link-to 'forgot'}}Forgot Password?{{/link-to}}
+            </div>
+        {{/akx-form}}
+        <div style="text-align:center; margin-top: 10px; color: #999999; font-size: 0.8em;">
+            <p>Version 2.0 &quot;&Uuml;ber Arches&quot;</p>
+        </div>
+    </div>
+</div>

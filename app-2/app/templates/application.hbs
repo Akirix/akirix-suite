@@ -1,0 +1,20 @@
+{{outlet 'modal'}}
+<div id="overpane" class="overpane display-none animated">
+    <div class="overpane-wrapper">
+        {{outlet 'overpane'}}
+    </div>
+</div>
+{{ember-notify classPrefix='akx-toaster' closeAfter=5000}}
+{{outlet}}
+
+<!-- Side Panel -->
+{{#side-panel}}
+    <img id="sidePanelheader" src="/assets/slider.png">
+    <div class="side-panel-inner">
+        <div class="side-panel-top-nav">
+            {{outlet 'side-panel-nav'}}
+        </div>
+        {{outlet 'side-panel'}}
+    </div>
+{{/side-panel}}
+{{outlet 'side-panel-overlay'}}

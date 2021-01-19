@@ -1,0 +1,29 @@
+{{#if isWire}}
+
+    <legend>
+        <span class="x-small">{{transaction.name}}</span>
+    </legend>
+        <div class="small valign-middle col-xs-2">
+            <strong>{{str_created_at}}</strong><br/>
+        </div>
+    <br>
+        <div class="valign-middle col-xs-12">
+                {{transaction.currency_id}} {{str_amount}}
+        </div>
+
+{{else}}
+
+    <legend>
+        <span class="x-small">{{transaction.name}}</span>
+    </legend>
+    <div class="small valign-middle col-xs-2">
+        <strong>{{str_created_at}}</strong><br/>
+    </div>
+    <br>
+    <div class="valign-middle col-xs-12">
+      {{transaction.base_currency_id}} {{base_str_amount}}
+        <i class="fa fa-arrow-right"></i>
+         {{transaction.counter_currency_id}} {{counter_str_amount}}
+    </div>
+
+{{/if}}

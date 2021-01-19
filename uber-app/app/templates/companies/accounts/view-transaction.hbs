@@ -1,0 +1,13 @@
+<div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+    {{#if model.transaction.model}}
+        {{slide-task-list model=model.transaction.model model_id=model.transaction.model_id
+                          company_id=model.transaction.company_id}}
+    {{else}}
+        {{slide-task-list model='Transaction' model_id=model.transaction.id company_id=model.transactioncompany_id}}
+    {{/if}}
+    <div class="pane-secondary-content">
+        {{model.transaction.id}}<br/>
+        {{model.transaction.model}}<br/>
+        {{model.transaction.model_id}}
+    </div>
+</div>

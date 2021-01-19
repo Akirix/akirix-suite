@@ -1,0 +1,41 @@
+<div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+    <div class="pane-secondary-content">
+        <fieldset>
+            <legend>
+                <span>Wire Instructions</span>
+            </legend>
+
+            <div class="row">
+                <div class="form-group col-md-6 has-feedback">
+                    <label>Type</label>
+                    {{view 'select'
+                           value=wireInstructionSelected
+                           content=model
+                           optionValuePath='content'
+                           optionLabelPath='content.name'
+                           prompt='Select Wire Instructions'
+                           class='form-control'}}
+
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>
+<div class="viewport viewport-bottom navbar-toolbar">
+    <div class="pane-actions">
+        <ul class="list-h">
+            <li>
+                <button {{action 'goBack'}} class="btn btn-default navbar-secondary-btn btn-sm" type="button">
+                    Cancel
+                </button>
+            </li>
+        </ul>
+        <ul class="list-h pull-right">
+            <li>
+                <button {{action 'createWireInstruction'}} class="btn btn-primary navbar-secondary-btn btn-sm" type="submit">
+                    Add
+                </button>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,191 @@
+{{#link-to 'companies.view.users.add' href=false class="btn btn-primary btn-sm" tagName='button' }}
+    Add User
+{{/link-to}}
+<div style="height: 20px;"></div>
+<legend>Active Users</legend>
+<table class="table table-high table-hover">
+    <thead>
+    <tr>
+        <th class="col-xs-2">Name</th>
+        <th class="col-xs-2">Account Owner</th>
+        <th class="col-xs-3">Email</th>
+        <th class="col-xs-1">Mobile Phone</th>
+        <th class="col-xs-4"></th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each user in activeUsers}}
+        {{#link-to 'companies.view.users.view' user.id tagName='tr' class='list-link'}}
+            <td class="valign-middle medium">{{user.name}}</td>
+            <td class="valign-middle">{{account-owner-status-icon user.account_owner}}</td>
+            <td class="valign-middle">{{mail-to user.email}}</td>
+            <td class="valign-middle">{{phone-link user.phone_mobile}}</td>
+            <td>
+                <ul class="list-h">
+                    {{#link-to 'companies.view.users.view' user.id tagName='li' href=false bubbles=false}}
+                        <span class="hint--top hint--rounded" data-hint="Edit">
+                            <i class="fa fa-edit fa-fw"></i>
+                        </span>
+                    {{/link-to}}
+                    {{#link-to 'companies.view.users.view.locks' user.id tagName='li' href=false bubbles=false}}
+                        <span class="hint--top hint--rounded" data-hint="User Locks">
+                            <i class="fa fa-lock fa-fw"></i>
+                        </span>
+                    {{/link-to}}
+                    {{#link-to 'companies.view.users.view.uber-pwned' user.id tagName='li' href=false
+                               bubbles=false}}
+                        <span class="hint--top hint--rounded" data-hint="Pwned">
+                            <i class="fa fa-hand-scissors-o fa-fw"></i>
+                        </span>
+                    {{/link-to}}
+                    {{#link-to 'companies.view.users.view.access-logs' user.id tagName='li' href=false
+                               bubbles=false}}
+                        <span class="hint--top hint--rounded" data-hint="Access Log">
+                            <i class="fa fa fa-list-ul fa-fw"></i>
+                        </span>
+                    {{/link-to}}
+                    {{#link-to 'companies.view.users.view.verifications' user.id tagName='li' href=false
+                               bubbles=false}}
+                        <span class="hint--top hint--rounded" data-hint="Verifications">
+                            <i class="fa fa fa-check fa-fw"></i>
+                        </span>
+                    {{/link-to}}
+                    <li>
+                        {{view 'modal-confirmation'
+                               class='hint--top hint--rounded'
+                               data-hint='Reset password'
+                               button='<i class="fa fa-eraser fa-fw"></i>'
+                               action='resetPassword'
+                               actionContext=user.id
+                               headerTitle='Are you sure you want to reset the password for this user?'
+                               prompt='There is no going back!'
+                               tagName='span'
+                        }}
+                    </li>
+                    <li>
+                        <span {{action 'impersonate' user.id}} class="hint--top hint--rounded" data-hint="Impersonate">
+                            <i class="fa fa-eye fa-fw"></i>
+                        </span>
+                    </li>
+                    {{#link-to 'companies.view.users.view.security-questions' user.id tagName='li' href=false
+                               bubbles=false}}
+                        <span class="hint--top hint--rounded" data-hint="Security Questions">
+                            <i class="fa fa fa-question-circle-o"></i>
+                        </span>
+                    {{/link-to}}
+                </ul>
+            </td>
+        {{/link-to}}
+    {{/each}}
+    </tbody>
+</table>
+<div style="height: 20px;"></div>
+
+<legend>Inactive Users</legend>
+<table class="table table-high table-hover">
+    <thead>
+    <tr>
+        <th class="col-xs-2">Name</th>
+        <th class="col-xs-2">Account Owner</th>
+        <th class="col-xs-3">Email</th>
+        <th class="col-xs-1">Mobile Phone</th>
+        <th class="col-xs-4"></th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each user in inactiveUsers}}
+        {{#link-to 'companies.view.users.view' user.id tagName='tr' class='list-link'}}
+            <td class="valign-middle medium">{{user.name}}</td>
+            <td class="valign-middle">{{account-owner-status-icon user.account_owner}}</td>
+            <td class="valign-middle">{{mail-to user.email}}</td>
+            <td class="valign-middle">{{phone-link user.phone_mobile}}</td>
+            <td>
+                <ul class="list-h">
+                    {{#link-to 'companies.view.users.view' user.id tagName='li' href=false bubbles=false}}
+                        <span class="hint--top hint--rounded" data-hint="Edit">
+                            <i class="fa fa-edit fa-fw"></i>
+                        </span>
+                    {{/link-to}}
+                    {{#link-to 'companies.view.users.view.locks' user.id tagName='li' href=false bubbles=false}}
+                        <span class="hint--top hint--rounded" data-hint="User Locks">
+                            <i class="fa fa-lock fa-fw"></i>
+                        </span>
+                    {{/link-to}}
+                    {{#link-to 'companies.view.users.view.uber-pwned' user.id tagName='li' href=false
+                               bubbles=false}}
+                        <span class="hint--top hint--rounded" data-hint="Pwned">
+                            <i class="fa fa-hand-scissors-o fa-fw"></i>
+                        </span>
+                    {{/link-to}}
+                    {{#link-to 'companies.view.users.view.access-logs' user.id tagName='li' href=false
+                               bubbles=false}}
+                        <span class="hint--top hint--rounded" data-hint="Access Log">
+                            <i class="fa fa fa-list-ul fa-fw"></i>
+                        </span>
+                    {{/link-to}}
+                    {{#link-to 'companies.view.users.view.verifications' user.id tagName='li' href=false
+                               bubbles=false}}
+                        <span class="hint--top hint--rounded" data-hint="Verifications">
+                            <i class="fa fa fa-check fa-fw"></i>
+                        </span>
+                    {{/link-to}}
+                    <li>
+                        {{view 'modal-confirmation'
+                               class='hint--top hint--rounded'
+                               data-hint='Reset password'
+                               button='<i class="fa fa-eraser fa-fw"></i>'
+                               action='resetPassword'
+                               actionContext=user.id
+                               headerTitle='Are you sure you want to reset the password for this user?'
+                               prompt='There is no going back!'
+                               tagName='span'
+                        }}
+                    </li>
+                    <li>
+                        <span {{action 'impersonate' user.id}} class="hint--top hint--rounded" data-hint="Impersonate">
+                            <i class="fa fa-eye fa-fw"></i>
+                        </span>
+                    </li>
+                    {{#link-to 'companies.view.users.view.security-questions' user.id tagName='li' href=false
+                               bubbles=false}}
+                        <span class="hint--top hint--rounded" data-hint="Security Questions">
+                            <i class="fa fa fa-question-circle-o"></i>
+                        </span>
+                    {{/link-to}}
+                </ul>
+            </td>
+        {{/link-to}}
+    {{/each}}
+    </tbody>
+</table>
+
+<div style="height: 50px;"></div>
+{{#if relatedUsers}}
+    <fieldset>Related Users:</fieldset>
+    <table class="table table-high table-hover">
+        <thead>
+        <tr>
+            <th class="col-xs-2"></th>
+            <th class="col-xs-4"></th>
+            <th class="col-xs-2"></th>
+            <th class="col-xs-4"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each relatedUser in relatedUsers}}
+            <tr>
+                <td class="valign-middle medium">{{relatedUser.name}}</td>
+                <td class="valign-middle">{{mail-to relatedUser.email}}</td>
+                <td class="valign-middle">{{phone-link relatedUser.phone_mobile}}</td>
+                <td>
+                    <ul class="list-h">
+                        <li>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+{{/if}}
+

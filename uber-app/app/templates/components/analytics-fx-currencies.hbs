@@ -1,0 +1,9 @@
+<div class="large align-center top-buffer">
+    Foreign Exchange Volume
+</div>
+<hr>
+{{#each currency in currencies}}
+    <div class="row top-buffer">
+        {{analytics-fx-volume from_date=from_date to_date=to_date currency=currency}}
+    </div>
+{{/each}}

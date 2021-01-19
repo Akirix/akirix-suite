@@ -1,0 +1,28 @@
+<header id="section-header" class="akx-header">
+    <span>{{stringList.methodTitle}}</span>
+</header>
+<div id="select-transfer-method" class="row mt-5 text-center type-selection">
+    {{#type-select
+        id="select-transfer-method-wire"
+        name = stringList.wire
+        value=changeset.method
+        classNames="offset-lg-2 col-lg-4 col-md-6 col-sm-12 pt-3"
+        next=(action 'nextStep' 3)
+        type=0}}
+        <i class="akx-icon akx-wire-transfer font-h1"></i>
+        <h4>{{stringList.wire}}</h4>
+    {{/type-select}}
+    {{#type-select
+        id="select-transfer-method-ach"
+        name = stringList.ach
+        value=changeset.method
+        classNames="col-lg-4 col-md-6 col-sm-12 pt-3"
+        next=(action 'nextStep' 3)
+        type=1}}
+        <i class="akx-icon akx-ach-transfer font-h1"></i>
+        <h4>{{stringList.ach}}</h4>
+    {{/type-select}}
+</div>
+<div class="text-center text-danger">
+    {{validation-feedback errors=changeset.error.method.validation}}
+</div>

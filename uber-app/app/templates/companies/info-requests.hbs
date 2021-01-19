@@ -1,0 +1,42 @@
+{{#if model}}
+    <table class="table table-high table-hover">
+        <thead>
+        <tr>
+            <th>Date Created</th>
+            <th>Request For</th>
+            <th class="text-center">Type of information requested</th>
+            <th class="text-center">Title</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+            {{#each arr in model}}
+                {{#each req in arr}}
+                    {{#link-to 'companies.view.info-requests.view' req.id tagName='tr' class='list-link'}}
+                        <td class="col-md-2 small valign-middle">
+                            <strong>{{req.str_created_at}}</strong><br/>
+                        </td>
+                        <td class="col-md-2 valign-middle">
+                            {{req.model}}
+                        </td>
+                        <td class="col-md-2 align-center valign-middle">
+                            {{info-request-type req.type}}
+                        </td>
+                        <td class="col-md-5 v-align-middle text-center">
+                            {{req.title}}
+                        </td>
+                        <td class="col-md-1 valign-middle">
+                            <span class="large">
+                                {{transaction-status-icon req.status}}
+                            </span>
+                        </td>
+                    {{/link-to}}
+                {{/each}}
+            {{/each}}
+        </tbody>
+    </table>
+{{else}}
+    <div class="align-center valign-middle text-gray-light" style="padding: 100px; background-color: #f2f4f5; ">
+        Company has no Information Requests
+    </div>
+{{/if}}

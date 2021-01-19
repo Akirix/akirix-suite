@@ -1,0 +1,86 @@
+<table class="table table-high table-hover">
+    <thead>
+    <tr>
+        <th class="col-xs-3">Name</th>
+        <th class="col-xs-4">Value</th>
+        <th class="col-xs-3">Type</th>
+        <th class="col-xs-2"></th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each item in keyArray}}
+        {{#if isWire}}
+            <tr>
+                <td colspan="4" class="text-center"><span class="medium text-grey">{{item.name}}:</span></td>
+            </tr>
+            {{#each fee in item.value}}
+                {{#if fee.isTiered}}
+                    {{#if fee.isEditing}}
+                        {{fee-edit-tiered fee=fee action='updateObject' parentObj=item.name}}
+                    {{else}}
+                        <tr class="">
+                            <td class="medium text-gray valign-middle">{{fee.name}}</td>
+                            <td class="valign-middle">Multiple values</td>
+                            <td class="valign-middle">{{fee.type}}</td>
+                            <td {{action 'edit' fee}}><i class="fa fa-edit fa-fw"></i></td>
+                        </tr>
+                        {{#each subFee in fee.value}}
+                            <tr>
+                                <td class="valign-middle" style="padding-left: 50px;">{{subFee.name}}</td>
+                                <td class="valign-middle" style="padding-left: 50px;">{{subFee.value}}</td>
+                                <td class="valign-middle" style="padding-left: 50px;">{{subFee.type}}</td>
+                                <td></td>
+                            </tr>
+                        {{/each}}
+                    {{/if}}
+                {{else}}
+                    {{#if fee.isEditing}}
+                        {{fee-edit fee=fee action='updateObject' parentObj=item.name}}
+                    {{else}}
+                        <tr class="">
+                            <td class="medium text-gray valign-middle">{{fee.name}}</td>
+                            <td class="valign-middle">{{fee.value}}</td>
+                            <td class="valign-middle">{{fee.type}}</td>
+                            <td {{action 'edit' fee}}><span class="hint--top hint--rounded" data-hint="Edit"><i
+                                    class="fa fa-edit fa-fw"></i></span></td>
+                        </tr>
+                    {{/if}}
+                {{/if}}
+            {{/each}}
+        {{else}}
+            {{#if item.isTiered}}
+                {{#if item.isEditing}}
+                    {{fee-edit-tiered fee=item action='updateObject'}}
+                {{else}}
+                    <tr class="">
+                        <td class="medium text-gray valign-middle">{{item.name}}</td>
+                        <td class="valign-middle">Multiple values</td>
+                        <td class="valign-middle">{{item.type}}</td>
+                        <td {{action 'edit' item}}><i class="fa fa-edit fa-fw"></i></td>
+                    </tr>
+                    {{#each subFee in item.value}}
+                        <tr>
+                            <td class="valign-middle" style="padding-left: 50px;">{{subFee.name}}</td>
+                            <td class="valign-middle" style="padding-left: 50px;">{{subFee.value}}</td>
+                            <td class="valign-middle" style="padding-left: 50px;">{{subFee.type}}</td>
+                            <td></td>
+                        </tr>
+                    {{/each}}
+                {{/if}}
+            {{else}}
+                {{#if item.isEditing}}
+                    {{fee-edit fee=item action='updateObject'}}
+                {{else}}
+                    <tr class="">
+                        <td class="medium text-gray valign-middle">{{item.name}}</td>
+                        <td class="align-middle">{{item.value}}</td>
+                        <td class="valign-middle">{{item.type}}</td>
+                        <td {{action 'edit' item}}><span class="hint--top hint--rounded" data-hint="Edit"><i
+                                class="fa fa-edit fa-fw"></i></span></td>
+                    </tr>
+                {{/if}}
+            {{/if}}
+        {{/if}}
+    {{/each}}
+    </tbody>
+</table>

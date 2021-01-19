@@ -1,0 +1,168 @@
+{{#email-wrapper}}
+    {{> header title="{{@root.invoice_id}} {{@root.invoice_name}}"}}
+    {{#email-content}}
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="text-align:center;">
+            <tbody>
+
+            {{#row size=40}}
+                {{#button-link href=@root.url}}PAY
+                INVOICE{{/button-link}}
+            {{/row}}
+            {{spacer size=40}}
+            {{#row}}
+                <span style="font-size:24px;line-height:24px;font-weight:bold;letter-spacing:1px;">
+                    {{@root.company_name}}
+                </span>
+            {{/row}}
+            {{#row}}
+                <span style="color: #777777;">
+                    XYZ{{@root.company_account_number}}
+                </span>
+            {{/row}}
+            {{#row}}
+                <span style="color: #777777;">
+                    {{@root.company_address}}
+                </span>
+            {{/row}}
+            {{#row}}
+                <span style="color: #777777;">
+                    {{@root.company_city}} {{@root.company_state_province}} {{@root.company_postal_code}}
+                </span>
+            {{/row}}
+            {{#row}}
+                <span style="color: #777777;">
+                    {{@root.company_account_number}}
+                </span>
+            {{/row}}
+            {{#row}}
+                <span style="color: #777777;">
+                    {{@root.company_country}}
+                </span>
+            {{/row}}
+            {{#row}}
+                <span style="color: #777777;">
+                    {{@root.company_phone}}
+                </span>
+            {{/row}}
+            {{#row}}
+                <span style="color: #777777;">
+                    {{@root.company_email}}
+                </span>
+            {{/row}}
+            {{spacer size=40}}
+
+            {{#row}}
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tbody>
+                    <tr>
+                        <td style="text-align: left">
+                        <span style="color: #777777;">
+                            {{@root.invoice_date}}
+                        </span>
+                        </td>
+                        <td style="text-align: right">
+                        <span style="color: #777777;">
+                            {{@root.invoice_id}}
+                        </span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            {{/row}}
+
+            {{spacer}}
+            {{hr-row}}
+            {{spacer}}
+
+            {{#row}}
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="text-align: left;">
+                    <tbody>
+                    {{#row}}
+                        {{@root.to_company_name}}
+                    {{/row}}
+                    {{#row}}
+                        {{@root.to_company_address}}
+                    {{/row}}
+                    {{#row}}
+                        {{@root.to_company_city}} {{@root.to_company_state_province}}
+                    {{/row}}
+                    {{#row}}
+                        {{@root.to_company_postal_code}}
+                    {{/row}}
+                    {{#row}}
+                        {{@root.to_company_country}}
+                    {{/row}}
+                    {{#row}}
+                        {{@root.to_company_phone}}
+                    {{/row}}
+                    {{#row}}
+                        {{@root.to_company_email}}
+                    {{/row}}
+                    </tbody>
+                </table>
+            {{/row}}
+
+            {{spacer}}
+            {{hr-row}}
+            {{spacer}}
+
+            {{#row}}
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="text-align: right;">
+                    <tbody>
+                    {{#each @root.invoice_items}}
+                        <tr>
+                            <td style="text-align: left; width: 33%;">{{name}}</td>
+                            <td style="text-align: center; width: 33%;">{{{price}}}<span
+                                style="color: #777777;">X</span> {{quantity}}</td>
+                            <td style="text-align: right; width: 33%;">{{{subtotal}}}</td>
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+            {{/row}}
+
+            {{spacer}}
+            {{hr-row}}
+            {{spacer}}
+
+            <tr>
+                <td align="right">
+                    <table border="0" cellpadding="0" cellspacing="0" width="50%" style="text-align: right;">
+                        <tbody>
+                        <tr>
+                            <td style="width: 50%;">Tax:</td>
+                            <td>{{{@root.invoice_tax}}}</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 50%;">Total:</td>
+                            <td>{{{@root.invoice_total}}}/td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+
+            {{spacer}}
+            {{hr-row}}
+            {{spacer}}
+
+            {{#row}}
+                {{@root.invoice_notes}}
+            {{/row}}
+
+            {{spacer}}
+            {{hr-row}}
+            {{spacer size=40}}
+
+            {{#row}}
+                {{#button-link href=@root.url}}
+                    PAY INVOICE
+                {{/button-link}}
+            {{/row}}
+
+            {{sign-off}}
+            </tbody>
+        </table>
+    {{/email-content}}
+    {{> footer}}
+{{/email-wrapper}}

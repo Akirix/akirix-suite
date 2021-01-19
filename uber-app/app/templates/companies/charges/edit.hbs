@@ -1,0 +1,158 @@
+{{#akx-form action='createFee' isLocked=isLocked}}
+    <div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+        <div class="pane-secondary-content">
+            <div class="align-left">
+                <table class="table table-striped">
+                    <tbody>
+                    <tr>
+                        <td class="bold">Title</td>
+                        {{input value=model.title type='text' class='form-control' placeholder='Title'}}
+                        {{validation-feedback errors=errors.model.title validated=validated}}
+                    </tr>
+                    <tr>
+                        <td class="bold">Current Currency</td>
+                        <td>{{theCurrentAcc.currency_id}}</td>
+                    </tr>
+                    <tr>
+                        <td class="bold">Current Account</td>
+                        <td>
+                            {{theCurrentAcc.id}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bold">Current Account Balance</td>
+                        <td>
+                            {{theCurrentAcc.str_balance_total}}
+                        </td>
+                    </tr>
+                    {{#if model.fee_counter_zero_check}}
+                        <tr>
+                            <td class="bold">Update Account</td>
+                            <td>
+                                {{view 'select'
+                                value=model.account_id
+                                content=available_accounts
+                                optionValuePath='content.id'
+                                optionLabelPath='content.str_long_name'
+                                prompt='Select An Account'
+                                class='form-control'
+                                selection=accounts}}
+                                {{validation-feedback errors=errors.model.account_id validated=validated}}
+                            </td>
+                        </tr>
+                    {{/if}}
+                    <tr>
+                        <td class="bold">Type</td>
+                        <td>{{model.str_type}}</td>
+                    </tr>
+                    <tr>
+                        <td class="bold">Status</td>
+                        <td>{{model.str_status}}</td>
+                    </tr>
+                    <tr>
+                        <td class="bold">Update Start Date</td>
+                        {{#if model.fee_counter_zero_check}}
+                            <td>
+                                {{input value=model.start_date type='date' class='form-control' placeholder='Start Date'}}
+                                {{validation-feedback errors=errors.model.start_date validated=validated}}
+                            </td>
+                        {{else}}
+                            <td>{{model.str_start_date}}</td>
+                        {{/if}}
+                    </tr>
+                    <tr>
+                        <td class="bold">Next Payment Date</td>
+                        <td>{{model.str_next_payment_date}}</td>
+                    </tr>
+
+                    {{#if model.fee_type_single_check}}
+                        <tr>
+                            <td class="bold">Fee Frequency & Frequency Type</td>
+                            <td>{{model.frequency}} & {{model.str_freq_type}}</td>
+                        </tr>
+                    {{else}}
+                        <tr>
+                            <td class="bold">Frequency</td>
+                            {{#if model.fee_counter_zero_check}}
+                                <td>
+                                    {{input value=model.frequency type='number' class='form-control' placeholder='Frequency'}}
+                                    {{validation-feedback errors=errors.model.frequency validated=validated}}
+                                </td>
+                            {{else}}
+                                <td>{{model.frequency}}</td>
+                            {{/if}}
+                        </tr>
+                        <tr>
+                            <td class="bold">Frequency Type</td>
+                            {{#if model.fee_counter_zero_check}}
+                                <td>
+                                    {{view 'select'
+                                    value=model.frequency_type
+                                    content=str_freq_types_add
+                                    optionValuePath='content.val'
+                                    optionLabelPath='content.text'
+                                    prompt='Select A Frequency Type'
+                                    class='form-control'
+                                    selection=freqtypes}}
+                                    <!--{input value=model.frequency_type type='number' class='form-control' placeholder='Frequency Type'}}-->
+                                    {{validation-feedback errors=errors.model.frequency_type validated=validated}}
+                                </td>
+                            {{else}}
+                                <td>{{model.str_freq_type}}</td>
+                            {{/if}}
+                        </tr>
+                    {{/if}}
+
+                    <tr>
+                        <td class="bold">Fee Counter</td>
+                        <td>{{model.fee_counter}}</td>
+                    </tr>
+                    <tr>
+                        <td class="bold">Amount</td>
+                        <td>
+                            {{#if model.fee_counter_zero_check}}
+                                {{formatted-number realValue=model.amount type='text' class='form-control' placeholder=model.amount}}
+                                {{validation-feedback errors=errors.model.amount validated=validated}}
+                            {{else}}
+                                {{model.str_balance_total}}
+                            {{/if}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bold">Notes</td>
+                        <td>
+                            {{#if model.fee_counter_zero_check}}
+                                <textarea>
+                                    {{model.notes}}
+                                </textarea>
+                            {{else}}
+                                {{model.notes}}
+                            {{/if}}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+    <div class="viewport viewport-bottom navbar-toolbar">
+        <div class="pane-actions">
+            <ul class="list-h">
+                <li>
+                    <button {{action 'goBack'}} class="btn btn-default navbar-secondary-btn btn-sm" type="button">
+                        Cancel
+                    </button>
+                </li>
+            </ul>
+            <ul class="list-h pull-right">
+                <li>
+                    <button {{action 'updateFee'}} class="btn btn-primary navbar-secondary-btn btn-sm" type="button">
+                        Save
+                        <i class="fa fa-save fa-fw"></i>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+{{/akx-form}}

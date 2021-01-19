@@ -1,0 +1,58 @@
+<div class="row">
+    <div class="form-group col-sm-2 has-feedback">
+        {{date-picker value=period_from class='form-control' placeholder='Date From' valueFormat='YYYY-MM-DD' allowBlank=true}}
+        {{validation-feedback errors=errors.period_from validated=validated}}
+    </div>
+
+    <div class="form-group col-sm-2 has-feedback">
+        {{date-picker value=period_to class='form-control' placeholder='Date To' valueFormat='YYYY-MM-DD' allowBlank=true}}
+        {{validation-feedback errors=errors.period_to validated=validated}}
+    </div>
+
+    <div class="form-group col-md-3">
+        <button class="btn btn-primary btn-sm" {{action "plot" }}>Plot</button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="large align-center">
+        Account Balances History
+    </div>
+    {{analytics-company-balance-history from_date=plot_from to_date=plot_to company=company}}
+</div>
+
+<div class="row">
+    {{#each currency in currencies}}
+        <div class="row top-buffer">
+            <div class="large align-center">
+                Invoice Volume: {{currency.id}}
+            </div>
+            {{analytics-company-invoice from_date=plot_from to_date=plot_to currency=currency company=company}}
+        </div>
+        <div class="row top-buffer">
+            <div class="large align-center">
+                Wire In Volume: {{currency.id}}
+            </div>
+            {{analytics-company-wire-in from_date=plot_from to_date=plot_to currency=currency company=company}}
+        </div>
+        <div class="row top-buffer">
+            <div class="large align-center">
+                Wire Out Volume: {{currency.id}}
+            </div>
+            {{analytics-company-wire-out from_date=plot_from to_date=plot_to currency=currency company=company}}
+        </div>
+        <div class="row top-buffer">
+            {{analytics-company-fee-totals from_date=plot_from to_date=plot_to currency=currency company=company}}
+        </div>
+    {{/each}}
+</div>
+
+
+
+
+
+
+
+
+
+

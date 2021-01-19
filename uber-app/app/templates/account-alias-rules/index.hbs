@@ -1,0 +1,45 @@
+<div class="pane-primary-content">
+    {{partial 'nav-uber-settings'}}
+
+    {{page-numbers content=content}}
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th class="col-xs-4">Name</th>
+            <th class="col-xs-4">Company</th>
+            <th class="col-xs-1">Prefix</th>
+            <th class="col-xs-1">Total Length</th>
+            <th class="col-xs-2">Range</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each rule in model}}
+            {{#link-to 'account-alias-rules.index.view' rule.id tagName='tr' class='list-link'}}
+                <td class="valign-middle">{{rule.str_name}}</td>
+                <td class="valign-middle">
+                    {{#if rule.company}}
+                        {{rule.company.name}}<br/>
+                        XYZ{{rule.company.account_number}}
+                    {{/if}}
+                </td>
+                <td class="valign-middle">
+                    {{rule.prefix}}
+                </td>
+                <td class="valign-middle">
+                    {{rule.total_length}}
+                </td>
+                <td class="valign-middle">
+                    {{#if rule.range_min}}
+                        Min: {{rule.range_min}}<br/>
+                    {{/if}}
+
+                    {{#if rule.range_max}}
+                        Max: {{rule.range_max}}
+                    {{/if}}
+                </td>
+            {{/link-to}}
+        {{/each}}
+        </tbody>
+    </table>
+    {{page-numbers content=content}}
+</div>

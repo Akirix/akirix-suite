@@ -1,0 +1,38 @@
+{{#email-wrapper}}
+    {{> header title="{{@root.wire.type}} W-{{@root.wire_name}} Created"}}
+    {{#email-content}}
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="text-align:center;">
+            <tbody>
+
+            {{#row}}A wire has been created for {{@root.company.name}} XYZ{{@root.company.account_number}}.{{/row}}
+            {{spacer}}
+            {{#row}}
+                <span style="font-size:24px;line-height:24px;font-weight:bold;letter-spacing:1px;">
+                Amount: {{{@root.currency.symbol}}}{{@root.wire.amount}}
+                </span>
+            {{/row}}
+            {{spacer}}
+
+            <tr>
+                <td align="center">
+
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%"
+                           style="text-align:left; width: 360px;">
+                        <tbody>
+                        <tr>
+                            <td><strong>Bank Country:</strong></td>
+                            <td>{{@root.wire.bank_country}}</td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+
+                </td>
+            </tr>
+
+            {{sign-off}}
+            </tbody>
+        </table>
+    {{/email-content}}
+    {{> footer}}
+{{/email-wrapper}}

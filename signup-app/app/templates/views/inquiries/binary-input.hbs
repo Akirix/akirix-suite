@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="col-sm-8 form-group">
+        {{view.inquiry.question}}
+        {{#if view.inquiry.help_text}}
+            {{qtip-element
+                    qtipContent=view.inquiry.help_text
+                    label="<i class=\"fa fa-question-circle helpIcon\"></i>"
+                    class="display_inline"
+                    at="bottom center"
+                    my="top left"
+            }}
+        {{/if}}
+    </div>
+    <div class="col-sm-4 form-group">
+        <div class="radio-answer text-right">
+            <div class="has-feedback question-wrapper">
+                <label class="btn btn-default control-label">
+                    Yes
+                    {{radio-button value="Yes" checked=view.answer}}
+                </label>
+                {{validation-feedback errors=view.errors.answer validated=view.submitted}}
+            </div>
+            &nbsp;
+            <div class="has-feedback question-wrapper">
+                <label class="btn btn-default control-label">
+                    No
+                    {{radio-button value="No" checked=view.answer}}
+                </label>
+                {{validation-feedback errors=view.errors.answer validated=view.submitted}}
+            </div>
+        </div>
+    </div>
+</div>

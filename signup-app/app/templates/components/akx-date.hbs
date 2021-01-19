@@ -1,0 +1,18 @@
+{{view 'select'
+prompt="Year"
+value=year
+class="form-control year"
+content=years}}
+{{view 'select'
+prompt="Month"
+value=month
+class="form-control month"
+content=months
+optionValuePath="content.number"
+optionLabelPath="content.name"}}
+{{view 'select'
+prompt="Day"
+value=day
+class="form-control day"
+disabled=dayDisabled
+content=days}}

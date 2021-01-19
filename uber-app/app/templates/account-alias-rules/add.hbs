@@ -1,0 +1,69 @@
+{{#akx-form action='createRule' isLocked=isLocked}}
+    <div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+        <div class="pane-secondary-content">
+            <div class="row">
+                <div class="form-group col-xs-6 has-feedback">
+                    <label>Company</label>
+                    {{view 'validate-company' company_id=model.company_id content=model.company}}
+                </div>
+                <div class="form-group col-xs-6 has-feedback">
+                    <label>Wire Instruction</label>
+                    {{view 'select' value=model.wire_instruction_id 
+                    	content=wireInstructions 
+                    	prompt='Select Type' 
+                        optionValuePath='content.id' 
+                        optionLabelPath='content.bank_name' class='form-control'}}
+                    {{validation-feedback errors=errors.model.wire_instruction validated=validated}}
+                </div>
+            </div>
+
+            <div class="row top-buffer">
+                <div class="form-group col-xs-6 has-feedback">
+                    <label>Prefix</label>
+                    {{input value=model.prefix class='form-control'}}
+                    {{validation-feedback errors=errors.model.prefix validated=validated}}
+                </div>
+
+                <div class="form-group col-xs-6 has-feedback">
+                    <label>Total Length</label>
+                    {{input value=model.total_length class='form-control'}}
+                    {{validation-feedback errors=errors.model.total_length validated=validated}}
+                </div>
+            </div>
+
+            <div class="row top-buffer">
+
+                <div class="form-group col-xs-6 has-feedback">
+                    <label>Min</label>
+                    {{input value=model.range_min class='form-control'}}
+                    {{validation-feedback errors=errors.model.range_min validated=validated}}
+                </div>
+
+                <div class="form-group col-xs-6 has-feedback">
+                    <label>Max</label>
+                    {{input value=model.range_max class='form-control'}}
+                    {{validation-feedback errors=errors.model.range_max validated=validated}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="viewport viewport-bottom navbar-toolbar">
+        <div class="pane-actions">
+            <ul class="list-h">
+                <li>
+                    <button class="btn btn-default btn-sm navbar-secondary-btn" {{action 'goBack'}}>
+                        Cancel
+                    </button>
+                </li>
+            </ul>
+
+            <ul class="list-h pull-right">
+                <li>
+                    <button class="btn btn-primary btn-sm navbar-secondary-btn" type="submit">
+                        Add
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+{{/akx-form}}

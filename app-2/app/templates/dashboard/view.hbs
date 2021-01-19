@@ -1,0 +1,71 @@
+<div class="side-panel-content">
+    <fieldset class="akx-fieldset">
+        <legend align="center">{{account.currency_id}} {{stringList.title}}</legend>
+    </fieldset>
+    {{#if filteredInstructions}}
+        {{#each filteredInstructions as |instruction|}}
+          {{akx-bootstrap-card
+            tagName=""
+            companyAkxNumber=getCompanyAkxNumber
+            companyName=getCompanyName
+            stringList=stringList
+            instruction=instruction}}
+        {{/each}}
+        {{#akx-form action='sendInstructions' isLocked=isLocked classNames='mt-5'}}
+            <div class="row">
+                <div class="col-6 form-group bmd-form-group has-feedback">
+                    <label class="bmd-label-floating">{{stringList.associates}}</label>
+                    {{input value=changeset.name type='text' class='form-control'}}
+                    {{validation-feedback errors=changeset.error.name.validation}}
+                </div>
+                <div class="col-6 form-group bmd-form-group has-feedback">
+                    <label class="bmd-label-floating">{{stringList.companyName}}</label>
+                    {{input value=changeset.company_name type='text' class='form-control'}}
+                    {{validation-feedback errors=changeset.error.company_name.validation}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 form-group bmd-form-group has-feedback">
+                    <label class="bmd-label-floating">{{stringList.recipient}}</label>
+                    {{input value=changeset.email type='text' class='form-control'}}
+                    {{validation-feedback errors=changeset.error.email.validation}}
+                </div>
+            </div>
+            <div class="mt-2 text-center">
+                <button class="btn btn-primary" type="submit">{{stringList.share}}</button>
+            </div>
+        {{/akx-form}}
+    {{else}}
+        <div>
+            <div class="row border-bottom py-2">
+                <div class="col-lg-6 text-right">
+                    <strong>{{stringList.office}}:</strong>
+                </div>
+                <div class="col-lg-6">+1 8013054300</div>
+            </div>
+            <div class="row border-bottom py-2">
+                <div class="col-lg-6 text-right">
+                    <strong>{{stringList.supportEmail}}:</strong>
+                </div>
+                <div class="col-lg-6">support@acme.com</div>
+            </div>
+            <div class="row border-bottom py-2">
+                <div class="col-lg-6 text-right">
+                    <strong>{{stringList.relationshipManager}}:</strong>
+                </div>
+                <div class="col-lg-6"></div>
+            </div>
+            <div class="row border-bottom py-2">
+                <div class="col-lg-6 text-right">
+                    <strong>{{stringList.supportEmail}}:</strong>
+                </div>
+                <div class="col-lg-6">support@acme.com</div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-12">
+                    <p>{{stringList.helpParagraph}}</p>
+                </div>
+            </div>
+        </div>
+    {{/if}}
+</div>

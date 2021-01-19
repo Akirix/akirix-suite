@@ -1,0 +1,11 @@
+<div class="side-panel-content">
+    <header class="akx-header">
+        <span>{{stringList.nodeDocuments}}</span>
+    </header>
+    {{#unless model.docs}}
+        <h5 class="text-center">{{stringList.noDocs}}</h5>
+    {{/unless}}
+    <div class="mt-5">
+        {{upload-document model='node' model_id=model.node.id documents=model.docs}}
+    </div>
+</div>

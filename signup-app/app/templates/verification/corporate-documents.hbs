@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="col-xs-12 border-bottom bottom-buffer">
+        <h3 class="negative-margin title">
+            {{documentType.display_name}}
+            {{qtip-element
+                    qtipContent=documentType.help_text
+                    label="<i class=\"fa fa-question-circle\"></i>"
+                    class="document-help-icon"
+                    at="bottom center"
+                    my="top left"
+                    x=-3
+                    y=-6}}
+        </h3>
+    </div>
+    <p class="text-muted">Please provide documents indicating the entity type of <strong>{{company.entity_type}}</strong> and company number <strong>{{company.company_number}}</strong>.</p>
+    <div class="col-xs-12 form-group">
+        {{view 'file-list'}}
+    </div>
+    <div class="col-xs-12 form-group">
+        {{#unless hasExemption}}
+            {{#if isValid}}
+                {{view 'document-upload'}}
+            {{/if}}
+        {{/unless}}
+    </div>
+</div>
+{{#if stepComplete}}
+    <div class="row">
+        <div class="col-xs-8 center-column form-group">
+            <button {{action 'nextStep'}}>Continue</button>
+        </div>
+    </div>
+{{/if}}

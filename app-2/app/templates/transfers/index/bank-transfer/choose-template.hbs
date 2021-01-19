@@ -1,0 +1,32 @@
+<header id="section-header" class="akx-header">
+    <span>{{stringList.templateTitle}}</span>
+</header>
+{{#filter-content
+    model=sortedTemps
+    properties=templateProps
+    as |items|}}
+    <div class="row">
+        <div class="col-lg-8 m-auto">
+            <table name="tbl-template-select" class="table table-hover text-center">
+                <thead class="pointer ">
+                    <tr name="without-template" {{action 'withoutTemplate'}}
+                        id={{if changeset.template_id 'without' ''}}
+                        class={{if changeset.template_id "without" "without chosen"}}>
+                        <th>{{stringList.noTemplate}}</th>
+                    </tr>
+                </thead>
+                {{#akx-select
+                    name="tbl-template-select"
+                    value=changeset.template_id
+                    choices=items as |template key|}}
+                    <td name="tbl-template-select-col-name-{{key}}" {{action 'useTemplate' template.id}}>
+                        {{template.getName}}
+                    </td>
+                {{/akx-select}}
+            </table>
+        </div>
+    </div>
+    <div class="mt-5 text-center">
+        {{validation-feedback errors=changeset.error.selected.validation}}
+    </div>
+{{/filter-content}}

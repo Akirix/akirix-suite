@@ -1,0 +1,70 @@
+<div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+    <div class="pane-secondary-content">
+        <fieldset>
+            <legend>
+                <span>New Ticket</span>
+            </legend>
+
+            <div class="row">
+                <div class="form-group col-md-12 required has-feedback">
+                    <label>Title</label>
+                    {{input value=ticket.title type='text' class='form-control' placeholder='Give the ticket a title'}}
+                    {{validation-feedback errors=errors.ticket.title validated=validated}}
+                </div>
+            </div>
+            <div class="row top-buffer">
+                <div class="form-group col-md-6 required has-feedback">
+                    <label>Priority</label>
+                    {{view 'select'
+                    value=ticket.priority
+                    content=priorityArray
+                    optionValuePath='content.val'
+                    optionLabelPath='content.label'
+                    prompt='Select Priority Level'
+                    class='form-control'}}
+                    {{validation-feedback errors=errors.ticket.priority validated=validated}}
+                </div>
+                <div class="form-group col-md-6 required has-feedback">
+                    <label>Assign To</label>
+                    {{view 'select'
+                    value=ticket.uber_user_id
+                    content=uberUsers
+                    optionValuePath='content.id'
+                    optionLabelPath='content.first_name'
+                    prompt='Select Uber User'
+                    class='form-control'}}
+                    {{validation-feedback errors=errors.ticket.uber_user_id validated=validated}}
+                </div>
+            </div>
+
+            <div class="row top-buffer">
+                <div class="form-group col-md-12 required has-feedback">
+                    <label>Message</label>
+                    <span class="help-block"></span>
+                    {{textarea value=ticket.notes class='form-control' rows='3' placeholder='Enter in descriptive message with your question, comment or concern.'}}
+                    {{validation-feedback errors=errors.ticket.notes validated=validated}}
+                </div>
+            </div>
+            <div class="row col-md-6">
+                {{view 'upload-client-document' documents=documents model='ticket-message' company_id=ticket.company_id}}
+            </div>
+        </fieldset>
+    </div>
+</div>
+<div class="viewport viewport-bottom navbar-toolbar">
+    <div class="pane-actions">
+        <ul class="list-h">
+            <li>
+                <button {{action 'goBack'}} class="btn btn-default navbar-secondary-btn" type="button">Cancel
+                </button>
+            </li>
+        </ul>
+        <ul class="list-h pull-right">
+            <li>
+                <button {{action 'createTicket'}} class="btn btn-primary navbar-secondary-btn" type="submit">
+                    Create
+                </button>
+            </li>
+        </ul>
+    </div>
+</div>

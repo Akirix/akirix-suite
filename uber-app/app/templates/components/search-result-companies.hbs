@@ -1,0 +1,77 @@
+<div class="col-xs-12">
+    <legend>
+        {{itemName}}
+    </legend>
+    {{#if items}}
+        <div class="pagination-centered">
+            <ul class="pagination">
+                {{#if canStepBackward}}
+                    <li class="arrow prev enabled-arrow">
+                        <a {{action "incrementPage" -1}}>&laquo;</a>
+                    </li>
+                {{else}}
+                    <li class="arrow prev disabled">
+                        <a {{action "incrementPage" -1}}>&laquo;</a>
+                    </li>
+                {{/if}}
+
+                {{#each item in pageItems}}
+                    {{#if item.current}}
+                        <li class="active page-number">
+                            <a>{{item.page}}</a>
+                        </li>
+                    {{else}}
+                        <li class="page-number">
+                            <a {{action "pageClicked" item.page}}>{{item.page}}</a>
+                        </li>
+                    {{/if}}
+                {{/each}}
+
+                {{#if canStepForward}}
+                    <li class="arrow next enabled-arrow">
+                        <a {{action "incrementPage" 1}}>&raquo;</a>
+                    </li>
+                {{else}}
+                    <li class="arrow next disabled">
+                        <a {{action "incrementPage" 1}}>&raquo;</a>
+                    </li>
+                {{/if}}
+            </ul>
+        </div>
+    {{/if}}
+    <div>
+        <table class="table table-hover" id="companies">
+            {{#if items}}
+                <thead>
+                <tr>
+                    <th class="col-xs-1">Account Number</th>
+                    <th>Name</th>
+                    <th class="col-xs-1 text-center">Country</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#each item in items}}
+                    {{#link-to 'companies.view' item.id tagName='tr' class='pointer'}}
+                        <td class="valign-middle">
+                            XYZ{{item.account_number}}
+                        </td>
+                        <td class="valign-middle large">
+                            {{company-status-icon item.status}} {{item.name}}
+                        </td>
+                        <td class="text-center">
+                            {{country-flag item.country}}
+                        </td>
+                    {{/link-to}}
+                {{/each}}
+                </tbody>
+            {{else}}
+                <tbody>
+                <tr class="borderless">
+                    <td class="text-center text-muted"><h5>No Results</h5></td>
+                </tr>
+                </tbody>
+            {{/if}}
+        </table>
+    </div>
+</div>
+

@@ -1,0 +1,38 @@
+<div class="side-panel-content">
+    <header class="akx-header">
+        <span>{{stringList.returnFunds}}</span>
+    </header>
+    <div class="text-center mt-5">
+        <h3 class="no-margin">{{format-number model.points_left style='currency' currency=model.currency_id}}</h3>
+        <p>{{stringList.fundsAvailable}}</p>
+    </div>
+    {{#akx-form}}
+        <div class="row">
+            <div class="col-6 m-auto form-group bmd-form-group has-feedback">
+                <label class="bmd-label-floating">{{stringList.amount}}</label>
+                {{akx-format-number realValue=changeset.amount type='text' class='form-control'}}
+                {{validation-feedback errors=changeset.error.amount.validation}}
+            </div>
+        </div>
+    {{/akx-form}}
+    {{#if success}}
+        <div class="row text-center mt-5">
+            <div class="col-lg-4 col-md-8 col-sm-10 m-auto text-success">
+                <i class="akx-icon akx-edit-check font-h2"></i>
+                <p class="font-h2">{{stringList.success}}</p>
+                <p>{{stringList.successMessage}}</p>
+            </div>
+        </div>
+    {{/if}}
+</div>
+{{#unless success}}
+    <div class="action-footer">
+        <div class="row py-2">
+            <div class="col-12 text-center">
+                <button {{action 'returnFunds'}} class="btn btn-primary" type="button">
+                    {{stringList.returnFunds}}
+                </button>
+            </div>
+        </div>
+    </div>
+{{/unless}}

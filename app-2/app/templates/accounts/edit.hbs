@@ -1,0 +1,44 @@
+<div class="side-panel-content">
+    <header class="akx-header">
+        <span>{{stringList.header}}</span>
+    </header>
+    {{#akx-form name="frm-account-edit" action=''}}
+        <div class="row mt-5">
+            <div class="col-8 m-auto">
+                <div id="grp-account-name" class="form-group bmd-form-group has-feedback">
+                    <label for="input-account-name" class="bmd-label-floating">{{stringList.name}}</label>
+                    {{input
+                        type='text'
+                        name="input-account-name"
+                        value=changeset.name
+                        class='form-control'
+                        disabled=success}}
+                    {{validation-feedback errors=changeset.error.name.validation}}
+                </div>
+            </div>
+        </div>
+    {{/akx-form}}
+    {{#if success}}
+        <div class="row text-center mt-5">
+            <div class="col-lg-4 col-md-8 col-sm-10 m-auto text-success">
+                <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                    <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                    <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                </svg>
+                <p class="font-h2">{{stringList.success}}</p>
+                <p>{{stringList.successMessage}}</p>
+            </div>
+        </div>
+    {{/if}}
+</div>
+{{#unless success}}
+    <div class="action-footer">
+        <div class="row py-2">
+            <div class="col-12 text-center">
+                <button {{action 'save'}} id="btn-save-account-edit" class="btn btn-primary" type="button">
+                    {{stringList.save}}
+                </button>
+            </div>
+        </div>
+    </div>
+{{/unless}}

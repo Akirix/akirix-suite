@@ -1,0 +1,34 @@
+<table class="table table-high table-hover">
+    <thead>
+    <tr>
+        <th class="col-xs-1">Date</th>
+        <th class="col-xs-2">Ticket Number</th>
+        <th class="col-xs-6">Title</th>
+        <th class="col-xs-1">Status</th>
+        <th class="col-xs-2">User</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each ticket in model}}
+        {{#link-to 'mine.tickets.view' ticket.id tagName='tr' class='list-link'}}
+            <td class="small valign-middle">
+                <strong>{{ticket.str_created_at_date}}</strong>
+            </td>
+            <td class="valign-middle">
+                {{priority-icon ticket.priority}} {{ticket.name}}
+            </td>
+            <td class="valign-middle">
+                <span class="medium"> {{ticket.title}}</span><br/>
+                <span class="small"><i
+                        class="fa fa-building fa-fw"></i> XYZ{{ticket.company.account_number}} {{ticket.company.name}}</span>
+            </td>
+            <td class="valign-middle">
+                {{ticket-status-icon ticket.status}}
+            </td>
+            <td class="valign-middle">
+                {{ticket.uberUser.name}}
+            </td>
+        {{/link-to}}
+    {{/each}}
+    </tbody>
+</table>

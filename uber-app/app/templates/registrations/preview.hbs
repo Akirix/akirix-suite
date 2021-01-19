@@ -1,0 +1,99 @@
+<div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+    {{slide-task-list model='registration' model_id=model._id}}
+    <div class="pane-secondary-content">
+        <div class="row">
+            <div class="col-xs-12">
+                {{#link-to 'registrations.view.info' model._id tagName="legend" class="link"}}{{{registration-name model}}}{{/link-to}}
+            </div>
+        </div>
+
+        {{#if exceptions}}
+            {{#each except in exceptions}}
+                <div class="panel panel-default">
+                    <div class="panel-heading text-center pointer" data-toggle="collapse" data-target="#{{except.id}}">
+                        {{#if except.isPending}}
+                            <div style="position:relative">
+                                EXCEPTION
+                            </div>
+                        {{else}}
+                            <div class="text-rose" style="position:relative">
+                                CONFIRMED
+                            </div>
+                        {{/if}}
+                    </div>
+                    <div class="bg-warning panel-body">
+                        <div id="{{except.id}}" class="collapse">
+                            <div class="exception" style="width:100%">
+                                {{pretty-json jsonObj=except.raw_data}}
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>Reason</label>
+                                {{#if except.isPending}}
+                                    {{textarea value=except.reason class='form-control' rows='3'}}
+                                {{else}}
+                                    {{textarea value=except.reason class='form-control' rows='3' disabled='disabled'}}
+                                {{/if}}
+                            </div>
+                            {{#if except.isPending}}
+                                <ul class="list-h">
+                                    <li>
+                                        {{view 'modal-confirmation'
+                                               class='btn btn-warning btn-sm navbar-secondary-btn'
+                                               button='Accept'
+                                               action='accept'
+                                               headerTitle='Confirm Hit'
+                                               actionContext=except
+                                               prompt='Are you sure you want to confirm this hit?'
+                                        }}
+                                    </li>
+                                    <li>
+                                        {{view 'modal-confirmation'
+                                               class='btn btn-success btn-sm navbar-secondary-btn'
+                                               button='Reject'
+                                               action='reject'
+                                               headerTitle='Reject Hit'
+                                               actionContext=except
+                                               prompt='Are you sure you want to reject this hit?'
+                                        }}
+                                    </li>
+                                </ul>
+                            {{/if}}
+                        </div>
+                        <div class="text-gray-light align-center pointer" data-toggle="collapse"
+                             data-target="#{{except.id}}"> Click To Toggle Exceptions
+                        </div>
+                    </div>
+                </div>
+            {{/each}}
+        {{/if}}
+    </div>
+</div>
+<div class="viewport viewport-bottom navbar-toolbar">
+    <div class="pane-actions">
+        <ul class="list-h">
+        </ul>
+
+        <ul class="list-h pull-right">
+            {{#if showArchiveButton}}
+                <li>
+                    {{view 'modal-confirmation'
+                           class='btn btn-warning btn-sm navbar-secondary-btn'
+                           button='Archive'
+                           action='markArchived'
+                           headerTitle='Are you sure?'
+                    }}
+                </li>
+            {{/if}}
+            {{#if showInProgressButton}}
+                <li>
+                    {{view 'modal-confirmation'
+                           class='btn btn-default btn-sm navbar-secondary-btn'
+                           button='Re-Open'
+                           action='markInProgress'
+                           headerTitle='Are you sure?'
+                    }}
+                </li>
+            {{/if}}
+        </ul>
+    </div>
+</div>

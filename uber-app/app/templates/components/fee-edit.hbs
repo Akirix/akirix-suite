@@ -1,0 +1,18 @@
+<td class="text-gray medium valign-middle">{{fee.name}}</td>
+<td class="valign-middle has-feedback required">
+    {{input value=fee.value type='text' class='form-control'}}
+    {{validation-feedback errors=errors.fee.value validated=validated}}
+</td>
+<td class="small valign-middle has-feedback required">
+    {{view 'select'
+    value=fee.type
+    content=types
+    optionValuePath='content.name'
+    optionLabelPath='content.name'
+    class='form-control'
+    }}
+    {{validation-feedback errors=errors.fee.type validated=validated}}
+</td>
+<td>
+    <button {{action 'save'}} class="btn btn-success">Save</button>
+</td>

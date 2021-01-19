@@ -1,0 +1,46 @@
+{{#akx-form action='createAccount' isLocked=isLocked}}
+    <div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+        <div class="pane-secondary-content">
+            <div id="account" class="row">
+                <div class="col-xs-12">
+                    <legend>
+                        New Account
+                    </legend>
+                </div>
+                <div class="form-group col-xs-6">
+                    <label>Name</label>
+                    {{input value=account.name type='name' class='form-control' placeholder='Account Name'}}
+                </div>
+                <div class="form-group col-md-5 required has-feedback">
+                    <label>Currency</label>
+                    {{view 'select'
+                           value=account.currency_id
+                           content=currencies
+                           optionValuePath='content.id'
+                           optionLabelPath='content.name'
+                           prompt='Select a currency'
+                           class='form-control'}}
+                    {{validation-feedback errors=errors.account.currency_id validated=validated}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="viewport viewport-bottom navbar-toolbar">
+        <div class="pane-actions">
+            <ul class="list-h">
+                <li>
+                    <button class="btn btn-default btn-sm navbar-secondary-btn" {{action 'goBack'}}>
+                        Cancel
+                    </button>
+                </li>
+            </ul>
+            <ul class="list-h pull-right">
+                <li>
+                    <button class="btn btn-primary btn-sm navbar-secondary-btn" type="submit">
+                        Add
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+{{/akx-form}}

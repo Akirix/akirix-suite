@@ -1,0 +1,160 @@
+{{#if model.projects}}
+    <div class="d-flex align-items-end">
+        <h2>{{stringList.header}}</h2>
+        <span class="header-add">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+        <span class="header-add">
+            {{#link-to 'authenticated.projects.view.add' 'newProject' 
+                id="btn-start-project"
+                tagName='button' 
+                class='btn btn-sm btn-success font-weight-bolder'}}
+                {{stringList.addProject}}
+            {{/link-to}}
+        </span>
+    </div>
+    {{akx-pagination 
+        page=page
+        perPage=perPage
+        meta=model.projects.meta
+        action='refresh'}}
+    <table id="tbl-projects" class="table table-hover th-sticky mt-3">
+        <thead class="thead-light">
+            <tr>
+                <th style="width:10%">{{stringList.date}}</th>
+                <th style="width:20%">{{stringList.name}}</th>
+                <th style="width:5%">{{stringList.type}}</th>
+                <th style="width:30%" class="text-right">{{stringList.tableHead1}}</th>
+                <th style="width:30%" class="text-right">{{stringList.tableHead2}}</th>
+                <th style="width:5%"></th>
+            </tr>
+        </thead>
+        <tbody>
+        {{#each model.projects as |project key|}}
+            {{#if project.node.isInvited}}
+                {{#link-to 'authenticated.projects.view-invitation' project.id project.node.id 
+                    id=(concat "project-row-" key)
+                    class="invitation"
+                    tagName='tr'}}
+                    <td id="project-col-created-{{key}}">
+                        {{format-date project.created_at}}<br>
+                    </td>
+                    <td id="project-col-name-{{key}}">
+                        <p>P-{{project.name}}</p>
+                        <strong>{{project.node.name}}</strong>
+                    </td>
+                    <td id="project-col-type-{{key}}">
+                        {{project.strType}}
+                    </td>
+                    <td id="project-col-invite-{{key}}">
+                        {{#if project.bnode}}
+                            {{project.bnode.company.name}}
+                        {{else}}
+                            {{#each project.snodes as |node|}}
+                                {{node.company.name}}
+                            {{/each}}
+                        {{/if}}
+                        has invited you to join this project.
+                    </td>
+                    <td></td>
+                    <td id="project-col-arrow-{{key}}" class="text-right text-grey">
+                        <i id="project-arrow-{{key}}" class="akx-icon akx-right"></i>
+                    </td>
+                {{/link-to}}
+            {{else}}
+                {{#link-to 'authenticated.projects.view' project.id 
+                    id=(concat "project-row-" key) 
+                    invite=false
+                    tagName='tr'}}
+                    <td id="project-col-created-{{key}}">
+                        {{format-date project.created_at}}<br>
+                    </td>
+                    <td id="project-col-name-{{key}}">
+                        <p>P-{{project.name}}</p>
+                        <strong>{{project.node.name}}</strong>
+                    </td>
+                    <td id="project-col-type-{{key}}">
+                        {{project.strType}}
+                    </td>
+                    <td id="project-col-buyer-{{key}}" class="text-right">
+                        {{#if project.bnode}}
+                            <p>{{project.bnode.company.name}}</p>
+                            <strong class="text-success">
+                                {{format-number
+                                    project.node.points_total
+                                    style='currency'
+                                    currency=project.currency_id}}
+                            </strong>
+                        {{else if project.canAddBuyer}}
+                            {{#link-to 'authenticated.projects.view.add-buyer' project.id
+                                id=(concat "btn-add-buyer-" key)
+                                class='akx-button'
+                                type='button'
+                                tagName='button'
+                                bubbles=false}}
+                                <span class="dark-blue">{{stringList.addBuyer}}</span>
+                            {{/link-to}}
+                        {{else}}
+                            <p>No Buyer</p>
+                            <strong class="text-success">
+                                {{format-number
+                                    0.00
+                                    style='currency'
+                                    currency=project.currency_id}}
+                            </strong>
+                        {{/if}}
+                    </td>
+                    <td id="project-col-supplier-{{key}}" class="text-right">
+                        {{#if project.manySnodes}}
+                            <p>{{stringList.manySuppliers}}</p>
+                            <strong class="text-danger">
+                                {{format-number project.points_out style='currency' currency=project.currency_id}}
+                            </strong>
+                        {{else}}
+                            {{#if project.snodes}}
+                                {{#each project.snodes as |node|}}
+                                    <p>{{node.company.name}}</p>
+                                {{/each}}
+                                <strong class="text-danger">
+                                    {{format-number project.points_out style='currency' currency=project.currency_id}}
+                                </strong>
+                            {{else if project.canAddSupplier}}
+                                {{#link-to 'authenticated.projects.view.add-supplier' project.id
+                                    id=(concat "btn-add-supplier-" key)
+                                    class='akx-button'
+                                    type='button'
+                                    tagName='button'
+                                    bubbles=false}}
+                                    <span class="dark-blue">{{stringList.addSupplier}}</span>
+                                {{/link-to}}
+                            {{else}}
+                                <p>No Suppliers</p>
+                                <strong class="text-danger">
+                                    {{format-number
+                                        0.00
+                                        style='currency'
+                                        currency=project.currency_id}}
+                                </strong>
+                            {{/if}}
+                        {{/if}}
+                    </td>
+                    <td id="project-col-arrow-{{key}}" class="text-right text-grey">
+                        <i id="project-arrow-{{key}}" class="akx-icon akx-right"></i>
+                    </td>
+                {{/link-to}}
+            {{/if}}
+        {{/each}}
+        </tbody>
+    </table>
+{{else}}
+    <div class="empty-data">
+        <div class="text-center col-lg-4">
+            <i class="akx-icon akx-projects"></i>
+            <p>{{stringList.noData}}</p>
+            {{#link-to 'authenticated.projects.view.add' 'newProject'
+                id="btn-start-project"
+                tagName='button'
+                class='btn btn-success font-weight-bolder'}}
+                {{stringList.new}}
+            {{/link-to}}
+        </div>
+    </div>
+{{/if}}

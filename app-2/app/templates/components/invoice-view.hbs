@@ -1,0 +1,139 @@
+<header class="akx-header">
+    <span class="text-primary">I-{{model.invoice.name}}</span>
+</header>
+{{!-- From Company --}}
+<div class="row text-center">
+    <div class="col-12">
+        <h3>{{model.fromCompany.name}}</h3>
+        <p>XYZ {{model.fromCompany.account_number}}</p>
+    </div>
+    <div class="col-6 m-auto">
+        <p>
+            {{model.fromCompany.address}}
+            {{model.fromCompany.city}}
+            {{find-state model.fromCompany.state_province model.states model.fromCompany.country}}
+            {{model.fromCompany.postal_code}}
+            {{find-country model.fromCompany.country model.countries}}
+        </p>
+    </div>
+</div>
+{{!-- To Company --}}
+<div class="row my-4">
+    <div class="col-6">
+        <p class="font-h4">{{model.toCompany.name}}</p>
+        {{#unless model.invoice.isExternalInvoice}}
+            <p>XYZ {{model.toCompany.account_number}}</p>
+        {{/unless}}
+        <p>
+            {{model.toCompany.address}}
+            {{model.toCompany.city}}
+            {{find-state model.toCompany.state_province model.states model.toCompany.country}}
+            {{model.toCompany.postal_code}}
+            {{find-country model.toCompany.country model.countries}}
+        </p>
+    </div>
+    <div class="col-6">
+        <p><b>{{stringList.invoiceNumber}}</b>: {{model.invoice.name}}</p>
+        <p><b>{{stringList.invoiceDate}}</b>: {{format-date model.invoice.invoice_date timeZone='UTC'}}</p>
+        <p><b>{{stringList.invoicePeriod}}</b>: {{format-date model.invoice.invoice_period_from timeZone='UTC'}} - {{format-date model.invoice.invoice_period_to timeZone='UTC'}}</p>
+        {{#if (eq model.invoice.type 0)}}
+            <p><b>{{stringList.project}}</b> P-{{model.invoice.project.name}}</p>
+        {{/if}}
+    </div>
+</div>
+{{!-- Item Details --}}
+<h3>{{stringList.itemTitle}}</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>{{stringList.invoiceItemHeader1}}</th>
+            <th>{{stringList.invoiceItemHeader2}}</th>
+            <th class="text-right">{{stringList.invoiceItemHeader3}}</th>
+            <th class="text-right">{{stringList.invoiceItemHeader4}}</th>
+        </tr>
+    </thead>
+    <tbody>
+    {{#each model.invoice_items as |item|}}
+        <tr>
+            <td>{{item.name}}</td>
+            <td class="text-center">{{item.quantity}}</td>
+            <td class="text-right">{{format-number item.price style='currency' currency=model.invoice.currency_id}}</td>
+            <td class="text-right">{{format-number item.total style='currency' currency=model.invoice.currency_id}}</td>
+        </tr>
+    {{/each}}
+    </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="3" class="text-right small-padding">
+            <b>{{stringList.subTotal}}:</b>
+        </td>
+        <td class="text-right small-padding">
+            {{format-number sub_total style='currency' currency=model.invoice.currency_id}}
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" class="text-right small-padding">
+            <b>{{stringList.taxRate}}({{model.invoice.tax_rate}}%):</b>
+        </td>
+        <td class="text-right small-padding">
+            {{format-number  tax style='currency' currency=model.invoice.currency_id}}
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" class="text-right small-padding">
+            <b class="font-h4">{{stringList.invoiceTotal}}:</b>
+        </td>
+        <td class="text-right small-padding">
+            <b class="font-h4">{{format-number total style='currency' currency=model.invoice.currency_id}}</b>
+        </td>
+    </tr>
+    </tfoot>
+</table>
+{{!-- Payment History --}}
+{{#if model.transactions}}
+    <h3 class="mt-5">{{stringList.paymentTitle}}</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th width="80%">{{stringList.datePaid}}</th>
+                <th class="text-right">{{stringList.amount}}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {{#each model.transactions as |invTran|}}
+            {{#if invTran.isNotFee}}
+                <tr>
+                    <td>{{format-date invTran.created_at}}</td>
+                    <td class="text-right">{{format-number invTran.amount style='currency' currency=model.invoice.currency_id}}</td>
+                </tr>
+            {{/if}}
+        {{/each}}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td class="text-right">
+                    <b class="font-paragraph small-padding">{{stringList.paid}}:</b>
+                </td>
+                <td class="text-right small-padding">
+                    {{format-number amountPaid style='currency' currency=model.invoice.currency_id}}
+                </td>
+            </tr>
+            <tr>
+                <td class="text-right small-padding">
+                    <b class="font-h4">{{stringList.remaining}}:</b>
+                </td>
+                <td class="text-right small-padding">
+                    <b class="font-h4">{{format-number model.invoice.remaining_amount style='currency' currency=model.invoice.currency_id}}</b>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-right small-padding">
+                    <b class="font-paragraph">{{stringList.fee}}:</b>
+                </td>
+                <td class="text-right small-padding">
+                    {{format-number amountFee style='currency' currency=model.invoice.currency_id}}
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+{{/if}}

@@ -1,0 +1,65 @@
+@font-face {
+    font-family: 'xrk-icons';
+    src:  url('/fonts/icomoon.eot?');
+    src:  url('/fonts/icomoon.eot?') format('embedded-opentype'),
+    url('/fonts/icomoon.ttf?') format('truetype'),
+    url('/fonts/icomoon.woff?') format('woff'),
+    url('/fonts/icomoon.svg?x8b7dd#xrk-icons') format('svg');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  .xrk-icon {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'xrk-icons' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+  
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  .xrk-agreement:before {
+    content: "\e900";
+  }
+  
+  .xrk-basic:before {
+    content: "\e901";
+  }
+  
+  .xrk-completion:before {
+    content: "\e902";
+  }
+  
+  .xrk-owners:before {
+    content: "\e903";
+  }
+  
+  .xrk-questionnaire:before {
+    content: "\e904";
+  }
+  
+  .xrk-edit:before {
+    content: "\e905";
+  }
+
+  .xrk-log-out:before {
+    content: "\e913";
+  }
+  
+  .xrk-verification:before {
+    content: "\e90d";
+  }
+
+  .xrk-document:before {
+    content: "\e92d";
+  }
+
+  .xrk-rejected:before {
+    content: "\e924";
+  }

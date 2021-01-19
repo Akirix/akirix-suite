@@ -1,0 +1,14 @@
+<div class="row">
+    <div class="col-sm-8 form-group">
+        {{inquiry.question}}
+        {{#unless inquiry.required}}
+            &nbsp;<span class="optional">optional</span>
+        {{/unless}}
+    </div>
+    <div class="col-sm-4 form-group form-group has-feedback textarea-answer">
+        {{textarea
+        class="form-control"
+        value=view.answer}}
+        {{validation-feedback errors=view.errors.answer validated=view.submitted}}
+    </div>
+</div>

@@ -1,0 +1,148 @@
+<div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+    {{slide-task-list model='FXRequest' model_id=model.id company_id=model.company_id}}
+    <div class="pane-secondary-content">
+        <div class="panel panel-default">
+            <div class="panel-heading text-center">
+                <span class="text-blue bold">
+                    FX-{{model.name}}
+                </span>
+            </div>
+            <div class="panel-body">
+                <div style="height: 20px;"></div>
+                <div class="row">
+                    <div class="col-sm-4 align-center">
+                        <h3>{{{model.baseCurrency.symbol}}}{{model.str_base_amount}}</h3>
+                    </div>
+                    <div class="col-sm-4 align-center">
+                        <h1><i class="fa fa-arrow-right"></i></h1>
+                    </div>
+                    <div class="col-sm-4 align-center">
+                        <h3>{{{model.counterCurrency.symbol}}}{{model.str_counter_amount}}</h3>
+                    </div>
+                </div>
+                {{#if model.notes}}
+                    <hr>
+                    <div style="height: 10px;"></div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{model.notes}}
+                        </div>
+                    </div>
+                    <hr>
+                {{/if}}
+                <div style="height: 10px;"></div>
+                <div class="row">
+                    <div class="col-md-12 medium align-center">
+                        Total Counter Amount: {{{model.counterCurrency.symbol}}}{{model.str_total_counter_amount}}<br/>
+                        Cost Amount: {{{model.baseCurrency.symbol}}}{{model.str_cost_amount}}<br/>
+                        Customer Rate: {{model.str_customer_rate}}<br/>
+                        Base Rate: {{model.str_base_rate}}<br/>
+                        Type: {{model.str_type}}<br/>
+                    </div>
+                </div>
+                <div style="height: 20px;"></div>
+                {{#if model.isStarted}}
+                    <hr>
+                    <div class="row">
+                        <div class="form-group col-md-6 required has-feedback">
+                            <label>Debited Amount</label>
+                            {{formatted-number realValue=debitedAmount type='text' class='form-control' placeholder='Verify amount bank debited'}}
+                            {{validation-feedback errors=errors.debitedAmount validated=validated}}
+                        </div>
+                        <div class="form-group col-md-6 required has-feedback">
+                            <label>Credited Amount</label>
+                            {{formatted-number realValue=creditedAmount type='text' class='form-control' placeholder='0.00'}}
+                            {{validation-feedback errors=errors.creditedAmount validated=validated}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6 required has-feedback">
+                            <label>Reference</label>
+                            {{input value=model.reference type='text' class='form-control'
+                                    placeholder='Reference Number'}}
+                            {{validation-feedback errors=errors.model.reference validated=validated}}
+                        </div>
+                        <div class="form-group col-md-6 required has-feedback">
+                            <label>Confirmation</label>
+                            {{input value=model.confirmation type='text' class='form-control'
+                                    placeholder='Confirmation Number'}}
+                            {{validation-feedback errors=errors.model.confirmation validated=validated}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6 required has-feedback">
+                            <label>Deposit Into Account</label>
+                            {{view 'select'
+                                   value=model.to_account_id
+                                   content=accountsAvailable
+                                   optionValuePath='content.id'
+                                   optionLabelPath='content.str_long_name'
+                                   prompt='Add New Account'
+                                   class='form-control'}}
+                            {{validation-feedback errors=errors.model.to_account_id validated=validated}}
+                        </div>
+                        {{#unless model.to_account_id}}
+                            <div class="form-group col-md-6 required has-feedback">
+                                <label>New Account Name</label>
+                                {{input value=model.account_name type='text' class='form-control'
+                                        placeholder='Confirmation Number'}}
+                                {{validation-feedback errors=errors.model.account_name validated=validated}}
+                            </div>
+                        {{/unless}}
+                    </div>
+                {{/if}}
+            </div>
+            <div class="panel-footer align-center">
+                <div><strong>Confirmation: </strong>{{model.confirmation}}</div>
+                <div><strong>Reference: </strong>{{model.reference}}</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="viewport viewport-bottom navbar-toolbar">
+    <div class="pane-actions">
+        <ul class="list-h">
+            <li>
+                <button {{action 'goBack'}} class="btn btn-default navbar-secondary-btn btn-sm" type="button">
+                    Back
+                </button>
+            </li>
+        </ul>
+        <ul class="list-h pull-right">
+            {{#if model.isStarted}}
+                <li>
+                    {{view 'modal-confirmation'
+                           class='btn btn-success btn-sm navbar-secondary-btn'
+                           button='Complete'
+                           action='completeRequest'
+                           actionContext = model.id
+                           headerTitle='Complete Request'
+                           prompt='Are you sure you want to complete this request?'
+                    }}
+                </li>
+            {{else}}
+                <li>
+                    {{view 'modal-confirmation'
+                           class='btn btn-danger btn-sm navbar-secondary-btn'
+                           button='Cancel'
+                           action='cancelFXRequest'
+                           actionContext = model.id
+                           headerTitle='Cancel FX Request'
+                           prompt='Are you sure that you would like to cancel this Foreign Exchange Request?'
+                    }}
+                </li>
+                <li>
+                    {{view 'modal-confirmation'
+                           class='btn btn-primary btn-sm navbar-secondary-btn'
+                           button='Manual Start'
+                           action='startRequest'
+                           actionContext = model.id
+                           headerTitle='Start'
+                           prompt='Are you sure you want to start processing the Foreign Exchange Request?'
+                    }}
+                </li>
+
+            {{/if}}
+        </ul>
+    </div>
+</div>

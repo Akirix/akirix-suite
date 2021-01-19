@@ -1,0 +1,33 @@
+{{#email-wrapper}}
+    {{> header title="Password Recovery"}}
+    {{#email-content}}
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="text-align:center;">
+            <tbody>
+
+            {{#row}}<span style="color: #777777;">Hello {{@root.first_name}},</span>{{/row}}
+            {{spacer}}
+
+            {{#row}}
+                <span style="color: #777777;">
+                    We received a request to your Akirix account password. To reset your password, press the "Reset Password" button below within 15 minutes.
+                </span>
+            {{/row}}
+            {{spacer size=40}}
+
+            {{#row}}
+                {{#button-link href=@root.url}}RESET PASSWORD{{/button-link}}
+            {{/row}}
+            {{spacer size=40}}
+
+            {{#row}}
+                <span style="color: #777777;">
+                    Visit the Akirix Knowledge Base for more information.
+                </span>
+            {{/row}}
+
+            {{sign-off}}
+            </tbody>
+        </table>
+    {{/email-content}}
+    {{> footer}}
+{{/email-wrapper}}

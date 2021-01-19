@@ -1,0 +1,56 @@
+<div class="navbar-secondary" role="navigation">
+</div>
+<div class="navbar-secondary navbar" role="navigation">
+    <ul class="list-h">
+        {{#link-to 'registrations.view.info' model._id tagName="li" href=false}}
+            <a {{bind-attr href="view.href"}}>
+                <i class="fa fa-child fa-fw"></i> {{{registration-name model}}}
+                {{#if model.institution}}
+                    <span style="position:absolute; left: 107px; bottom: -15px;" class="x-small">XYZ{{model.institution.account_number}} {{model.institution.name}}</span>
+                {{/if}}
+            </a>
+        {{/link-to}}
+
+        <li style="margin-left: 20px; color: #ffffff"> {{{risk-score model.riskScore}}}
+            Risk Score: {{model.riskScore}}
+        </li>
+    </ul>
+</div>
+
+<style>
+    #sticky-toolbar li {
+        position: relative;
+    }
+
+    #sticky-toolbar .status-icon {
+        position: absolute;
+        top: 0;
+        right: 0;
+        font-size: 0.5em;
+    }
+</style>
+
+<div class="pane-primary-content">
+    <div id="sticky-toolbar">
+        <ul>
+            {{#each appStep in model.sortedAppSteps}}
+                {{#link-to appStep.appRoute tagName="li" class="text-white"}}
+                    {{#if appStep.complete}}
+                        <span class="status-icon fa-stack">
+                                <i class="fa fa-circle text-green fa-stack-2x"></i>
+                                <i class="fa fa-check text-white fa-stack-1x"></i>
+                            </span>
+                    {{/if}}
+                    <i {{bind-attr class="appStep.icon"}}></i>
+                {{/link-to}}
+            {{/each}}
+            {{#link-to 'registrations.view.complete' tagName='li' class='text-white'}}
+                <i class="fa fa-flag-checkered"></i>
+            {{/link-to}}
+            {{#link-to 'registrations.view.impersonate' tagName='li' class='text-white'}}
+                <i class="fa fa-search"></i>
+            {{/link-to}}
+        </ul>
+    </div>
+    {{outlet 'registrationPrimary'}}
+</div>

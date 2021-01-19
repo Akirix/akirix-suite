@@ -1,0 +1,79 @@
+<h2 id="dashboard-title">{{stringList.header}}</h2>
+<div class="row">
+    <div class="col-lg-8">
+        <fieldset class="akx-fieldset">
+            <legend align="center">{{stringList.accounts}}</legend>
+        </fieldset>
+        <div class="dashboard-accounts">
+            <table id="tbl-dashboard-accounts" class="table table-hover">
+                <tbody>
+                    {{#each model as |account key|}}
+                        {{#link-to 'authenticated.dashboard.view' account.id 
+                            id=(concat "dashboard-accounts-row-" key) 
+                            tagName='tr'}}
+                            <td id="dashboard-accounts-col-currency-{{key}}" class="text-center">
+                                {{{account.currencySymbol}}}
+                            </td>
+                            <td id="dashboard-accounts-col-name-{{key}}">
+                                <strong>{{account.name}}</strong>
+                            </td>
+                            <td id="dashboard-accounts-col-balance-{{key}}" class="text-right">
+                                <strong>
+                                    {{format-number account.balance style='currency' currency=account.currency_id}}
+                                </strong>
+                            </td>
+                        {{/link-to}}
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+        <fieldset class="akx-fieldset">
+            <legend align="center">{{stringList.invite}}</legend>
+        </fieldset>
+        <div class="send-invite">
+            {{#akx-form name="frm-send-external-invite" action='preview' isLocked=isLocked}}
+                <div class="row">
+                    <div class="col-lg-6 has-feedback form-group bmd-form-group">
+                        <label for="input-company-name" class="bmd-label-floating">{{stringList.companyName}}</label>
+                        {{input name="input-company-name" value=changeset.company_name type='text' class="form-control"}}
+                        {{validation-feedback errors=changeset.error.company_name.validation}}
+                    </div>
+                    <div class="col-lg-6 has-feedback form-group bmd-form-group">
+                        <label for="input-associates-name" class="bmd-label-floating">{{stringList.associates}}</label>
+                        {{input name="input-associates-name" value=changeset.name type='text' class="form-control"}}
+                        {{validation-feedback errors=changeset.error.name.validation}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-9 has-feedback form-group bmd-form-group">
+                        <label for="input-recipients-email" class="bmd-label-floating">{{stringList.recipient}}</label>
+                        {{input name="input-recipients-email" value=changeset.email type='text' class="form-control"}}
+                        {{validation-feedback errors=changeset.error.email.validation}}
+                    </div>
+                    <div class="col-lg-3 has-feedback form-group bmd-form-group text-center">
+                        <button id="btn-preview-invitation" type="submit" class="btn btn-primary btn-sm">{{stringList.preview}}</button>
+                    </div>
+                </div>
+            {{/akx-form}}
+        </div>
+        <fieldset class="akx-fieldset">
+            <legend align="center">{{stringList.kpi}}</legend>
+        </fieldset>
+        {{#akx-carousel}}
+        {{#each model as |account|}}
+            <div class="carousel-item">
+                {{kpi-volume currency=account.currency_id}}
+            </div>
+        {{/each}}
+        {{/akx-carousel}}
+    </div>
+    <div class="col-lg-4">
+        <fieldset class="akx-fieldset">
+            <legend align="center">{{stringList.support}}</legend>
+        </fieldset>
+        <fieldset class="akx-fieldset">
+            <legend align="center">{{stringList.pending}}</legend>
+        </fieldset>
+        {{pending-items}}
+    </div>
+</div>

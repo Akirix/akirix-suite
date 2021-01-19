@@ -1,0 +1,187 @@
+{{#email-wrapper}}
+    {{> header title="Wire Report - {{@root.today}}"}}
+    {{#email-content}}
+        {{#unless @root.hasAnyWires}}
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tbody>
+                <tr>
+                    <td height="15" style="border-collapse:collapse">
+                    </td>
+                </tr>
+                <tr valign="top" class="wire">
+                    <td align="left"
+                        style="font-family:Helvetica,Arial,Verdana,sans-serif;font-size:18px;line-height:28px;color:#333333"
+                        valign="top" width="100%">
+                        No wires to report
+                    </td>
+                </tr>
+                <tr>
+                    <td height="15" style="border-collapse:collapse">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        {{/unless}}
+
+        {{#each @root.wires}}
+            {{#if hasWires}}
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tbody>
+                    <tr valign="top" class="wire">
+                        <td align="left"
+                            style="font-family:Helvetica,Arial,Verdana,sans-serif;font-size:22px;line-height:28px;color:#333333"
+                            valign="top" width="100%">
+                            {{{currency.id}}}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <!-- Wire In -->
+                {{#if wireIn.values}}
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <tbody>
+                        <tr>
+                            <td height="15" style="border-collapse:collapse">
+                            </td>
+                        </tr>
+                        <tr valign="top" class="wire">
+                            <td align="left"
+                                style="font-family:Helvetica,Arial,Verdana,sans-serif;font-size:18px;line-height:28px;color:#333333"
+                                valign="top" width="100%">
+                                Wire In
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="15" style="border-collapse:collapse">
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <thead>
+                        <tr>
+                            <th align="left">Wire Name</th>
+                            <th align="left">Account Holder</th>
+                            <th align="left">Company Name</th>
+                            <th align="center">Amount</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#each wireIn.values}}
+                            <tr valign="top" class="wire">
+                                <td align="left"
+                                    style="font-family:Helvetica Neue,Helvetica,sans-serif;font-size:16px;line-height:24px;color:#3d454c;text-align:left;border-collapse:collapse"
+                                    valign="top" width="28%">
+                                    W-{{name}}
+                                </td>
+                                <td align="left"
+                                    style="font-family:Helvetica Neue,Helvetica,sans-serif;font-size:16px;line-height:24px;color:#3d454c;text-align:left;border-collapse:collapse"
+                                    valign="top" width="25%">
+                                    {{account_holder}}
+                                </td>
+                                <td align="left"
+                                    style="font-family:Helvetica Neue,Helvetica,sans-serif;font-size:16px;line-height:24px;color:#3d454c;text-align:left;border-collapse:collapse"
+                                    valign="top" width="25%">
+                                    {{company.name}}
+                                    <br>
+                                    {{company.country}}
+                                </td>
+                                <td align="center"
+                                    style="font-family:Helvetica Neue,Helvetica,sans-serif;font-size:16px;line-height:24px;color:#3d454c;text-align:center;border-collapse:collapse"
+                                    valign="top" width="22%">
+                                    {{amount}}
+                                </td>
+                            </tr>
+                        {{/each}}
+                        </tbody>
+                    </table>
+                {{/if}}
+
+                <!-- Wire Out -->
+                {{#if wireOut.values}}
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <tbody>
+                        <tr>
+                            <td height="15" style="border-collapse:collapse">
+                            </td>
+                        </tr>
+                        <tr valign="top" class="wire">
+                            <td align="left"
+                                style="font-family:Helvetica,Arial,Verdana,sans-serif;font-size:18px;line-height:28px;color:#333333"
+                                valign="top" width="100%">
+                                Wire Out
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="15" style="border-collapse:collapse">
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <thead>
+                        <tr>
+                            <th align="left">Wire Name</th>
+                            <th align="left">Account Holder</th>
+                            <th align="left">Company Name</th>
+                            <th align="center">Amount</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#each wireOut.values}}
+                            <tr valign="top" class="wire">
+                                <td align="left"
+                                    style="font-family:Helvetica Neue,Helvetica,sans-serif;font-size:16px;line-height:24px;color:#3d454c;text-align:left;border-collapse:collapse"
+                                    valign="top" width="28%">
+                                    W-{{name}}
+                                </td>
+                                <td align="left"
+                                    style="font-family:Helvetica Neue,Helvetica,sans-serif;font-size:16px;line-height:24px;color:#3d454c;text-align:left;border-collapse:collapse"
+                                    valign="top" width="25%">
+                                    {{account_holder}}
+                                </td>
+                                <td align="left"
+                                    style="font-family:Helvetica Neue,Helvetica,sans-serif;font-size:16px;line-height:24px;color:#3d454c;text-align:left;border-collapse:collapse"
+                                    valign="top" width="25%">
+                                    {{company.name}}
+                                    <br>
+                                    {{company.country}}
+                                </td>
+                                <td align="center"
+                                    style="font-family:Helvetica Neue,Helvetica,sans-serif;font-size:16px;line-height:24px;color:#3d454c;text-align:center;border-collapse:collapse"
+                                    valign="top" width="22%">
+                                    {{amount}}
+                                </td>
+                            </tr>
+                        {{/each}}
+                        </tbody>
+                    </table>
+                {{/if}}
+
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tbody>
+                    <tr>
+                        <td height="30" style="border-collapse:collapse">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td bgcolor="#d9dbdc" height="1"
+                            style="font-size:0;line-height:0;width:100%;border-collapse:collapse">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="30" style="border-collapse:collapse">
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            {{/if}}
+        {{/each}}
+        {{sign-off}}
+    {{/email-content}}
+    {{> footer}}
+{{/email-wrapper}}

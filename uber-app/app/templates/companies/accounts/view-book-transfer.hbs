@@ -1,0 +1,103 @@
+<div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+    {{#if model.transaction.model}}
+        {{slide-task-list model=model.transaction.model model_id=model.transaction.model_id
+                          company_id=model.transaction.company_id}}
+    {{else}}
+        {{slide-task-list model='Transaction' model_id=model.transaction.id company_id=model.transactioncompany_id}}
+    {{/if}}
+    <div class="pane-secondary-content">
+        <div class="panel panel-default">
+            <div class="panel-heading text-center">
+                <span class="text-blue bold">
+                    W-{{model.wire.name}}
+                </span>
+                <br/>
+                <span class="text-blue">
+                    INTERNAL TRANSFER
+                </span>
+            </div>
+            <div class="panel-body">
+                <div style="height: 20px;"></div>
+                {{#if model.wire.isMine}}
+                    <div class="x-large align-center">{{model.wire.account_holder}}</div>
+                    <div class="align-center">
+                        <ul class="list-h small text-gray-dark">
+                            <li><strong>Account #:</strong> {{model.wire.account_number}}</li>
+                        </ul>
+                    </div>
+                {{else}}
+                    <div class="x-large align-center">{{model.wire.company.name}}</div>
+                    <div class="align-center">
+                        <ul class="list-h small text-gray-dark">
+                            <li><strong>Account #:</strong> {{model.wire.company.account_number}}</li>
+                        </ul>
+                    </div>
+                {{/if}}
+
+                <div style="height: 10px;"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr>
+                    </div>
+                </div>
+                {{#if model.wire.notes}}
+                    <div style="height: 10px;"></div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{model.wire.notes}}
+                        </div>
+                    </div>
+                    <div style="height: 10px;"></div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <hr>
+                        </div>
+                    </div>
+                {{/if}}
+                <div style="height: 10px;"></div>
+
+                {{#if model.wire.isMine}}
+                    <div class="row">
+                        <div class="col-md-6 large text-rose">
+                            {{model.wire.account.name}}
+                        </div>
+                        <div class="col-md-6 large align-right text-rose">
+                            {{{model.wire.currency.symbol}}}{{model.wire.str_amount}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 small">
+                            Fee
+                        </div>
+                        <div class="col-md-6 small align-right">
+                            {{{model.wire.currency.symbol}}}{{model.wire.fee}}
+                        </div>
+                    </div>
+                {{else}}
+                    <div class="row">
+                        <div class="col-md-6 large text-green-dark">
+                            {{model.wire.toAccount.name}}
+                        </div>
+                        <div class="col-md-6 large align-right text-green-dark">
+                            {{{model.wire.currency.symbol}}}{{model.wire.str_amount}}
+                        </div>
+                    </div>
+                {{/if}}
+
+                <div style="height: 20px;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="viewport viewport-bottom navbar-toolbar">
+    <div class="pane-actions">
+        <ul class="list-h pull-left">
+            <button {{action 'goBack'}} class="btn btn-default navbar-secondary-btn btn-sm" type="button">Back
+            </button>
+        </ul>
+        <ul class="list-h pull-right">
+            <li>
+            </li>
+        </ul>
+    </div>
+</div>

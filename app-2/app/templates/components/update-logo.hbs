@@ -1,0 +1,22 @@
+<section class="upload-logo text-center">
+    {{#if imgSrc}}
+        {{image-cropper
+            imgSrc=imgSrc
+            content=content
+            stringList=stringList}}
+    {{else}}
+        {{#if content}}
+            <img class="img-logo" src={{content}}>
+            <br>
+            <br>
+        {{/if}}
+        <div class="look-like-button">
+            {{#file-upload name="newLogo"
+            accept="gif|jpe?g|svg|png|pdf|xls|csv|xlsx|doc|docx|txt"
+            multiple=true
+            onfileadd=(action 'uploadImg')}}
+                {{stringList.uploadBtn}}
+            {{/file-upload}}
+        </div>
+    {{/if}}
+</section>

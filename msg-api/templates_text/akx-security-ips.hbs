@@ -1,0 +1,5 @@
+>>>*{{@root.ip}}* logged into the following companies:
+{{#each @root.user_data as |user|}}
+- {{user.user_name}} @ {{user.company_name}}
+{{/each}}
+

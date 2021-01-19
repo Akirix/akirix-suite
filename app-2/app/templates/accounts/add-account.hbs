@@ -1,0 +1,134 @@
+<div class="side-panel-content">
+    <header class="akx-header">
+        <span>{{stringList.title}}</span>
+    </header>
+    {{#akx-form action='' isLocked=isLocked name="frm-new-account" class="m-auto col-lg-10"}}
+        <div id="row-currency-type" class="row align-items-end mt-5">
+            <div id="grp-account-nickname" class="col-6 form-group bmd-form-group">
+                <label for="input-account-nickname" class="bmd-label-floating">{{stringList.name}}</label>
+                {{input name="input-account-nickname" type='text' value=changeset.name class="form-control"}}
+            </div>
+            <div id="grp-currency-type" class="col-6 has-feedback form-group bmd-form-group">
+                <label for="select-currency-type" class="bmd-label-static">{{stringList.currencyType}}</label>
+                {{#x-select
+                    id="select-currency-type"
+                    name="select-currency-type"
+                    class='selectpicker w-100'
+                    data-style="select-with-transition"
+                    action=(action (mut changeset.currency_type))
+                    as |xs|}}
+                    {{#each model.currencies as |currency|}}
+                        {{#xs.option id=(concat "opt-currency-type-" currency.id) value=currency.id}}{{currency.name}}{{/xs.option}}
+                    {{/each}}
+                {{/x-select}}
+                {{validation-feedback errors=changeset.error.currency_type.validation}}
+            </div>
+        </div>
+        <div id="row-purpose-of-account" class="row">
+            <div id="grp-purpose-of-account" class="col-lg-12 has-feedback form-group bmd-form-group">
+                <label for="txt-purpose-of-account" class="bmd-label-static">{{stringList.purpose}}</label>
+                {{textarea name="txt-purpose-of-account" value=changeset.purpose class="form-control" rows=6 type="text"}}
+                {{validation-feedback errors=changeset.error.purpose.validation}}
+            </div>
+        </div>
+        <div id="row-volume-in" class="row">
+            <div id="grp-volume-in-frequency" class="col-lg-4 has-feedback form-group bmd-form-group">
+                <label for="select-volume-in-frequency" class="bmd-label-static">{{stringList.inVolume}}</label>
+                {{#x-select
+                    id="select-volume-in-frequency"
+                    name="select-volume-in-frequency"
+                    class='selectpicker w-100'
+                    data-style="select-with-transition"
+                    action=(action (mut changeset.volume_in_frequency))
+                    as |xs|}}
+                    {{#each timeRanges as |range|}}
+                        {{#xs.option value=range}}{{range}}{{/xs.option}}
+                    {{/each}}
+                {{/x-select}}
+                {{validation-feedback errors=changeset.error.volume_in_frequency.validation}}
+            </div>
+            <div id="grp-volume-in" class="col-lg-8 has-feedback form-group bmd-form-group">
+                {{#x-select 
+                    id="select-volume-in"
+                    name="select-volume-in"
+                    class='selectpicker w-100'
+                    data-style="select-with-transition"
+                    action=(action (mut changeset.volume_in))
+                    as |xs|}}
+                    {{#each amountRanges as |range|}}
+                        {{#xs.option value=range}}{{range}}{{/xs.option}}
+                    {{/each}}
+                {{/x-select}}
+                {{validation-feedback errors=changeset.error.volume_in.validation}}
+            </div>
+        </div>
+        <div id="row-volume-out" class="row">
+            <div id="grp-volume-out-frequency" class="col-lg-4 has-feedback form-group bmd-form-group">
+                <label for="select-volume-out-frequency" class="bmd-label-static">{{stringList.outVolume}}</label>
+                {{#x-select
+                    id="select-volume-out-frequency"
+                    name="select-volume-out-frequency"
+                    class='selectpicker w-100'
+                    data-style="select-with-transition"
+                    action=(action (mut changeset.volume_out_frequency)) as |xs|}}
+                    {{#each timeRanges as |range|}}
+                        {{#xs.option value=range}}{{range}}{{/xs.option}}
+                    {{/each}}
+                {{/x-select}}
+                {{validation-feedback errors=changeset.error.volume_out_frequency.validation}}
+            </div>
+            <div id="grp-volume-out" class="col-lg-8 has-feedback form-group bmd-form-group">
+                {{#x-select
+                    id="select-volume-out"
+                    name="select-volume-out"
+                    class='selectpicker w-100'
+                    data-style="select-with-transition"
+                    action=(action (mut changeset.volume_out)) as |xs|}}
+                    {{#each amountRanges as |range|}}
+                        {{#xs.option value=range}}{{range}}{{/xs.option}}
+                    {{/each}}
+                {{/x-select}}
+                {{validation-feedback errors=changeset.error.volume_out.validation}}
+            </div>
+        </div>
+        <div id="row-average-balance" class="row">
+            <div id="grp-average-balance" class="col-lg-12 has-feedback">
+                <label for="select-average-balance" class="bmd-label-static">{{stringList.averageBalance}}</label>
+                {{#x-select
+                    id="select-average-balance"
+                    name="select-average-balance"
+                    class='selectpicker w-100'
+                    data-style="select-with-transition"
+                    action=(action (mut changeset.average_balance)) as |xs|}}
+                    {{#each amountRanges as |range|}}
+                        {{#xs.option value=range}}{{range}}{{/xs.option}}
+                    {{/each}}
+                {{/x-select}}
+                {{validation-feedback errors=changeset.error.average_balance.validation}}
+            </div>
+        </div>
+    {{/akx-form}}
+    {{#if success}}
+        <div class="row text-center mt-5">
+            <div class="col-lg-4 col-md-8 col-sm-10 m-auto text-success">
+                <svg class="checkmark" xmlns="http//www.w3.org/2000/svg" viewBox="0 0 52 52">
+                    <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                    <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                </svg>
+                <p class="font-h2">{{stringList.success}}</p>
+                <p>{{stringList.successMessage}}</p>
+            </div>
+        </div>
+    {{/if}}
+</div>
+{{#unless success}}
+    <div class="action-footer">
+        <div class="row py-2">
+            <div class="col-lg-12 text-center">
+                <button {{action 'newAccount'}} id="btn-submit-new-account" type="button" class="btn btn-primary">
+                    {{stringList.submit}}
+                </button>
+            </div>
+        </div>
+    </div>
+{{/unless}}

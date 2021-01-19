@@ -1,0 +1,126 @@
+<div class="side-panel-content">
+    <header class="akx-header">
+        <span class="text-danger">W-{{model.wire.name}}</span>
+    </header>
+    <h5 class="text-center text-danger">{{stringList.withdrawal}}</h5>
+    {{!-- Beneficiary --}}
+    <div class="row">
+        <div class="col-12">
+            <h3><i class="akx-icon akx-account-holder icon-large"></i> {{model.wire.account_holder}}</h3>
+        </div>
+        <div class="col-6">
+            <p>
+                {{model.wire.account_holder_address}}
+                {{model.wire.account_holder_city}}
+                {{find-state model.wire.account_holder_state_province model.states model.wire.account_holder_country}}
+                {{model.wire.account_holder_postal_code}}
+                {{find-country model.wire.account_holder_country model.countries}}
+            </p>
+        </div>
+        <div class="col-6">
+            {{#if model.wire.account_holder_dob}}
+                <p>
+                    <b>{{stringList.dob}}:</b> {{format-date model.wire.account_holder_dob locale=locale timeZone='UTC'}}
+                </p>
+            {{/if}}
+            {{#if model.wire.account_holder_nationality}}
+                <p>
+                    <b>{{stringList.nationality}}:</b> {{find-country model.wire.account_holder_nationality model.countries}}
+                </p>
+            {{/if}}
+            {{#if model.wire.account_number}}
+                <p>
+                    <b>{{stringList.accountNumber}}:</b> {{model.wire.account_number}}
+                </p>
+            {{/if}}
+            {{#if model.wire.account_iban}}
+                <p>
+                    <b>{{stringList.iban}}:</b> {{model.wire.account_iban}}
+                </p>
+            {{/if}}
+            <p><b>{{stringList.purpose}}:</b> {{model.wire.purpose}}</p>
+        </div>
+    </div>
+    {{!-- Bank --}}
+    <div class="row mt-3">
+        <div class="col-12">
+            <h3><i class="akx-icon akx-external-bank"></i> {{model.wire.bank_name}}</h3>
+        </div>
+        <div class="col-6">
+            <p>
+                {{model.wire.bank_address}}
+                {{model.wire.bank_city}}
+                {{find-state model.wire.bank_state_province model.states model.wire.bank_country}}
+                {{model.wire.bank_postal_code}}
+                {{find-country model.wire.bank_country model.countries}}
+            </p>
+        </div>
+        <div class="col-6">
+            <p><b>{{stringList.method}}:</b> {{model.wire.strMethod}}</p>
+            {{#if model.wire.code_swift}}
+                <p><b>{{stringList.swift}}:</b> {{model.wire.code_swift}}</p>
+            {{/if}}
+            {{#if model.wire.code_aba}}
+                <p><b>{{stringList.aba}}:</b> {{model.wire.code_aba}}</p>
+            {{/if}}
+            {{#if model.wire.code_irc}}
+                <p><b>{{stringList.irc}}:</b> {{model.wire.code_irc}}</p>
+            {{/if}}
+        </div>
+    </div>
+    {{!-- Int Bank --}}
+    {{#if model.wire.intermediary_bank_name}}    
+        <div class="row mt-3">
+            <div class="col-12">
+                <h3><i class="akx-icon akx-external-bank"></i> {{model.wire.intermediary_bank_name}}</h3>
+            </div>
+            <div class="col-6">
+                <p>
+                    {{model.wire.intermediary_bank_address}}
+                    {{model.wire.intermediary_bank_city}}
+                    {{find-state model.wire.intermediary_bank_state_province model.states model.wire.intermediary_bank_country}}
+                    {{model.wire.intermediary_bank_postal_code}}
+                    {{find-country model.wire.intermediary_bank_country model.countries}}
+                </p>
+            </div>
+            <div class="col-6">
+                <p><b>{{stringList.method}}:</b> {{model.wire.strMethod}}</p>
+                {{#if model.wire.intermediary_bank_code_swift}}
+                    <p><b>{{stringList.swift}}:</b> {{model.wire.intermediary_bank_code_swift}}</p>
+                {{/if}}
+                {{#if model.wire.intermediary_bank_code_aba}}
+                    <p><b>{{stringList.aba}}:</b> {{model.wire.intermediary_bank_code_aba}}</p>
+                {{/if}}
+                {{#if model.wire.code_irc}}
+                    <p><b>{{stringList.irc}}:</b> {{model.wire.code_irc}}</p>
+                {{/if}}
+            </div>
+        </div>
+    {{/if}}
+    {{!-- Notes & Confirmation --}}
+    <div class="pt-3"></div>
+    {{#if model.wire.notes}}
+        <hr class="border-bottom">
+        <p>{{model.wire.notes}}</p>
+        <hr class="border-bottom">
+    {{/if}}
+    {{!-- Amount --}}
+    <div class="row">
+        <div class="col-6">
+            <h3 class="text-danger">{{model.toAccount.name}}</h3>
+            <p>{{stringList.fee}}</p>
+        </div>
+        <div class="col-6 text-right">
+            <h3 class="text-danger">{{format-number model.wire.amount style='currency' currency=model.toAccount.currency_id}}</h3>
+            <p>{{format-number model.wire.fee style='currency' currency=model.toAccount.currency_id}}</p>
+        </div>
+    </div>
+    {{#if model.wire.isDone}}
+        <div class="row text-center mt-3">
+            <div class="col-6 m-auto">
+                <b><p class="no-margin">{{format-date model.wire.updated_at timeZone='UTC'}} {{format-time model.wire.updated_at format='hhmmss'}}</p>
+                <p class="no-margin">{{stringList.confirmation}}: {{model.wire.confirmation}}</p></b>
+            </div>
+        </div>
+    {{/if}}
+</div>

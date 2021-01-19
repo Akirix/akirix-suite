@@ -1,0 +1,103 @@
+<header id="section-header" class="akx-header">
+    <span>{{stringList.bankTitle}}</span>
+</header>
+{{!-- <h5 {{action 'redraw'}} class="text-center pointer">{{stringList.bankIdTitle}}</h5> --}}
+{{#akx-form name="frm-bank-information" action='' class='col-lg-10 m-auto'}}
+    <div class="row align-items-end">
+        <div id="grp-bank-name" class="col-6 has-feedback form-group bmd-form-control">
+            <label class="bmd-label-floating" for="input-bank-name">{{stringList.nameLabel}}</label>
+            {{input value=changeset.bank_name name='input-bank-name' type='text' class='form-control'}}
+            {{validation-feedback errors=changeset.error.bank_name.validation}}
+        </div>
+        <div id="grp-bank-address" class="col-6 has-feedback form-group bmd-form-group">
+            <label class="bmd-label-floating"  for="input-bank-address">{{stringList.addressLabel}}</label>
+            {{input value=changeset.bank_address name='input-bank-address' type='text' class='form-control'}}
+            {{validation-feedback errors=changeset.error.bank_address.validation}}
+        </div>
+        <div id="grp-bank-country" class="col-6 has-feedback form-group bmd-form-group">
+            <label class="bmd-label-static" for="select-bank-country">{{stringList.countryLabel}}</label>
+            {{#x-select
+                value=changeset.bank_country
+                id='select-bank-country'
+                name='select-bank-country'
+                class='selectpicker w-100'
+                data-style="select-with-transition"
+                action=(action (mut changeset.bank_country))
+                disabled=isACH
+                as |xs|}}
+                {{#xs.option}}Select an option below{{/xs.option}}
+                {{#each model.countries as |country|}}
+                    {{#xs.option value=country.abbreviation}}{{country.name}}{{/xs.option}}
+                {{/each}}
+            {{/x-select}}
+            {{validation-feedback errors=changeset.error.bank_country.validation}}
+        </div>
+        <div id="grp-bank-city" class="col-6 has-feedback form-group bmd-form-group">
+            <label class="bmd-label-floating" for="input-bank-city">{{stringList.cityLabel}}</label>
+            {{input value=changeset.bank_city name='input-bank-city' type='text' class='form-control'}}
+            {{validation-feedback errors=changeset.error.bank_city.validation}}
+        </div>
+        <div id="grp-bank-province" class="col-6 has-feedback form-group bmd-form-group">
+            {{#if bankIsUS}}
+                <label class="bmd-label-static"  for="select-bank-province">{{stringList.stateProvinceLabel}}</label>
+                {{#x-select
+                    value=changeset.bank_state_province
+                    id='select-bank-province'
+                    name='select-bank-province'
+                    class='selectpicker w-100'
+                    data-style="select-with-transition"
+                    action=(action (mut changeset.bank_state_province))
+                    as |xs|}}
+                    {{#xs.option value=''}}Select an option below{{/xs.option}}
+                    {{#each model.states as |state|}}
+                        {{#xs.option value=state.abbreviation}}{{state.name}}{{/xs.option}}
+                    {{/each}}
+                {{/x-select}}
+                {{validation-feedback errors=changeset.error.bank_state_province.validation}}
+            {{else}}
+                <label for="input-bank-province" class="bmd-label-floating">{{stringList.stateProvinceLabel}}</label>
+                {{input value=changeset.bank_state_province name='input-bank-province' type='text' class='form-control'}}
+                {{validation-feedback errors=changeset.error.bank_state_province.validation}}
+            {{/if}}
+        </div>
+        <div id="grp-bank-postal-code" class="col-6 has-feedback form-group bmd-form-group">
+            <label class="bmd-label-floating" for="input-bank-postal-code">{{stringList.postalCodeLabel}}</label>
+            {{input value=changeset.bank_postal_code name='input-bank-postal-code' type='text' class='form-control'}}
+            {{validation-feedback errors=changeset.error.bank_postal_code.validation}}
+        </div>
+        {{#unless isACH}}
+            <div id="grp-bank-swift" class="col-6 has-feedback form-group bmd-form-group md-form">
+                <label class="bmd-label-floating" for="input-bank-swift">{{stringList.swiftLabel}}</label>
+                {{input value=changeset.code_swift  name='input-bank-swift' type='text' class='form-control text-uppercase'}}
+                {{validation-feedback errors=changeset.error.code_swift.validation}}
+            </div>
+        {{/unless}}
+        {{#if bankIsUS}}
+            <div id="grp-bank-aba" class="col-6 has-feedback form-group bmd-form-group">
+                <label class="bmd-label-floating" for="input-bank-aba">{{stringList.abaLabel}}</label>
+                {{input value=changeset.code_aba name='input-bank-aba' type='text' class='form-control'}}
+                {{validation-feedback errors=changeset.error.code_aba.validation}}
+            </div>
+        {{else}}
+            <div id="grp-bank-irc" class="col-6 has-feedback form-group bmd-form-group">
+                <label class="bmd-label-floating" for="input-bank-irc">{{stringList.ircLabel}}</label>
+                {{input value=changeset.code_irc name='input-bank-irc' type='text' class='form-control'}}
+                {{validation-feedback errors=changeset.error.code_irc.validation}}
+            </div>
+        {{/if}}
+        {{#if allowIntBank}}
+            <div id="grp-bank-intermediary" class="col-6 has-feedback form-check form-check-inline pl-3 mt-4">
+                <label class="form-check-label">
+                    {{stringList.hasIntBank}}
+                    {{input checked=changeset.use_intermediary_bank
+                        name='chk-bank-intermediary'
+                        type='checkbox'
+                        class="form-check-input"}}
+                    <span id="check-bank-intermediary" class="form-check-sign">
+                        <span class="check"></span>
+                    </span>
+                </label>
+            </div>
+        {{/if}}
+    </div>
+{{/akx-form}}

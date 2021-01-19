@@ -1,0 +1,63 @@
+<table class="table mt-3">
+  <thead class="thead-light">
+    <tr>
+      <th colspan="2" class="text-center">
+        {{instruction.currency_id}}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>{{stringList.beneficiary}}:</b></td>
+      <td>{{instruction.account_holder}}</td>
+    </tr>
+    <tr>
+      <td><b>{{stringList.accountNumber}}:</b></td>
+      <td>{{instruction.account_number}}</td>
+    </tr>
+    <tr>
+      <td><b>{{stringList.bankName}}:</b></td>
+      <td>{{instruction.bank_name}}</td>
+    </tr>
+    <tr>
+      <td><b>{{stringList.bankAddress}}:</b></td>
+      <td>{{instruction.bank_address}}</td>
+    </tr>
+    {{#if instruction.aba_routing_number}}
+      <tr>
+        <td><b>{{stringList.routingNumber}}:</b></td>
+        <td>{{instruction.aba_routing_number}}</td>
+      </tr>
+    {{/if}}
+    {{#if instruction.swift_code}}
+      <tr>
+        <td><b>{{stringList.swift}}:</b></td>
+        <td>{{instruction.swift_code}}</td>
+      </tr>
+    {{/if}}
+    {{#if instruction.sort_code}}
+      <tr>
+        <td><b>{{stringList.sortCode}}:</b></td>
+        <td>{{instruction.sort_code}}</td>
+      </tr>
+    {{/if}}
+    {{#if instruction.account_iban}}
+      <tr>
+        <td><b>{{stringList.iban}}:</b></td>
+        <td>{{instruction.account_iban}}</td>
+      </tr>
+    {{/if}}
+    <tr>
+      <td><b>{{stringList.ach}}:</b></td>
+      <td>{{instruction.strMethodAch}}</td>
+    </tr>
+    <tr>
+      <td><b>{{stringList.wire}}:</b></td>
+      <td>{{instruction.strMethodWire}}</td>
+    </tr>
+    <tr>
+      <td><b>{{if stringList.notes stringList.notes "Notes"}}:</b></td>
+      <td>XYZ{{companyAkxNumber}} {{companyName}}</td>
+    </tr>
+  </tbody>
+</table>

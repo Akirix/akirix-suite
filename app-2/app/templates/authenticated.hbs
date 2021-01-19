@@ -1,0 +1,13 @@
+<div id="appContainer">
+    {{left-nav}}
+    <main id="main-pane">
+        {{top-nav
+            openModal='openModal'
+            announcements=model.announcements
+            settings=model.settings}}
+        <div class="full-pane">
+            {{outlet}}
+        </div>
+    </main>
+    {{bottom-nav accounts=model.accounts}}
+</div>

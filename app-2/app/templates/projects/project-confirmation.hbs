@@ -1,0 +1,113 @@
+<div class="side-panel-content">
+    <header id="side-header" class="akx-header">
+        <span>{{stringList.confirmTitle}}</span>
+    </header>
+    <div class="row mt-5">
+        <div class="col-12 m-auto">
+            {{#if changeset.name}}
+                <div class="row border-bottom py-2">
+                    <div class="col-lg-6 text-right">
+                        <strong>{{stringList.name}}:</strong>
+                    </div>
+                    <div class="col-lg-6">{{changeset.name}}</div>
+                </div>
+            {{/if}}
+            <div class="row border-bottom py-2">
+                <div class="col-lg-6 text-right">
+                    <strong>{{stringList.usingAccount}}:</strong>
+                </div>
+                <div class="col-lg-6">{{account.name}}</div>
+            </div>
+            <div class="row border-bottom py-2">
+                <div class="col-lg-6 text-right">
+                    <strong>{{stringList.projectType}}:</strong>
+                </div>
+                <div class="col-lg-6">{{projectType}}</div>
+            </div>
+            <div class="row border-bottom py-2">
+                <div class="col-lg-6 text-right">
+                    <strong>{{stringList.contractType}}:</strong>
+                </div>
+                <div class="col-lg-6">{{contractType}}</div>
+            </div>
+            {{#if changeset.discount_rate}}
+                <div class="row border-bottom py-2">
+                    <div class="col-lg-6 text-right">
+                        <strong>{{stringList.discountRate}}:</strong>
+                    </div>
+                    <div class="col-lg-6">{{changeset.discount_rate}}</div>
+                </div>
+            {{/if}}
+            {{#if changeset.invoice_deadline}}
+                <div class="row border-bottom py-2">
+                    <div class="col-lg-6 text-right">
+                        <strong>{{stringList.invoiceDeadline}}:</strong>
+                    </div>
+                    <div class="col-lg-6">{{changeset.invoice_deadline}}</div>
+                </div>
+            {{/if}}
+            {{#if changeset.notes}}
+                <div class="row border-bottom py-2">
+                    <div class="col-lg-6 text-right">
+                        <strong>{{stringList.notes}}:</strong>
+                    </div>
+                    <div class="col-lg-6">{{changeset.notes}}</div>
+                </div>
+            {{/if}}
+            {{#if nodeItems}}
+                <div class="row border-bottom py-2">
+                    <div class="col-lg-6 text-right">
+                        <strong>{{stringList.nodeItems}}:</strong>
+                    </div>
+                    <div class="col-lg-6">
+                        {{#each nodeItems as |item|}}
+                            <p>{{item.name}}: {{item.price}}</p>
+                        {{/each}}
+                    </div>
+                </div>
+            {{/if}}
+            {{upload-document model='project' documents=documents hide=true class='mt-3'}}
+            <div class="pl-4">
+                <div class="row mt-5">
+                    <div id="grp-service-agreement" class="col-10 has-feedback form-check">
+                        <label class="form-check-label">
+                            <a href="/docs/service_agreement.pdf" target="_blank">{{stringList.checkBox1}}</a>
+                            {{input name="chk-service-agreement" checked=changeset.akx_agreement type='checkbox' class="form-check-input"}}
+                            <span id="check-service-agreement" class="form-check-sign">
+                                <span class="check"></span>
+                            </span>
+                        </label>
+                        <p>
+                            {{validation-feedback
+                                class='text-danger'
+                                errors=changeset.error.akx_agreement.validation}}
+                        </p>
+                    </div>
+                    <div id="grp-terms-and-conditions" class="col-10 has-feedback form-check">
+                        <label class="form-check-label">
+                            <a href="/docs/terms_of_service.pdf" target="_blank">{{stringList.checkBox2}}</a>
+                            {{input name="chk-terms-and-conditions" checked=changeset.akx_terms type='checkbox' class="form-check-input"}}
+                            <span id="check-terms-and-conditions" class="form-check-sign">
+                                <span class="check"></span>
+                            </span>
+                        </label>
+                        <p>
+                            {{validation-feedback
+                                class='text-danger'
+                                errors=changeset.error.akx_terms.validation}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="action-footer">
+    <div class="row py-2">
+        <div class="col-12 text-center">
+            <button name="btn-create-project" class="btn btn-primary" {{action 'saveModel'}}>
+                {{stringList.create}}
+            </button>
+        </div>
+    </div>
+</div>

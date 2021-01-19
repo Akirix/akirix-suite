@@ -1,0 +1,35 @@
+<div class="pane-primary-content">
+    {{partial 'nav-uber-settings'}}
+    {{advanced-search searchParams=searchParams parentController=this showDateRange=false}}
+
+    {{page-numbers content=model}}
+    <table class="table table-hover table-high">
+        <thead>
+        <tr>
+            <th class="col-xs-3">Compnay Name</th>
+            <th class="col-xs-3">Wire Instruction</th>
+            <th class="col-xs-3">Currency</th>
+            <th class="col-xs-3">Bank</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each wireInstruction in model}}
+            <tr>
+                <td class="valign-middle medium">
+                    XYZ{{wireInstruction.company.account_number}} {{wireInstruction.company.name}}
+                </td>
+                <td class="valign-middle medium">
+                    {{wireInstruction.wireInstruction.name}}
+                </td>
+                <td class="valign-middle medium">
+                    {{wireInstruction.wireInstruction.currency_id}}
+                </td>
+                <td class="valign-middle medium">
+                    {{wireInstruction.wireInstruction.bank_name}}
+                </td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+    {{page-numbers content=model}}
+</div>

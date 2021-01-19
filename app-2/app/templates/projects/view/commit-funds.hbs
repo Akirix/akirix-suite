@@ -1,0 +1,131 @@
+<div class="side-panel-content">
+    <header class="akx-header mb-5">
+        <span>{{stringList.commitFunds}}</span>
+    </header>
+    <table class="table w-75 m-auto">
+        {{!-- Don't show funding details --}}
+        {{!-- <thead>
+            <tr>
+                <th colspan="2" class="text-center">{{stringList.fundsDetails}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    {{stringList.pointsIn}}
+                </td>
+                <td class="akx-col-lrg-3 text-right">
+                    {{format-number model.node.points_total style='currency' currency=model.project.currency_id}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{stringList.pointsOut}}
+                </td>
+                <td class="text-right">
+                    {{format-number
+                        model.project.points_out_only
+                        style='currency'
+                        currency=model.project.currency_id}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{stringList.cashOut}}
+                </td>
+                <td class="text-right">
+                    {{format-number
+                        model.project.cash_out_only
+                        style='currency'
+                        currency=model.project.currency_id}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{stringList.totalOut}}
+                </td>
+                <td class="text-right">
+                    {{format-number
+                        model.project.points_out
+                        style='currency'
+                        currency=model.project.currency_id}}
+                </td>
+            </tr>
+        </tbody> --}}
+        <tfoot>
+            {{#if model.project.isTree}}
+                <tr>
+                    <td colspan="2" class="text-center">
+                        <p>
+                            <b>
+                                {{format-number
+                                    availablePoints
+                                    style='currency'
+                                    currency=model.project.currency_id}}
+                            </b>
+                        </p>
+                        <small>{{stringList.pointsAvailable}}</small>
+                    </td>
+                </tr>
+            {{/if}}
+            <tr>
+                <td colspan="2" class="text-center">
+                    <p>
+                        <b>
+                            {{format-number
+                                availableCash
+                                style='currency'
+                                currency=model.project.currency_id}}
+                        </b>
+                    </p>
+                    <small>{{stringList.cashAvailable}}</small>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    {{#akx-form}}
+        <div class="row">
+            {{#if model.project.isTree}}
+                {{#if availablePoints}}
+                    <div class="col-8 form-group bmd-form-group has-feedback m-auto">
+                        <label class="bmd-label-floating">{{stringList.points}}</label>
+                        {{akx-format-number
+                            realValue=changeset.points
+                            type='text'
+                            class='form-control'
+                            disabled=success}}
+                        {{validation-feedback errors=changeset.error.points.validation}}
+                    </div>
+                {{/if}}
+            {{/if}}
+            <div class="col-8 form-group bmd-form-group has-feedback m-auto">
+                <label class="bmd-label-floating">{{stringList.cash}}</label>
+                {{akx-format-number realValue=changeset.cash type='text' class='form-control' disabled=success}}
+                {{validation-feedback errors=changeset.error.cash.validation}}
+            </div>
+        </div>
+    {{/akx-form}}
+    {{#if success}}
+        <div class="row text-center mt-5">
+            <div class="col-lg-4 col-md-8 col-sm-10 m-auto text-success">
+                <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                    <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                    <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                </svg>
+                <p class="font-h2">{{stringList.success}}</p>
+                <p>{{stringList.successMessage}}</p>
+            </div>
+        </div>
+    {{/if}}
+</div>
+{{#unless success}}
+    <div class="action-footer">
+        <div class="row py-2">
+            <div class="col-12 text-center">
+                <button {{action 'commitFunds'}} class="btn btn-primary" type="button">
+                    {{stringList.commitFunds}}
+                </button>
+            </div>
+        </div>
+    </div>
+{{/unless}}

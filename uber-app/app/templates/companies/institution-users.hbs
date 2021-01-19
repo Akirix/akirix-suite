@@ -1,0 +1,111 @@
+{{#link-to 'companies.view.institution-users.add' href=false class="btn btn-primary btn-sm" tagName='button' }}
+    Add User
+{{/link-to}}
+<div style="height: 20px;"></div>
+<legend>Active Users</legend>
+<table class="table table-high table-hover">
+    <thead>
+    <tr>
+        <th class="col-md-2 valign-middle">User Since</th>
+        <th class="col-md-2 valign-middle">Name</th>
+        <th class="col-md-2 valign-middle">Email</th>
+        <th class="col-md-2 valign-middle"></th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each institution-user in activeUsers}}
+            {{#link-to 'companies.view.institution-users.view' institution-user.id tagName='tr' class='list-link'}}
+            <td class="valign-middle">{{institution-user.str_created_at_date}}</td>
+            <td class="valign-middle">{{institution-user.str_long_name}}</td>
+            <td class="valign-middle">{{institution-user.email}}</td>
+            <td>
+                <ul class="list-h">
+                    {{#link-to 'companies.view.institution-users.view' institution-user.id tagName='li' href=false bubbles=false}}
+                        <span class="hint--top hint--rounded" data-hint="Edit">
+                        <i class="fa fa-edit fa-fw"></i>
+                    </span>
+                    {{/link-to}}
+                    {{#link-to 'companies.view.institution-users.view.verifications' institution-user.id tagName='li' href=false
+                               bubbles=false}}
+                        <span class="hint--top hint--rounded" data-hint="Verifications">
+                           <i class="fa fa fa-check fa-fw"></i>
+                        </span>
+                    {{/link-to}}
+                    <li>
+                        {{view 'modal-confirmation'
+                               class='hint--top hint--rounded'
+                               data-hint='Reset password'
+                               button='<i class="fa fa-eraser fa-fw"></i>'
+                               action='resetPassword'
+                               actionContext=institution-user.id
+                               headerTitle='Are you sure you want to reset the password for this institution user?'
+                               prompt='There is no going back!'
+                               tagName='span'
+                        }}
+                    </li>
+                    <li>
+                    <span {{action 'impersonate' institution-user.id}} class="hint--top hint--rounded"
+                                                                       data-hint="Impersonate">
+                        <i class="fa fa-eye fa-fw"></i>
+                    </span>
+                    </li>
+                </ul>
+            </td>
+        {{/link-to}}
+    {{/each}}
+    </tbody>
+</table>
+
+<legend>Inactive Users</legend>
+<table class="table table-high table-hover">
+    <thead>
+    <tr>
+        <th class="col-md-2 valign-middle">User Since</th>
+        <th class="col-md-2 valign-middle">Name</th>
+        <th class="col-md-2 valign-middle">Email</th>
+        <th class="col-md-2 valign-middle"></th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each institution-user in inactiveUsers}}
+        {{#link-to 'companies.view.institution-users.view' institution-user.id tagName='tr' class='list-link'}}
+            <td class="valign-middle">{{institution-user.str_created_at_date}}</td>
+            <td class="valign-middle">{{institution-user.str_long_name}}</td>
+            <td class="valign-middle">{{institution-user.email}}</td>
+            <td>
+                <ul class="list-h">
+                    {{#link-to 'companies.view.institution-users.view' institution-user.id tagName='li' href=false bubbles=false}}
+                        <span class="hint--top hint--rounded" data-hint="Edit">
+                        <i class="fa fa-edit fa-fw"></i>
+                    </span>
+                    {{/link-to}}
+                    {{#link-to 'companies.view.institution-users.view.verifications' institution-user.id tagName='li' href=false
+                               bubbles=false}}
+                        <span class="hint--top hint--rounded" data-hint="Verifications">
+                            <i class="fa fa fa-check fa-fw"></i>
+                        </span>
+                    {{/link-to}}
+                    <li>
+                        {{view 'modal-confirmation'
+                               class='hint--top hint--rounded'
+                               data-hint='Reset password'
+                               button='<i class="fa fa-eraser fa-fw"></i>'
+                               action='resetPassword'
+                               actionContext=institution-user.id
+                               headerTitle='Are you sure you want to reset the password for this institution user?'
+                               prompt='There is no going back!'
+                               tagName='span'
+                        }}
+                    </li>
+                    <li>
+                    <span {{action 'impersonate' institution-user.id}} class="hint--top hint--rounded"
+                                                                       data-hint="Impersonate">
+                        <i class="fa fa-eye fa-fw"></i>
+                    </span>
+                    </li>
+                </ul>
+            </td>
+        {{/link-to}}
+    {{/each}}
+    </tbody>
+</table>

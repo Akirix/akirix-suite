@@ -1,0 +1,40 @@
+<div class="side-panel-content">
+    <header class="akx-header">
+        <span>FX-{{model.fx-request.name}}</span>
+    </header>
+    <div class="text-center pt-5">
+        <h3>
+            {{model.fromAccount.name}}
+            {{format-number model.fx-request.base_amount style='currency' currency=model.fx-request.base_currency_id}}
+        </h3>
+    </div>
+    <div class="text-center mt-4">
+        <p>{{stringList.to}}</p>
+        <h3>
+            {{#if model.toAccount}}
+                {{model.toAccount.name}}
+            {{/if}}
+            {{format-number model.fx-request.counter_amount style='currency' currency=model.fx-request.counter_currency_id}}
+        </h3>
+    </div>
+    {{#if model.fx-request.notes}}
+        <hr>
+        <div>
+            {{model.fx-request.notes}}
+        </div>
+        <hr>
+    {{/if}}
+    <div class="text-center mt-5">
+        <b><p class="no-margin">{{stringList.rate}}: {{model.fx-request.customer_rate}}</p></b>
+    </div>
+    {{#if model.fx-request.isDone}}
+        <div class="row text-center">
+            <div class="col-6 m-auto">
+                <b>
+                    <p class="no-margin">{{stringList.confirmation}}: {{model.fx-request.confirmation}}</p>
+                    <p class="no-margin">{{stringList.reference}}: {{model.fx-request.reference}}</p>
+                </b>
+            </div>
+        </div>
+    {{/if}}
+</div>

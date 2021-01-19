@@ -1,0 +1,93 @@
+//https://www.google.com/design/spec/components/cards.html#cards-content-blocks
+// Card resting elevation: 2dp
+.card {
+  border: 0;
+  border-radius: $border-radius-large;
+  color: $card-text;
+  background: $black;
+  margin: 10px;
+  cursor: pointer;
+  width: 300px;
+  display: inline-block;
+  -webkit-transition: all 0.1s ease;
+  -moz-transition: all 0.1s ease;
+  -o-transition: all 0.1s ease;
+  transition: all 0.1s ease;
+
+  .form-check {
+    margin-top: 15px;
+  }
+
+  .card-title{
+    margin-top: 0.625rem;
+
+    &:last-child{
+        margin-bottom: 0;
+    }
+  }
+
+  // Cards have a default elevation of 2dp.
+  @include box-shadow($bmd-shadow-2dp);
+  @extend %std-font;
+
+
+  &.no-shadow {
+    .card-header-image,
+    .card-header-image img {
+      box-shadow: none !important;
+      }
+  }
+
+  .card-body,
+  .card-footer {
+    padding: 10px;
+    background-color: $card-body-bg;
+  }
+
+  @include media-breakpoint-up(lg) {
+    // On desktop, cards can have a resting elevation of 0dp and gain an elevation of 8dp on hover.
+    &.bmd-card-flat {
+      box-shadow: none;
+    }
+  }
+
+  .card-header {
+    border-radius: $border-radius-base;
+    padding: 10px;
+    border: 0;
+    background: $card-header-bg;
+    color: $card-header-text;
+    font-weight: 700;
+    // font-size: $font-size-h4;
+    -webkit-transition: background 0.2s ease;
+    -moz-transition: background 0.2s ease;
+    -o-transition: background 0.2s ease;
+    transition: background 0.2s ease;
+    text-align: center;
+  }
+
+  .card-header-primary,
+  &.bg-primary,
+  &.card-rotate.bg-primary .front,
+  &.card-rotate.bg-primary .back{
+    background: $card-header-primary-bg;
+  }
+
+  [class*="header-"],
+  &[class*="bg-"]{
+    color: $white-color;
+
+    .card-title a,
+    .card-title,
+    .icon i{
+      color: $card-header-text;
+    }
+  }
+
+  // &.active, &.chosen {
+  //   @include shadow-big-color($card-active-shadow);
+  //   .card-header {
+  //     background: $active-card-header-bg;
+  //   }
+  // }
+}

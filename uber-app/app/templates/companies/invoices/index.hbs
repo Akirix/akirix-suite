@@ -1,0 +1,94 @@
+{{page-numbers content=content}}
+<table class="table table-high table-hover">
+    <thead>
+    <tr>
+        <th>Date Created</th>
+        <th></th>
+        <th>Customer</th>
+        <th>Amount</th>
+        <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each item in model}}
+        {{#if item.isDraft}}
+            {{#link-to 'companies.view.invoices.index.view' item.id tagName='tr' class='list-link'}}
+                <td class="col-md-2 small valign-middle">
+                    <strong>{{item.created_at_date}}</strong>
+                </td>
+                <td class="col-md-2 valign-middle">
+                    {{invoice-type-icon item.type}} I-{{item.name}}
+                    <br/>
+                    <span class="small">{{item.title}}</span>
+                </td>
+                <td>
+                    {{view 'invoice-index-name' invoice_id=item.id invoice=this}}
+                </td>
+                <td class="col-md-3">
+                <span class="large">
+                    {{{item.currency.symbol}}}{{item.str_total}}
+                </span>
+                </td>
+                <td class="col-md-1 valign-middle align-center">
+                <span class="large">
+                    {{invoice-status-icon item.status}}
+                </span>
+                </td>
+            {{/link-to}}
+        {{else}}
+            {{#link-to 'companies.view.invoices.index.view' item.id tagName='tr' class='list-link'}}
+                <td class="col-md-2 small valign-middle">
+                    <strong>{{item.created_at_date}}</strong>
+                </td>
+                <td class="col-md-2 valign-middle">
+                    {{invoice-type-icon item.type}} I-{{item.name}}
+                    <br/>
+                    <span class="small">{{item.title}}</span>
+                </td>
+                <td>
+                    {{view 'invoice-index-name' invoice_id=item.id invoice=this}}
+                </td>
+                <td class="col-md-3 valign-middle">
+                    <span class="large">
+                        {{{item.currency.symbol}}}{{item.str_total}}
+                    </span>
+                    <br/>
+                    {{#if item.isPartiallyPaid}}
+                        <span class="small">Remaining: {{{item.currency.symbol}}}{{item.str_remaining_total}}</span>
+                    {{/if}}
+                    {{#if item.isPending}}
+                        <span class="small">Remaining: {{{item.currency.symbol}}}{{item.str_remaining_total}}</span>
+                    {{/if}}
+                </td>
+                <td class="col-md-1 valign-middle align-center">
+                <span class="large">
+                    {{invoice-status-icon item.status}}
+                </span>
+                </td>
+            {{/link-to}}
+        {{/if}}
+    {{/each}}
+    {{#if hasMorePages}}
+        <tr {{action 'next'}}>
+            <td colspan="4" class="text-muted text-center">
+                {{#if loadingRecords}}
+                    <i class="fa fa-spinner fa-spin"></i>
+                {{else}}
+                    <div class="row">
+                        <div class="col-xs-4 text-center">
+                            <i class="fa fa-chevron-down"></i>
+                        </div>
+                        <div class="col-xs-4 text-center">
+                            Load More
+                        </div>
+                        <div class="col-xs-4 text-center">
+                            <i class="fa fa-chevron-down"></i>
+                        </div>
+                    </div>
+                {{/if}}
+            </td>
+        </tr>
+    {{/if}}
+    </tbody>
+</table>
+{{page-numbers content=content}}

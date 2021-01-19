@@ -1,0 +1,22 @@
+{{#email-wrapper}}
+    {{> header title="Onboarding Report for {{@root.reportDate}}"}}
+    {{#email-content}}
+        <table border="0" cellpadding="0" cellspacing="0" style="text-align: left;border-top:solid 2px #ccc;border-bottom:solid 2px #ccc;" width="100%">
+            <tbody>
+            {{#each @root.registrations}}
+                {{#table-row key=@index}}
+                    <td height="28px" style="vertical-align: middle;padding-left:10px;padding-top:8px;padding-bottom:8px;width:50%;">
+                        {{registration-name ../this}}
+                    </td>
+                    <td height="28px" style="vertical-align: middle;padding-right:10px;padding-top:8px;padding-bottom:8px;text-align:right;width:50%;">
+                        <a style="text-decoration:none;color:#777;letter-spacing:1px;" href="mailto:{{../this.user.email}}">{{../this.user.email}}</a>
+                        <br>
+                        <a style="text-decoration:none;color:#27a6e1;letter-spacing:1px;" href="tel:{{../this.user.phone_mobile}}">{{../this.user.phone_mobile}}</a>
+                    </td>
+                {{/table-row}}
+            {{/each}}
+            </tbody>
+        </table>
+    {{/email-content}}
+    {{> footer}}
+{{/email-wrapper}}

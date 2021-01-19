@@ -1,0 +1,101 @@
+{{#akx-form action='createCharge' isLocked=isLocked}}
+    <div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+        <div class="pane-secondary-content">
+            <fieldset>
+                <legend>
+                    <span>New Charge</span>
+                </legend>
+
+                <div class="row">
+                    <div class="form-group col-md-6 has-feedback">
+                        <label>Type</label>
+                        {{view 'select'
+                        value=model.type
+                        content=types
+                        optionValuePath='content.val'
+                        optionLabelPath='content.text'
+                        prompt='Select Charge Type'
+                        class='form-control'}}
+                        {{validation-feedback errors=errors.model.type validated=validated}}
+                    </div>
+                </div>
+                {{#if typeSelected}}
+                    <div class="form-group col-md-6 has-feedback">
+                        <label>Title</label>
+                        {{input value=model.title type='text' class='form-control' placeholder='Title'}}
+                        {{validation-feedback errors=errors.model.title validated=validated}}
+                    </div>
+
+                    <div class="form-group col-md-6 has-feedback">
+                        <label>Start Date</label>
+                        {{date-picker value=model.start_date class='form-control' placeholder='Start Date' valueFormat='YYYY-MM-DD' allowBlank=false}}
+                        {{validation-feedback errors=errors.model.start_date validated=validated}}
+                    </div>
+
+                    <div class="form-group col-md-6 has-feedback">
+                        <label>Account</label>
+                        {{view 'select'
+                        value=model.account_id
+                        content=accounts
+                        optionValuePath='content.id'
+                        optionLabelPath='content.str_long_name'
+                        prompt='Select An Account'
+                        class='form-control'
+                        selection=account}}
+                        {{validation-feedback errors=errors.model.account_id validated=validated}}
+                    </div>
+
+                    <div class="form-group col-md-6 has-feedback">
+                        <label>Amount</label>
+                        {{formatted-number realValue=model.amount type='text' class='form-control' placeholder='0.00'}}
+                        {{validation-feedback errors=errors.model.amount validated=validated}}
+                    </div>
+
+                    {{#if isRecurring}}
+                        <div class="form-group col-md-6 has-feedback">
+                            <label>Frequency</label>
+                            {{input value=model.frequency type='number' class='form-control' placeholder='Frequency'}}
+                            {{validation-feedback errors=errors.model.frequency validated=validated}}
+                        </div>
+                        <div class="form-group col-md-6 has-feedback">
+                            <label>Frequency Type</label>
+                            {{view 'select'
+                            value=model.frequency_type
+                            content=frequencyTypes
+                            optionValuePath='content.val'
+                            optionLabelPath='content.text'
+                            prompt='Select A Frequency Type'
+                            class='form-control'
+                            selection=freqtypes}}
+                            {{validation-feedback errors=errors.model.frequency_type validated=validated}}
+                        </div>
+
+
+                    {{/if}}
+                    <div class="form-group col-md-12 has-feedback">
+                        <label>Additonal Notes</label>
+                        {{textarea value=model.notes class='form-control' placeholder='Notes' rows="10"}}
+                    </div>
+                {{/if}}
+            </fieldset>
+        </div>
+    </div>
+    <div class="viewport viewport-bottom navbar-toolbar">
+        <div class="pane-actions">
+            <ul class="list-h">
+                <li>
+                    <button {{action 'goBack'}} class="btn btn-default navbar-secondary-btn btn-sm" type="button">
+                        Cancel
+                    </button>
+                </li>
+            </ul>
+            <ul class="list-h pull-right">
+                <li>
+                    <button class="btn btn-primary navbar-secondary-btn btn-sm" type="submit">
+                       Charge
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+{{/akx-form}}

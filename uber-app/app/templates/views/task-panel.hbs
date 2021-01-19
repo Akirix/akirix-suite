@@ -1,0 +1,68 @@
+<div class="pane">
+    <div class="row inner">
+        <div class="col-xs-6 form-group">
+            <button class="btn btn-default width-full" type="button" {{action 'addTask' target=view}}>Add Task</button>
+        </div>
+        <div class="col-xs-6 form-group">
+            <button class="btn btn-default width-full" type="button" {{action 'addNote' target=view}}>Add Note</button>
+        </div>
+        <div class="col-xs-12">
+            <div class="row natural">
+                <div class="col-xs-6">
+                    <h4><i class="fa fa-list-alt"></i> Tasks</h4>
+                </div>
+                <div class="col-xs-6 text-right show-completed">
+                    <label>
+                        Show Completed
+                        {{input type='checkbox' checked=view.showComplete}}
+                    </label>
+                </div>
+            </div>
+            <table class="table table-hover table-striped">
+                <tbody>
+                {{#each task in view.tasks}}
+                    <tr {{action 'openTask' task target=view}} {{bind-attr class="task.isDue:danger task.isComplete:complete :pointer"}}>
+                        <td>
+                            {{#if task.title}}
+                                {{task.title}}
+                            {{else}}
+                                <span class="text-muted">New Task</span>
+                            {{/if}}
+                            {{#if task.due_date}}
+                                <br>
+                                <span class="text-muted">{{akx-date task.due_date dateFormat='MM/DD/YYYY'}}</span>
+                            {{/if}}
+                        </td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-xs-12">
+            <h4><i class="fa fa-pencil-square-o"></i> Notes</h4>
+            <table class="table table-hover table-striped">
+                <tbody>
+                {{#each note in view.notes}}
+                    <tr>
+                        <td {{action 'openTask' note target=view}} {{bind-attr class="note.isDirty:pending :pointer"}}>
+                            {{#if note.title}}
+                                {{note.title}}
+                            {{else}}
+                                <span class="text-muted">New Note</span>
+                            {{/if}}
+                        </td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="toggle" {{action 'togglePane' target=view}}>
+    <button class="btn btn-default" type="button">
+        <i class="fa fa-chevron-left"></i>
+    </button>
+</div>
+{{#each task in view.staged}}
+    {{view 'akx-task' task=task}}
+{{/each}}

@@ -1,0 +1,5 @@
+<ul class="list-group">
+    {{#each item in view.documents}}
+        <li class="list-group-item">{{document-download-link item.url_download view.token item.name item.type}}</li>
+    {{/each}}
+</ul>

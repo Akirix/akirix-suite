@@ -1,0 +1,21 @@
+<div class="large align-center top-buffer">
+    Cash On Platform
+</div>
+<hr>
+<div class="x-large top-buffer align-center">
+    {{#each series in dataSeries}}
+        <div style="display: inline-block; padding: 20px;">
+            <span class="bold">{{{series.currency_id}}}</span><br>
+            {{{series.symbol}}}{{format-number series.platform_balance}}<br/>
+        </div>
+    {{/each}}
+</div>
+<!--<div class="x-large top-buffer align-center">-->
+    <!--<div style="display: inline-block; padding: 20px;">-->
+        <!--<span class="bold" style="">USD Equivalent</span><br>-->
+        <!--${{format-number usdValue}}-->
+    <!--</div>-->
+<!--</div>-->
+
+
+

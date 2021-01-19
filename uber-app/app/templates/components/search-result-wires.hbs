@@ -1,0 +1,98 @@
+<div class="col-xs-12">
+    <legend>
+        {{itemName}}
+    </legend>
+    {{#if items}}
+        <div class="pagination-centered">
+            <ul class="pagination">
+                {{#if canStepBackward}}
+                    <li class="arrow prev enabled-arrow">
+                        <a {{action "incrementPage" -1}}>&laquo;</a>
+                    </li>
+                {{else}}
+                    <li class="arrow prev disabled">
+                        <a {{action "incrementPage" -1}}>&laquo;</a>
+                    </li>
+                {{/if}}
+
+                {{#each item in pageItems}}
+                    {{#if item.current}}
+                        <li class="active page-number">
+                            <a>{{item.page}}</a>
+                        </li>
+                    {{else}}
+                        <li class="page-number">
+                            <a {{action "pageClicked" item.page}}>{{item.page}}</a>
+                        </li>
+                    {{/if}}
+                {{/each}}
+
+                {{#if canStepForward}}
+                    <li class="arrow next enabled-arrow">
+                        <a {{action "incrementPage" 1}}>&raquo;</a>
+                    </li>
+                {{else}}
+                    <li class="arrow next disabled">
+                        <a {{action "incrementPage" 1}}>&raquo;</a>
+                    </li>
+                {{/if}}
+            </ul>
+        </div>
+    {{/if}}
+    <div>
+        <table class="table table-hover">
+            {{#if items}}
+                <thead>
+                <tr>
+                    <th class="col-xs-1">Date</th>
+                    <th class="col-xs-2">Name</th>
+                    <th class="col-xs-2">Company</th>
+                    <th>Bank</th>
+                    <th class="col-xs-2">Amount</th>
+                    <th class="col-xs-1 text-center">Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#each wire in items}}
+                    {{#link-to 'wires.index.view' wire.id tagName='tr' class='list-link'}}
+                        <td class="small valign-middle">
+                            <strong>{{wire.str_updated_at_date}}</strong><br/>
+                            {{wire.str_updated_at_time}}
+                        </td>
+                        <td class="valign-middle">
+                            {{wire-type-icon wire.type}} W-{{wire.name}}<br/>
+                            {{#if wire.wire_batch_id}}<i class="fa fa-suitcase fa-fw"></i> {{/if}}
+                            {{wire-method-icon wire.method wire.speedwire}}<br/>
+                            <span class="small text-gray"><i class="fa fa-level-up fa-fw"></i> {{wire.bankRoute.name}}</span>
+                        </td>
+                        <td class="valign-middle">
+                            {{wire.company.name}}<br/>
+                            <span class="small">XYZ{{wire.company.account_number}}</span>
+                        </td>
+                        <td>
+                            <span class="medium">{{wire.account_holder}}</span><br/>
+                            <span class="small">
+                                                <i class="fa fa-university fa-fw"></i> {{wire.bank_name}}
+                                ({{wire.account_number}})
+                                            </span>
+                        </td>
+                        <td class="large valign-middle">
+                            {{{wire.str_sign_color}}} {{{wire.currency.symbol}}}{{wire.str_amount}}
+                        </td>
+                        <td class="medium valign-middle">
+                            {{wire-status-icon wire.status}}
+                        </td>
+                    {{/link-to}}
+                {{/each}}
+                </tbody>
+            {{else}}
+                <tbody>
+                <tr class="borderless">
+                    <td class="text-center text-muted"><h5>No Results</h5></td>
+                </tr>
+                </tbody>
+            {{/if}}
+        </table>
+    </div>
+</div>
+

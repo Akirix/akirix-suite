@@ -1,0 +1,120 @@
+{{#unless isEmpty}}
+    <div class="d-flex align-items-end">
+        <h2>{{stringList.header}}</h2>
+        {{#if isMine}}
+            <span class="header-add">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+            <span class="header-add">
+                {{#link-to 'authenticated.invoices.invoices.add' tagName='button' class='btn btn-sm btn-success font-weight-bolder'}}
+                    {{stringList.addInvoice}}
+                {{/link-to}}
+            </span>
+        {{/if}}
+    </div>
+    {{akx-pagination 
+        page=page
+        perPage=perPage
+        meta=model.meta
+        action='refresh'}}
+    <table id="tbl-bills" class="table table-hover th-sticky mt-3">
+        <thead class="thead-light">
+            <tr>
+                <th style="width:10%">{{stringList.tableHead0}}</th>
+                <th style="width:10%">{{stringList.tableHead2}}</th>
+                <th style="width:30%">{{stringList.tableHead1}}</th>
+                <th style="width:10%">{{stringList.type}}</th>
+                <th style="width:30%" class="text-right">{{stringList.tableHead3}}</th>
+                <th style="width:10%" class="text-center">{{stringList.tableHead4}}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {{#each draftInvoices as |invoice key|}}
+            {{#link-to 'authenticated.invoices.invoices.edit' invoice.id 
+                id=(concat "bill-row-" key)
+                class="draft"
+                tagName='tr'}}
+                <td id="bill-col-created-{{key}}">
+                    {{format-date invoice.created_at}}
+                </td>
+                <td id="bill-col-name-{{key}}">
+                    <strong>I-{{invoice.name}}</strong>
+                </td>
+                <td id="bill-col-company-{{key}}">
+                    <p>{{if invoice.toCompany invoice.toCompany.name invoice.to_company_name}}</p>
+                    <small>XYZ {{if invoice.toCompany invoice.toCompany.account_number 'External Company'}}</small>
+                </td>
+                <td id="bill-col-type-{{key}}">
+                    <p>{{invoice.getType}}</p>
+                    {{#if invoice.isProject}}
+                        <i class="akx-icon akx-projects"></i> <small>P-{{invoice.project.name}}</small>
+                    {{/if}}
+                </td>
+                <td id="bill-col-amount-{{key}}" class="text-success text-right">
+                    <strong>
+                        {{format-number invoice.total style='currency' currency=invoice.currency_id}}
+                    </strong>
+                </td>
+                <td id="bill-col-status-{{key}}" class="text-center font-h4">
+                    {{{invoice.statusIcon}}}
+                </td>
+            {{/link-to}}
+        {{/each}}
+        {{#each allInvoices as |invoice key|}}
+            {{#link-to linkView invoice.id tagName='tr'}}
+                <td>
+                    {{format-date invoice.created_at}}
+                </td>
+                <td>
+                    <strong>I-{{invoice.name}}</strong>
+                </td>
+                <td>
+                    {{#if isMine}}
+                        <p>{{invoice.toCompany.name}}</p>
+                        <small>XYZ {{invoice.toCompany.account_number}}</small>
+                    {{else}}
+                        <p>{{invoice.company.name}}</p>
+                        <small>XYZ {{invoice.company.account_number}}</small>
+                    {{/if}}
+                </td>
+                <td>
+                    <p>{{invoice.getType}}</p>
+                    {{#if invoice.isProject}}
+                        <i class="akx-icon akx-projects"></i> <small>P-{{invoice.project.name}}</small>
+                    {{/if}}
+                </td>
+                <td class={{if isMine "text-success text-right" "text-danger text-right"}}>
+                    <p>
+                        <strong>
+                            {{format-number invoice.total style='currency' currency=invoice.currency_id}}
+                        </strong>
+                    </p>
+                    {{#if invoice.isPartiallyPaid}}
+                        <small>
+                            {{stringList.remaining}}:
+                            {{format-number invoice.remaining_amount style='currency' currency=invoice.currency_id}}
+                        </small>
+                    {{/if}}
+                </td>
+                <td class="text-center font-h4">
+                    {{{invoice.statusIcon}}}
+                </td>
+            {{/link-to}}
+        {{/each}}
+        </tbody>
+    </table>
+{{else}}
+    <div class="empty-data">
+        <div class="text-center col-lg-4">
+            <i class="akx-icon akx-invoices"></i>
+            {{#if isMine}}
+                <p>{{stringList.noInvoices}}</p>
+                {{#link-to 'authenticated.invoices.invoices.add'
+                    tagName='button'
+                    class='btn btn-success font-weight-bolder'}}
+                    {{stringList.new}}
+                {{/link-to}}
+            {{else}}
+                <p>{{stringList.noBills}}</p>
+            {{/if}}
+        </div>
+    </div>
+{{/unless}}

@@ -1,0 +1,24 @@
+<div class="pane-primary-content">
+    <table class="table table-high table-hover">
+        <thead>
+        <tr>
+            <th class="col-xs-4">Affiliate</th>
+            <th class="col-xs-4">Company</th>
+            <th class="col-xs-2">Rate</th>
+            <th class="col-xs-2">Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each commission in model}}
+            {{#link-to 'affiliates.commissions.view' commission.id tagName='tr' class="pointer list-link"}}
+                <td><i class="fa fa-diamond fa-fw"></i> XYZ{{commission.affiliate.account_number}} {{commission.affiliate.name}}</td>
+                <td><i class="fa fa-building-o fa-fw"></i> XYZ{{commission.company.account_number}} {{commission.company.name}}</td>
+                <td>{{commission.str_rate}}</td>
+                <td class="text-center">{{commission-status-icon commission.status}}</td>
+            {{/link-to}}
+        {{/each}}
+        </tbody>
+    </table>
+    {{page-numbers content=content}}
+
+</div>

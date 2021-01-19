@@ -1,0 +1,27 @@
+{{#akx-form action=''}}
+    <div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+        <fieldset class="pane-secondary-content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <legend>
+                        Add New Documents
+                    </legend>
+                </div>
+                {{upload-reg-document
+                    url=url
+                    documentTypes=model.documentTypes
+                    documentData=documentData
+                    action='refreshCompanyDocument'}}
+            </div>
+        </fieldset>
+    </div>
+{{/akx-form}}
+<div class="viewport viewport-bottom navbar-toolbar">
+    <div class="pane-actions">
+        <ul class="list-h">
+            <li>
+                <button class="btn btn-default btn-sm navbar-secondary-btn" {{action 'goBack'}}>Go Back</button>
+            </li>
+        </ul>
+    </div>
+</div>

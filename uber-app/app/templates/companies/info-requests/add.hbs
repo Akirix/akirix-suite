@@ -1,0 +1,95 @@
+<div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+    <div class="pane-secondary-content">
+        <fieldset>
+            <legend>
+                <span>New Information request</span>
+            </legend>
+            <div class="row top-buffer">
+                <div class="form-group col-md-6 required has-feedback">
+                    <label>Deadline</label>
+                    {{date-picker value=infoRequest.deadline class='form-control' placeholder='Client deadline' valueFormat='YYYY-MM-DD'}}
+                    {{validation-feedback errors=errors.infoRequest.deadline validated=validated}}
+                </div>
+                <div class="form-group col-md-6 required has-feedback">
+                    <label>Type of request</label>
+                    {{view 'select'
+                    value=infoRequest.type
+                    content=types
+                    optionValuePath='content.val'
+                    optionLabelPath='content.label'
+                    prompt='Select Type of request'
+                    class='form-control'}}
+                    {{validation-feedback errors=errors.infoRequest.type validated=validated}}
+                </div>
+            </div>
+            <div class="row top-buffer">
+                <div class="form-group col-md-6 required has-feedback">
+                    <label>To Whom</label>
+                    {{view 'select'
+                    value=infoRequest.model
+                    content=modelOptions
+                    optionValuePath='content.val'
+                    optionLabelPath='content.label'
+                    prompt='Select To whom the request is for'
+                    class='form-control'}}
+                    {{validation-feedback errors=errors.infoRequest.model validated=validated}}
+                </div>
+                {{#if isUser}}
+                    <div class="form-group col-md-6 required has-feedback">
+                        <label>Choose User</label>
+                        {{view 'select'
+                        value=infoRequest.model_id
+                        content=users
+                        optionValuePath='content.id'
+                        optionLabelPath='content.name'
+                        prompt='Choose user in company'
+                        class='form-control'}}
+                        {{validation-feedback errors=errors.infoRequest.model_id validated=validated}}
+                    </div>
+                {{else}}
+                    <div class="form-group col-md-6 required has-feedback">
+                        <label>Company {{company.companyName}} Selected</label>
+                        {{view 'select'
+                        value=infoRequest.model_id
+                        content=company
+                        optionValuePath='content.company_id'
+                        optionLabelPath='content.companyName'
+                        class='form-control'
+                        disabled='disabled'}}
+                        {{validation-feedback errors=errors.infoRequest.model_id validated=validated}}
+                    </div>
+                {{/if}}
+                <div class="col-md-12 has-feedback">
+                    <label>Title:</label>
+                    {{input value=infoRequest.title class='form-control' placeholder=info-req.title valueFormat='YYYY-MM-DD' allowBlank=true}}
+                    {{validation-feedback errors=errors.infoRequest.title validated=validated}}
+                </div>
+            </div>
+            <div class="row top-buffer">
+                <div class="form-group col-md-12 required has-feedback">
+                    <label>Information Requested:</label>
+                    <span class="help-block"></span>
+                    {{textarea value=infoRequest.notes class='form-control' rows='5' placeholder='Enter in descriptive message with your question to client.'}}
+                    {{validation-feedback errors=errors.infoRequest.notes validated=validated}}
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>
+<div class="viewport viewport-bottom navbar-toolbar">
+    <div class="pane-actions">
+        <ul class="list-h">
+            <li>
+                <button {{action 'goBack'}} class="btn btn-default navbar-secondary-btn" type="button">Cancel
+                </button>
+            </li>
+        </ul>
+        <ul class="list-h pull-right">
+            <li>
+                <button {{action 'createRequest'}} class="btn btn-primary navbar-secondary-btn" type="submit">
+                    Create
+                </button>
+            </li>
+        </ul>
+    </div>
+</div>

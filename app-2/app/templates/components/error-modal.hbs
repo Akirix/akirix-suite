@@ -1,0 +1,38 @@
+<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-error" role="document">
+        <div class="modal-content">
+            <div class="modal-head orange pt-3">
+                <i class="akx-icon akx-exclamation mb-3"></i>
+                <header class="akx-header">
+                    <span>{{stringList.error}}</span>
+                </header>
+            </div>
+            <div class="modal-body text-center">
+                <p>{{stringList.errorMessage}}</p>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <span class="description font-small pointer" data-toggle="collapse" data-target="#errors" aria-expanded="false" aria-controls="collapse">
+                  {{stringList.more}}
+              </span>
+                <div class="akx-button" data-dismiss="modal">
+                    <span class="orange">{{stringList.cancel}}</span>
+                </div>
+            </div>
+            <div class="collapse" id="errors">
+              <ul>
+                {{#each errors as |error|}}
+                  <li>
+                    {{#if error.errors}}
+                      {{error.errors}}
+                    {{else if error.detail}}
+                      {{error.detail}}
+                    {{else}}
+                      {{error.title}}
+                    {{/if}}
+                  </li>
+                {{/each}}
+              </ul>
+            </div>
+        </div>
+    </div>
+</div>

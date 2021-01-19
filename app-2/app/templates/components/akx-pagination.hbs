@@ -1,0 +1,16 @@
+<ul class="pagination">
+      {{!-- Previous --}}
+    <li class={{if canStepBackward "page-item" "page-item disabled"}}>
+        <a href="#" class="page-link" {{action "back"}}>{{stringList.previous}}</a>
+    </li>
+    {{!-- list --}}
+    {{#each list as |idx|}}
+        <li class={{if (is-equal idx page) "page-item active" "page-item"}}>
+            <a href="#" class="page-link" {{action "setPage" idx}}>{{idx}}</a>
+        </li>
+    {{/each}}
+    {{!-- Next --}}
+    <li class={{if hasMorePages "page-item" "page-item disabled"}}>
+        <a href="#" class="page-link" {{action "next"}}>{{stringList.next}}</a>
+    </li>
+</ul>

@@ -1,0 +1,32 @@
+<div class="no-padding">
+    <div class="panel panel-default" style="width: 500px; margin: 50px auto;">
+        <div class="panel-heading text-center">
+            Password Recovery
+        </div>
+        <div style="padding: 20px;">
+            <p>Enter your e-mail and T.O.T.H., and we'll send instructions to reset your password.</p>
+
+            {{#akx-form action='forgot' isLocked=isLocked}}
+                <div class="form-group no-margin has-feedback">
+                    {{input placeholder='E-mail' class='form-control' value=email}}
+                    {{validation-feedback errors=errors.email validated=validated}}
+                </div>
+                <br/>
+                <div class="form-group no-margin has-feedback">
+                    {{input placeholder='T.O.T.H.' class='form-control' value=toth}}
+                    {{validation-feedback errors=errors.toth validated=validated}}
+                </div>
+                <br/>
+                <div class="valign-middle">
+                    <div class="pull-left">
+                        {{#link-to 'login' class='btn btn-sm btn-default'}}Back To Login{{/link-to}}
+                    </div>
+                    <div class="pull-right">
+                        <button class="btn btn-sm btn-primary" type="submit">Send Instructions</button>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            {{/akx-form}}
+        </div>
+    </div>
+</div>

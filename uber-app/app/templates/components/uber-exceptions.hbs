@@ -1,0 +1,63 @@
+{{#each exception in uberExceptions}}
+    <div class="panel panel-default">
+        <div class="panel-heading text-center pointer" data-toggle="collapse" data-target="#{{exception.id}}">
+            {{#if exception.isPending}}
+                <div style="position:relative">
+                    EXCEPTION
+                </div>
+            {{else}}
+                <div class="text-rose" style="position:relative">
+                    CONFIRMED
+                </div>
+            {{/if}}
+        </div>
+        <div class="bg-warning panel-body">
+            <div id="{{exception.id}}" class="collapse">
+                {{pretty-json jsonObj=exception.raw_data}}
+                <div class="form-group col-md-12">
+                    <label>Reason</label>
+                    {{textarea value=exception.reason class='form-control' rows='3' disabled=exception.isConfirmed}}
+                </div>
+                {{#if exception.isPending}}
+                    <ul class="list-h">
+                        <li>
+                            <button {{action 'accept' exception}} class="btn btn-warning btn-sm navbar-secondary-btn">Accept</button>
+                        </li>
+                        <li>
+                            <button {{action 'reject' exception}} class="btn btn-success btn-sm navbar-secondary-btn">Reject</button>
+                        </li>
+                    </ul>
+                {{/if}}
+            </div>
+            <div class="text-gray-light align-center pointer" data-toggle="collapse"
+                 data-target="#{{exception.id}}"> Click To Toggle Exceptions
+            </div>
+        </div>
+    </div>
+{{/each}}
+{{#if showBulkAction}}
+<div class="panel panel-default">
+    <div class="panel-heading text-center pointer" >
+        <div style="position:relative">
+            Bulk Action
+        </div>
+    </div>
+    <div class="bg-warning panel-body">
+        <div>
+            <div class="form-group col-md-12">
+                <label>Reason</label>
+                    {{textarea value=reason class='form-control' rows='3'}}            
+            </div>
+        
+                <ul class="list-h">
+                    <li>
+                        <button {{action 'handleAll' 'accept'}} class="btn btn-warning btn-sm navbar-secondary-btn">Accept</button>
+                    </li>
+                    <li>
+                        <button {{action 'handleAll' 'reject'}} class="btn btn-success btn-sm navbar-secondary-btn">Reject</button>
+                    </li>
+                </ul>
+        </div>
+    </div>
+</div>
+{{/if}}

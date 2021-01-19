@@ -1,0 +1,18 @@
+<div class="row">
+    <div class="center_column col-sm-12">
+        <div class="row">
+            <div class="col-xs-12 margin-top-large form-group">
+                {{#if emailVerified}}
+                    <legend>
+                        <span>Email Verified</span>
+                    </legend>
+                    <p>Thank you for verifying your email</p>
+                {{else}}
+                {{/if}}
+            </div>
+            <div class="col-xs-12">
+                <a href="{{controllers.application.company.url}}">Back to {{controllers.application.company.website}}</a>
+            </div>
+        </div>
+    </div>
+</div>

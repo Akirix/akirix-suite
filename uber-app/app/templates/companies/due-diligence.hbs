@@ -1,0 +1,29 @@
+<table class="table table-hover table-high">
+    <thead>
+    <tr>
+        <th class="col-xs-1">Date</th>
+        <th class="col-xs-2">User</th>
+        <th class="col-xs-1">Status</th>
+        <th class="col-xs-1"></th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each dd in model}}
+        {{#link-to 'companies.view.due-diligence.view' dd.id tagName='tr' class='list-link'}}
+            <td class="valign-middle">
+                {{dd.str_updated_at_date}}
+            </td>
+            <td class="valign-middle">
+                {{dd.uberUser.name}}
+            </td>
+            <td class="valign-middle medium">
+                {{dd-status dd.status}}
+            </td>
+            <td class="valign-middle">
+
+            </td>
+        {{/link-to}}
+    {{/each}}
+    </tbody>
+</table>
+

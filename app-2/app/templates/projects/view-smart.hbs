@@ -1,0 +1,286 @@
+<header id="side-header" class="akx-header">
+    <span id="lbl-project-title">P-{{model.project.name}}</span>
+</header>
+<h5 class="text-center">{{model.project.getName}}</h5>
+<div class="map">
+    {{#if externalNodes}}
+        <div class="row justify-content-center align-content-center">
+            {{#each externalNodes as |eNode|}}
+                {{#akx-rotating-card buyer=true}}
+                    <div class="card card-rotate">
+                        <div class="front">
+                            <div class="card-header buyer-header text-left">
+                                <span class="font-h5">{{eNode.name}}</span>
+                                <span class="float-right">{{stringList.external}}</span>
+                            </div>
+                            <div class="card-body">
+                                <p class="no-margin"><b>Point of Contact:</b> {{eNode.point_of_contact}}</p>
+                                <p class="no-margin"><b>Phone:</b> {{eNode.phone}}</p>
+                                <p class="no-margin"><b>Email:</b> {{eNode.email}}</p>
+                            </div>
+                        </div>
+                        <div class="back">
+                            <div class="card-header buyer-header text-left">
+                                <span class="font-h5">{{eNode.name}}</span>
+                                <span class="float-right">{{stringList.external}}</span>
+                            </div>
+                            <div class="card-body text-center">
+                                <h3>
+                                    {{#link-to 'authenticated.projects.view.view-external-node' eNode.id
+                                        class='akx-button btn-rotate'
+                                        tagName='button'}}
+                                        <span class="dark-blue">
+                                            {{stringList.viewDetails}}
+                                        </span>
+                                    {{/link-to}}
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                {{/akx-rotating-card}}
+            {{/each}}
+        </div>
+        {{#if model.project.node.isPendingSmart}}    
+            {{#if (gt externalNodes.length 1)}}
+                <div class="reverse-horizontal-connector"></div>
+                {{#add-buyer-supplier}}
+                    {{#link-to 'authenticated.projects.view.add-buyer'
+                        class='buyer'
+                        tagName='div'}}
+                        <i class="akx-icon akx-plus dark-blue"></i>
+                    {{/link-to}}
+                {{/add-buyer-supplier}}
+            {{else}}
+                <div class="connector"></div>
+                {{#add-buyer-supplier class='mt-5'}}
+                    {{#link-to 'authenticated.projects.view.add-buyer'
+                        class='buyer'
+                        tagName='div'}}
+                        <i class="akx-icon akx-plus dark-blue"></i>
+                    {{/link-to}}
+                {{/add-buyer-supplier}}
+            {{/if}}
+        {{else}}
+            <div class="reverse-horizontal-connector"></div>
+            <div class="connector"></div>
+        {{/if}}
+    {{else if model.project.bnode}}
+        <div class="d-flex justify-content-center align-content-center">
+            {{#akx-rotating-card buyer=true manual-flip=model.project.bnode.isInvited id='buyer-card'}}
+                <div class="card card-rotate buyer-card">
+                    <div class="front text-center">
+                        <div class="card-header buyer-header text-left">
+                            <span class="font-h5">{{model.project.bnode.company.name}}</span>
+                            <span class="float-right">XYZ {{model.project.bnode.company.account_number}}</span>
+                        </div>
+                        <div class="card-body">
+                            {{#if model.project.bnode.isInvited}}
+                                <h3>
+                                    <strong><i>{{stringList.isInvited}}</i></strong>
+                                </h3>
+                            {{else}}
+                                <h3>
+                                    {{format-number
+                                        model.project.node.points_total
+                                        style='currency'
+                                        currency=model.project.currency_id}}
+                                </h3>
+                            {{/if}}
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="card-header buyer-header text-left">
+                            <span class="font-h5">{{model.project.bnode.company.name}}</span>
+                            <span class="float-right">XYZ {{model.project.bnode.company.account_number}}</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="row pb-1">
+                                <div class="col-6">
+                                    {{#link-to 'authenticated.projects.view.invoices' model.project.node.id
+                                        class='akx-button'
+                                        tagName='button'}}
+                                        <span class="dark-blue">{{stringList.viewInvoices}}</span>
+                                    {{/link-to}}
+                                </div>
+                                <div class="col-6">
+                                    {{#link-to 'authenticated.projects.view.node-documents' model.project.node.id
+                                        class='akx-button'
+                                        tagName='button'}}
+                                        <span class="dark-blue">{{stringList.viewDocuments}}</span>
+                                    {{/link-to}}
+                                </div>
+                                <div class="col-6">
+                                    {{#link-to 'authenticated.projects.view.node-items' model.project.node.id
+                                        class='akx-button'
+                                        tagName='button'}}
+                                        <span class="dark-blue">{{stringList.nodeItems}}</span>
+                                    {{/link-to}}
+                                </div>
+                            </div>
+                            <hr class="no-margin">
+                            <div class="d-flex justify-content-between actions">
+                                {{#if canInvoice}}
+                                    {{#if model.project.isActive}}
+                                        {{#link-to 'authenticated.projects.view.add-linear-invoice'
+                                            class='btn btn-primary btn-sm mt-1 act'
+                                            id='btn-add-invoice'
+                                            tagName='button'}}
+                                            {{stringList.newInvoice}}
+                                        {{/link-to}}
+                                    {{/if}}
+                                {{/if}}
+                                {{#if model.project.canReturnFunds}}
+                                    {{#link-to 'authenticated.projects.view.return-funds'
+                                        class='btn btn-primary btn-sm mt-1 act'
+                                        tagName='button'}}
+                                        {{stringList.returnFunds}}
+                                    {{/link-to}}
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {{/akx-rotating-card}}
+        </div>
+        <div class="connector"></div>
+    {{else if model.project.node.isPendingSmart}}
+        <p class="text-center">{{stringList.addBuyer}}</p>
+        {{#add-buyer-supplier class='mt-5'}}
+            {{#link-to 'authenticated.projects.view.add-buyer'
+                class='buyer'
+                tagName='div'}}
+                <i class="akx-icon akx-plus dark-blue"></i>
+            {{/link-to}}
+        {{/add-buyer-supplier}}
+    {{/if}}
+    <div class="row justify-content-center align-content-center">
+        <div>
+            <div class="you-card text-center">
+                <b>{{model.project.node.company.name}}</b>
+                <p class="no-margin font-small">
+                    <b>{{stringList.you}}:</b>
+                    XYZ {{model.project.node.company.account_number}}
+                </p>
+                {{#if model.project.node.isPendingSmart}}
+                    {{confirmation-modal
+                        id="link-app-activate-node"
+                        tagName="button"
+                        type="button"
+                        class="btn btn-success btn-sm"
+                        openModal="openModal"
+                        html=stringList.activate
+                        headerTitle="Are you done?"
+                        prompt=stringList.activateHelp
+                        controller=this
+                        data-toggle="modal"
+                        data-target="#confirmationModal"
+                        action="activate"}}
+                {{else}}
+                    <p class="no-margin">{{stringList.total}}</p>
+                    <p class="no-margin">
+                        <strong class="text-danger">
+                            {{format-number
+                                model.project.points_out
+                                style='currency'
+                                currency=model.project.currency_id}}
+                        </strong>
+                    </p>
+                {{/if}}
+            </div>
+            {{#if model.project.canAddSupplier}}
+                {{#if model.project.node.isPendingSmart}}
+                    {{#add-buyer-supplier class='mt-2 mb-4'}}
+                        {{#link-to 'authenticated.projects.view.add-supplier'
+                            class='supplier'
+                            tagName='div'}}
+                            <i class="akx-icon akx-plus dark-blue"></i>
+                        {{/link-to}}
+                    {{/add-buyer-supplier}}
+                {{/if}}
+            {{/if}}
+        </div>
+    </div>
+    {{#if model.project.snodes}}
+        {{#if model.project.manySnodes}}
+            <div class="horizontal-connector"></div>
+        {{else}}
+            <div class="connector mt-2"></div>
+        {{/if}}
+        <div class="row justify-content-center align-content-center">
+            {{#each model.project.snodes as |snode idx|}}
+                {{#akx-rotating-card manual-flip=snode.isInvited id=snode.id}}
+                    <div class="card card-rotate supplier-card">
+                        <div class="front">
+                            <div class="card-header supplier-header text-left">
+                                <span class="font-h5">{{snode.company.name}}</span>
+                                <span class="float-right">XYZ {{snode.company.account_number}}</span>
+                            </div>
+                            <div class="card-body text-center">
+                                {{#if snode.isInvited}}
+                                    <h3>
+                                        <strong><i>{{stringList.isInvited}}</i></strong>
+                                    </h3>
+                                {{else}}
+                                    <h3>
+                                        {{format-number
+                                            snode.points_total
+                                            style='currency'
+                                            currency=model.project.currency_id}}
+                                    </h3>
+                                {{/if}}
+                            </div>
+                        </div>
+                        <div class="back">
+                            <div class="card-header supplier-header text-left">
+                                <span class="font-h5">{{snode.company.name}}</span>
+                                <span class="float-right">XYZ {{snode.company.account_number}}</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="row pb-1">
+                                    <div class="col-6">
+                                        {{#link-to 'authenticated.projects.view.invoices' snode.id
+                                            class='akx-button'
+                                            tagName='button'}}
+                                            <span class="dark-blue">{{stringList.viewBills}}</span>
+                                        {{/link-to}}
+                                    </div>
+                                    <div class="col-6">
+                                        {{#link-to 'authenticated.projects.view.node-documents' snode.id
+                                            class='akx-button'
+                                            tagName='button'}}
+                                            <span class="dark-blue">{{stringList.viewDocuments}}</span>
+                                        {{/link-to}}
+                                    </div>
+                                    <div class="col-6">
+                                        {{#link-to 'authenticated.projects.view.node-items' snode.id
+                                            class='akx-button'
+                                            tagName='button'}}
+                                            <span class="dark-blue">{{stringList.nodeItems}}</span>
+                                        {{/link-to}}
+                                    </div>
+                                </div>
+                                <hr class="no-margin">
+                                {{#if model.project.isActive}}
+                                    <div class="text-center pt-2">
+                                        {{#link-to 'authenticated.projects.view.commit-funds' snode.id
+                                            class='btn btn-primary btn-sm act'
+                                            tagName='button'}}
+                                            {{stringList.commitFunds}}
+                                        {{/link-to}}
+                                    </div>
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                {{/akx-rotating-card}}
+            {{/each}}
+        </div>
+    {{else if model.project.node.isPendingSmart}}
+        <p class="text-center mt-3">{{stringList.addSupplier}}</p>
+    {{/if}}
+</div>
+{{#unless model.project.isActive}}
+    <div class="smart-project-steps">
+        {{#step-group steps=steps currentStep=model.project.currentStep}}{{/step-group}}
+    </div>
+{{/unless}}

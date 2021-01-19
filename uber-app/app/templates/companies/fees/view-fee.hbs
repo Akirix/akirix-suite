@@ -1,0 +1,17 @@
+<div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+    <div class="pane-secondary-content">
+        {{#if selectedType}}
+            <div class="panel panel-default">
+                <div class="panel-heading text-center">
+                    <span class="text-gray large">Edit: {{format-text selectedFee.key}}</span>
+                </div>
+                {{fee-edit-wire feeData=selectedFee action='update' feeTable=feeTable selectedType=selectedType}}
+            </div>
+        {{else}}
+            <div class="align-center valign-middle text-gray-light"
+                 style="padding: 100px; background-color: #f2f4f5; ">
+                No fee selected
+            </div>
+        {{/if}}
+    </div>
+</div>

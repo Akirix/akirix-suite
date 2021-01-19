@@ -1,0 +1,60 @@
+<header class="akx-header">
+    <span class="text-primary">W-{{model.wire.name}}</span>
+</header>
+<div class="row">
+    <div class="col-lg-6 col-md-8 col-sm-10 m-auto">
+        <h5 class="text-center text-primary">{{stringList.internalTransfer}}</h5>
+        <div class="text-center">
+            <h3>{{model.wire.account_holder}}</h3>
+            <p>XYZ {{model.wire.account_number}}</p>
+        </div>
+        {{#if model.wire.notes}}
+            <hr class="border-bottom">
+            <p>{{model.wire.notes}}</p>
+            <hr class="border-bottom">
+        {{/if}}
+        {{!-- Amount --}}
+        <div class="row">
+            <div class="col-6">
+                <h3 class="text-danger">
+                    {{model.wire.account.name}}
+                </h3>
+                <p>{{stringList.fee}}</p>
+            </div>
+            <div class="col-6 text-right">
+                <h3 class="text-danger">
+                    {{format-number model.wire.amount style='currency' currency=model.wire.currency_id}}
+                </h3>
+                <p>
+                    {{format-number model.wire.fee style='currency' currency=model.wire.currency_id}}
+                </p>
+            </div>
+        </div>
+        {{#if model.documents}}
+            <div class="akx-col-lrg-14">
+                {{upload-documents name="book-transfer-success-upload-documents" documents=model.documents}}
+            </div>
+        {{/if}}
+    </div>
+</div>
+<div class="row text-center mt-5">
+    <div class="col-lg-4 col-md-8 col-sm-10 m-auto text-success">
+        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+            <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+            <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+        </svg>
+        <p class="font-h2">{{stringList.success}}</p>
+        <p>{{successMessage}}</p>
+    </div>
+    <div class="col-12 pt-3">
+        <button id="btn-back-to-transfers" {{action 'backToTransfers'}} class="btn btn-primary" type="button">
+            {{stringList.backToTransfers}}
+        </button>
+        {{#link-to 'authenticated.transfers.wire-options'
+            tagName='button'
+            id="btn-submit-another-transfer"
+            class="btn btn-primary ml-2"}}
+            {{stringList.submitAnotherTransfer}}
+        {{/link-to}}
+    </div>
+</div>

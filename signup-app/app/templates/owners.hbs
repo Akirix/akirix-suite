@@ -1,0 +1,98 @@
+<style>
+    input[type="radio"] {
+        opacity: 0;
+    }
+
+    input[type="radio"] + label {
+        position: relative;
+        width: 100%;
+        z-index: 10;
+    }
+
+    input[type="radio"]:checked + label {
+        color: #fff;
+        background-color: #0a3859;
+        border-color: #0a3859;
+    }
+</style>
+<div class="row">
+    <div class="center-column col-sm-12">
+        {{#validator-form action="submit" locked=formLocked}}
+            <div class="row">
+                <h3 class="negative-margin">Ultimate Beneficiary Owners</h3>
+                <div class="row border-bottom bottom-buffer"></div>
+            </div>
+            <div class="form-group row">
+                <div class="row">
+                    <p class="col-xs-8" style="line-height: 34px">
+                        How many individual are there who owns 25% or more of the entity?
+                    </p>
+                    <div class="col-xs-4">
+                        {{view 'select'
+                               value=uboCount
+                               content=uboCountOptions
+                               optionValuePath='content.val'
+                               optionLabelPath='content.name'
+                               prompt='Select a numbert'
+                               class='form-control'}}
+                    </div>
+                </div>
+            </div>
+            <div class="row form-group">
+                <hr>
+            </div>
+            {{#if hasUBO}}
+                {{#each owner in owners}}
+                    {{owner-info
+                            owner=owner
+                            idx=_view.contentIndex
+                            countries=controllers.application.countries
+                            validated=validated}}
+                {{/each}}
+            {{/if}}
+
+            {{#if executives}}
+                <div class="row">
+                    <h3 class="negative-margin">Executive / Board Members</h3>
+                    <div class="row border-bottom bottom-buffer"></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <p class="text-muted help">
+                            Please list all the executive and/or board members of this entity
+                        </p>
+                    </div>
+                </div>
+                {{#each executive in executives}}
+                    {{executive-info
+                            executive=executive
+                            executives=executives
+                            idx=_view.contentIndex
+                            countries=controllers.application.countries
+                            validated=validated}}
+                {{/each}}
+            {{/if}}
+
+            {{#if answeredUBO}}
+                <div class="row border-bottom bottom-buffer"></div>
+                <div class="clear"></div>
+                <div class="row margin-top-large">
+                    {{#if hasExecutive}}
+                        <div class="col-xs-6">
+                            <button {{action 'addMember'}}> Add More Member</button>
+                        </div>
+                        <div class="col-xs-6">
+                            <button {{action 'submit'}} type="submit">Save and Continue</button>
+                        </div>
+                    {{else}}
+                        <div class="col-xs-3"></div>
+                        <div class="col-xs-6">
+                            <button {{action 'submit'}} type="submit">Save and Continue</button>
+                        </div>
+                        <div class="col-xs-3"></div>
+                    {{/if}}
+                </div>
+            {{/if}}
+        {{/validator-form}}
+    </div>
+</div>

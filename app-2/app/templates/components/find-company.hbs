@@ -1,0 +1,19 @@
+{{#akx-form name="frm-find-company" autocomplete="off" novalidate="true"}}
+    <div class="form-row align-items-start">
+        <div class="akx-col-1 text-right pt-4 mt-2">
+            <img src="/assets/akx.png" alt="" width="30px" height="30px">
+        </div>
+        <div class="akx-col-11 form-group bmd-form-group has-feedback">
+            <label for="input-company-account-number" class="bmd-label-floating">{{stringList.title}}</label>
+            {{input
+                name="input-company-account-number"
+                type="text"
+                class="form-control"
+                value=akirixAccountNumber}}
+                {{validation-feedback errors=errors}}
+                {{#if companyFound}}
+                    <span>{{stringList.found}}</span>
+                {{/if}}
+        </div>
+    </div>
+{{/akx-form}}

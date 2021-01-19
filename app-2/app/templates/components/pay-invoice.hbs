@@ -1,0 +1,119 @@
+<header class="akx-header">
+    <span>I-{{invoice.getName}}</span>
+</header>
+<h5 class="text-center">{{stringList.invoiceNumber}}{{invoice.name}}</h5>
+<table class="table table-hover no-margin">
+    {{#if accounts}}
+        <thead>
+            <tr>
+                <th colspan="3" class="text-center">{{stringList.accountsTableHead}}</th>
+            </tr>
+        </thead>
+        {{#akx-select value=changeset.account_id choices=accounts as |account|}}
+            <td>
+                <strong>{{{account.currencySymbol}}}</strong>
+            </td>
+            <td>
+                {{account.name}}
+            </td>
+            <td>
+                {{format-number account.balance style='currency' currency=account.currency_id}}
+            </td>
+        {{/akx-select}}
+    {{/if}}
+    <tfoot>
+        <tr class="has-feedback">
+            <td colspan="3" class="text-center text-danger">
+                {{validation-feedback errors=changeset.error.account_id.validation}}
+            </td>
+        </tr>
+        {{#if account}}
+            <tr>
+                {{#if project}}
+                    <td>{{account.name}}</td>
+                    <td>
+                        <p>{{stringList.availableBalance}}</p>
+                    </td>
+                    <td class="text-center">
+                        <p class="font-h5">
+                            {{format-number
+                                account.balance
+                                style='currency'
+                                currency=invoice.currency_id}}
+                        </p>
+                    </td>
+                {{else}}
+                    <td>
+                        <p>{{stringList.availableBalance}}</p>
+                    </td>
+                    <td colspan="2" class="text-center">
+                        <p class="font-h5">
+                            {{format-number
+                                account.balance
+                                style='currency'
+                                currency=invoice.currency_id}}
+                        </p>
+                    </td>
+                {{/if}}
+            </tr>
+        {{/if}}
+        {{#if node}}
+            <tr>
+                {{#if project}}
+                    <td>Project P-{{project.name}}</td>
+                    <td>
+                        <p>{{stringList.availableFunds}}</p>
+                    </td>
+                    <td class="text-center small-padding">
+                        <p class="font-h5">
+                            {{format-number
+                                node.points_available
+                                style='currency'
+                                currency=invoice.currency_id}}
+                        </p>
+                    </td>
+                {{else}}
+                    <td>
+                        <p>{{stringList.availableFunds}}</p>
+                    </td>
+                    <td colspan="2" class="text-center small-padding">
+                        <p class="font-h5">
+                            {{format-number
+                                node.points_available
+                                style='currency'
+                                currency=invoice.currency_id}}
+                        </p>
+                    </td>
+                {{/if}}
+            </tr>
+        {{/if}}
+        <tr class="pt-5">
+            <td colspan="3" class="text-center">
+                <b class="font-h4">
+                    {{format-number
+                        invoice.remaining_amount
+                        style='currency'
+                        currency=invoice.currency_id}}
+                </b>
+                <p>{{stringList.remainingAmount}}</p>
+            </td>
+        </tr>
+    </tfoot>
+</table>
+{{#if changeset.account_id}}
+    {{#akx-form action='pay' isLocked=isLocked}}
+        <div class="row">
+            <div class="col-6 has-feedback form-group bmd-form-group m-auto">
+                <label class="bmd-label-floating">{{stringList.amount}}</label>
+                {{akx-format-number realValue=changeset.amount type='text' class="form-control"}}
+                {{validation-feedback errors=changeset.error.amount.validation}}
+                {{#if changeset.isValid}}
+                    {{#if invoice.isProject}}
+                        {{pointsTakenOut}}
+                        <p><b>NOTE: </b>the amount taken out of points will be {{outOfPoints}} and amount out of account balance is {{outOfBalance}}</p>
+                    {{/if}}
+                {{/if}}
+            </div>
+        </div>
+    {{/akx-form}}
+{{/if}}

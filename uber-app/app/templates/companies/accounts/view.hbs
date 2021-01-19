@@ -1,0 +1,24 @@
+<div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+    <div class="pane-secondary-content">
+        Future graphs
+    </div>
+    <div class="pane-secondary-content">
+        <div class="contextual-help">
+            <div class="contextual-help-section">
+                <p class="contextual-help-header"><span id="i18n-610">Statements Available</span></p>
+                <ul class="list-group">
+                    {{#each statement in statements}}
+                        <li class="list-group-item">{{document-download-link statement.url_download session.access_token
+                                                                             statement.name 'application/pdf'}}</li>
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="viewport viewport-bottom navbar-toolbar">
+    <div class="pane-actions">
+        <ul class="list-h">
+        </ul>
+    </div>
+</div>

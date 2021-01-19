@@ -1,0 +1,30 @@
+{{page-numbers content=content}}
+<table class="table table-hover table-high">
+    <thead>
+    <tr>
+        <th class="col-xs-1"></th>
+        <th class="col-xs-7">Client Company</th>
+        <th class="col-xs-1">Country</th>
+        <th class="col-xs-3">Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each item in model}}
+        {{#link-to 'companies.view.company-relationships.view' item.id tagName='tr' class='pointer list-link'}}
+            <td>
+                XYZ{{item.company.account_number}}
+            </td>
+            <td>
+                {{item.company.name}}
+            </td>
+            <td>
+                {{country-flag item.company.country}}
+            </td>
+            <td>
+                {{relationship-status-icon item.status}}
+            </td>
+        {{/link-to}}
+    {{/each}}
+    </tbody>
+</table>
+{{page-numbers content=content}}

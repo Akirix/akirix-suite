@@ -1,0 +1,54 @@
+<style>
+    .account-number .form-control-feedback {
+        z-index: 10;
+    }
+</style>
+<legend>
+    {{#if currentStep.complete}}
+        <i class="fa fa-check-circle text-green"></i>
+    {{else}}
+        <i {{bind-attr class=currentStep.icon}}></i>
+    {{/if}}
+    {{currentStep.name}}
+    {{#unless currentStep.complete}}
+        <button {{action 'skipStep' 'complete'}} class="btn btn-default btn-sm float-right">Skip Step</button>
+    {{else}}
+        <button {{action 'revokeStep' 'complete'}} class="btn btn-default btn-sm float-right">Revoke Step</button>
+    {{/unless}}
+    <a href="javascript://void(0)" {{action 'reloadCompleteModel'}}><i class="fa fa-refresh"></i></a>
+</legend>
+<div class="row">
+    {{#if canActivate}}
+        <div class="col-xs-4 form-group has-feedback account-number">
+            <label for="account_number">Account Number</label>
+
+            <div class="input-group has-feedback">
+                {{view "select"
+                value=industry
+                content=options
+                optionValuePath="content.val"
+                optionLabelPath="content.name"
+                prompt='Select industry'
+                class="form-control"
+              }}
+                <span class="input-group-addon">XYZ</span>
+                {{input value=account_number class="form-control" id="account_number" aria-label="Account Number" maxlength="5"}}
+            </div>
+            {{validation-feedback errors=errors.account_number validated=validated}}
+        </div>
+        <div class="col-xs-12 form-group">
+            <button class="btn btn-success" {{action 'activate'}}>Activate</button>
+        </div>
+    {{/if}}
+    {{#unless isCompleted}}
+        <div class="col-xs-12 text-right form-group">
+            <button type="button" class="btn btn-default" {{action 'completeRegistration'}}>Close Registration</button>
+        </div>
+    {{else}}
+        {{#unless activated}}
+            <div class="col-xs-12 text-right form-group">
+                <button type="button" class="btn btn-default" {{action 'reopenRegistration'}}>Re-open Registration</button>
+            </div>
+        {{/unless}}
+    {{/unless}}
+</div>

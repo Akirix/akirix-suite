@@ -1,0 +1,59 @@
+{{#akx-form isLocked=isLocked}}
+    <div class="viewport viewport-t-pane-secondary viewport-t-pane-secondary-with-toolbar scroll-y">
+        <div class="pane-secondary-content">
+            <fieldset>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <legend>
+                            Add Commission
+                        </legend>
+                    </div>
+                    <div class="form-group col-md-6 has-feedback required">
+                        <label>Commission Account Number: </label>
+                        {{view 'validate-company' company_id=commission.company_id account_number=commission.account_number current_company_account=affiliate.account_number }}
+                        {{validation-feedback errors=errors.commission.company_id validated=validated}}
+                    </div>
+                    <div class="form-group col-md-6 required has-feedback">
+                        <label>Rate (%)</label>
+                        {{input value=commission.rate type='text' class='form-control input-sm form-small-padding' placeholder='0.0'}}
+                        {{validation-feedback errors=errors.commission.rate validated=validated}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6 required has-feedback">
+                        <label for="">Start Date</label>
+                        {{date-picker value=commission.start_date class='form-control' placeholder='Date' valueFormat='YYYY-MM-DD' allowBlank=true }}
+                        {{validation-feedback errors=errors.commission.start_date validated=validated}}
+                    </div>
+                    <div class="form-group col-md-6 required has-feedback">
+                        <label for="">End Date</label>
+                        {{date-picker value=commission.end_date class='form-control' placeholder='Date' valueFormat='YYYY-MM-DD' allowBlank=true }}
+                        {{validation-feedback errors=errors.commission.end_date validated=validated}}
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <div class="viewport viewport-bottom navbar-toolbar">
+        <div class="pane-actions">
+            <ul class="list-h">
+                <li>
+                    <button {{action 'goBack'}} class="btn btn-default navbar-secondary-btn btn-sm" type="button">
+                        Cancel
+                    </button>
+                </li>
+            </ul>
+            <ul class="list-h pull-right">
+                <li>
+                    {{view 'modal-confirmation'
+                    class='btn btn-primary btn-sm navbar-secondary-btn'
+                    button='Add'
+                    action='addCommission'
+                    headerTitle='Add Commission'
+                    prompt='Add Commision for this Company'
+                    }}
+                </li>
+            </ul>
+        </div>
+    </div>
+{{/akx-form}}

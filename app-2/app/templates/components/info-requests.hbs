@@ -1,0 +1,72 @@
+<div>
+    <header class="akx-header">
+        <span>{{stringList.header}}</span>
+    </header>
+</div>
+<div class="row main-content">
+    {{#each changesets as |changeset| }}
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    {{changeset.title}}
+                    <p class="text-white">
+                        {{stringList.respondBy}} {{format-date changeset.deadline timeZone='UTC'}}
+                    </p>
+                </div>
+                <div class="card-body">
+                    {{#akx-form action=(action 'addResponse' changeset) isLocked=isLocked}}
+                        {{#if changeset.isTerms}}
+                            <div id="agreementDetails">
+                                {{{changeset.notes}}}
+                            </div>
+                            <div class="has-feedback form-check form-check-inline">
+                                <label class="form-check-label">
+                                    {{stringList.checkBox1}}
+                                    {{input checked=changeset.firstAgreement type='checkbox' class="form-check-input"}}
+                                    <span class="form-check-sign">
+                                        <span class="check"></span>
+                                    </span>
+                                </label>
+                                {{validation-feedback errors=changeset.error.firstAgreement.validation}}
+                            </div>
+                            <div class="has-feedback form-check form-check-inline">
+                                <label class="form-check-label">
+                                    {{stringList.checkBox2}}
+                                    {{input checked=changeset.secondAgreement type='checkbox' class="form-check-input"}}
+                                    <span class="form-check-sign">
+                                        <span class="check"></span>
+                                    </span>
+                                </label>
+                                {{validation-feedback errors=changeset.error.secondAgreement.validation}}
+                            </div>
+                            <div class="has-feedback form-group bmd-form-group">
+                                <label class="bmd-label-floating">{{stringList.signName}}</label>
+                                {{input type="text" class="form-control" value=changeset.termsResponse }}
+                                {{validation-feedback errors=changeset.error.termsResponse.validation}}
+                            </div>
+                        {{else if changeset.isDocument}}
+                            <p>{{changeset.notes}}</p>
+                            {{upload-document model='info-request' model_id=changeset.id documents=changeset.documents}}
+                            <div class="has-feedback">
+                                {{validation-feedback errors=changeset.error.documents.validation}}
+                            </div>
+                        {{else}}
+                            <p>{{changeset.notes}}</p>
+                            <div class="has-feedback form-group bmd-form-group">
+                                <label class="bmd-label-static">{{stringList.response}}</label>
+                                {{textarea class="form-control" value=changeset.response rows=4}}
+                                {{validation-feedback errors=changeset.error.response.validation}}
+                            </div>
+                        {{/if}}
+                        <div class="mt-4">
+                            <button type="button" class="akx-button" {{action 'closeOverPane'}}>
+                                <span class="orange">{{stringList.skip}}</span>
+                            </button>
+                            <button type="submit" class="btn btn-success">{{stringList.submit}}</button>
+                        </div>
+                    {{/akx-form}}
+                </div>
+            </div>
+        </div>
+    {{/each}}
+</div>

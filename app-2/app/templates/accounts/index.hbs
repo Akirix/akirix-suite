@@ -1,0 +1,103 @@
+<div class="d-flex align-items-end">
+    <h2>{{stringList.header}}</h2>
+    <span class="header-add">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+    <span class="header-add">
+        {{#link-to 'authenticated.accounts.add-account' 
+            id="btn-add-new-account"
+            tagName='button' 
+            class='btn btn-sm btn-success font-weight-bolder'}}
+            {{stringList.addAccount}}
+        {{/link-to}}
+    </span>
+</div>
+<table id="tbl-accounts" class="table table-hover th-sticky mt-3">
+    <thead class="thead-light">
+        <tr>
+            <th>{{stringList.accountName}}</th>
+            <th class="text-right">{{stringList.balance}}</th>
+            <th class="text-right">{{stringList.cash}}</th>
+            <th class="text-right">{{stringList.points}}</th>
+            <th class="text-right">{{stringList.pending}}</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    {{#each sortAccounts as |account key|}}
+        {{#link-to 'authenticated.accounts.view' account.id 
+            id=(concat "account-row-" key)
+            tagName='tr'
+        }}
+            <td id="account-col-symbol-{{key}}">
+                {{{account.currencySymbol}}}
+                <strong>{{account.name}}</strong>
+            </td>
+            <td id="account-col-balance-{{key}}" class="text-right">
+                <b>
+                    {{format-number account.balance_total style='currency' currency=account.currency_id}}
+                </b>
+            </td>
+            <td id="account-col-cash-{{key}}" class="text-right">
+                <p>
+                    {{format-number account.balance style='currency' currency=account.currency_id}}
+                </p>
+                <small class="text-danger">
+                    {{format-number account.balance_hold style='currency' currency=account.currency_id}}
+                </small>
+            </td>
+            <td id="account-col-points-{{key}}" class="text-right">
+                <p class="no-margin text-success">
+                    {{format-number account.points_in style='currency' currency=account.currency_id}}
+                </p>
+                <p class="no-margin text-danger">
+                    {{format-number account.points_out_cash style='currency' currency=account.currency_id}}
+                </p>
+            </td>
+            <td id="account-col-pending-{{key}}" class="text-right">
+                <p class="no-margin text-success">
+                    {{format-number account.pending_in style='currency' currency=account.currency_id}}
+                </p>
+                <p class="no-margin text-danger">
+                    {{format-number account.pending_out style='currency' currency=account.currency_id}}
+                </p>
+            </td>
+            <td id="account-col-actions-{{key}}" class="text-center">
+                {{#link-to 'authenticated.accounts.edit' account.id
+                    id=(concat "btn-account-edit-" key)
+                    tagName='button'
+                    class='akx-button'
+                    bubbles=false}}
+                    <span class="green">{{stringList.editButton}}</span>
+                {{/link-to}}
+                {{#link-to 'authenticated.accounts.statements' account.id
+                    id=(concat "btn-account-statement-" key)
+                    tagName='button'
+                    class='akx-button'
+                    bubbles=false}}
+                    <span class="dark-blue">{{stringList.statementsButton}}</span>
+                {{/link-to}}
+            </td>
+        {{/link-to}}
+    {{/each}}
+    {{#each accountRequests as |request|}}
+        {{#if request}}
+            {{#link-to 'authenticated.accounts.view-request' request.id tagName='tr'}}
+                <td>
+                    {{currency-icon request.currencyID}}&nbsp;
+                    <strong><i>{{stringList.pendingAccount}}</i></strong>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="text-center">
+                    <div class="icon-spin py-2-5">
+                        <span tabindex="0" data-toggle="tooltip" data-placement="top" title="processing">
+                            <i class="akx-icon akx-pending text-primary"></i>
+                        </span>
+                    </div>
+                </td>
+            {{/link-to}}
+        {{/if}}
+    {{/each}}
+    </tbody>
+</table>
